@@ -2,8 +2,10 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'oscm-proxy', '.']
   dir:  'oscm-proxy'
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'oscm-db', '.']
-  dir:  'oscm-db'
-images: ['oscm-proxy', 'oscm-db']
+images: ['oscm-proxy']
+  
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['build', '-t', 'oscm-db', '.']
+#  dir:  'oscm-db'
+#images: ['oscm-proxy', 'oscm-db']
 
