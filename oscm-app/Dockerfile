@@ -7,9 +7,8 @@ COPY oscm-app.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
 COPY oscm-aws.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
 COPY oscm-openstack.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
 COPY sqlscripts/*.sql sqlscripts/
-COPY oscm-devruntime.jar .
+COPY oscm-devruntime.jar /opt/
 
 COPY start.sh /opt/
-RUN chmod a+x /opt/start.sh
 
 CMD ["/opt/start.sh"]
