@@ -17,7 +17,7 @@ mkdir $REPO_DOCKER/oscm-bes/sqlscripts/
 cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-bes/sqlscripts/
 
 # copy resources for app
-cp $BUILD_DIR/oscm-app/oscm-app.ear $REPO_DOCKER/oscm-app/
+cp $BUILD_DIR/oscm-app-ear/oscm-app.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-aws/oscm-app-aws.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-openstack/oscm-app-openstack.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-app/
