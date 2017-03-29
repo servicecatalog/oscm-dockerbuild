@@ -13,7 +13,7 @@ cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-reports/oscm-reports.zip $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-security/oscm-security.jar $REPO_DOCKER/oscm-bes/
-cp $BUILD_DIR/libraries/apache-codec/javalib/commons-codec-1.7.jar $REPO_DOCKER/oscm-bes/
+cp $REPO_OSCM/libraries/apache-codec/javalib/commons-codec-1.7.jar $REPO_DOCKER/oscm-bes/
 
 mkdir $REPO_DOCKER/oscm-bes/sqlscripts/
 cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-bes/sqlscripts/
