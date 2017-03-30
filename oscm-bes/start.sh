@@ -5,6 +5,5 @@ java -jar /opt/oscm-devruntime.jar org.oscm.setup.DatabaseUpgradeHandler \
 	 /opt/sqlscripts/
 	 
 /opt/glassfish3/glassfish/bin/asadmin start-domain master-indexer-domain
-/opt/glassfish3/glassfish/bin/asadmin start-domain bes-domain
+/opt/glassfish3/glassfish/bin/asadmin start-domain --verbose bes-domain
 
-wait
