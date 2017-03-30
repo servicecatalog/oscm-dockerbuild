@@ -10,5 +10,6 @@ COPY sqlscripts/*.sql sqlscripts/
 COPY oscm-devruntime.jar /opt/
 
 COPY start.sh /opt/
+RUN chmod +x /opt/start.sh
 
 CMD ["/opt/start.sh"]

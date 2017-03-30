@@ -21,5 +21,6 @@ COPY oscm-security.jar /opt/glassfish3/glassfish/domains/bes-domain/lib/
 COPY commons-codec-1.7.jar /opt/glassfish3/glassfish/domains/bes-domain/lib/
 
 COPY start.sh /opt/
+RUN chmod +x /opt/start.sh
 
 CMD ["/opt/start.sh"]
