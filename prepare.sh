@@ -14,6 +14,10 @@ cp $BUILD_DIR/oscm-reports/oscm-reports.zip $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-security/oscm-security.jar $REPO_DOCKER/oscm-bes/
 cp $REPO_OSCM/libraries/apache-codec/javalib/commons-codec-1.7.jar $REPO_DOCKER/oscm-bes/
+cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-bes/
+cp $REPO_OSCM/oscm-build/lib/log4j-1.2.16.jar $REPO_DOCKER/oscm-bes/
+cp $REPO_OSCM/oscm-build/lib/postgresql-9.1-903.jdbc4.jar $REPO_DOCKER/oscm-bes/
+cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-bes/
 
 mkdir $REPO_DOCKER/oscm-bes/sqlscripts/
 cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-bes/sqlscripts/
@@ -23,8 +27,11 @@ cp $BUILD_DIR/oscm-app-ear/oscm-app.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-aws/oscm-app-aws.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-openstack/oscm-app-openstack.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-app/
+cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
+cp $REPO_OSCM/oscm-build/lib/log4j-1.2.16.jar $REPO_DOCKER/oscm-app/
+cp $REPO_OSCM/oscm-build/lib/postgresql-9.1-903.jdbc4.jar $REPO_DOCKER/oscm-app/
+cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/
 
 mkdir $REPO_DOCKER/oscm-app/sqlscripts/
 cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-app/sqlscripts/
-
 

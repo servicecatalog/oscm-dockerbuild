@@ -8,6 +8,7 @@ RUN /opt/glassfish3/glassfish/bin/asadmin create-domain --portbase 8400 --user a
 #	rm -rf /tmp/birt-runtime-4_2_2/ && \
 #	rm -rf /tmp/birt.zip && \
 	mkdir /opt/sqlscripts && \
+	mkdir /opt/lib && \
 	ln -s config/master-password /opt/glassfish3/glassfish/domains/bes-domain/master-password && \
 	ln -s config/master-password /opt/glassfish3/glassfish/domains/master-indexer-domain/master-password
 
@@ -21,6 +22,11 @@ COPY oscm-devruntime.jar /opt/
 
 COPY oscm-security.jar /opt/glassfish3/glassfish/domains/bes-domain/lib/
 COPY commons-codec-1.7.jar /opt/glassfish3/glassfish/domains/bes-domain/lib/
+
+COPY oscm-common.jar /opt/lib
+COPY log4j-1.2.16.jar /opt/lib
+COPY postgresql-9.1-903.jdbc4.jar /opt/lib
+COPY oscm-extsvc-internal.jar /opt/lib
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
