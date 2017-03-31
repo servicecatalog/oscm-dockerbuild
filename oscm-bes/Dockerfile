@@ -7,7 +7,9 @@ RUN /opt/glassfish3/glassfish/bin/asadmin create-domain --portbase 8400 --user a
 	cp /tmp/birt-runtime-4_2_2/birt.war /opt/glassfish3/glassfish/domains/bes-domain/autodeploy/ && \
 	rm -rf /tmp/birt-runtime-4_2_2/ && \
 	rm -rf /tmp/birt.zip && \
-	mkdir /opt/sqlscripts
+	mkdir /opt/sqlscripts && \
+	ln -s config/master-password /opt/glassfish3/glassfish/domains/bes-domain/master-password && \
+	ln -s config/master-password /opt/glassfish3/glassfish/domains/master-indexer-domain/master-password
 
 COPY oscm-search.ear /opt/glassfish3/glassfish/domains/master-indexer-domain/autodeploy/
 COPY oscm-sso.ear /opt/glassfish3/glassfish/domains/bes-domain/autodeploy/
