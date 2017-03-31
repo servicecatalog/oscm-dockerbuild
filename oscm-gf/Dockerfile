@@ -1,6 +1,6 @@
 FROM centos:7
 
-RUN yum -y install java-1.7.0-openjdk unzip wget && \
+RUN yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip wget && \
     wget http://download.java.net/glassfish/3.1.2/release/glassfish-3.1.2.zip -O /tmp/glassfish.zip && \
 	wget https://www.bouncycastle.org/download/bcprov-jdk15on-156.jar -O /usr/lib/jvm/jre/lib/ext/bcprov.jar && \
 	echo "security.provider.10=org.bouncycastle.jce.provider.BouncyCastleProvider" >> /usr/lib/jvm/jre/lib/security/java.security && \
