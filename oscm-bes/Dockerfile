@@ -16,7 +16,8 @@ RUN /opt/glassfish3/glassfish/bin/asadmin create-domain --portbase 8400 --user a
 	ln -s ../../../../config/passwd /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/passwd && \
 	mkdir -p /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc && \
 	ln -s ../../../../config/accesscontrol.properties /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/accesscontrol.properties && \
-	ln -s ../../../../config/passwd /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/passwd
+	ln -s ../../../../config/passwd /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/passwd && \
+	rm -f /opt/jks/*app
 
 COPY oscm-search.ear /opt/glassfish3/glassfish/domains/master-indexer-domain/autodeploy/
 COPY oscm-sso.ear /opt/glassfish3/glassfish/domains/bes-domain/autodeploy/
