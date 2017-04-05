@@ -16,8 +16,7 @@ RUN /opt/glassfish3/glassfish/bin/asadmin create-domain --portbase 8400 --user a
 	ln -s ../../../../config/passwd /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/passwd && \
 	mkdir -p /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc && \
 	ln -s ../../../../config/accesscontrol.properties /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/accesscontrol.properties && \
-	ln -s ../../../../config/passwd /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/passwd && \
-	rm -rf /opt/jks/app
+	ln -s ../../../../config/passwd /opt/glassfish3/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/passwd
 
 COPY oscm-search.ear /opt/glassfish3/glassfish/domains/master-indexer-domain/autodeploy/
 COPY oscm-sso.ear /opt/glassfish3/glassfish/domains/bes-domain/autodeploy/
@@ -34,6 +33,11 @@ COPY oscm-common.jar /opt/lib
 COPY log4j-1.2.16.jar /opt/lib
 COPY postgresql-9.1-903.jdbc4.jar /opt/lib
 COPY oscm-extsvc-internal.jar /opt/lib
+
+COPY cacerts.jks_mi /opt/glassfish3/glassfish/domains/master-indexer-domain/config/cacerts.jks
+COPY keystore.jks_mi /opt/glassfish3/glassfish/domains/master-indexer-domain/config/keystore.jks
+COPY cacerts.jks_bes /opt/glassfish3/glassfish/domains/bes-domain/config/cacerts.jks
+COPY keystore.jks_bes /opt/glassfish3/glassfish/domains/bes-domain/config/keystore.jks
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
