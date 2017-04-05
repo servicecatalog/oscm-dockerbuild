@@ -4,8 +4,8 @@ RUN /opt/glassfish3/glassfish/bin/asadmin create-domain --portbase 8800 --user a
     mkdir sqlscripts && \
     mkdir /opt/lib && \
     ln -s config/master-password /opt/glassfish3/glassfish/domains/app-domain/master-password && \
-    rm -f /opt/jks/*mi && \
-    rm -f /opt/jks/*bes
+    rm -rf /opt/jks/mi && \
+    rm -rf /opt/jks/bes
 
 COPY oscm-app.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
 COPY oscm-app-aws.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
