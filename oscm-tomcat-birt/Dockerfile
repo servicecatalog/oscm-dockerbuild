@@ -1,7 +1,5 @@
 FROM tomcat:8.5
 
-COPY birt-runtime-4_2_2.zip /tmp
-
 RUN wget http://www.eclipse.org/downloads/download.php?file=/birt/downloads/drops/R-R1-4_2_2-201302161152/birt-runtime-4_2_2.zip -O /tmp/birt-runtime-4_2_2.zip && \
     mkdir /tmp/birt && \
     unzip /tmp/birt-runtime-4_2_2.zip -d /tmp/birt && \
