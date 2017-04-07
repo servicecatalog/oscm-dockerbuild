@@ -8,7 +8,11 @@ steps:
   args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-branding:$TAG_NAME', '.']
   dir:  'oscm-branding'
 
-images: ['eu.gcr.io/$PROJECT_ID/oscm/oscm-proxy:$TAG_NAME', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-branding:$TAG_NAME']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-tomcat-birt:$TAG_NAME', '.']
+  dir:  'oscm-tomcat-birt'
+
+images: ['eu.gcr.io/$PROJECT_ID/oscm/oscm-proxy:$TAG_NAME', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-branding:$TAG_NAME', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-tomcat-birt:$TAG_NAME']
 
 #- name: 'gcr.io/cloud-builders/docker'
 #  args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-db:$TAG_NAME', '.']
