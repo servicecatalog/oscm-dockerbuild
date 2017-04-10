@@ -1,5 +1,7 @@
 FROM tomcat:8.5
 
+COPY start.sh /opt/start.sh
+
 #RUN wget http://www.eclipse.org/downloads/download.php?file=/birt/downloads/drops/R-R1-4_2_2-201302161152/birt-runtime-4_2_2.zip -O /tmp/birt-runtime.zip && \
 RUN wget http://ftp.halifax.rwth-aachen.de/eclipse//birt/downloads/drops/R-R1-4.6.0-201606072112/birt-runtime-4.6.0-20160607.zip -O /tmp/birt-runtime.zip && \
     wget https://github.com/servicecatalog/development/releases/download/v16.1_Fix7/oscm-reports.zip -O /tmp/oscm-reports.zip && \
@@ -16,7 +18,9 @@ RUN wget http://ftp.halifax.rwth-aachen.de/eclipse//birt/downloads/drops/R-R1-4.
     rm -rf /usr/local/tomcat/webapps/examples && \
     rm -rf /usr/local/tomcat/webapps/host-manager && \
     rm -rf /usr/local/tomcat/webapps/manager && \
-    rm -rf /usr/local/tomcat/webapps/docs
+    rm -rf /usr/local/tomcat/webapps/docs && \
+    chmod +x /opt/start.sh
 
-CMD ["catalina.sh", "run"]
+#CMD ["catalina.sh", "run"]
+CMD ["/opt/start.sh"]
 
