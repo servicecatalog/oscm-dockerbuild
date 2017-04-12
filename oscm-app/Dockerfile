@@ -1,7 +1,7 @@
 FROM oscm-gf
 
 RUN /opt/glassfish3/glassfish/bin/asadmin create-domain --portbase 8800 --user admin --nopassword=true app-domain && \
-    mkdir sqlscripts && \
+    mkdir /opt/sqlscripts && \
     mkdir /opt/lib && \
     ln -s config/master-password /opt/glassfish3/glassfish/domains/app-domain/master-password && \
     ln -s ../config/OSCM-wsit.jar /opt/glassfish3/glassfish/domains/app-domain/lib/OSCM-wsit.jar
@@ -9,7 +9,7 @@ RUN /opt/glassfish3/glassfish/bin/asadmin create-domain --portbase 8800 --user a
 COPY oscm-app.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
 COPY oscm-app-aws.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
 COPY oscm-app-openstack.ear /opt/glassfish3/glassfish/domains/app-domain/autodeploy/
-COPY sqlscripts/*.sql sqlscripts/
+COPY sqlscripts/*.sql /opt/sqlscripts/
 COPY oscm-devruntime.jar /opt/
 
 COPY oscm-common.jar /opt/lib
