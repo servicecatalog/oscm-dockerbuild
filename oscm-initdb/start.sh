@@ -64,6 +64,7 @@ if [ $INIT_BES = "true" ] && [ -f ${PROP_FILE_BES_DB} ]; then
     # Import properties
     /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_CONF}
     # Import SSO properties
+
     if [ -f ${SSO_FILE_BES} ]; then
         /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_DB} ${SSO_FILE_BES}
     fi
@@ -72,7 +73,6 @@ if [ $INIT_BES = "true" ] && [ -f ${PROP_FILE_BES_DB} ]; then
     # Initialize data
     /opt/glassfish3/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish3/glassfish/domains/master-indexer-domain/imq -javahome /usr/lib/jvm/java
 fi
-
 
 # Initialize APP DB
 if [ $INIT_APP = "true" ] && [ -f ${PROP_FILE_APP_DB} ]; then
