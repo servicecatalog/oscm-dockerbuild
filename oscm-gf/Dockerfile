@@ -1,6 +1,9 @@
 FROM centos:7
 
-RUN yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip wget postgresql && \
+RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm && \
+    yum -y update && \
+    yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip wget postgresql96 && \
     yum clean all && \
     wget http://download.java.net/glassfish/3.1.2/release/glassfish-3.1.2.zip -O /tmp/glassfish.zip && \
 	wget https://www.bouncycastle.org/download/bcprov-jdk15on-156.jar -O /usr/lib/jvm/jre/lib/ext/bcprov.jar && \
