@@ -28,7 +28,6 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     ln -s /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar /opt/lib/postgresql-9.1-903.jdbc4.jar && \
     ln -s /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar /opt/glassfish3/mq/lib/ext/postgresql-9.1-903.jdbc4.jar && \
     ln -s /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar /opt/glassfish3/glassfish/domains/bes-domain/lib/postgresql-9.1-903.jdbc4.jar && \
-    ln -s /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar /opt/glassfish3/glassfish/domains/bes-domain/lib/postgresql-9.1-903.jdbc4.jar && \
     ln -s /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar /opt/glassfish3/glassfish/domains/app-domain/lib/postgresql-9.1-903.jdbc4.jar && \
     ln -s /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar /opt/glassfish3/glassfish/domains/master-indexer-domain/lib/postgresql-9.1-903.jdbc4.jar && \
     ln -s /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar /opt/glassfish3/glassfish/domains/master-indexer-domain/lib/ext/postgresql-9.1-903.jdbc4.jar && \
