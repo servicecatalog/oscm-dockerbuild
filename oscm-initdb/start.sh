@@ -5,12 +5,19 @@
 # PGPASSWORD: Postgres superuser password (default: postgres)
 # INIT_BES: Set to true to initialize BES and Master Indexer databases (default: false)
 # INIT_APP: Set to true to initialize APP database (default: false)
+# IMPORT_DB: Set to true to import SQL dumps (default: false) <- INIT is automatically skipped
 
 # Mandatory files (mount these):
+# DB Initialization
 # PROP_FILE_BES_DB: BES DB properties file
 # PROP_FILE_BES_CONF: BES configuration properties file
 # PROP_FILE_APP_DB: APP DB properties file
 # PROP_FILE_APP_CONF: APP configuration properties file
+# DB Import
+# SQL_DUMP_GLOBALS="/sqldump/globals.sql": Dump of the globals (DBs, Schemas, Roles, ...)
+# SQL_DUMP_BSS="/sqldump/bss.sql": Dump of the bss database
+# SQL_DUMP_BSSJMS="/sqldump/bssjms.sql": Dump of the jms database
+# SQL_DUMP_BSSAPP="/sqldump/bssapp.sql": Dump of the app database
 
 # Optional files (mount these for additional features):
 # SSO_FILE_BES: SSO properties for BES
@@ -30,9 +37,13 @@ export SQL_DIR_BES="/opt/sqlscripts/bes"
 export SQL_DIR_APP="/opt/sqlscripts/app"
 export SQL_TEMP_FILE_BES="/tmp/bes.sql"
 export SQL_TEMP_FILE_APP="/tmp/app.sql"
+export SQL_DUMP_GLOBALS="/sqldump/globals.sql"
+export SQL_DUMP_BSS="/sqldump/bss.sql"
+export SQL_DUMP_BSSJMS="/sqldump/bssjms.sql"
+export SQL_DUMP_BSSAPP="/sqldump/bssapp.sql"
 
 # Initialize BES DB
-if [ $INIT_BES = "true" ] && [ -f ${PROP_FILE_BES_DB} ]; then
+if [ ${INIT_BES} = "true" ] && [ -f ${PROP_FILE_BES_DB} ] && [ ${IMPORT_DB} = "false" ]; then
     export DB_HOST_BES=$(sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
     export DB_PORT_BES=$(sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
     export DB_NAME_BES=$(sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
@@ -78,7 +89,7 @@ if [ $INIT_BES = "true" ] && [ -f ${PROP_FILE_BES_DB} ]; then
 fi
 
 # Initialize APP DB
-if [ $INIT_APP = "true" ] && [ -f ${PROP_FILE_APP_DB} ]; then
+if [ ${INIT_APP} = "true" ] && [ -f ${PROP_FILE_APP_DB} ] && [ ${IMPORT_DB} = "false" ]; then
     export DB_HOST_APP=$(sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
     export DB_PORT_APP=$(sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
     export DB_NAME_APP=$(sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
@@ -111,4 +122,24 @@ if [ $INIT_APP = "true" ] && [ -f ${PROP_FILE_APP_DB} ]; then
     if [ -f ${SSO_FILE_APP} ]; then
         /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_DB} ${SSO_FILE_BES}
     fi
+fi
+
+# Import SQL dumps
+if [ ${IMPORT_DB} = "true" ]; then
+    if [ -f ${SQL_DUMP_GLOBALS}.gz ]; then
+        /usr/bin/gunzip -c ${SQL_DUMP_GLOBALS}.gz > ${SQL_DUMP_GLOBALS}
+    fi
+    if [ -f ${SQL_DUMP_BSS}.gz ]; then
+        /usr/bin/gunzip -c ${SQL_DUMP_BSS}.gz > ${SQL_DUMP_BSS}
+    fi
+    if [ -f ${SQL_DUMP_BSSJMS}.gz ]; then
+        /usr/bin/gunzip -c ${SQL_DUMP_BSSJMS}.gz > ${SQL_DUMP_BSSJMS}
+    fi
+    if [ -f ${SQL_DUMP_BSSAPP}.gz ]; then
+        /usr/bin/gunzip -c ${SQL_DUMP_BSSAPP}.gz > ${SQL_DUMP_BSSAPP}
+    fi
+    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_GLOBALS}
+    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_BSS}
+    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_BSSJMS}
+    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_BSSAPP}
 fi

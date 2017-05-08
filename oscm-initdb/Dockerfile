@@ -2,6 +2,7 @@ FROM centos:7
 
 ENV INIT_BES false
 ENV INIT_APP false
+ENV IMPORT_DB false
 ENV DB_SUPERUSER postgres
 ENV PGPASSWORD postgres
 
