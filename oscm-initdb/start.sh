@@ -6,6 +6,8 @@
 # INIT_BES: Set to true to initialize BES and Master Indexer databases (default: false)
 # INIT_APP: Set to true to initialize APP database (default: false)
 # IMPORT_DB: Set to true to import SQL dumps (default: false) <- INIT is automatically skipped
+# HOSTNAME_BES: Domain name of the base URL for BES (default: localhost)
+# HOSTNAME_APP: Domain name of the base URL for APP (default: localhost)
 
 # Mandatory files (mount these):
 # DB Initialization
@@ -42,20 +44,28 @@ export SQL_DUMP_BSS="/sqldump/bss.sql"
 export SQL_DUMP_BSSJMS="/sqldump/bssjms.sql"
 export SQL_DUMP_BSSAPP="/sqldump/bssapp.sql"
 
+/usr/bin/mkdir -p /properties/bes
+/usr/bin/mkdir -p /properties/app
+
 # Initialize BES DB
-if [ ${INIT_BES} = "true" ] && [ -f ${PROP_FILE_BES_DB} ] && [ ${IMPORT_DB} = "false" ]; then
-    export DB_HOST_BES=$(sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    export DB_PORT_BES=$(sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    export DB_NAME_BES=$(sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    export DB_USER_BES=$(sed -n -e 's|^db.user=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    export DB_PWD_BES=$(sed -n -e 's|^db.pwd=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
+#if [ ${INIT_BES} = "true" ] && [ -f ${PROP_FILE_BES_DB} ] && [ ${IMPORT_DB} = "false" ]; then
+if [ ${INIT_BES} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
+    # export DB_HOST_BES=$(/usr/bin/sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
+    # export DB_PORT_BES=$(/usr/bin/sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
+    # export DB_NAME_BES=$(/usr/bin/sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
+    # export DB_USER_BES=$(/usr/bin/sed -n -e 's|^db.user=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
+    # export DB_PWD_BES=$(/usr/bin/sed -n -e 's|^db.pwd=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
+    # Prepare config file for jms DB
+    # /usr/bin/sed -i "s|__DB_HOST_BES__|$DB_HOST_BES|g" /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
+    # /usr/bin/sed -i "s|__DB_PORT_BES__|$DB_PORT_BES|g" /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
     
     # Wait for database server to become ready
     until /usr/bin/psql -h ${DB_HOST_BES} -p ${DB_PORT_BES} -l -U ${DB_SUPERUSER} -q >/dev/null 2>&1; do echo "BES Database not ready - waiting..."; sleep 3s; done
     
-    # Prepare config file for jms DB
-    /usr/bin/sed -i "s|__DB_HOST_BES__|$DB_HOST_BES|g" /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
-    /usr/bin/sed -i "s|__DB_PORT_BES__|$DB_PORT_BES|g" /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
+    # Generate property files from environment
+    /usr/bin/envsubst < /propertytemplates/config.properties.jms.template > /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
+    /usr/bin/envsubst < /propertytemplates/db.properties.bes.template > ${PROP_FILE_BES_DB}
+    /usr/bin/envsubst < /propertytemplates/configsettings.properties.bes.template > ${PROP_FILE_BES_CONF}
     
     # Create databases, schemas, users and roles
     echo "\set ON_ERROR_STOP" > ${SQL_TEMP_FILE_BES}
@@ -89,15 +99,23 @@ if [ ${INIT_BES} = "true" ] && [ -f ${PROP_FILE_BES_DB} ] && [ ${IMPORT_DB} = "f
 fi
 
 # Initialize APP DB
-if [ ${INIT_APP} = "true" ] && [ -f ${PROP_FILE_APP_DB} ] && [ ${IMPORT_DB} = "false" ]; then
-    export DB_HOST_APP=$(sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    export DB_PORT_APP=$(sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    export DB_NAME_APP=$(sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    export DB_USER_APP=$(sed -n -e 's|^db.user=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    export DB_PWD_APP=$(sed -n -e 's|^db.pwd=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
+#if [ ${INIT_APP} = "true" ] && [ -f ${PROP_FILE_APP_DB} ] && [ ${IMPORT_DB} = "false" ]; then
+if [ ${INIT_APP} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
+    # export DB_HOST_APP=$(/usr/bin/sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
+    # export DB_PORT_APP=$(/usr/bin/sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
+    # export DB_NAME_APP=$(/usr/bin/sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
+    # export DB_USER_APP=$(/usr/bin/sed -n -e 's|^db.user=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
+    # export DB_PWD_APP=$(/usr/bin/sed -n -e 's|^db.pwd=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
     
     # Wait for database server to become ready
     until /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -l -U ${DB_SUPERUSER} -q >/dev/null 2>&1; do echo "APP Database not ready - waiting..."; sleep 3s; done
+    
+    # Generate property files from environment
+    /usr/bin/envsubst < /propertytemplates/db.properties.app.template > ${PROP_FILE_APP_DB}
+    /usr/bin/envsubst < /propertytemplates/configsettings.properties.app.template > ${PROP_FILE_APP_CONF}
+    if [ -f ${PROP_FILE_APP_CONTROLLER_CONF} ]; then
+        /usr/bin/envsubst < /propertytemplates/configsettings_controller.properties.app.template > ${PROP_FILE_APP_CONTROLLER_CONF}
+    fi
     
     # Create databases, schemas, users and roles
     echo "\set ON_ERROR_STOP" > ${SQL_TEMP_FILE_APP}
