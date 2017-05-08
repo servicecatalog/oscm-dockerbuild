@@ -5,11 +5,32 @@ ENV INIT_APP false
 ENV IMPORT_DB false
 ENV DB_SUPERUSER postgres
 ENV PGPASSWORD postgres
+ENV DB_HOST_BES oscm-dbc
+ENV DB_PORT_BES 5432
+ENV DB_NAME_BES bss
+ENV DB_USER_BES bssuser
+ENV DB_PWD_BES bssuser
+ENV DB_HOST_APP oscm-dbc
+ENV DB_PORT_APP 5432
+ENV DB_NAME_APP bssapp
+ENV DB_USER_APP bssappuser
+ENV DB_PWD_APP bssappuser
+ENV HOSTNAME_BES localhost
+ENV HOSTNAME_APP localhost
+ENV APP_ORGADMIN_USER_KEY 1000
+ENV APP_ORGADMIN_USER_NAME administrator
+ENV APP_ORGADMIN_USER_PASS admin123
+ENV APP_KEYSTORE_PASSWORD changeit
+ENV APP_TRUSTSTORE_PASSWORD changeit
+ENV APP_TECHPROV_USER_KEY 10000
+ENV APP_TECHPROV_USER_NAME opsorg
+ENV APP_TECHPROV_USER_PASS secret
+
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm && \
     yum -y update && \
-    yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip wget postgresql96 && \
+    yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip wget postgresql96 gettext && \
     yum clean all && \
     wget http://download.java.net/glassfish/3.1.2/release/glassfish-3.1.2.zip -O /tmp/glassfish.zip && \
     unzip /tmp/glassfish.zip -d /opt/ && \
@@ -49,8 +70,13 @@ COPY oscm-extsvc-platform.jar /opt/lib
 COPY oscm-extsvc-internal.jar /opt/lib
 
 COPY accesscontrol.properties /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/
-COPY config.properties.jms.template /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
 COPY passwd.jms /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/passwd
+COPY config.properties.jms.template /propertytemplates/
+COPY db.properties.bes.template /propertytemplates/
+COPY db.properties.app.template /propertytemplates/
+COPY configsettings.properties.bes.template /propertytemplates/
+COPY configsettings.properties.app.template /propertytemplates/
+COPY configsettings_controller.properties.app.template /propertytemplates/
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
