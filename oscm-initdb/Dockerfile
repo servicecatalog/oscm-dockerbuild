@@ -32,28 +32,30 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
 
 COPY sqlscripts/bes/*.sql /opt/sqlscripts/bes/
 COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
-COPY oscm-devruntime.jar /opt/
-COPY oscm-app.jar /opt/
-COPY oscm-common.jar /opt/lib
-COPY oscm-server-common.jar /opt/lib
-COPY log4j-1.2.16.jar /opt/lib
+# COPY oscm-devruntime.jar /opt/
+# COPY oscm-app.jar /opt/
+# COPY oscm-common.jar /opt/lib
+# COPY oscm-server-common.jar /opt/lib
+# COPY log4j-1.2.16.jar /opt/lib
+# COPY commons-validator-1.4.0.jar /opt/lib
+# COPY commons-logging-1.1.3.jar /opt/lib
+# COPY oro-2.0.8.jar /opt/lib
+# COPY oscm-extsvc-platform.jar /opt/lib
+# COPY oscm-extsvc-internal.jar /opt/lib
 COPY postgresql-9.1-903.jdbc4.jar /opt/glassfish3/glassfish/lib
-COPY commons-validator-1.4.0.jar /opt/lib
-COPY commons-logging-1.1.3.jar /opt/lib
-COPY oro-2.0.8.jar /opt/lib
-COPY oscm-extsvc-platform.jar /opt/lib
-COPY oscm-extsvc-internal.jar /opt/lib
-
 COPY accesscontrol.properties /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/
 COPY passwd.jms /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/passwd
-COPY config.properties.jms.template /propertytemplates/
-COPY db.properties.bes.template /propertytemplates/
-COPY db.properties.app.template /propertytemplates/
-COPY configsettings.properties.bes.template /propertytemplates/
-COPY configsettings.properties.app.template /propertytemplates/
-COPY configsettings_controller.properties.app.template /propertytemplates/
+COPY ["oscm-common.jar", "oscm-server-common.jar", "log4j-1.2.16.jar", "commons-validator-1.4.0.jar", "commons-logging-1.1.3.jar", "oro-2.0.8.jar", "oscm-extsvc-platform.jar", "oscm-extsvc-internal.jar", "/opt/lib/"]
+COPY ["config.properties.jms.template", "db.properties.bes.template", "db.properties.app.template", "configsettings.properties.bes.template", "configsettings.properties.app.template", "configsettings_controller.properties.app.template", "/propertytemplates/"]
+COPY ["oscm-devruntime.jar", "oscm-app.jar", "start.sh", "/opt/"]
+# COPY config.properties.jms.template /propertytemplates/
+# COPY db.properties.bes.template /propertytemplates/
+# COPY db.properties.app.template /propertytemplates/
+# COPY configsettings.properties.bes.template /propertytemplates/
+# COPY configsettings.properties.app.template /propertytemplates/
+# COPY configsettings_controller.properties.app.template /propertytemplates/
 
-COPY start.sh /opt/
+#COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
 
 CMD ["/opt/start.sh"]

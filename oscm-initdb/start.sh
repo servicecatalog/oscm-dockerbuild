@@ -1,21 +1,6 @@
 #!/bin/bash
 
-# Mandatory environment variables (override if required):
-# DB_SUPERUSER: Postgres superuser name (default: postgres)
-# PGPASSWORD: Postgres superuser password (default: postgres)
-# INIT_BES: Set to true to initialize BES and Master Indexer databases (default: false)
-# INIT_APP: Set to true to initialize APP database (default: false)
-# IMPORT_DB: Set to true to import SQL dumps (default: false) <- INIT is automatically skipped
-# HOSTNAME_BES: Domain name of the base URL for BES (default: localhost)
-# HOSTNAME_APP: Domain name of the base URL for APP (default: localhost)
-
-# Mandatory files (mount these):
-# DB Initialization
-# PROP_FILE_BES_DB: BES DB properties file
-# PROP_FILE_BES_CONF: BES configuration properties file
-# PROP_FILE_APP_DB: APP DB properties file
-# PROP_FILE_APP_CONF: APP configuration properties file
-# DB Import
+# Mandatory files (mount these) for DB import from SQL files (IMPORT_DB=true)
 # SQL_DUMP_GLOBALS="/sqldump/globals.sql": Dump of the globals (DBs, Schemas, Roles, ...)
 # SQL_DUMP_BSS="/sqldump/bss.sql": Dump of the bss database
 # SQL_DUMP_BSSJMS="/sqldump/bssjms.sql": Dump of the jms database
@@ -23,7 +8,7 @@
 
 # Optional files (mount these for additional features):
 # SSO_FILE_BES: SSO properties for BES
-# PROP_FILE_APP_CONTROLLER_CONF: Properties for APP controller
+#TODO: Include SSO properties template and generate from ENV variables
 
 # Exit on error
 trap 'echo ERROR at line $LINENO; exit' ERR
@@ -48,17 +33,7 @@ export SQL_DUMP_BSSAPP="/sqldump/bssapp.sql"
 /usr/bin/mkdir -p /properties/app
 
 # Initialize BES DB
-#if [ ${INIT_BES} = "true" ] && [ -f ${PROP_FILE_BES_DB} ] && [ ${IMPORT_DB} = "false" ]; then
 if [ ${INIT_BES} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
-    # export DB_HOST_BES=$(/usr/bin/sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    # export DB_PORT_BES=$(/usr/bin/sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    # export DB_NAME_BES=$(/usr/bin/sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    # export DB_USER_BES=$(/usr/bin/sed -n -e 's|^db.user=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    # export DB_PWD_BES=$(/usr/bin/sed -n -e 's|^db.pwd=\(.*\)$|\1|gp' ${PROP_FILE_BES_DB})
-    # Prepare config file for jms DB
-    # /usr/bin/sed -i "s|__DB_HOST_BES__|$DB_HOST_BES|g" /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
-    # /usr/bin/sed -i "s|__DB_PORT_BES__|$DB_PORT_BES|g" /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
-    
     # Wait for database server to become ready
     until /usr/bin/psql -h ${DB_HOST_BES} -p ${DB_PORT_BES} -l -U ${DB_SUPERUSER} -q >/dev/null 2>&1; do echo "BES Database not ready - waiting..."; sleep 3s; done
     
@@ -88,7 +63,6 @@ if [ ${INIT_BES} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
     # Import properties
     /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_CONF}
     # Import SSO properties
-
     if [ -f ${SSO_FILE_BES} ]; then
         /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_DB} ${SSO_FILE_BES}
     fi
@@ -99,14 +73,7 @@ if [ ${INIT_BES} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
 fi
 
 # Initialize APP DB
-#if [ ${INIT_APP} = "true" ] && [ -f ${PROP_FILE_APP_DB} ] && [ ${IMPORT_DB} = "false" ]; then
-if [ ${INIT_APP} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
-    # export DB_HOST_APP=$(/usr/bin/sed -n -e 's|^db.host=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    # export DB_PORT_APP=$(/usr/bin/sed -n -e 's|^db.port=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    # export DB_NAME_APP=$(/usr/bin/sed -n -e 's|^db.name=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    # export DB_USER_APP=$(/usr/bin/sed -n -e 's|^db.user=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    # export DB_PWD_APP=$(/usr/bin/sed -n -e 's|^db.pwd=\(.*\)$|\1|gp' ${PROP_FILE_APP_DB})
-    
+if [ ${INIT_APP} = "true" ] && [ ${IMPORT_DB} = "false" ]; then    
     # Wait for database server to become ready
     until /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -l -U ${DB_SUPERUSER} -q >/dev/null 2>&1; do echo "APP Database not ready - waiting..."; sleep 3s; done
     
