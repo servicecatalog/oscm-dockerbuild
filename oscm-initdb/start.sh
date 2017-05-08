@@ -16,6 +16,9 @@
 # SSO_FILE_BES: SSO properties for BES
 # PROP_FILE_APP_CONTROLLER_CONF: Properties for APP controller
 
+# Exit on error
+trap 'echo ERROR at line $LINENO; exit' ERR
+
 export PGCONNECT_TIMEOUT=2
 export PROP_FILE_BES_DB="/properties/bes/db.properties"
 export PROP_FILE_BES_CONF="/properties/bes/configsettings.properties"
