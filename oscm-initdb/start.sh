@@ -80,7 +80,7 @@ if [ ${INIT_APP} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
     # Generate property files from environment
     /usr/bin/envsubst < /propertytemplates/db.properties.app.template > ${PROP_FILE_APP_DB}
     /usr/bin/envsubst < /propertytemplates/configsettings.properties.app.template > ${PROP_FILE_APP_CONF}
-    if [ -f ${PROP_FILE_APP_CONTROLLER_CONF} ]; then
+    if [ ${INIT_CONTROLLER} = "true" ]; then
         /usr/bin/envsubst < /propertytemplates/configsettings_controller.properties.app.template > ${PROP_FILE_APP_CONTROLLER_CONF}
     fi
     
@@ -100,7 +100,8 @@ if [ ${INIT_APP} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
     # Import APP properties
     /usr/bin/java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" ${DB_USER_APP} ${DB_PWD_APP} ${PROP_FILE_APP_CONF} true
     # Import controller properties
-    if [ -f ${PROP_FILE_APP_CONTROLLER_CONF} ]; then
+    #if [ -f ${PROP_FILE_APP_CONTROLLER_CONF} ]; then
+    if [ ${INIT_CONTROLLER} = "true" ]; then
         /usr/bin/java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" ${DB_USER_APP} ${DB_PWD_APP} ${PROP_FILE_APP_CONTROLLER_CONF} true CONTROLLER
     fi
     # Import SSO properties
