@@ -18,6 +18,7 @@ COPY oscm-devruntime.jar /opt/
 COPY oscm-common.jar /opt/lib
 COPY log4j-1.2.16.jar /opt/lib
 COPY oscm-extsvc-internal.jar /opt/lib
+COPY oscm-server-common.jar /opt/lib
 
 COPY cacerts.jks_app /opt/glassfish3/glassfish/domains/app-domain/config/cacerts.jks
 COPY keystore.jks_app /opt/glassfish3/glassfish/domains/app-domain/config/keystore.jks

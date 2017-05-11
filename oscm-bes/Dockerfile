@@ -45,6 +45,7 @@ COPY commons-codec-1.7.jar /opt/glassfish3/glassfish/domains/bes-domain/lib/
 COPY oscm-common.jar /opt/lib
 COPY log4j-1.2.16.jar /opt/lib
 COPY oscm-extsvc-internal.jar /opt/lib
+COPY oscm-server-common.jar /opt/lib
 
 COPY cacerts.jks_mi /opt/glassfish3/glassfish/domains/master-indexer-domain/config/cacerts.jks
 COPY keystore.jks_mi /opt/glassfish3/glassfish/domains/master-indexer-domain/config/keystore.jks
