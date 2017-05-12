@@ -154,5 +154,8 @@ if [ ${IMPORT_DB} = "true" ]; then
     /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_BSSAPP}
 fi
 
+export UPGRADE_BES=true
+export UPGRADE_APP=true
+
 # Upgrade DB and set configuration settings
 fillUpgradeAndConfigureDB
