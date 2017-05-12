@@ -97,13 +97,6 @@ function fillUpgradeAndConfigureDB {
 }
 
 
-# Only upgrade DB and set configuration settings without SQL import
-if [ ${UPGRADE_BES} = "true" ] || [ ${UPGRADE_APP} = "true" ]; then
-    # Upgrade DB and set configuration settings
-    fillUpgradeAndConfigureDB
-    exit
-fi
-
 # Initialize BES DB
 if [ ${INIT_BES} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
     # Wait for database server to become ready
