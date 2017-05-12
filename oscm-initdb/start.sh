@@ -79,7 +79,7 @@ function fillUpgradeAndConfigureDB {
         # Generate property files from environment
         genPropertyFilesAPP
         # Wait for database server to become ready
-        waitForDB ${DB_HOST_APP} -p ${DB_PORT_APP} -l -U ${DB_SUPERUSER}
+        waitForDB ${DB_HOST_APP} ${DB_PORT_APP} ${DB_SUPERUSER}
         
         # Initialize and update data
         /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler ${PROP_FILE_APP_DB} ${SQL_DIR_APP}
