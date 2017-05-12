@@ -1,6 +1,6 @@
 FROM centos:7
 
-ENV INIT_BES=false INIT_APP=false INIT_CONTROLLER=false IMPORT_DB=false DB_SUPERUSER=postgres PGPASSWORD=postgres DB_HOST_BES=oscm-dbc DB_PORT_BES=5432 DB_NAME_BES=bss DB_USER_BES=bssuser DB_PWD_BES=bssuser DB_HOST_APP=oscm-dbc DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser HOSTNAME_BES=localhost HOSTNAME_APP=localhost APP_ORGADMIN_USER_KEY=1000 APP_ORGADMIN_USER_NAME=administrator APP_ORGADMIN_USER_PASS=admin123 APP_KEYSTORE_PASSWORD=changeit APP_TRUSTSTORE_PASSWORD=changeit APP_TECHPROV_USER_KEY=10000 APP_TECHPROV_USER_NAME=opsorg APP_TECHPROV_USER_PASS=secret
+ENV INIT_BES=false INIT_APP=false INIT_CONTROLLER=false IMPORT_DB=false UPGRADE_BES=false UPGRADE_APP=false DB_SUPERUSER=postgres PGPASSWORD=postgres DB_HOST_BES=oscm-dbc DB_PORT_BES=5432 DB_NAME_BES=bss DB_USER_BES=bssuser DB_PWD_BES=bssuser DB_HOST_APP=oscm-dbc DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser HOSTNAME_BES=localhost HOSTNAME_APP=localhost APP_ORGADMIN_USER_KEY=1000 APP_ORGADMIN_USER_NAME=administrator APP_ORGADMIN_USER_PASS=admin123 APP_KEYSTORE_PASSWORD=changeit APP_TRUSTSTORE_PASSWORD=changeit APP_TECHPROV_USER_KEY=10000 APP_TECHPROV_USER_NAME=opsorg APP_TECHPROV_USER_PASS=secret
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm && \
