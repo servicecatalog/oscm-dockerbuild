@@ -122,7 +122,7 @@ fi
 # Initialize APP DB
 if [ ${INIT_APP} = "true" ] && [ ${IMPORT_DB} = "false" ]; then    
     # Wait for database server to become ready
-    waitForDB ${DB_HOST_APP} -p ${DB_PORT_APP} -l -U ${DB_SUPERUSER}
+    waitForDB ${DB_HOST_APP} ${DB_PORT_APP} ${DB_SUPERUSER}
     
     # Create databases, schemas, users and roles
     echo "\set ON_ERROR_STOP" > ${SQL_TEMP_FILE_APP}
