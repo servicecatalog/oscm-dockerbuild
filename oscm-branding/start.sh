@@ -1,8 +1,10 @@
 #!/bin/bash
 
-if [ ! -z $BRANDING_ARCHIVE ] && [ -f $BRANDING_ARCHIVE ]; then
-    tar -zxf $BRANDING_ARCHIVE -C /usr/share/nginx/html
+if [ ! -z ${BRANDING_DIR} ] && [ -f ${BRANDING_DIR} ]; then
+    for file in ${BRANDING_DIR}/*.tar.gz
+    do
+        tar -zxf $file -C /usr/share/nginx/html
+    done
 fi
 
 nginx -g 'daemon off;'
-
