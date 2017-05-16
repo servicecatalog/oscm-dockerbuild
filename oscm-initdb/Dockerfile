@@ -7,7 +7,7 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum -y update && \
     yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip wget postgresql96 gettext && \
     yum clean all && \
-    wget http://download.java.net/glassfish/3.1.2/release/glassfish-3.1.2.zip -O /tmp/glassfish.zip && \
+    wget http://download.java.net/glassfish/3.1.2.2/release/glassfish-3.1.2.2.zip -O /tmp/glassfish.zip && \
     unzip /tmp/glassfish.zip -d /opt/ && \
 	rm -rf /opt/glassfish3/glassfish/domains/domain1 && \
     rm /tmp/glassfish.zip && \
