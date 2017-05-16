@@ -4,6 +4,10 @@ REPO_DOCKER="`dirname \"$0\"`"
 REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
 
+# copy resources for gf
+cp $REPO_OSCM/libraries/sun-glassfish-rt31/modules/javax.faces.jar $REPO_DOCKER/oscm-gf/
+cp $REPO_OSCM/libraries/sun-glassfish-rt31/modules/jboss-logging.jar $REPO_DOCKER/oscm-gf/
+
 # copy resources for initdb
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/bes
 cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/bes/
