@@ -34,27 +34,14 @@ if [ ! -d ${WORKDIR} ]; then
 fi
 
 # Update or clone git repositories
-if [ -d ${DEVDIR} ]; then
-	cd ${DEVDIR}
-	git checkout ${GIT_SOURCE}
-	git fetch
-	git merge
-else
+if [ ! -d ${DEVDIR} ]; then
 	cd ${WORKDIR}
-	git clone https://github.com/servicecatalog/development.git
+	git clone https://github.com/servicecatalog/development.git --depth 1 --branch ${GIT_SOURCE}
 	cd ${DEVDIR}
-	git checkout ${GIT_SOURCE}
 fi
-if [ -d ${DEVDIR}/oscm-dockerbuild ]; then
-	cd ${DEVDIR}/oscm-dockerbuild
-	git checkout ${GIT_DOCKER}
-	git fetch
-	git merge
-	cd ${DEVDIR}
-else
-	git clone https://github.com/servicecatalog/oscm-dockerbuild.git
+if [ ! -d ${DEVDIR}/oscm-dockerbuild ]; then
+	git clone https://github.com/servicecatalog/oscm-dockerbuild.git --depth 1 --branch ${GIT_DOCKER}
 	cd oscm-dockerbuild
-	git checkout ${GIT_DOCKER}
 	cd ${DEVDIR}
 fi
 
