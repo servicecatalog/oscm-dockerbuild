@@ -5,4 +5,6 @@ do
     tar -zxf $file -C /usr/share/nginx/html
 done
 
+chown -R root:root /usr/share/nginx/html
+
 nginx -g 'daemon off;'
