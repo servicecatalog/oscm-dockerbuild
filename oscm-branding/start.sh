@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/usr/bin/gcloud auth activate-service-account --key-file ${SERVICE_ACCOUNT_KEY_FILE}
+/usr/bin/gcloud auth activate-service-account --key-file ${GS_SERVICE_ACCOUNT_KEY_FILE}
 mkdir /tmp/work
 /usr/bin/gsutil cp gs://${GS_BUCKET}/*.tar.gz /tmp/work
 for file in /tmp/work/*.tar.gz
