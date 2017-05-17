@@ -1,0 +1,26 @@
+# Copyright FUJITSU LIMITED 2017
+# Configuration of Database Access. 
+# This configuration is used for the initial setup and 
+# schema updates. 
+
+# Java class of the JDBC driver
+db.driver.class=org.postgresql.Driver
+
+# database host
+# In cluster environment localhost must not be used!
+db.host=${DB_HOST_APP}
+
+# database port
+db.port=${DB_PORT_APP}
+
+# Name of the database
+db.name=${DB_NAME_APP}
+
+# Name of the user to connect to the database
+db.user=${DB_USER_APP}
+
+# Password of the user to connect to the database
+db.pwd=${DB_PWD_APP}
+
+# Database type
+db.type=postgresql
