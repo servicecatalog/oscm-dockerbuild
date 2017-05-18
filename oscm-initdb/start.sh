@@ -58,34 +58,34 @@ if [ $TARGET == "BES" ]; then
 	# Initialize BES DB
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
-		/usr/bin/psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
 	
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
 		fi
 		if [ -f /opt/sqldump/$SQL_DUMP_BSS.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_BSS.gz > /opt/sqldump/$SQL_DUMP_BSS
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSS.gz > /opt/sqldump/$SQL_DUMP_BSS
 		fi
-		/usr/bin/psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
-		/usr/bin/psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSS
+		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSS
 	fi
 	
 	# Initialize and update data
-	/usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-	/opt/properties/db.properties /opt/sqlscripts/bes
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/bes
 	
 	# Update properties
-	/usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
-	"jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" $DB_USER_BES $DB_PWD_BES \
-	/opt/properties/configsettings.properties
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" $DB_USER_BES $DB_PWD_BES \
+		/opt/properties/configsettings.properties $OVERWRITE
 	
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
-	 /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
-	"jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" $DB_USER_BES $DB_PWD_BES \
-	/opt/properties/configsettings.properties /opt/properties/sso.properties        
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" $DB_USER_BES $DB_PWD_BES \
+		/opt/properties/configsettings.properties /opt/properties/sso.properties        
 fi
 
 # JMS
@@ -99,7 +99,7 @@ if [ $TARGET == "JMS" ]; then
 	# Initialize JMS DB
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
-		/usr/bin/psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 		
 		# Initialize data
 		/opt/glassfish3/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish4/glassfish/domains/master-indexer-domain/imq -javahome /usr/lib/jvm/java
@@ -108,13 +108,13 @@ if [ $TARGET == "JMS" ]; then
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
 		fi
 		if [ -f /opt/sqldump/$SQL_DUMP_BSSJMS.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_BSSJMS.gz > /opt/sqldump/$SQL_DUMP_BSSJMS
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSSJMS.gz > /opt/sqldump/$SQL_DUMP_BSSJMS
 		fi
-		/usr/bin/psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
-		/usr/bin/psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSJMS
+		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSJMS
 	fi	
 fi
 
@@ -129,29 +129,29 @@ if [ $TARGET == "APP" ]; then
 	# Initialize APP DB
 	if [ $SOURCE == "INIT" ]; then    
 		# Create databases, schemas, users and roles
-		/usr/bin/psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
 	
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
 		fi
 		if [ -f /opt/sqldump/$SQL_DUMP_BSSAPP.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
 		fi
-		/usr/bin/psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
-		/usr/bin/psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
 	
 	# Initialize and update data
-	/usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-	/opt/properties/db.properties /opt/sqlscripts/app
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/app
    
-   # Import APP properties
-	/usr/bin/java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-	/opt/properties/configsettings.properties $OVERWRITE      
+    # Update properties
+	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $OVERWRITE
 fi
 
 # APP Controller
@@ -165,27 +165,27 @@ if [ $TARGET == "CONTROLLER" ]; then
 	# Initialize APP DB
 	if [ $SOURCE == "INIT" ]; then    
 		# Create databases, schemas, users and roles
-		/usr/bin/psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
 	
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
 		fi
 		if [ -f /opt/sqldump/$SQL_DUMP_BSSAPP.gz ]; then
-			/usr/bin/gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
 		fi
-		/usr/bin/psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
-		/usr/bin/psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
 	
 	# Initialize and update data
-	/usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-	/opt/properties/db.properties /opt/sqlscripts/app
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/app
 	
 	# Import controller properties        
-	/usr/bin/java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-	/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID        
+	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID        
 fi

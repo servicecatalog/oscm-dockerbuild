@@ -17,6 +17,7 @@ fi
 
 # Generate property files
 /usr/bin/envsubst < /opt/templates/db.properties.bes.template > /opt/properties/db.properties
+/usr/bin/envsubst < /opt/templates/configsettings.properties.bes.template > /opt/properties/configsettings.properties
 /usr/bin/envsubst < /opt/templates/domain.xml.bes.template > $DOMAINS/bes-domain/config/domain.xml
 /usr/bin/envsubst < /opt/templates/domain.xml.mi.template > $DOMAINS/master-indexer-domain/config/domain.xml
 /usr/bin/envsubst < /opt/templates/glassfish-acc.xml.template > $DOMAINS/bes-domain/config/glassfish-acc.xml
@@ -63,6 +64,11 @@ until psql -h $DB_HOST_BES -l -U $DB_USER_BES -q >/dev/null 2>&1; do echo "Datab
 # Upgrade database to current version
 java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
      /opt/properties/db.properties /opt/sqlscripts/
+	 
+# Update properties
+java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
+	"jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" $DB_USER_BES $DB_PWD_BES \
+	/opt/properties/configsettings.properties $OVERWRITE
 
 # Start domains
 $ASADMIN start-domain master-indexer-domain

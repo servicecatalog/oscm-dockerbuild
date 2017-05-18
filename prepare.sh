@@ -9,6 +9,9 @@ LIB_DIR="$REPO_OSCM/libraries"
 cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-codec/javalib/commons-codec-1.7.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/apache-validator/javalib/commons-validator-1.4.0.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/jakarta-oro/javalib/jakarta-oro-2.0.8.jar $REPO_DOCKER/oscm-gf/
 
 cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-lucene/javalib/lucene-analyzers-common-5.3.1.jar $REPO_DOCKER/oscm-gf/
@@ -24,18 +27,12 @@ cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.jpa.modelgen.processor.ja
 cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.moxy.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.oracle.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/dol/javalib/dol.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar.jar $REPO_DOCKER/oscm-gf/
-
+cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
 
 # copy resources for initdb
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-initdb/
-cp $REPO_OSCM/oscm-build/lib/log4j-1.2.16.jar $REPO_DOCKER/oscm-initdb/
-cp $REPO_OSCM/oscm-build/lib/postgresql-9.1-903.jdbc4.jar $REPO_DOCKER/oscm-initdb/
-cp $REPO_OSCM/oscm-build/lib/commons-validator-1.4.0.jar $REPO_DOCKER/oscm-initdb/
-cp $REPO_OSCM/oscm-build/lib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-initdb/
-cp $REPO_OSCM/oscm-build/lib/oro-2.0.8.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-app/oscm-app.jar $REPO_DOCKER/oscm-initdb/
