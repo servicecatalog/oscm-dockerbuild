@@ -42,6 +42,7 @@ function genPropertyFilesAPP {
 
 # Generate property files for APP Controller from environment
 function genPropertyFilesAPPController {
+    /usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }

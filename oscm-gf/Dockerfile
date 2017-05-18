@@ -18,4 +18,4 @@ COPY jboss-logging.jar org.eclipse.persistence.antlr.jar org.eclipse.persistence
 COPY org.eclipse.persistence.dbws.jar org.eclipse.persistence.jpa.jar org.eclipse.persistence.jpa.jpql.jar /opt/glassfish4/glassfish/modules/
 COPY org.eclipse.persistence.jpa.modelgen.processor.jar org.eclipse.persistence.moxy.jar org.eclipse.persistence.oracle.jar /opt/glassfish4/glassfish/modules/
 COPY commons-logging-1.1.3.jar dol.jar /opt/glassfish4/glassfish/modules/
-COPY log4j-1.2.16.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
+COPY postgresql-9.4-1206-jdbc42.jar log4j-1.2.16.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
