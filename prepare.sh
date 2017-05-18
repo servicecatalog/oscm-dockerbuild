@@ -56,9 +56,6 @@ cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-be
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-bes/
 
-mkdir $REPO_DOCKER/oscm-bes/sqlscripts
-cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-bes/sqlscripts/
-
 # copy resources for app
 cp $BUILD_DIR/oscm-app-ear/oscm-app.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-aws/oscm-app-aws.ear $REPO_DOCKER/oscm-app/
@@ -69,6 +66,3 @@ cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-app/
-
-mkdir $REPO_DOCKER/oscm-app/sqlscripts
-cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-app/sqlscripts/

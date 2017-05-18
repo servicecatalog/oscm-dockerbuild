@@ -51,14 +51,5 @@ echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/a
 # Wait for database
 until psql -h $DB_HOST_APP -l -U $DB_USER_APP -q >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 
-# Upgrade database to current version
-java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-    /opt/properties/db.properties /opt/sqlscripts/
-	 
-# Update properties
-java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-	/opt/properties/configsettings.properties $OVERWRITE
-
 # Start domain
 $ASADMIN start-domain --verbose app-domain
