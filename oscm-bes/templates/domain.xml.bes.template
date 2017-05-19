@@ -107,7 +107,7 @@
   </nodes>
   <configs>
     <config name="server-config">
-      <system-property name="JMS_PROVIDER_PORT" description="Port Number that JMS Service will listen for remote clients connection." value="8076"></system-property>
+      <system-property name="JMS_PROVIDER_PORT" description="Port Number that JMS Service will listen for remote clients connection." value="8476"></system-property>
       <system-property name="PORT_BASE" value="8000"></system-property>
       <http-service>
         <access-log></access-log>
@@ -135,7 +135,7 @@
       <transaction-service tx-log-dir="${com.sun.aas.instanceRoot}/logs"></transaction-service>
       <batch-runtime-configuration></batch-runtime-configuration>
       <jms-service default-jms-host="default_JMS_host" type="LOCAL">
-        <jms-host port="8076" name="default_JMS_host" host="localhost"></jms-host>
+        <jms-host port="8476" name="default_JMS_host" host="localhost"></jms-host>
       </jms-service>
       <rest-config></rest-config>
       <cdi-service></cdi-service>
