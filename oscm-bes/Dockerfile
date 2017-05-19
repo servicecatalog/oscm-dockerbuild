@@ -22,8 +22,11 @@ COPY oscm-search.ear /opt/glassfish4/glassfish/domains/master-indexer-domain/aut
 COPY oscm-portal.war oscm-portal-help.war /opt/glassfish4/glassfish/domains/bes-domain/autodeploy/
 
 COPY templates/*.template /opt/templates/
-COPY resources/imq/* /opt/glassfish4/glassfish/domains/bes-domain/imq/
-COPY resources/imq/* /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/
+
+COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/
+COPY resources/config.properties /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/
+COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/
+COPY resources/config.properties /opt/glassfish4/glassfish/domains/bes-domain/imq/instances/imqbroker/props/
 
 COPY oscm-security.jar /opt/glassfish4/glassfish/domains/bes-domain/lib/
 

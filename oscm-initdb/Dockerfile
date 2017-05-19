@@ -21,7 +21,8 @@ COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY templates/*.template /opt/templates/
 COPY oscm-devruntime.jar oscm-app.jar /opt/
 
-COPY resources/imq/* /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/
+COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/
+COPY resources/config.properties /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/
 
 COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar /opt/lib/
 
