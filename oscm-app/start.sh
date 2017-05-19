@@ -42,8 +42,8 @@ echo "AS_ADMIN_PASSWORD=" > /opt/newadminpwd
 echo "AS_ADMIN_NEWPASSWORD=$DOMAIN_PWD" >> /opt/newadminpwd
 echo "AS_ADMIN_PASSWORD=$DOMAIN_PWD" > /opt/adminpwd
 
-$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name app-domain
-$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name app-domain
+$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name app-domain --user admin
+$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name app-domain --port 8880
 
 # Generate secret
 echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/app-domain/config/key

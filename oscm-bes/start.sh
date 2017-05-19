@@ -49,11 +49,11 @@ echo "AS_ADMIN_PASSWORD=" > /opt/newadminpwd
 echo "AS_ADMIN_NEWPASSWORD=$DOMAIN_PWD" >> /opt/newadminpwd
 echo "AS_ADMIN_PASSWORD=$DOMAIN_PWD" > /opt/adminpwd
 
-$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name bes-domain
-$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name bes-domain
+$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name bes-domain --user admin
+$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name bes-domain --port 8080
 
-$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name master-indexer-domain
-$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name master-indexer-domain
+$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name master-indexer-domain --user admin
+$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name master-indexer-domain --port 8480
 
 # Generate secret
 echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/bes-domain/config/key
