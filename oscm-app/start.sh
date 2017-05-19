@@ -19,8 +19,8 @@ fi
 # Generate property files
 /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
 /usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
-/usr/bin/envsubst < /opt/templates/domain.xml.app.template > $DOMAINS/bes-domain/config/domain.xml
-/usr/bin/envsubst < /opt/templates/glassfish-acc.xml.template > $DOMAINS/bes-domain/config/glassfish-acc.xml
+/usr/bin/envsubst < /opt/templates/domain.xml.app.template > $DOMAINS/app-domain/config/domain.xml
+/usr/bin/envsubst < /opt/templates/glassfish-acc.xml.template > $DOMAINS/app-domain/config/glassfish-acc.xml
 
 # Copy certificates
 if [ -f /opt/certs/$CERT_FILE ]; then
@@ -31,10 +31,12 @@ fi
 
 for f in /opt/certs/*.der /opt/certs/*.crt /opt/certs/*.cer /opt/certs/*.pem
 do
-	filename=$(basename "$f")
-	filename="${filename%.*}"
-	keytool -import -alias filename -keystore $DOMAINS/app-domain/config/cacerts.jks -storepass changeit \
-		-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
+	if [ -f $f ]; then
+		filename=$(basename "$f")
+		filename="${filename%.*}"
+		keytool -import -alias filename -keystore $DOMAINS/app-domain/config/cacerts.jks -storepass changeit \
+			-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
+	fi
 done
 
 # Change admin passwords
@@ -42,8 +44,8 @@ echo "AS_ADMIN_PASSWORD=" > /opt/newadminpwd
 echo "AS_ADMIN_NEWPASSWORD=$DOMAIN_PWD" >> /opt/newadminpwd
 echo "AS_ADMIN_PASSWORD=$DOMAIN_PWD" > /opt/adminpwd
 
-$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name app-domain --user admin
-$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name app-domain --port 8880
+$ASADMIN --passwordfile /opt/newadminpwd --user admin change-admin-password --domain_name app-domain
+#$ASADMIN --passwordfile /opt/adminpwd --port 8848 enable-secure-admin --domain_name app-domain 
 
 # Generate secret
 echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/app-domain/config/key

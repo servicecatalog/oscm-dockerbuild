@@ -38,10 +38,12 @@ fi
 
 for f in /opt/certs/*.der /opt/certs/*.crt /opt/certs/*.cer /opt/certs/*.pem
 do
-	filename=$(basename "$f")
-	filename="${filename%.*}"
-	keytool -import -alias filename -keystore $DOMAINS/bes-domain/config/cacerts.jks -storepass changeit \
-		-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
+    if [ -f $f ]; then
+    	filename=$(basename "$f")
+    	filename="${filename%.*}"
+    	keytool -import -alias filename -keystore $DOMAINS/bes-domain/config/cacerts.jks -storepass changeit \
+    		-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
+    fi
 done
 
 # Change admin passwords
@@ -49,11 +51,11 @@ echo "AS_ADMIN_PASSWORD=" > /opt/newadminpwd
 echo "AS_ADMIN_NEWPASSWORD=$DOMAIN_PWD" >> /opt/newadminpwd
 echo "AS_ADMIN_PASSWORD=$DOMAIN_PWD" > /opt/adminpwd
 
-$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name bes-domain --user admin
-$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name bes-domain --port 8080
+$ASADMIN --passwordfile /opt/newadminpwd --user admin change-admin-password --domain_name bes-domain
+#$ASADMIN --passwordfile /opt/adminpwd --port 8048 enable-secure-admin --domain_name bes-domain 
 
-$ASADMIN change-admin-password --passwordfile /opt/newadminpwd --domain_name master-indexer-domain --user admin
-$ASADMIN enable-secure-admin --passwordfile /opt/adminpwd --domain_name master-indexer-domain --port 8480
+$ASADMIN --passwordfile /opt/newadminpwd --user admin change-admin-password --domain_name master-indexer-domain
+#$ASADMIN --passwordfile /opt/adminpwd --port 8448 enable-secure-admin --domain_name master-indexer-domain
 
 # Generate secret
 echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/bes-domain/config/key
