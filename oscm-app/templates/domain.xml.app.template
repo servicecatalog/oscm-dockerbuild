@@ -215,8 +215,6 @@
         <jvm-options>-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</jvm-options>
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/modules/endorsed${path.separator}${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as</jvm-options>
-        <jvm-options>-XX:PermSize=128m</jvm-options>
-        <jvm-options>-XX:MaxPermSize=512m</jvm-options>
         <jvm-options>-server</jvm-options>
         <jvm-options>-Dfelix.fileinstall.poll=5000</jvm-options>
         <jvm-options>-Dfelix.fileinstall.bundles.new.start=true</jvm-options>

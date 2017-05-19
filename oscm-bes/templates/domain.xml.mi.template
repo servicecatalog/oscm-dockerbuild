@@ -200,7 +200,6 @@
         <jvm-options>-Dfile.encoding=UTF8</jvm-options>
         <jvm-options>-Duser.language=en</jvm-options>
         <jvm-options>-Dorg.glassfish.jms.EagerStartup=true</jvm-options>
-        <jvm-options>-XX:MaxPermSize=512m</jvm-options>
         <jvm-options>-Dhibernate.search.default.directory_provider=org.hibernate.search.store.impl.FSMasterDirectoryProvider</jvm-options>
         <jvm-options>-Dhibernate.search.default.indexBase=${com.sun.aas.instanceRoot}/masterIndexBase</jvm-options>
         <jvm-options>-Dhibernate.search.default.sourceBase=C:/glassfish3/glassfish/masterSourceBase</jvm-options>

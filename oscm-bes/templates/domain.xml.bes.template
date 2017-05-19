@@ -251,8 +251,6 @@
         <jvm-options>-Dcom.ctc.wstx.returnNullForDefaultNamespace=true</jvm-options>
         <jvm-options>-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false</jvm-options>
         <jvm-options>-Dfile.encoding=UTF8</jvm-options>
-        <jvm-options>-XX:PermSize=128m</jvm-options>
-        <jvm-options>-XX:MaxPermSize=1024m</jvm-options>
         <jvm-options>-Dsun.java2d.print.polling=false</jvm-options>
         <jvm-options>-Dsun.net.inetaddr.ttl=3600</jvm-options>
         <jvm-options>-Duser.language=en</jvm-options>
@@ -264,7 +262,6 @@
         <jvm-options>-Dproduct.name=</jvm-options>
         <jvm-options>-Xmx4096m</jvm-options>
         <jvm-options>-Dcom.sun.metro.soap.dump=true</jvm-options>
-        <jvm-options>-javaagent:jacocoagent.jar=includes=org.oscm.*,output=tcpserver,port=8163</jvm-options>
       </java-config>
       <network-config>
         <protocols>
