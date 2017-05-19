@@ -24,8 +24,8 @@ fi
 
 # Copy certificates
 if [ -f /opt/certs/$CERT_FILE ]; then
-	keytool -delete -alias s1as -keystore $DOMAINS/app-domain/config/keystore.jks -keypass changeit
-	keytool -import -alias s1as -keystore $DOMAINS/app-domain/config/keystore.jks -keypass changeit \
+	keytool -delete -alias s1as -keystore $DOMAINS/app-domain/config/keystore.jks -storepass changeit
+	keytool -import -alias s1as -keystore $DOMAINS/app-domain/config/keystore.jks -storepass changeit \
 		-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
 fi
 
@@ -33,7 +33,7 @@ for f in /opt/certs/*.der /opt/certs/*.crt /opt/certs/*.cer /opt/certs/*.pem
 do
 	filename=$(basename "$f")
 	filename="${filename%.*}"
-	keytool -import -alias filename -keystore $DOMAINS/app-domain/config/cacerts.jks -keypass changeit \
+	keytool -import -alias filename -keystore $DOMAINS/app-domain/config/cacerts.jks -storepass changeit \
 		-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
 done
 
