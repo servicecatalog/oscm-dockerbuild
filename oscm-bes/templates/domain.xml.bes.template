@@ -135,7 +135,7 @@
       <transaction-service tx-log-dir="${com.sun.aas.instanceRoot}/logs"></transaction-service>
       <batch-runtime-configuration></batch-runtime-configuration>
       <jms-service default-jms-host="default_JMS_host" type="LOCAL">
-        <jms-host port="${JMS_PROVIDER_PORT}" name="default_JMS_host" host="localhost"></jms-host>
+        <jms-host port="8076" name="default_JMS_host" host="localhost"></jms-host>
       </jms-service>
       <rest-config></rest-config>
       <cdi-service></cdi-service>
@@ -347,7 +347,7 @@
       </ejb-container>
       <mdb-container></mdb-container>
       <jms-service addresslist-behavior="priority" default-jms-host="default_JMS_host" type="EMBEDDED">
-        <jms-host port="${JMS_PROVIDER_PORT}" host="localhost" name="default_JMS_host"></jms-host>
+        <jms-host port="27676" host="localhost" name="default_JMS_host"></jms-host>
       </jms-service>
       <log-service file="${com.sun.aas.instanceRoot}/logs/server.log" log-rotation-limit-in-bytes="2000000">
         <module-log-levels></module-log-levels>
