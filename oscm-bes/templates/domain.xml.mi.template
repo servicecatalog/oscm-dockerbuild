@@ -202,7 +202,7 @@
         <jvm-options>-Dorg.glassfish.jms.EagerStartup=true</jvm-options>
         <jvm-options>-Dhibernate.search.default.directory_provider=org.hibernate.search.store.impl.FSMasterDirectoryProvider</jvm-options>
         <jvm-options>-Dhibernate.search.default.indexBase=${com.sun.aas.instanceRoot}/masterIndexBase</jvm-options>
-        <jvm-options>-Dhibernate.search.default.sourceBase=C:/glassfish3/glassfish/masterSourceBase</jvm-options>
+        <jvm-options>-Dhibernate.search.default.sourceBase=/opt/glassfish4/glassfish/masterSourceBase</jvm-options>
         <jvm-options>-Dhibernate.search.default.refresh=60</jvm-options>
         <jvm-options>-Dproduct.name=</jvm-options>
         <jvm-options>-Dcom.sun.metro.soap.dump=true</jvm-options>

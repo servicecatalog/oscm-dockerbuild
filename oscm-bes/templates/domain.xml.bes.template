@@ -257,7 +257,7 @@
         <jvm-options>-Dhibernate.search.default.directory_provider=org.hibernate.search.store.impl.FSSlaveDirectoryProvider</jvm-options>
         <jvm-options>-Dhibernate.search.indexing_strategy=manual</jvm-options>
         <jvm-options>-Dhibernate.search.default.indexBase=${com.sun.aas.instanceRoot}/slaveIndexBase</jvm-options>
-        <jvm-options>-Dhibernate.search.default.sourceBase=C:/glassfish3/glassfish/masterSourceBase</jvm-options>
+        <jvm-options>-Dhibernate.search.default.sourceBase=/opt/glassfish4/glassfish/masterSourceBase</jvm-options>
         <jvm-options>-Dhibernate.search.default.refresh=5</jvm-options>
         <jvm-options>-Dproduct.name=</jvm-options>
         <jvm-options>-Xmx4096m</jvm-options>
