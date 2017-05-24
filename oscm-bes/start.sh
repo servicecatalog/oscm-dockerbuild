@@ -22,8 +22,8 @@ fi
 /usr/bin/envsubst < /opt/templates/domain.xml.mi.template > $DOMAINS/master-indexer-domain/config/domain.xml
 /usr/bin/envsubst < /opt/templates/glassfish-acc.xml.template > $DOMAINS/bes-domain/config/glassfish-acc.xml
 /usr/bin/envsubst < /opt/templates/glassfish-acc.xml.template > $DOMAINS/master-indexer-domain/config/glassfish-acc.xml
-/usr/bin/envsubst < /opt/templates/config.properties.template > $DOMAINS/bes-domain/imq/instances/imqbroker/props/config.properties
-/usr/bin/envsubst < /opt/templates/config.properties.template > $DOMAINS/master-indexer-domain/imq/instances/imqbroker/props/config.properties
+/usr/bin/envsubst < /opt/templates/config.properties.bes.template > $DOMAINS/bes-domain/imq/instances/imqbroker/props/config.properties
+/usr/bin/envsubst < /opt/templates/config.properties.mi.template > $DOMAINS/master-indexer-domain/imq/instances/imqbroker/props/config.properties
 
 # Copy certificates
 if [ -f /opt/certs/$CERT_FILE ]; then
@@ -65,5 +65,4 @@ until /bin/psql -h $DB_HOST_BES -l -U $DB_USER_BES -q >/dev/null 2>&1; do echo "
 
 # Start domains
 $ASADMIN start-domain master-indexer-domain
-until /bin/ncat -w1 localhost 8476 </dev/null >/dev/null 2>&1; do echo "Master Indexer not ready - waiting..."; sleep 3s; done
 $ASADMIN start-domain --verbose bes-domain
