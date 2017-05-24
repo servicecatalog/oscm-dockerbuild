@@ -65,4 +65,5 @@ until psql -h $DB_HOST_BES -l -U $DB_USER_BES -q >/dev/null 2>&1; do echo "Datab
 
 # Start domains
 $ASADMIN start-domain master-indexer-domain
+until nc -w1 localhost 8480 </dev/null >/dev/null 2>&1; do echo "Master Indexer not ready - waiting..."; sleep 3s; done
 $ASADMIN start-domain --verbose bes-domain
