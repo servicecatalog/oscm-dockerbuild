@@ -63,7 +63,7 @@
     </server>
   </servers>
   <nodes>
-    <node name="localhost-master-indexer-domain" install-dir="${com.sun.aas.productRoot}" type="CONFIG" node-host="localhost"></node>
+    <node name="${HOSTNAME}-master-indexer-domain" install-dir="${com.sun.aas.productRoot}" type="CONFIG" node-host="${HOSTNAME}"></node>
   </nodes>
   <configs>
     <config name="server-config">
@@ -95,7 +95,7 @@
       <transaction-service tx-log-dir="${com.sun.aas.instanceRoot}/logs"></transaction-service>
       <batch-runtime-configuration></batch-runtime-configuration>
       <jms-service default-jms-host="default_JMS_host" type="LOCAL">
-        <jms-host port="8476" host="localhost" name="default_JMS_host"></jms-host>
+        <jms-host port="8476" host="${HOSTNAME}" name="default_JMS_host"></jms-host>
       </jms-service>
       <rest-config></rest-config>
       <cdi-service></cdi-service>
@@ -285,7 +285,7 @@
       </ejb-container>
       <mdb-container></mdb-container>
       <jms-service addresslist-behavior="priority" default-jms-host="default_JMS_host" type="EMBEDDED">
-        <jms-host port="27676" name="default_JMS_host" host="localhost"></jms-host>
+        <jms-host port="27676" name="default_JMS_host" host="${HOSTNAME}"></jms-host>
       </jms-service>
       <log-service file="${com.sun.aas.instanceRoot}/logs/server.log" log-rotation-limit-in-bytes="2000000">
         <module-log-levels></module-log-levels>
@@ -345,34 +345,46 @@
       <transaction-service automatic-recovery="true" tx-log-dir="${com.sun.aas.instanceRoot}/logs"></transaction-service>
       <diagnostic-service></diagnostic-service>
       <java-config classpath-suffix="" debug-options="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${JAVA_DEBUGGER_PORT}" system-classpath="">
-        <jvm-options>-XX:MaxPermSize=192m</jvm-options>
         <jvm-options>-server</jvm-options>
         <jvm-options>-Djava.awt.headless=true</jvm-options>
         <jvm-options>-Djdk.corba.allowOutputStreamSubclass=true</jvm-options>
+        <jvm-options>-Djavax.xml.accessExternalSchema=all</jvm-options>
+        <jvm-options>-Djavax.management.builder.initial=com.sun.enterprise.v3.admin.AppServerMBeanServerBuilder</jvm-options>
         <jvm-options>-XX:+UnlockDiagnosticVMOptions</jvm-options>
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/modules/endorsed${path.separator}${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
         <jvm-options>-Djava.security.policy=${com.sun.aas.instanceRoot}/config/server.policy</jvm-options>
         <jvm-options>-Djava.security.auth.login.config=${com.sun.aas.instanceRoot}/config/login.conf</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as</jvm-options>
+        <jvm-options>-Xmx512m</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/keystore.jks</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStore=${com.sun.aas.instanceRoot}/config/cacerts.jks</jvm-options>
         <jvm-options>-Djava.ext.dirs=${com.sun.aas.javaRoot}/lib/ext${path.separator}${com.sun.aas.javaRoot}/jre/lib/ext${path.separator}${com.sun.aas.instanceRoot}/lib/ext</jvm-options>
         <jvm-options>-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver</jvm-options>
         <jvm-options>-DANTLR_USE_DIRECT_CLASS_LOADING=true</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</jvm-options>
-        <jvm-options>-XX:NewRatio=2</jvm-options>
-        <jvm-options>-Xmx512m</jvm-options>
-        <jvm-options>-Dorg.glassfish.additionalOSGiBundlesToStart=org.apache.felix.shell,org.apache.felix.gogo.runtime,org.apache.felix.gogo.shell,org.apache.felix.gogo.command,org.apache.felix.fileinstall</jvm-options>
-        <jvm-options>-Dosgi.shell.telnet.port=${OSGI_SHELL_TELNET_PORT}</jvm-options>
+        <jvm-options>-Dorg.glassfish.additionalOSGiBundlesToStart=org.apache.felix.shell,org.apache.felix.gogo.runtime,org.apache.felix.gogo.shell,org.apache.felix.gogo.command,org.apache.felix.shell.remote,org.apache.felix.fileinstall</jvm-options>
+        <jvm-options>-Dosgi.shell.telnet.port=8466</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.maxconn=1</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.ip=127.0.0.1</jvm-options>
-        <jvm-options>-Dgosh.args=--noshutdown -c noop=true</jvm-options>
+        <jvm-options>-Dgosh.args=--nointeractive</jvm-options>
         <jvm-options>-Dfelix.fileinstall.dir=${com.sun.aas.installRoot}/modules/autostart/</jvm-options>
         <jvm-options>-Dfelix.fileinstall.poll=5000</jvm-options>
-        <jvm-options>-Dfelix.fileinstall.log.level=3</jvm-options>
+        <jvm-options>-Dfelix.fileinstall.log.level=2</jvm-options>
         <jvm-options>-Dfelix.fileinstall.bundles.new.start=true</jvm-options>
         <jvm-options>-Dfelix.fileinstall.bundles.startTransient=true</jvm-options>
         <jvm-options>-Dfelix.fileinstall.disableConfigSave=false</jvm-options>
+        <jvm-options>-XX:NewRatio=2</jvm-options>
+        <jvm-options>-Dcom.ctc.wstx.returnNullForDefaultNamespace=true</jvm-options>
+        <jvm-options>-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false</jvm-options>
+        <jvm-options>-Dfile.encoding=UTF8</jvm-options>
+        <jvm-options>-Duser.language=en</jvm-options>
+        <jvm-options>-Dorg.glassfish.jms.EagerStartup=true</jvm-options>
+        <jvm-options>-XX:MaxPermSize=512m</jvm-options>
+        <jvm-options>-Dhibernate.search.default.directory_provider=org.hibernate.search.store.impl.FSMasterDirectoryProvider</jvm-options>
+        <jvm-options>-Dhibernate.search.default.indexBase=${com.sun.aas.instanceRoot}/masterIndexBase</jvm-options>
+        <jvm-options>-Dhibernate.search.default.sourceBase=/opt/glassfish4/glassfish/masterSourceBase</jvm-options>
+        <jvm-options>-Dhibernate.search.default.refresh=60</jvm-options>
+        <jvm-options>-Dproduct.name=</jvm-options>
       </java-config>
       <availability-service>
         <web-container-availability></web-container-availability>

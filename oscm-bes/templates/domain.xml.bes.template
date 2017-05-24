@@ -62,7 +62,7 @@
     <connector-connection-pool resource-adapter-name="jmsra" max-pool-size="250" fail-all-connections="true" steady-pool-size="1" idle-timeout-in-seconds="600" name="jms/bss/masterIndexerQueueFactoryConPool" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" transaction-support="XATransaction">
       <property name="Password" value="${DB_PWD_JMS}"></property>
       <property name="UserName" value="${DB_USER_JMS}"></property>
-      <property name="AddressList" value="mq://localhost:8476"></property>
+      <property name="AddressList" value="mq://${HOSTNAME}:8476"></property>
     </connector-connection-pool>
     <connector-connection-pool resource-adapter-name="jmsra" max-pool-size="250" fail-all-connections="true" steady-pool-size="1" idle-timeout-in-seconds="600" name="jms/bss/taskQueueFactoryConPool" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" transaction-support="XATransaction">
       <property name="Password" value="${DB_PWD_JMS}"></property>
@@ -103,7 +103,7 @@
     </server>
   </servers>
   <nodes>
-    <node name="localhost-bes-domain" install-dir="${com.sun.aas.productRoot}" type="CONFIG" node-host="localhost"></node>
+    <node name="${HOSTNAME}-bes-domain" install-dir="${com.sun.aas.productRoot}" type="CONFIG" node-host="${HOSTNAME}"></node>
   </nodes>
   <configs>
     <config name="server-config">
@@ -135,7 +135,7 @@
       <transaction-service tx-log-dir="${com.sun.aas.instanceRoot}/logs"></transaction-service>
       <batch-runtime-configuration></batch-runtime-configuration>
       <jms-service default-jms-host="default_JMS_host" type="LOCAL">
-        <jms-host port="8076" name="default_JMS_host" host="localhost"></jms-host>
+        <jms-host port="8076" name="default_JMS_host" host="${HOSTNAME}"></jms-host>
       </jms-service>
       <rest-config></rest-config>
       <cdi-service></cdi-service>
@@ -261,7 +261,6 @@
         <jvm-options>-Dhibernate.search.default.refresh=5</jvm-options>
         <jvm-options>-Dproduct.name=</jvm-options>
         <jvm-options>-Xmx4096m</jvm-options>
-        <jvm-options>-Dcom.sun.metro.soap.dump=true</jvm-options>
       </java-config>
       <network-config>
         <protocols>
@@ -347,7 +346,7 @@
       </ejb-container>
       <mdb-container></mdb-container>
       <jms-service addresslist-behavior="priority" default-jms-host="default_JMS_host" type="EMBEDDED">
-        <jms-host port="27676" host="localhost" name="default_JMS_host"></jms-host>
+        <jms-host port="27676" host="${HOSTNAME}" name="default_JMS_host"></jms-host>
       </jms-service>
       <log-service file="${com.sun.aas.instanceRoot}/logs/server.log" log-rotation-limit-in-bytes="2000000">
         <module-log-levels></module-log-levels>
