@@ -526,9 +526,9 @@
 #Tue May 09 16:11:40 CEST 2017
 imq.persist.jdbc.postgresql.driver=org.postgresql.Driver
 imq.instanceconfig.version=300
-imq.persist.jdbc.connection.validationQuery=SELECT 1 FROM mqbkr41sbrokerid_masterindexer
+imq.persist.jdbc.connection.validationQuery=SELECT 1 FROM mqbkr41sbroker_mi
 imq.persist.jdbc.dbVendor=postgresql
-imq.brokerid=broker1
+imq.brokerid=broker_mi
 imq.jmsra.managed=true
 imq.persist.jdbc.connection.limit=30
 imq.persist.jdbc.postgresql.opendburl=jdbc\:postgresql\://${DB_HOST_JMS}\:${DB_PORT_JMS}/${DB_NAME_JMS}
