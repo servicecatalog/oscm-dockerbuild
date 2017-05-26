@@ -55,8 +55,6 @@
   <servers>
     <server config-ref="server-config" name="server">
       <resource-ref ref="jdbc/__TimerPool"></resource-ref>
-      <resource-ref ref="jdbc/__default"></resource-ref>
-      <resource-ref ref="jms/__defaultConnectionFactory"></resource-ref>
       <resource-ref ref="BSSDS"></resource-ref>
       <resource-ref ref="jms/bss/masterIndexerQueueFactory"></resource-ref>
       <resource-ref ref="jms/bss/masterIndexerQueue"></resource-ref>

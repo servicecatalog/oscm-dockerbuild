@@ -30,7 +30,8 @@ function genPropertyFilesBES {
 # Generate property files for JMS from environment
 function genPropertyFilesJMS {
 	/usr/bin/envsubst < /opt/templates/init.sql.jms.template > /opt/sqlscripts/init.sql
-    /usr/bin/envsubst < /opt/templates/config.properties.jms.template > /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
+    /usr/bin/envsubst < /opt/templates/config.properties.bes.template > /opt/glassfish4/glassfish/domains/bes-domain/imq/instances/imqbroker/props/config.properties
+    /usr/bin/envsubst < /opt/templates/config.properties.mi.template > /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
 }
 
 # Generate property files for APP from environment
@@ -104,6 +105,7 @@ if [ $TARGET == "JMS" ]; then
 		
 		# Initialize data
 		/opt/glassfish4/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish4/glassfish/domains/master-indexer-domain/imq -javahome /usr/lib/jvm/java
+        /opt/glassfish4/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish4/glassfish/domains/bes-domain/imq -javahome /usr/lib/jvm/java
 	fi
 	
 	# Import SQL dumps
