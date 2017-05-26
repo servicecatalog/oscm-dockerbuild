@@ -36,12 +36,12 @@ fi
 
 for f in /opt/certs/*.der /opt/certs/*.crt /opt/certs/*.cer /opt/certs/*.pem
 do
-    if [ -f $f ]; then
-    	filename=$(basename "$f")
-    	filename="${filename%.*}"
-    	keytool -import -alias filename -keystore $DOMAINS/bes-domain/config/cacerts.jks -storepass changeit \
-    		-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
-    fi
+	if [ -f $f ]; then
+		filename=$(basename "$f")
+		filename="${filename%.*}"
+		keytool -import -alias $filename -keystore $DOMAINS/bes-domain/config/cacerts.jks -storepass changeit\
+			-noprompt -trustcacerts -file $f
+	fi
 done
 
 # Change admin passwords

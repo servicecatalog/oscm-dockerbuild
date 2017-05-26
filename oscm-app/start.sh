@@ -32,8 +32,8 @@ do
 	if [ -f $f ]; then
 		filename=$(basename "$f")
 		filename="${filename%.*}"
-		keytool -import -alias filename -keystore $DOMAINS/app-domain/config/cacerts.jks -storepass changeit \
-			-noprompt -trustcacerts -file /opt/certs/$CERT_FILE
+		keytool -import -alias $filename -keystore $DOMAINS/app-domain/config/cacerts.jks -storepass changeit\
+			-noprompt -trustcacerts -file $f
 	fi
 done
 
