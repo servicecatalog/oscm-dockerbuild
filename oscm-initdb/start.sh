@@ -16,7 +16,7 @@ mkdir -p /opt/properties/
 
 # Wait for database server to become ready
 function waitForDB {
-    until /usr/bin/psql -h $1 -p $2 -l -U $3 -q >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+    until /bin/ncat -w 1 $1 $2 </dev/null >/dev/null >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 }
 
 # Generate property files for BES from environment
@@ -55,7 +55,7 @@ if [ $TARGET == "BES" ]; then
 	genPropertyFilesBES
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_BES $DB_PORT_BES $DB_SUPERUSER
+	waitForDB $DB_HOST_BES $DB_PORT_BES
 	
 	# Initialize BES DB
 	if [ $SOURCE == "INIT" ]; then
@@ -96,7 +96,7 @@ if [ $TARGET == "JMS" ]; then
 	genPropertyFilesJMS
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_JMS $DB_PORT_JMS $DB_SUPERUSER
+	waitForDB $DB_HOST_JMS $DB_PORT_JMS
 	
 	# Initialize JMS DB
 	if [ $SOURCE == "INIT" ]; then
@@ -127,7 +127,7 @@ if [ $TARGET == "APP" ]; then
 	genPropertyFilesAPP
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_APP $DB_PORT_APP $DB_SUPERUSER
+	waitForDB $DB_HOST_APP $DB_PORT_APP
 	
 	# Initialize APP DB
 	if [ $SOURCE == "INIT" ]; then    
@@ -163,7 +163,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 	genPropertyFilesAPPController
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_APP $DB_PORT_APP $DB_SUPERUSER
+	waitForDB $DB_HOST_APP $DB_PORT_APP
 	
 	# Initialize APP DB
 	if [ $SOURCE == "INIT" ]; then    

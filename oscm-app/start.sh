@@ -49,7 +49,7 @@ $ASADMIN --passwordfile /opt/newadminpwd --user admin change-admin-password --do
 echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/app-domain/config/key
 
 # Wait for database
-until psql -h $DB_HOST_APP -l -U $DB_USER_APP -q >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+until /bin/ncat -w 1 ${DB_HOST_APP} ${DB_PORT_APP} </dev/null >/dev/null >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 
 # Start domain
 $ASADMIN start-domain --verbose app-domain
