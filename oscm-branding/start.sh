@@ -4,7 +4,7 @@
 
 # Get branding archives from local directory
 if [ ${SOURCE} == "LOCAL" ]; then
-    /usr/bin/cp BRANDING_DIR/*.tar.gz /tmp/work
+    /usr/bin/cp ${BRANDING_DIR}/*.tar.gz /tmp/work
 fi
 
 # Get branding archives from bucket
