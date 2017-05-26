@@ -23,6 +23,7 @@ COPY oscm-portal.war oscm-portal-help.war /opt/glassfish4/glassfish/domains/bes-
 
 COPY templates/*.template /opt/templates/
 
+COPY resources/login.conf /opt/glassfish4/glassfish/domains/bes-domain/config/
 COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/
 COPY resources/config.properties /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/
 COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/
