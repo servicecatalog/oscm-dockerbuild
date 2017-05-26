@@ -43,11 +43,11 @@
       <property name="TraceLevel" value="-1"></property>
     </jdbc-connection-pool>
     <jdbc-resource pool-name="BSSPool" jndi-name="BSSDS"></jdbc-resource>
-    <connector-connection-pool max-pool-size="250" steady-pool-size="1" name="jms/bss/masterIndexerQueueFactory" resource-adapter-name="jmsra" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" idle-timeout-in-seconds="600" fail-all-connections="true" transaction-support="XATransaction">
+    <connector-connection-pool max-pool-size="250" steady-pool-size="1" name="jms/bss/masterIndexerQueueFactoryConPool" resource-adapter-name="jmsra" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" idle-timeout-in-seconds="600" fail-all-connections="true" transaction-support="XATransaction">
       <property name="Password" value="${DB_PWD_JMS}"></property>
       <property name="UserName" value="${DB_USER_JMS}"></property>
     </connector-connection-pool>
-    <connector-resource pool-name="jms/bss/masterIndexerQueueFactory" jndi-name="jms/bss/masterIndexerQueueFactory"></connector-resource>
+    <connector-resource pool-name="jms/bss/masterIndexerQueueFactoryConPool" jndi-name="jms/bss/masterIndexerQueueFactory"></connector-resource>
     <admin-object-resource res-adapter="jmsra" res-type="javax.jms.Queue" jndi-name="jms/bss/masterIndexerQueue">
       <property name="Name" value="jms_bss_masterIndexerQueue"></property>
     </admin-object-resource>
