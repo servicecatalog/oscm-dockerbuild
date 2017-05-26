@@ -17,8 +17,6 @@ else
 fi
 
 # Generate property files
-/usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
-/usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
 /usr/bin/envsubst < /opt/templates/domain.xml.app.template > $DOMAINS/app-domain/config/domain.xml
 /usr/bin/envsubst < /opt/templates/glassfish-acc.xml.template > $DOMAINS/app-domain/config/glassfish-acc.xml
 
