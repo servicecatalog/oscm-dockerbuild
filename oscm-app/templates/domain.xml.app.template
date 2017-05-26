@@ -53,7 +53,7 @@
     <mail-resource host="${SMTP_HOST}" description="Mail session for APP" jndi-name="mail/APPMail" from="${SMTP_FROM}" user="${SMTP_USER}">
       <property name="mail-smtp-auth" value="${SMTP_AUTH}"></property>
       <property name="mail-smtp-timeout" value="30000"></property>
-      <property name="mail-smtp-port" value="25"></property>
+      <property name="mail-smtp-port" value="${SMTP_PORT}"></property>
       <property name="mail-user" value="${SMTP_USER}"></property>
       <property name="mail-smtp-password" value="${SMTP_PWD}"></property>
       <property name="mail-smtp-connectiontimeout" value="30000"></property>
