@@ -35,7 +35,7 @@
       <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/ejbtimer"></property>
       <property name="connectionAttributes" value=";create=true"></property>
     </jdbc-connection-pool>
-    <jdbc-connection-pool validation-table-name="VERSION" datasource-classname="org.postgresql.xa.PGXADataSource" res-type="javax.sql.XADataSource" description="Connection pool for APP" name="BSSAppPool" is-connection-validation-required="true" idle-timeout-in-seconds="${DB_TIMEOUT_APP}">
+    <jdbc-connection-pool validation-table-name="VERSION" datasource-classname="org.postgresql.xa.PGXADataSource" res-type="javax.sql.XADataSource" description="Connection pool for APP" name="BSSAppPool" is-connection-validation-required="true" idle-timeout-in-seconds="${DB_TIMEOUT_APP}" max-wait-time-in-millis="${DB_WAIT_APP}" connection-creation-retry-interval-in-seconds="${DB_RETRY_INTERVAL_APP}">
       <property name="serverName" value="${DB_HOST_APP}"></property>
       <property name="TraceFileAppend" value="false"></property>
       <property name="RetrieveMessageText" value="true"></property>
