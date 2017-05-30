@@ -1,6 +1,6 @@
 FROM nginx:mainline
 
-ENV BRANDING_DIR=/brandings GS_SERVICE_ACCOUNT_KEY_FILE=/key/keyfile.json GS_BUCKET=mybucket
+ENV SOURCE=LOCAL BRANDING_DIR=/brandings GS_SERVICE_ACCOUNT_KEY_FILE=/key/keyfile.json GS_BUCKET=mybucket
 
 COPY start.sh /opt/start.sh
 

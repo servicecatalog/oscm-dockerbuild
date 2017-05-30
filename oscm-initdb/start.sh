@@ -1,162 +1,194 @@
 #!/bin/bash
 
-# Mandatory files (mount these) for DB import from SQL files (IMPORT_DB=true)
-# SQL_DUMP_GLOBALS="/sqldump/globals.sql": Dump of the globals (DBs, Schemas, Roles, ...)
-# SQL_DUMP_BSS="/sqldump/bss.sql": Dump of the bss database
-# SQL_DUMP_BSSJMS="/sqldump/bssjms.sql": Dump of the jms database
-# SQL_DUMP_BSSAPP="/sqldump/bssapp.sql": Dump of the app database
+# Mandatory files (mount these) for DB import from SQL files (SOURCE=DUMP)
+# SQL_DUMP_GLOBALS="/opt/sqldump/globals.sql": Dump of the globals (DBs, Schemas, Roles, ...)
+# SQL_DUMP_BSS="/opt/sqldump/bss.sql": Dump of the bss database
+# SQL_DUMP_BSSJMS="/opt/sqldump/bssjms.sql": Dump of the jms database
+# SQL_DUMP_BSSAPP="/opt/sqldump/bssapp.sql": Dump of the app database
 
-# Optional files (mount these for additional features):
-# SSO_FILE_BES: SSO properties for BES
-#TODO: Include SSO properties template and generate from ENV variables
 
 # Exit on error
 trap 'echo ERROR at line $LINENO; exit' ERR
 
 export PGCONNECT_TIMEOUT=2
-export PROP_FILE_BES_DB="/properties/bes/db.properties"
-export PROP_FILE_BES_CONF="/properties/bes/configsettings.properties"
-export SSO_FILE_BES="/properties/bes/sso.properties"
-export PROP_FILE_APP_DB="/properties/app/db.properties"
-export PROP_FILE_APP_CONF="/properties/app/configsettings.properties"
-export PROP_FILE_APP_CONTROLLER_CONF="/properties/app/configsettings_controller.properties"
-export SQL_DIR_BES="/opt/sqlscripts/bes"
-export SQL_DIR_APP="/opt/sqlscripts/app"
-export SQL_TEMP_FILE_BES="/tmp/bes.sql"
-export SQL_TEMP_FILE_APP="/tmp/app.sql"
-export SQL_DUMP_GLOBALS="/sqldump/globals.sql"
-export SQL_DUMP_BSS="/sqldump/bss.sql"
-export SQL_DUMP_BSSJMS="/sqldump/bssjms.sql"
-export SQL_DUMP_BSSAPP="/sqldump/bssapp.sql"
 
-/usr/bin/mkdir -p /properties/bes
-/usr/bin/mkdir -p /properties/app
+mkdir -p /opt/properties/
 
 # Wait for database server to become ready
 function waitForDB {
-    until /usr/bin/psql -h $1 -p $2 -l -U $3 -q >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+    until /bin/ncat -w 1 $1 $2 </dev/null >/dev/null >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 }
 
 # Generate property files for BES from environment
-function genPropertyFilesBES {
-    /usr/bin/envsubst < /propertytemplates/config.properties.jms.template > /opt/glassfish3/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
-    /usr/bin/envsubst < /propertytemplates/db.properties.bes.template > ${PROP_FILE_BES_DB}
-    /usr/bin/envsubst < /propertytemplates/configsettings.properties.bes.template > ${PROP_FILE_BES_CONF}
+function genPropertyFilesBES {   
+	/usr/bin/envsubst < /opt/templates/init.sql.bes.template > /opt/sqlscripts/init.sql
+    /usr/bin/envsubst < /opt/templates/db.properties.bes.template > /opt/properties/db.properties
+    /usr/bin/envsubst < /opt/templates/configsettings.properties.bes.template > /opt/properties/configsettings.properties
+	/usr/bin/envsubst < /opt/templates/sso.properties.bes.template > /opt/properties/sso.properties
+}
+
+# Generate property files for JMS from environment
+function genPropertyFilesJMS {
+	/usr/bin/envsubst < /opt/templates/init.sql.jms.template > /opt/sqlscripts/init.sql
+    /usr/bin/envsubst < /opt/templates/config.properties.bes.template > /opt/glassfish4/glassfish/domains/bes-domain/imq/instances/imqbroker/props/config.properties
+    /usr/bin/envsubst < /opt/templates/config.properties.mi.template > /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
 }
 
 # Generate property files for APP from environment
 function genPropertyFilesAPP {
-    /usr/bin/envsubst < /propertytemplates/db.properties.app.template > ${PROP_FILE_APP_DB}
-    /usr/bin/envsubst < /propertytemplates/configsettings.properties.app.template > ${PROP_FILE_APP_CONF}
-    if [ ${INIT_CONTROLLER} = "true" ]; then
-        /usr/bin/envsubst < /propertytemplates/configsettings_controller.properties.app.template > ${PROP_FILE_APP_CONTROLLER_CONF}
-    fi
+	/usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
+    /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
+    /usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
 }
 
-# Fill or upgrade DB schema and set/fix configuration settings
-function fillUpgradeAndConfigureDB {
-    # BES
-    if [ ${INIT_BES} = "true" ] || [ ${UPGRADE_BES} = "true" ]; then
-        # Generate property files from environment
-        genPropertyFilesBES
-        # Wait for database server to become ready
-        waitForDB ${DB_HOST_BES} ${DB_PORT_BES} ${DB_SUPERUSER}
-        
-        # bss DB: Initialize and update data
-        /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler ${PROP_FILE_BES_DB} ${SQL_DIR_BES}
-        # Import properties
-        /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_CONF}
-        # Import SSO properties
-        if [ -f ${SSO_FILE_BES} ]; then
-            /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_DB} ${SSO_FILE_BES}
-        fi
-        # jms DB: Initialize data
-        /opt/glassfish3/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish3/glassfish/domains/master-indexer-domain/imq -javahome /usr/lib/jvm/java
-    fi
-    
-    # APP
-    if [ ${INIT_APP} = "true" ] || [ ${UPGRADE_APP} = "true" ]; then
-        # Generate property files from environment
-        genPropertyFilesAPP
-        # Wait for database server to become ready
-        waitForDB ${DB_HOST_APP} ${DB_PORT_APP} ${DB_SUPERUSER}
-        
-        # Initialize and update data
-        /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler ${PROP_FILE_APP_DB} ${SQL_DIR_APP}
-        # Import APP properties
-        /usr/bin/java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" ${DB_USER_APP} ${DB_PWD_APP} ${PROP_FILE_APP_CONF} true
-        # Import controller properties
-        if [ ${INIT_CONTROLLER} = "true" ]; then
-            /usr/bin/java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" ${DB_USER_APP} ${DB_PWD_APP} ${PROP_FILE_APP_CONTROLLER_CONF} true CONTROLLER
-        fi
-        # Import SSO properties
-        if [ -f ${SSO_FILE_APP} ]; then
-            /usr/bin/java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver "jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" ${DB_USER_BES} ${DB_PWD_BES} ${PROP_FILE_BES_DB} ${SSO_FILE_BES}
-        fi
-    fi
-    exit
+# Generate property files for APP Controller from environment
+function genPropertyFilesAPPController {
+    /usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
+    /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
+    /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
 
-# Initialize BES DB
-if [ ${INIT_BES} = "true" ] && [ ${IMPORT_DB} = "false" ]; then
-    # Wait for database server to become ready
-    waitForDB ${DB_HOST_BES} ${DB_PORT_BES} ${DB_SUPERUSER}
-    
-    # Create databases, schemas, users and roles
-    echo "\set ON_ERROR_STOP" > ${SQL_TEMP_FILE_BES}
-    echo "CREATE ROLE ${DB_USER_BES} LOGIN PASSWORD '${DB_PWD_BES}';" >> ${SQL_TEMP_FILE_BES}
-  	echo "CREATE DATABASE ${DB_NAME_BES} WITH OWNER=${DB_USER_BES} TEMPLATE=template0 ENCODING='UTF8';" >> ${SQL_TEMP_FILE_BES}
-  	echo "\c ${DB_NAME_BES}" >> ${SQL_TEMP_FILE_BES}
-  	echo "CREATE SCHEMA ${DB_USER_BES};" >> ${SQL_TEMP_FILE_BES}
-  	echo "GRANT ALL PRIVILEGES ON SCHEMA ${DB_USER_BES} TO ${DB_USER_BES};" >> ${SQL_TEMP_FILE_BES}
-    echo "CREATE ROLE jmsuser LOGIN PASSWORD 'jmsuser';" >> ${SQL_TEMP_FILE_BES}
-  	echo "CREATE DATABASE bssjms WITH OWNER=jmsuser TEMPLATE=template0 ENCODING='UTF8';" >> ${SQL_TEMP_FILE_BES}
-  	echo "\c bssjms" >> ${SQL_TEMP_FILE_BES}
-  	echo "CREATE SCHEMA jmsuser;" >> ${SQL_TEMP_FILE_BES}
-  	echo "GRANT ALL PRIVILEGES ON SCHEMA jmsuser TO jmsuser;" >> ${SQL_TEMP_FILE_BES}
-    /usr/bin/psql -h ${DB_HOST_BES} -p ${DB_PORT_BES} -U ${DB_SUPERUSER} -f ${SQL_TEMP_FILE_BES}
-    /usr/bin/rm -f ${SQL_TEMP_FILE_BES}
+# BES
+if [ $TARGET == "BES" ]; then
+	# Generate property files from environment
+	genPropertyFilesBES
+	
+	# Wait for database server to become ready
+	waitForDB $DB_HOST_BES $DB_PORT_BES
+	
+	# Initialize BES DB
+	if [ $SOURCE == "INIT" ]; then
+		# Create databases, schemas, users and roles
+		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+	fi
+	
+	# Import SQL dumps
+	if [ $SOURCE == "DUMP" ]; then
+		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+		fi
+		if [ -f /opt/sqldump/$SQL_DUMP_BSS.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSS.gz > /opt/sqldump/$SQL_DUMP_BSS
+		fi
+		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSS
+	fi
+	
+	# Initialize and update data
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/bes
+	
+	# Update properties
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" $DB_USER_BES $DB_PWD_BES \
+		/opt/properties/configsettings.properties $OVERWRITE
+	
+	# Import SSO properties (only if AUTH_MODE is SAML_SP)
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_BES}:${DB_PORT_BES}/${DB_NAME_BES}" $DB_USER_BES $DB_PWD_BES \
+		/opt/properties/configsettings.properties /opt/properties/sso.properties        
 fi
 
-# Initialize APP DB
-if [ ${INIT_APP} = "true" ] && [ ${IMPORT_DB} = "false" ]; then    
-    # Wait for database server to become ready
-    waitForDB ${DB_HOST_APP} ${DB_PORT_APP} ${DB_SUPERUSER}
-    
-    # Create databases, schemas, users and roles
-    echo "\set ON_ERROR_STOP" > ${SQL_TEMP_FILE_APP}
-    echo "CREATE ROLE ${DB_USER_APP} LOGIN PASSWORD '${DB_PWD_APP}';" >> ${SQL_TEMP_FILE_APP}
-    echo "CREATE DATABASE ${DB_NAME_APP} WITH OWNER=${DB_USER_APP} TEMPLATE=template0 ENCODING='UTF8';" >> ${SQL_TEMP_FILE_APP}
-    echo "\c ${DB_NAME_APP}" >> ${SQL_TEMP_FILE_APP}
-    echo "CREATE SCHEMA ${DB_USER_APP};" >> ${SQL_TEMP_FILE_APP}
-    echo "GRANT ALL PRIVILEGES ON SCHEMA ${DB_USER_APP} TO ${DB_USER_APP};" >> ${SQL_TEMP_FILE_APP}
-    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_TEMP_FILE_APP}
-    /usr/bin/rm -f ${SQL_TEMP_FILE_APP}
+# JMS
+if [ $TARGET == "JMS" ]; then
+	# Generate property files from environment
+	genPropertyFilesJMS
+	
+	# Wait for database server to become ready
+	waitForDB $DB_HOST_JMS $DB_PORT_JMS
+	
+	# Initialize JMS DB
+	if [ $SOURCE == "INIT" ]; then
+		# Create databases, schemas, users and roles
+		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+		
+		# Initialize data
+		/opt/glassfish4/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish4/glassfish/domains/master-indexer-domain/imq -javahome /usr/lib/jvm/java
+        /opt/glassfish4/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish4/glassfish/domains/bes-domain/imq -javahome /usr/lib/jvm/java
+	fi
+	
+	# Import SQL dumps
+	if [ $SOURCE == "DUMP" ]; then
+		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+		fi
+		if [ -f /opt/sqldump/$SQL_DUMP_BSSJMS.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSSJMS.gz > /opt/sqldump/$SQL_DUMP_BSSJMS
+		fi
+		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSJMS
+	fi	
 fi
 
-# Import SQL dumps
-if [ ${IMPORT_DB} = "true" ]; then
-    if [ -f ${SQL_DUMP_GLOBALS}.gz ]; then
-        /usr/bin/gunzip -c ${SQL_DUMP_GLOBALS}.gz > ${SQL_DUMP_GLOBALS}
-    fi
-    if [ -f ${SQL_DUMP_BSS}.gz ]; then
-        /usr/bin/gunzip -c ${SQL_DUMP_BSS}.gz > ${SQL_DUMP_BSS}
-    fi
-    if [ -f ${SQL_DUMP_BSSJMS}.gz ]; then
-        /usr/bin/gunzip -c ${SQL_DUMP_BSSJMS}.gz > ${SQL_DUMP_BSSJMS}
-    fi
-    if [ -f ${SQL_DUMP_BSSAPP}.gz ]; then
-        /usr/bin/gunzip -c ${SQL_DUMP_BSSAPP}.gz > ${SQL_DUMP_BSSAPP}
-    fi
-    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_GLOBALS}
-    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_BSS}
-    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_BSSJMS}
-    /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_SUPERUSER} -f ${SQL_DUMP_BSSAPP}
+# APP
+if [ $TARGET == "APP" ]; then
+	# Generate property files from environment
+	genPropertyFilesAPP
+	
+	# Wait for database server to become ready
+	waitForDB $DB_HOST_APP $DB_PORT_APP
+	
+	# Initialize APP DB
+	if [ $SOURCE == "INIT" ]; then    
+		# Create databases, schemas, users and roles
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+	fi
+	
+	# Import SQL dumps
+	if [ $SOURCE == "DUMP" ]; then
+		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+		fi
+		if [ -f /opt/sqldump/$SQL_DUMP_BSSAPP.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
+		fi
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
+	fi
+	
+	# Initialize and update data
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/app
+   
+    # Update properties
+	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $OVERWRITE
 fi
 
-export UPGRADE_BES=true
-export UPGRADE_APP=true
-
-# Upgrade DB and set configuration settings
-fillUpgradeAndConfigureDB
+# APP Controller
+if [ $TARGET == "CONTROLLER" ]; then
+	# Generate property files from environment
+	genPropertyFilesAPPController
+	
+	# Wait for database server to become ready
+	waitForDB $DB_HOST_APP $DB_PORT_APP
+	
+	# Initialize APP DB
+	if [ $SOURCE == "INIT" ]; then    
+		# Create databases, schemas, users and roles
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+	fi
+	
+	# Import SQL dumps
+	if [ $SOURCE == "DUMP" ]; then
+		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_GLOBALS.gz > /opt/sqldump/$SQL_DUMP_GLOBALS
+		fi
+		if [ -f /opt/sqldump/$SQL_DUMP_BSSAPP.gz ]; then
+			gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
+		fi
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
+	fi
+	
+	# Initialize and update data
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/app
+	
+	# Import controller properties        
+	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID        
+fi

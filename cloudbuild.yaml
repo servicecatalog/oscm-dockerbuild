@@ -4,10 +4,12 @@ steps:
   args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-proxy:$TAG_NAME', '.']
   dir:  'oscm-proxy'
 
+# Create branding server
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-branding:$TAG_NAME', '.']
   dir:  'oscm-branding'
 
+# Create BIRT server
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/oscm/oscm-tomcat-birt:$TAG_NAME', '.']
   dir:  'oscm-tomcat-birt'

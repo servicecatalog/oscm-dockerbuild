@@ -1,7 +1,7 @@
 ##
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 #
-# Copyright (c) 2000-2010 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2000-2012 Oracle and/or its affiliates. All rights reserved.
 #
 # The contents of this file are subject to the terms of either the GNU
 # General Public License Version 2 only ("GPL") or the Common Development
@@ -523,7 +523,7 @@
 #
 #
 #Last Update:
-#Fri Apr 21 16:10:31 UTC 2017
+#Tue May 09 16:11:40 CEST 2017
 imq.persist.jdbc.postgresql.driver=org.postgresql.Driver
 imq.instanceconfig.version=300
 imq.persist.jdbc.connection.validationQuery=SELECT 1 FROM mqbkr41sbrokerid_masterindexer
@@ -531,8 +531,8 @@ imq.persist.jdbc.dbVendor=postgresql
 imq.brokerid=brokerid_masterindexer
 imq.jmsra.managed=true
 imq.persist.jdbc.connection.limit=30
-imq.persist.jdbc.postgresql.opendburl=jdbc\:postgresql\://${DB_HOST_BES}\:${DB_PORT_BES}/bssjms
+imq.persist.jdbc.postgresql.opendburl=jdbc\:postgresql\://${DB_HOST_JMS}\:${DB_PORT_JMS}/${DB_NAME_JMS}
 imq.persist.jdbc.connection.validateOnGet=true
 imq.persist.store=jdbc
-imq.persist.jdbc.postgresql.password=jmsuser
-imq.persist.jdbc.postgresql.user=jmsuser
+imq.persist.jdbc.postgresql.password=${DB_PWD_JMS}
+imq.persist.jdbc.postgresql.user=${DB_USER_JMS}

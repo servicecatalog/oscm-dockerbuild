@@ -1,9 +1,0 @@
-# Copyright FUJITSU LIMITED 2017
-# Asynchronous Provisioning Platform Controller Settings
-CONTROLLER_ID=ess.aws
-BSS_ORGANIZATION_ID=aaaaaaaa
-BSS_USER_KEY=${APP_TECHPROV_USER_KEY}
-BSS_USER_ID=${APP_TECHPROV_USER_NAME}
-BSS_USER_PWD=_crypt:${APP_TECHPROV_USER_PASS}
-ACCESS_KEY_ID_PWD=_crypt:aaaaa
-SECRET_KEY_PWD=_crypt:bbbbb
