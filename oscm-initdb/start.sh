@@ -16,7 +16,7 @@ mkdir -p /opt/properties/
 
 # Wait for database server to become ready
 function waitForDB {
-    until /bin/ncat -w 1 $1 $2 </dev/null >/dev/null >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+    until /usr/bin/psql -h $1 -p $2 -U postgres -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 }
 
 # Generate property files for BES from environment

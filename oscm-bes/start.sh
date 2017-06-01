@@ -59,7 +59,7 @@ $ASADMIN --passwordfile /opt/newadminpwd --user admin change-admin-password --do
 echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/bes-domain/config/key
 
 # Wait for database
-until /bin/ncat -w 1 ${DB_HOST_BES} ${DB_PORT_BES} </dev/null >/dev/null >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+until /usr/bin/psql -h ${DB_HOST_BES} -p ${DB_PORT_BES} -U postgres -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 
 # Start domains
 $ASADMIN start-domain master-indexer-domain
