@@ -49,7 +49,11 @@ $ASADMIN --passwordfile /opt/newadminpwd --user admin change-admin-password --do
 echo $KEY_SECRET | sha256sum | cut -f1 -d\ | xxd -r -p | head -c 16 > $DOMAINS/app-domain/config/key
 
 # Wait for database
+/usr/bin/touch /root/.pgpass
+/usr/bin/chmod 600 /root/.pgpass
+echo "${DB_HOST_APP}:${DB_PORT_APP}:bssapp:${DB_USER_APP}:${DB_PWD_APP}" > /root/.pgpass
 until /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_USER_APP} -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+/usr/bin/rm -f /root/.pgpass
 
 # Start domain
 $ASADMIN start-domain --verbose app-domain
