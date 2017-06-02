@@ -71,7 +71,9 @@ if [ $TARGET == "BES" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_BSS.gz ]; then
 			gunzip -c /opt/sqldump/$SQL_DUMP_BSS.gz > /opt/sqldump/$SQL_DUMP_BSS
 		fi
-		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS ]; then
+            psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        fi
 		psql -h $DB_HOST_BES -p $DB_PORT_BES -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSS
 	fi
 	
@@ -116,7 +118,9 @@ if [ $TARGET == "JMS" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_BSSJMS.gz ]; then
 			gunzip -c /opt/sqldump/$SQL_DUMP_BSSJMS.gz > /opt/sqldump/$SQL_DUMP_BSSJMS
 		fi
-		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS ]; then
+            psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        fi
 		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSJMS
 	fi	
 fi
@@ -143,7 +147,9 @@ if [ $TARGET == "APP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_BSSAPP.gz ]; then
 			gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
 		fi
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS ]; then
+            psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        fi
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
 	
@@ -179,7 +185,9 @@ if [ $TARGET == "CONTROLLER" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_BSSAPP.gz ]; then
 			gunzip -c /opt/sqldump/$SQL_DUMP_BSSAPP.gz > /opt/sqldump/$SQL_DUMP_BSSAPP
 		fi
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS ]; then
+            psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
+        fi
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
 	
