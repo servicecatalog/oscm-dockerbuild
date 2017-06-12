@@ -22,7 +22,7 @@ COPY resources/config.properties /opt/glassfish4/glassfish/domains/example-domai
 
 COPY oscm-security.jar /opt/glassfish4/glassfish/domains/example-domain/lib/
 
-COPY example-service.war oscm-integrationtests-mockproduct.war mock-psp-service.war oscm-integrationtests-saml2-sts.war oscm-psp-heidelpay.war oscm-parameter-configurator.war oscm-file-adapter.ear oscm-file-billing.war /opt/glassfish4/glassfish/domains/example-domain/applications/
+COPY example-service.war oscm-integrationtests-mockproduct.war mock-psp-service.war oscm-integrationtests-saml2-sts.war oscm-psp-heidelpay.war oscm-parameter-configurator.war oscm-file-adapter.ear oscm-file-billing.war /opt/glassfish4/glassfish/domains/example-domain/autodeploy/
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
