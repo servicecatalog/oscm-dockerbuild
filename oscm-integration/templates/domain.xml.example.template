@@ -100,7 +100,7 @@
     </server>
   </servers>
   <nodes>
-    <node name="${HOSTNAME}-bes-domain" install-dir="${com.sun.aas.productRoot}" type="CONFIG" node-host="${HOSTNAME}"></node>
+    <node name="${HOSTNAME}-example-domain" install-dir="${com.sun.aas.productRoot}" type="CONFIG" node-host="${HOSTNAME}"></node>
   </nodes>
   <configs>
     <config name="server-config">
@@ -502,6 +502,6 @@
       </monitoring-service>
     </config>
   </configs>
-  <property name="administrative.domain.name" value="bes-domain"></property>
+  <property name="administrative.domain.name" value="example-domain"></property>
   <clusters></clusters>
 </domain>

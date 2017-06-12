@@ -42,6 +42,29 @@ cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscri
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/app
 cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
 
+# copy resources for integration tests
+cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-ear/tmp/oscm.ear $REPO_DOCKER/oscm-integration/oscm-sso.ear
+cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-reports/oscm-reports.zip $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-security/oscm-security.jar $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-integration/
+
+cp $BUILD_DIR/example-service/example-service.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-integrationtests-mockproduct/oscm-integrationtests-mockproduct.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/mock-psp-service/mock-psp-service.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-integrationtests-saml2-sts/oscm-integrationtests-saml2-sts.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-psp-heidelpay/oscm-psp-heidelpay.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-integrationtests-parameter-configurator/oscm-parameter-configurator.war $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-file-billing-adapter/oscm-file-adapter.ear $REPO_DOCKER/oscm-integration/
+cp $BUILD_DIR/oscm-file-billing-application/oscm-file-billing.war $REPO_DOCKER/oscm-integration/
+
 # copy resources for bes
 cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-bes/
