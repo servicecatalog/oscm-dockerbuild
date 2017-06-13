@@ -23,80 +23,47 @@
   <managed-job-config></managed-job-config>
   <system-applications></system-applications>
   <resources>
-    <jdbc-resource pool-name="__TimerPool" jndi-name="jdbc/__TimerPool" object-type="system-admin"></jdbc-resource>
-    <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.EmbeddedXADataSource" res-type="javax.sql.XADataSource" name="__TimerPool">
+    <jdbc-resource pool-name="__TimerPool" object-type="system-admin" jndi-name="jdbc/__TimerPool"></jdbc-resource>
+    <jdbc-resource pool-name="DerbyPool" object-type="system-all" jndi-name="jdbc/__default"></jdbc-resource>
+    <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.EmbeddedXADataSource" name="__TimerPool" res-type="javax.sql.XADataSource">
       <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/ejbtimer"></property>
       <property name="connectionAttributes" value=";create=true"></property>
     </jdbc-connection-pool>
-	<jdbc-connection-pool datasource-classname="org.postgresql.xa.PGXADataSource" validation-table-name="VERSION" name="BSSPool" description="Connection pool for BSS" is-connection-validation-required="true" res-type="javax.sql.XADataSource" idle-timeout-in-seconds="${DB_TIMEOUT_BES}" max-wait-time-in-millis="${DB_WAIT_BES}" connection-creation-retry-interval-in-seconds="${DB_RETRY_INTERVAL_BES}">
-      <property name="serverName" value="${DB_HOST_BES}"></property>
-      <property name="TraceFileAppend" value="false"></property>
-      <property name="RetrieveMessageText" value="true"></property>
-      <property name="user" value="${DB_USER_BES}"></property>
-      <property name="roleName" value="${DB_USER_BES}"></property>
-      <property name="networkProtocol" value="tcp/ip"></property>
-      <property name="datasourceName" value="org.postgresql.xa.PGXADataSource"></property>
-      <property name="LoginTimeout" value="0"></property>
-      <property name="databaseName" value="${DB_NAME_BES}"></property>
-      <property name="password" value="${DB_PWD_BES}"></property>
-      <property name="portNumber" value="${DB_PORT_BES}"></property>
-      <property name="TraceLevel" value="-1"></property>
+    <jdbc-connection-pool is-isolation-level-guaranteed="false" datasource-classname="org.apache.derby.jdbc.ClientDataSource" name="DerbyPool" res-type="javax.sql.DataSource">
+      <property name="PortNumber" value="1527"></property>
+      <property name="Password" value="APP"></property>
+      <property name="User" value="APP"></property>
+      <property name="serverName" value="localhost"></property>
+      <property name="DatabaseName" value="sun-appserv-samples"></property>
+      <property name="connectionAttributes" value=";create=true"></property>
     </jdbc-connection-pool>
-    <jdbc-resource pool-name="BSSPool" jndi-name="BSSDS"></jdbc-resource>
-    <mail-resource host="${SMTP_HOST}" description="Mail session for BSS" from="${SMTP_FROM}" user="${SMTP_USER}" jndi-name="mail/BSSMail">
-      <property name="mail-smtp-auth" value="${SMTP_AUTH}"></property>
-      <property name="mail-smtp-timeout" value="30000"></property>
-      <property name="mail-smtp-port" value="${SMTP_PORT}"></property>
-      <property name="mail-user" value="${SMTP_USER}"></property>
-      <property name="mail-smtp-password" value="${SMTP_PWD}"></property>
-      <property name="mail-smtp-connectiontimeout" value="30000"></property>
-    </mail-resource>
-    <connector-connection-pool resource-adapter-name="jmsra" max-pool-size="250" fail-all-connections="true" steady-pool-size="1" idle-timeout-in-seconds="600" name="jms/bss/triggerQueueFactoryConPool" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" transaction-support="XATransaction">
-      <property name="Password" value="${DB_PWD_JMS}"></property>
-      <property name="UserName" value="${DB_USER_JMS}"></property>
-    </connector-connection-pool>
-    <connector-connection-pool resource-adapter-name="jmsra" max-pool-size="250" fail-all-connections="true" steady-pool-size="1" idle-timeout-in-seconds="600" name="jms/bss/indexerQueueFactoryConPool" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" transaction-support="XATransaction">
-      <property name="Password" value="${DB_PWD_JMS}"></property>
-      <property name="UserName" value="${DB_USER_JMS}"></property>
-    </connector-connection-pool>
-    <connector-connection-pool resource-adapter-name="jmsra" max-pool-size="250" fail-all-connections="true" steady-pool-size="1" idle-timeout-in-seconds="600" name="jms/bss/masterIndexerQueueFactoryConPool" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" transaction-support="XATransaction">
-      <property name="Password" value="${DB_PWD_JMS}"></property>
-      <property name="UserName" value="${DB_USER_JMS}"></property>
-    </connector-connection-pool>
+    <connector-connection-pool resource-adapter-name="jmsra" max-pool-size="250" steady-pool-size="1" name="jms/__defaultConnectionFactory-Connection-Pool" connection-definition-name="javax.jms.ConnectionFactory"></connector-connection-pool>
+    <connector-resource pool-name="jms/__defaultConnectionFactory-Connection-Pool" object-type="system-all-req" jndi-name="jms/__defaultConnectionFactory"></connector-resource>
     <connector-connection-pool resource-adapter-name="jmsra" max-pool-size="250" fail-all-connections="true" steady-pool-size="1" idle-timeout-in-seconds="600" name="jms/bss/taskQueueFactoryConPool" is-connection-validation-required="true" connection-definition-name="javax.jms.QueueConnectionFactory" transaction-support="XATransaction">
-      <property name="Password" value="${DB_PWD_JMS}"></property>
-      <property name="UserName" value="${DB_USER_JMS}"></property>
+      <property name="Password" value="jmsuser"></property>
+      <property name="UserName" value="jmsuser"></property>
+      <property name="AddressList" value="mq://G02PLXNNOW29020:8176"></property>
     </connector-connection-pool>
-    <connector-resource pool-name="jms/bss/triggerQueueFactoryConPool" jndi-name="jms/bss/triggerQueueFactory"></connector-resource>
-    <admin-object-resource res-adapter="jmsra" res-type="javax.jms.Queue" jndi-name="jms/bss/triggerQueue">
-      <property name="Name" value="jms_bss_triggerQueue"></property>
-    </admin-object-resource>
-    <connector-resource pool-name="jms/bss/indexerQueueFactoryConPool" jndi-name="jms/bss/indexerQueueFactory"></connector-resource>
-    <admin-object-resource res-adapter="jmsra" res-type="javax.jms.Queue" jndi-name="jms/bss/indexerQueue">
-      <property name="Name" value="jms_bss_indexerQueue"></property>
-    </admin-object-resource>
-    <connector-resource pool-name="jms/bss/masterIndexerQueueFactoryConPool" jndi-name="jms/bss/masterIndexerQueueFactory"></connector-resource>
-    <admin-object-resource res-adapter="jmsra" res-type="javax.jms.Queue" jndi-name="jms/bss/masterIndexerQueue">
-      <property name="Name" value="jms_bss_masterIndexerQueue"></property>
-    </admin-object-resource>
     <connector-resource pool-name="jms/bss/taskQueueFactoryConPool" jndi-name="jms/bss/taskQueueFactory"></connector-resource>
     <admin-object-resource res-adapter="jmsra" res-type="javax.jms.Queue" jndi-name="jms/bss/taskQueue">
       <property name="Name" value="jms_bss_taskQueue"></property>
     </admin-object-resource>
+    <context-service object-type="system-all" jndi-name="concurrent/__defaultContextService"></context-service>
+    <managed-executor-service object-type="system-all" jndi-name="concurrent/__defaultManagedExecutorService"></managed-executor-service>
+    <managed-scheduled-executor-service object-type="system-all" jndi-name="concurrent/__defaultManagedScheduledExecutorService"></managed-scheduled-executor-service>
+    <managed-thread-factory object-type="system-all" jndi-name="concurrent/__defaultManagedThreadFactory"></managed-thread-factory>
   </resources>
   <servers>
     <server config-ref="server-config" name="server">
       <resource-ref ref="jdbc/__TimerPool"></resource-ref>
-      <resource-ref ref="BSSDS"></resource-ref>
-      <resource-ref ref="mail/BSSMail"></resource-ref>
-      <resource-ref ref="jms/bss/triggerQueueFactory"></resource-ref>
-      <resource-ref ref="jms/bss/triggerQueue"></resource-ref>
-      <resource-ref ref="jms/bss/indexerQueueFactory"></resource-ref>
-      <resource-ref ref="jms/bss/indexerQueue"></resource-ref>
-      <resource-ref ref="jms/bss/masterIndexerQueueFactory"></resource-ref>
-      <resource-ref ref="jms/bss/masterIndexerQueue"></resource-ref>
+      <resource-ref ref="jdbc/__default"></resource-ref>
+      <resource-ref ref="jms/__defaultConnectionFactory"></resource-ref>
       <resource-ref ref="jms/bss/taskQueueFactory"></resource-ref>
       <resource-ref ref="jms/bss/taskQueue"></resource-ref>
+      <resource-ref ref="concurrent/__defaultContextService"></resource-ref>
+      <resource-ref ref="concurrent/__defaultManagedExecutorService"></resource-ref>
+      <resource-ref ref="concurrent/__defaultManagedScheduledExecutorService"></resource-ref>
+      <resource-ref ref="concurrent/__defaultManagedThreadFactory"></resource-ref>
     </server>
   </servers>
   <nodes>
@@ -148,7 +115,6 @@
           <session-properties></session-properties>
         </session-config>
       </web-container>
-      <mdb-container></mdb-container>
       <diagnostic-service></diagnostic-service>
       <security-service>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="admin-realm">
@@ -159,12 +125,7 @@
           <property name="file" value="${com.sun.aas.instanceRoot}/config/keyfile"></property>
           <property name="jaas-context" value="fileRealm"></property>
         </auth-realm>
-        <auth-realm classname="com.sun.enterprise.security.auth.realm.certificate.CertificateRealm" name="certificate">
-          <property name="assign-groups" value="CLIENTCERT"></property>
-        </auth-realm>
-        <auth-realm classname="org.oscm.security.ADMRealm" name="bss-realm">
-          <property name="jaas-context" value="bssRealm"></property>
-        </auth-realm>
+        <auth-realm classname="com.sun.enterprise.security.auth.realm.certificate.CertificateRealm" name="certificate"></auth-realm>
         <jacc-provider policy-provider="com.sun.enterprise.security.provider.PolicyWrapper" name="default" policy-configuration-factory-provider="com.sun.enterprise.security.provider.PolicyConfigurationFactoryImpl">
           <property name="repository" value="${com.sun.aas.instanceRoot}/generated/policy"></property>
         </jacc-provider>
@@ -246,18 +207,6 @@
         <jvm-options>-Dfelix.fileinstall.disableConfigSave=false</jvm-options>
         <jvm-options>-XX:NewRatio=2</jvm-options>
         <jvm-options>-Dcom.ctc.wstx.returnNullForDefaultNamespace=true</jvm-options>
-        <jvm-options>-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false</jvm-options>
-        <jvm-options>-Dfile.encoding=UTF8</jvm-options>
-        <jvm-options>-Dsun.java2d.print.polling=false</jvm-options>
-        <jvm-options>-Dsun.net.inetaddr.ttl=3600</jvm-options>
-        <jvm-options>-Duser.language=en</jvm-options>
-        <jvm-options>-Dhibernate.search.default.directory_provider=org.hibernate.search.store.impl.FSSlaveDirectoryProvider</jvm-options>
-        <jvm-options>-Dhibernate.search.indexing_strategy=manual</jvm-options>
-        <jvm-options>-Dhibernate.search.default.indexBase=${com.sun.aas.instanceRoot}/slaveIndexBase</jvm-options>
-        <jvm-options>-Dhibernate.search.default.sourceBase=/opt/glassfish4/glassfish/masterSourceBase</jvm-options>
-        <jvm-options>-Dhibernate.search.default.refresh=5</jvm-options>
-        <jvm-options>-Dproduct.name=</jvm-options>
-        <jvm-options>-Xmx4096m</jvm-options>
       </java-config>
       <network-config>
         <protocols>
@@ -277,17 +226,11 @@
               <file-cache></file-cache>
             </http>
           </protocol>
-          <protocol name="ws-listener">
-            <http xpowered-by="false" default-virtual-server="server">
-              <file-cache></file-cache>
-            </http>
-          </protocol>
         </protocols>
         <network-listeners>
           <network-listener protocol="http-listener-1" port="8080" name="http-listener-1" thread-pool="http-thread-pool" transport="tcp"></network-listener>
           <network-listener protocol="http-listener-2" port="8081" name="http-listener-2" thread-pool="http-thread-pool" transport="tcp"></network-listener>
           <network-listener protocol="admin-listener" port="8048" name="admin-listener" thread-pool="admin-thread-pool" transport="tcp"></network-listener>
-          <network-listener protocol="ws-listener" port="8082" name="ws-listener" thread-pool="http-thread-pool" transport="tcp"></network-listener>
         </network-listeners>
         <transports>
           <transport name="tcp"></transport>
