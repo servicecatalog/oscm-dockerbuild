@@ -77,6 +77,13 @@ else
 	docker run --name gc-ant-app-${TIMESTAMP} --rm -v ${DEVDIR}:/build gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.APP
 fi
 
+# Compile example domain components
+if [ ${PROXY_ENABLED} -eq 1 ]; then
+	docker run --name gc-ant-example-${TIMESTAMP} --rm -v ${DEVDIR}:/build -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" -e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" -e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.EXAMPLE
+else
+	docker run --name gc-ant-example-${TIMESTAMP} --rm -v ${DEVDIR}:/build gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.EXAMPLE
+fi
+
 # Copy necessary files to docker folders
 docker run --name ubuntu-copy-${TIMESTAMP} --rm -v ${DEVDIR}:/build ubuntu /bin/bash /build/oscm-dockerbuild/prepare.sh /build
 
@@ -85,6 +92,13 @@ if [ ${PROXY_ENABLED} -eq 1 ]; then
 	docker build -t oscm-gf --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-gf
 else
 	docker build -t oscm-gf oscm-dockerbuild/oscm-gf
+fi
+
+# Build final integration test image
+if [ ${PROXY_ENABLED} -eq 1 ]; then
+	docker build -t oscm-integration:${GIT_SOURCE} --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-integration
+else
+	docker build -t oscm-integration:${GIT_SOURCE} oscm-dockerbuild/oscm-integration
 fi
 
 # Build final BES image
@@ -131,6 +145,7 @@ fi
 
 # Set latest tag if requested
 if [ "${TAG_LATEST}" = "true" ]; then
+	docker tag oscm-integration:${GIT_SOURCE} oscm-integration:latest
 	docker tag oscm-bes:${GIT_SOURCE} oscm-bes:latest
 	docker tag oscm-app:${GIT_SOURCE} oscm-app:latest
 	docker tag oscm-proxy:${GIT_SOURCE} oscm-proxy:latest
