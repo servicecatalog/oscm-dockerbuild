@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
-echo $ACTIVATION_CODE
+echo $http_proxy
+echo $http_proxy
 
-echo $EMAIL_ADDRESS
+docker build -t oscm-base --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy --build-arg ACTIVATION_CODE=$ACTIVATION_CODE --build-arg EMAIL_ADDRESS=$EMAIL_ADDRESS ./oscm-base

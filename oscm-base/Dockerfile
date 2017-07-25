@@ -1,0 +1,7 @@
+FROM sles12sp1
+
+ENV http_proxy $HTTP_PROXY
+ENV https_proxy $HTTPS_PROXY
+
+RUN SUSEConnect -r $ACTIVATION_CODE -e $EMAIL_ADDRESS
+RUN SUSEConnect -s
