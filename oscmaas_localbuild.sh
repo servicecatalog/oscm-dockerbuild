@@ -12,6 +12,9 @@ HTTP_PROXY_HOST=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
 HTTP_PROXY_PORT=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
 HTTPS_PROXY_HOST=$(echo $https_proxy | cut -d'/' -f3 | cut -d':' -f1)
 HTTPS_PROXY_PORT=$(echo $https_proxy | cut -d'/' -f3 | cut -d':' -f2)
+ACTIVATION_CODE=$(echo $ACTIVATION_CODE)
+EMAIL_ADDRESS=$(echo $EMAIL_ADDRESS)
+
 if [ -z ${HTTP_PROXY_HOST} ] && [ -z ${HTTP_PROXY_PORT} ] && [ -z ${HTTPS_PROXY_HOST} ] && [ -z ${HTTPS_PROXY_PORT} ]; then
 	PROXY_ENABLED=0
 else
@@ -46,6 +49,15 @@ if [ ! -d ${DEVDIR}/oscm-dockerbuild ]; then
 fi
 
 cd ${DEVDIR}
+
+#Build registered sles bases image
+if [ -z ${ACTIVATION_CODE} ] && [ -z ${EMAIL_ADDRESS} ]; then
+	if [ ${PROXY_ENABLED} -eq 1 ]; then
+		docker build -t oscm-sles-based --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg ACTIVATION_CODE=$ACTIVATION_CODE --build-arg EMAIL_ADDRESS=$EMAIL_ADDRESS oscm-dockerbuild/oscm-sles-based
+	else
+		docker build -t oscm-sles-based --build-arg ACTIVATION_CODE=$ACTIVATION_CODE --build-arg EMAIL_ADDRESS=$EMAIL_ADDRESS oscm-dockerbuild/oscm-sles-based
+	fi
+fi
 
 # Build image for ant commands
 if [ ${PROXY_ENABLED} -eq 1 ]; then
