@@ -69,7 +69,7 @@ if [ -z ${ACTIVATION_CODE_URL} ] && [ -z ${EMAIL_ADDRESS} ]; then
 	usage
 else
 	if [ ${PROXY_ENABLED} -eq 1 ]; then
-		docker build -t oscm-sles-based --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg ACTIVATION_CODE_URL=${ACTIVATION_CODE_URL} --build-arg EMAIL_ADDRESS=${EMAIL_ADDRESS} oscm-dockerbuild/oscm-sles-based
+		docker build -t oscm-sles-based --build-arg http_proxy=\"http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}\" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg ACTIVATION_CODE_URL=${ACTIVATION_CODE_URL} --build-arg EMAIL_ADDRESS=${EMAIL_ADDRESS} oscm-dockerbuild/oscm-sles-based
 	else
 		docker build -t oscm-sles-based --build-arg ACTIVATION_CODE_URL=${ACTIVATION_CODE_URL} --build-arg EMAIL_ADDRESS=${EMAIL_ADDRESS} oscm-dockerbuild/oscm-sles-based
 	fi

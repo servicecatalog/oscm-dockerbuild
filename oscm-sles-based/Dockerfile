@@ -1,8 +1,10 @@
 FROM sles12sp1:latest
 
+# prepare variable form build-args for further use
+ARG ACTIVATION_CODE_URL
+ARG EMAIL_ADDRESS
+
 # register SLES
 # ATTENTION: In all final images do not forget to deregister SLES with
 # SUSEConnect -d
-RUN export no_proxy=$(echo $ACTIVATION_CODE_URL | awk -F'/' '{print $3}' | cut -d':' -f1) && \
-    SUSEConnect -r $(curl --silent ${ACTIVATION_CODE_URL} | tr -d '\n') -e ${EMAIL_ADDRESS} && \
-    unset no_proxy
+RUN SUSEConnect -r $(curl --silent --noproxy $(echo ${ACTIVATION_CODE_URL} | awk -F'/' '{print $3}' | cut -d':' -f1) ${ACTIVATION_CODE_URL}) -e ${EMAIL_ADDRESS}
