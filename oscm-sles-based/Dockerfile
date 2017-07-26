@@ -1,18 +1,8 @@
-FROM sles12sp1
+FROM sles12sp1:latest
 
-# prepare variable form build-args for further use
-ARG ACTIVATION_CODE
-ARG EMAIL_ADDRESS
-ARG HTTP_PROXY
-ARG HTTPS_PROXY
-
-#set environmental variables
-ENV http_proxy $HTTP_PROXY
-ENV https_proxy $HTTPS_PROXY
-
-#register SLES
-RUN SUSEConnect -r $ACTIVATION_CODE -e $EMAIL_ADDRESS
-
-#check the status
-RUN SUSEConnect -s
-
+# register SLES
+# ATTENTION: In all final images do not forget to deregister SLES with
+# SUSEConnect -d
+RUN export no_proxy=$(echo $ACTIVATION_CODE_URL | awk -F'/' '{print $3}' | ^Ct -d':' -f1) && \
+    SUSEConnect -r $(curl --silent ${ACTIVATION_CODE_URL} | tr -d '\n') -e ${EMAIL_ADDRESS} && \
+    unset no_proxy
