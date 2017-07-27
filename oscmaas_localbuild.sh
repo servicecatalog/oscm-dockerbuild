@@ -168,4 +168,4 @@ if [ "${TAG_LATEST}" = "true" ]; then
 fi
 
 # Cleanup
-#docker rmi oscm-sles-based gc-ant oscm-gf
+docker rmi oscm-sles-based gc-ant oscm-gf
