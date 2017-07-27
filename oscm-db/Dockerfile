@@ -1,6 +1,8 @@
 FROM oscm-sles-based
 
-RUN zypper in -y postgresql94-server && \
+RUN export http_proxy=$HTTP_PROXY && \
+    export https_proxy=$HTTPS_PROXY && \
+    zypper in -y postgresql94-server && \
     mkdir -p /var/lib/postgresql/data && \
     sed -i 's|POSTGRES_DATADIR="~postgres/data"|POSTGRES_DATADIR="/var/lib/postgresql/data"|g' /etc/sysconfig/postgresql && \
     chown -R postgres: /var/lib/postgresql && \

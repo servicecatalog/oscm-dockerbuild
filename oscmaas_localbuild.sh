@@ -129,6 +129,13 @@ else
 	docker build -t oscm-app:${GIT_SOURCE} oscm-dockerbuild/oscm-app
 fi
 
+# Build database image
+if [ ${PROXY_ENABLED} -eq 1 ]; then
+	docker build -t oscm-db:${GIT_SOURCE} --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-db
+else
+	docker build -t oscm-db:${GIT_SOURCE} --build-arg oscm-dockerbuild/oscm-db
+fi
+
 # Build reverse proxy
 if [ ${PROXY_ENABLED} -eq 1 ]; then
 	docker build -t oscm-proxy:${GIT_SOURCE} --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-proxy
