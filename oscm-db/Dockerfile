@@ -11,7 +11,7 @@ RUN export http_proxy=$HTTP_PROXY && \
 
 USER postgres
 
-RUN postgres -c 'initdb -U postgres -D /var/lib/postgresql/data' && \
+RUN initdb -U postgres -D /var/lib/postgresql/data && \
     sed -e 's|#*max_prepared_transactions.*|max_prepared_transactions = 50|g' \
         -e 's|#*max_connections.*|max_connections = 250|g' \
         /usr/share/postgresql94/postgresql.conf.sample > /var/lib/postgresql/data/postgresql.conf
