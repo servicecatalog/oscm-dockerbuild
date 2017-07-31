@@ -138,9 +138,9 @@ fi
 
 # Build base nginx image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-nginx:${GIT_SOURCE} --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-nginx
+	docker build -t oscm-nginx --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-nginx
 else
-	docker build -t oscm-nginx:${GIT_SOURCE} --build-arg oscm-dockerbuild/oscm-nginx
+	docker build -t oscm-nginx --build-arg oscm-dockerbuild/oscm-nginx
 fi
 
 # Build branding webserver
@@ -182,4 +182,4 @@ if [ "${TAG_LATEST}" = "true" ]; then
 fi
 
 # Cleanup
-docker rmi oscm-sles-based gc-ant oscm-gf
+docker rmi oscm-sles-based oscm-nginx gc-ant oscm-gf
