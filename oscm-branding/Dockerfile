@@ -13,7 +13,9 @@ COPY resources/brandings.conf /etc/nginx/vhosts.d/
 #     chmod +x /opt/start.sh && \
 #     SUSEConnect -d
 
-RUN zypper install -y tar google-cloud-sdk && \
+RUN export http_proxy=$HTTP_PROXY && \
+    export https_proxy=$HTTPS_PROXY && \
+    zypper install -y tar google-cloud-sdk && \
     zypper clean && \
     chmod +x /opt/start.sh && \
     SUSEConnect -d
