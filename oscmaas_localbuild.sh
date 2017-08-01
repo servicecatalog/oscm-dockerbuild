@@ -69,22 +69,43 @@ if [ -z ${ACTIVATION_CODE_URL} ] && [ -z ${EMAIL_ADDRESS} ]; then
 	usage
 else
 	if [ ${PROXY_ENABLED} -eq 1 ]; then
-		docker build -t oscm-sles-based --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg ACTIVATION_CODE_URL=${ACTIVATION_CODE_URL} --build-arg EMAIL_ADDRESS=${EMAIL_ADDRESS} oscm-dockerbuild/oscm-sles-based
+		docker build -t oscm-sles-based \
+		    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+			--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+			--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+			--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+			--build-arg ACTIVATION_CODE_URL=${ACTIVATION_CODE_URL} \
+			--build-arg EMAIL_ADDRESS=${EMAIL_ADDRESS} \
+			oscm-dockerbuild/oscm-sles-based
 	else
-		docker build -t oscm-sles-based --build-arg ACTIVATION_CODE_URL=${ACTIVATION_CODE_URL} --build-arg EMAIL_ADDRESS=${EMAIL_ADDRESS} oscm-dockerbuild/oscm-sles-based
+		docker build -t oscm-sles-based \
+		    --build-arg ACTIVATION_CODE_URL=${ACTIVATION_CODE_URL} \
+			--build-arg EMAIL_ADDRESS=${EMAIL_ADDRESS} \
+			oscm-dockerbuild/oscm-sles-based
 	fi
 fi
 
 # Build image for ant commands
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t gc-ant --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/gc-ant
+	docker build -t gc-ant \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/gc-ant
 else
 	docker build -t gc-ant oscm-dockerbuild/gc-ant
 fi
 
 # Load libraries from maven repo via ivy
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker run --name gc-ant-ivy-${TIMESTAMP} --rm -v ${DEVDIR}:/build -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" -e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" -e HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" -e HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" -e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.LIB
+	docker run --name gc-ant-ivy-${TIMESTAMP} --rm -v ${DEVDIR}:/build \
+	    -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		-e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		-e HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		-e HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		-e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" \
+		gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.LIB
 else
 	docker run --name gc-ant-ivy-${TIMESTAMP} --rm -v ${DEVDIR}:/build gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.LIB
 fi
@@ -93,14 +114,26 @@ fi
 
 # Compile BES components
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker run --name gc-ant-bes-${TIMESTAMP} --rm -v ${DEVDIR}:/build -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" -e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" -e HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" -e HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" -e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.BES
+	docker run --name gc-ant-bes-${TIMESTAMP} --rm -v ${DEVDIR}:/build \
+	    -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		-e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		-e HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		-e HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		-e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" \
+		gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.BES
 else
 	docker run --name gc-ant-bes-${TIMESTAMP} --rm -v ${DEVDIR}:/build gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.BES
 fi
 
 # Compile APP components
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker run --name gc-ant-app-${TIMESTAMP} --rm -v ${DEVDIR}:/build -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" -e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" -e HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" -e HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" -e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.APP
+	docker run --name gc-ant-app-${TIMESTAMP} --rm -v ${DEVDIR}:/build \
+	    -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		-e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		-e HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		-e HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		-e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" \
+		gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.APP
 else
 	docker run --name gc-ant-app-${TIMESTAMP} --rm -v ${DEVDIR}:/build gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.APP
 fi
@@ -110,63 +143,108 @@ docker run --name ubuntu-copy-${TIMESTAMP} --rm -v ${DEVDIR}:/build ubuntu /bin/
 
 # Build Glassfish image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-gf http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-gf
+	docker build -t oscm-gf \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-gf
 else
 	docker build -t oscm-gf oscm-dockerbuild/oscm-gf
 fi
 
 # Build final BES image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-bes:${GIT_SOURCE} http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-bes
+	docker build -t oscm-bes:${GIT_SOURCE} \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-bes
 else
 	docker build -t oscm-bes:${GIT_SOURCE} oscm-dockerbuild/oscm-bes
 fi
 
 # Build final APP image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-app:${GIT_SOURCE} http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-app
+	docker build -t oscm-app:${GIT_SOURCE} \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-app
 else
 	docker build -t oscm-app:${GIT_SOURCE} oscm-dockerbuild/oscm-app
 fi
 
 # Build database image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-db:${GIT_SOURCE} http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-db
+	docker build -t oscm-db:${GIT_SOURCE} \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-db
 else
 	docker build -t oscm-db:${GIT_SOURCE} --build-arg oscm-dockerbuild/oscm-db
 fi
 
 # Build base nginx image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-nginx http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-nginx
+	docker build -t oscm-nginx \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-nginx
 else
 	docker build -t oscm-nginx --build-arg oscm-dockerbuild/oscm-nginx
 fi
 
 # Build branding webserver
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-branding:${GIT_SOURCE} http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-branding
+	docker build -t oscm-branding:${GIT_SOURCE} \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+	    --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+	    --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+	    --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+	    oscm-dockerbuild/oscm-branding
 else
 	docker build -t oscm-branding:${GIT_SOURCE} oscm-dockerbuild/oscm-branding
 fi
 
 # Build reverse proxy
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-proxy:${GIT_SOURCE} http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-proxy
+	docker build -t oscm-proxy:${GIT_SOURCE} \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-proxy
 else
 	docker build -t oscm-proxy:${GIT_SOURCE} oscm-dockerbuild/oscm-proxy
 fi
 
 # Build BIRT Tomcat
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-tomcat-birt:${GIT_SOURCE} http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-tomcat-birt
+	docker build -t oscm-tomcat-birt:${GIT_SOURCE} \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-tomcat-birt
 else
 	docker build -t oscm-tomcat-birt:${GIT_SOURCE} oscm-dockerbuild/oscm-tomcat-birt
 fi
 
 # Build InitDB
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-initdb:${GIT_SOURCE} http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" --build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" --build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" oscm-dockerbuild/oscm-initdb
+	docker build -t oscm-initdb:${GIT_SOURCE} \
+	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
+		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
+		oscm-dockerbuild/oscm-initdb
 else
 	docker build -t oscm-initdb:${GIT_SOURCE} oscm-dockerbuild/oscm-initdb
 fi
