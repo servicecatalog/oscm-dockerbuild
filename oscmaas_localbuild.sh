@@ -2,8 +2,8 @@
 set -e
 
 # Variables
-GIT_SOURCE="fb_oscmaas"
-GIT_DOCKER="master"
+GIT_SOURCE="v17.3.0"
+GIT_DOCKER="v17.3.0"
 TAG_LATEST="false"
 TIMESTAMP=$(date +%s)
 WORKDIR="$(dirname $(readlink -f $0))/work"
