@@ -6,9 +6,7 @@ ENV https_proxy $HTTPS_PROXY
      
 RUN zypper -n in \
     java-1_8_0-openjdk \
-    java-1_8_0-openjdk-devel \
-    unzip \
-    wget
+    java-1_8_0-openjdk-devel
 
 RUN wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.zip -O /opt/ant.zip
 RUN unzip /opt/ant.zip -d /opt/  
