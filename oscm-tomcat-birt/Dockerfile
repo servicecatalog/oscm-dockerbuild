@@ -1,9 +1,11 @@
 FROM oscm-sles-based
 
-COPY start.sh /opt/start.sh
+COPY start.sh deploy.sh /opt/
 COPY resources/server.xml /etc/tomcat/
 
-RUN export http_proxy=$HTTP_PROXY && \
+RUN chmod +x /opt/deploy.sh && \
+    chmod +x /opt/start.sh && \
+    export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
     zypper in -y tomcat && \
     zypper clean && \
@@ -12,13 +14,11 @@ RUN export http_proxy=$HTTP_PROXY && \
     mkdir /tmp/birt && \
     unzip /tmp/birt-runtime.zip -d /tmp/birt && \
     find /tmp/birt -type f -name birt.war -exec cp {} /srv/tomcat/webapps \; && \
-    catalina.sh start && \
-    sleep 5 && \
-    catalina.sh stop && \
+    /opt/deploy.sh && \
     unzip /tmp/oscm-reports.zip -d /srv/tomcat/webapps/birt && \
+    chown -R tomcat: /srv/tomcat/webapps/birt && \
     rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
-    rm -rf /tmp/birt && \
-    chmod +x /opt/start.sh
+    rm -rf /tmp/birt
     
 CMD ["/opt/start.sh"]
