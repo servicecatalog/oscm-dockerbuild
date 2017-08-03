@@ -9,7 +9,7 @@ RUN chmod +x /opt/deploy.sh && \
     export https_proxy=$HTTPS_PROXY && \
     zypper in -y tomcat && \
     zypper clean && \
-    wget http://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4_5_0-201506092134/birt-runtime-4.5.0-20150609.zip -O /tmp/birt-runtime.zip && \
+    wget https://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4.6.0-201606072112/birt-runtime-4.6.0-20160607.zip -O /tmp/birt-runtime.zip && \
     wget https://github.com/servicecatalog/development/releases/download/v17.3.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
     mkdir /tmp/birt && \
     unzip /tmp/birt-runtime.zip -d /tmp/birt && \
