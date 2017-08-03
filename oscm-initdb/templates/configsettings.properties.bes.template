@@ -298,3 +298,6 @@ SSO_DEFAULT_TENANT_ID=${SSO_DEFAULT_TENANT_ID}
 # The ID is used for verifying that the response to an authentication request 
 # is returned by the correct IdP.
 SSO_IDP_SAML_ASSERTION_ISSUER_ID=${SSO_IDP_SAML_ASSERTION_ISSUER_ID}
+
+# Comma separated list of host:port of kafka servers
+KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
