@@ -2,7 +2,7 @@ FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
-    zypper -n in gettext-runtime java-1_8_0-openjdk java-1_8_0-openjdk-devel && \
+    zypper -n in gettext-runtime postgresql94 java-1_8_0-openjdk java-1_8_0-openjdk-devel && \
     zypper clean && \
     SUSEConnect --cleanup && \
     if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
