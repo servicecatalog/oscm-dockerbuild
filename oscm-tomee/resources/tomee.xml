@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <Deployments dir="apps" />
+  
+  <Resource id="BSSDS" type="DataSource">
+    JdbcDriver = org.postgresql.xa.PGXADataSource
+    JdbcUrl = jdbc:postgresql://localhost:5432/bss
+    user = bssuser
+    password = bssuser
+    roleName = bssuser
+    validationQuery = "SELECT 1"
+  </Resource>
+  
+  <Resource id="BSSJMSDS" type="DataSource">
+    JdbcDriver = org.postgresql.Driver
+    JdbcUrl = jdbc:postgresql://localhost:5432/bssjms
+    UserName = jmsuser
+    Password = jmsuser
+    validationQuery = "SELECT 1"
+  </Resource>
+
+  <Resource id="JmsResourceAdapter" type="ActiveMQResourceAdapter">
+    BrokerXmlConfig =  broker:(tcp://localhost:61616)
+    ServerUrl       =  tcp://localhost:61616
+    DataSource      =  BSSJMSDS
+  </Resource>
+
+  <Resource id="JmsConnectionFactory" type="javax.jms.ConnectionFactory">
+    connectionMaxIdleTime = 15 Minutes
+    connectionMaxWaitTime = 5 seconds
+    poolMaxSize = 120
+    poolMinSize = 1
+    resourceAdapter = JmsResourceAdapter
+    transactionSupport = xa
+  </Resource>
+  
+  <Container id="JmsMdbContainer" ctype="MESSAGE">
+    ResourceAdapter = JmsResourceAdapter
+  </Container>
+
+  <Resource id="OSCMMasterIndexerQueue" type="javax.jms.Queue"/>
+  <Resource id="OSCMTaskQueue" type="javax.jms.Queue"/>
+  <Resource id="OSCMIndexerQueue" type="javax.jms.Queue"/>
+  <Resource id="OSCMTriggerQueue" type="javax.jms.Queue"/>
+  
+  <Resource id="OSCMMail" type="javax.mail.Session">
+   mail.smtp.host=dev.est.fujitsu.com
+   mail.smtp.port=25
+   mail.transport.protocol=smtp
+   mail.smtp.timeout=30000
+   mail-smtp-connectiontimeout=30000
+   mail.smtp.auth=false
+   mail.smtp.user=saas
+   mail.smtp.password=password
+   mail.smtp.from=service@example.com
+</Resource>
+  
+  
+</tomee>
