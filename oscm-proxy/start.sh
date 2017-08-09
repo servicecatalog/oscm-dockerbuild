@@ -2,7 +2,7 @@
 
 # Copy external SSL key and cert if available
 # otherwise create our own
-if [ $(find temp-files -type f -name "*.crt" | wc -l) == "1" ] && [ $(find temp-files -type f -name "*.key" | wc -l) == "1" ]; then
+if [ $(find /proxy-ssl -type f -name "*.crt" | wc -l) == "1" ] && [ $(find /proxy-ssl -type f -name "*.key" | wc -l) == "1" ]; then
     find /proxy-ssl -type f -name "*.crt" -exec cp -f {} /etc/proxy-ssl/tls.crt \;
     find /proxy-ssl -type f -name "*.key" -exec cp -f {} /etc/proxy-ssl/tls.key \;
 else
