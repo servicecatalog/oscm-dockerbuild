@@ -34,4 +34,4 @@ COPY solr-core-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/solr-core-5.3.1.jar
 COPY solr-solrj-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/solr-solrj-5.3.1.jar
 COPY antlr4-runtime-4.1.jar /opt/apache-tomee-plume-7.0.3/lib/antlr4-runtime-4.1.jar
 
-COPY oscm-security.jar /opt/apache-tomee-plume-7.0.3/lib/oscm-security.jar
+
