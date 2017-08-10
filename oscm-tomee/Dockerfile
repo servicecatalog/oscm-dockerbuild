@@ -18,9 +18,9 @@ COPY hibernate-commons-annotations-5.0.1.Final.jar /opt/apache-tomee-plume-7.0.3
 COPY hibernate-core-5.0.9.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-core-5.0.9.Final.jar
 COPY hibernate-entitymanager-5.0.9.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-entitymanager-5.0.9.Final.jar
 COPY hibernate-jpa-2.1-api-1.0.0.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar
-COPY jackson-annotations-2.5.1.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-annotations-2.5.1.jar
-COPY jackson-core-2.5.1.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-core-2.5.1.jar
-COPY jackson-databind-2.5.1.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-databind-2.5.1.jar
+COPY jackson-annotations.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-annotations.jar
+COPY jackson-core.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-core.jar
+COPY jackson-databind.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-databind.jar
 COPY jboss-logging.jar /opt/apache-tomee-plume-7.0.3/lib/jboss-logging.jar
 COPY dom4j-1.6.1.jar /opt/apache-tomee-plume-7.0.3/lib/dom4j-1.6.1.jar
 COPY hibernate-search-orm-5.5.4.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-search-orm-5.5.4.Final.jar
