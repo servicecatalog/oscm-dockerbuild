@@ -21,7 +21,7 @@ COPY hibernate-jpa-2.1-api-1.0.0.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hib
 COPY jackson-annotations-2.5.1.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-annotations-2.5.1.jar
 COPY jackson-core-2.5.1.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-core-2.5.1.jar
 COPY jackson-databind-2.5.1.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-databind-2.5.1.jar
-COPY jboss-logging-3.3.0.Final.jar /opt/apache-tomee-plume-7.0.3/lib/jboss-logging-3.3.0.Final.jar
+COPY jboss-logging.jar /opt/apache-tomee-plume-7.0.3/lib/jboss-logging.jar
 COPY dom4j-1.6.1.jar /opt/apache-tomee-plume-7.0.3/lib/dom4j-1.6.1.jar
 COPY hibernate-search-orm-5.5.4.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-search-orm-5.5.4.Final.jar
 COPY hibernate-search-engine-5.5.4.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-search-engine-5.5.4.Final.jar

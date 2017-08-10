@@ -29,6 +29,31 @@ cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.oracle.jar $REPO_DOCKER/o
 cp $LIB_DIR/dol/javalib/dol.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
 
+# copy resources for tomee
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-commons-annotations-5.0.1.Final.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-core-5.0.9.Final.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-entitymanager-5.0.9.Final.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-jpa-2.1-api-1.0.0.Final.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/jackson/javalib/jackson-annotations-2.5.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/jackson/javalib/jackson-core-2.5.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/jackson/javalib/jackson-databind-2.5.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/redhat-hibernate/javalib/dom4j-1.6.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-orm-5.5.4.Final.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-engine-5.5.4.Final.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/lucene-analyzers-common-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/lucene-backward-codecs-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/lucene-core-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/lucene-facet-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/lucene-misc-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/lucene-queries-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/lucene-queryparser-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/solr-core-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/apache-lucene/javalib/solr-solrj-5.3.1.jar $REPO_DOCKER/oscm-tomee/
+cp $LIB_DIR/antlr/javalib/antlr4-runtime-4.1.jar $REPO_DOCKER/oscm-tomee/
+
+
 # copy resources for initdb
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-initdb/
