@@ -155,14 +155,14 @@ fi
 
 # Build final BES image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-bes-tomee:${GIT_SOURCE} \
+	docker build -t oscm-bes:${GIT_SOURCE} \
 	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
 		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
-		oscm-dockerbuild/oscm-bes-tomee
+		oscm-dockerbuild/oscm-bes
 else
-	docker build -t oscm-bes-tomee:${GIT_SOURCE} oscm-dockerbuild/oscm-bes-tomee
+	docker build -t oscm-bes:${GIT_SOURCE} oscm-dockerbuild/oscm-bes-tomee
 fi
 
 # Build final APP image

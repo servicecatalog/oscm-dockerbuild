@@ -53,9 +53,9 @@ cp $LIB_DIR/apache-lucene/javalib/solr-core-5.3.1.jar $REPO_DOCKER/oscm-tomee/
 cp $LIB_DIR/apache-lucene/javalib/solr-solrj-5.3.1.jar $REPO_DOCKER/oscm-tomee/
 cp $LIB_DIR/antlr/javalib/antlr4-runtime-4.1.jar $REPO_DOCKER/oscm-tomee/
 
-cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-bes-tomee/
-cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-bes-tomee/
-cp $BUILD_DIR/oscm-security/oscm-security.jar $REPO_DOCKER/oscm-bes-tomee/
+cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-bes/
+cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-bes/
+cp $BUILD_DIR/oscm-security/oscm-security.jar $REPO_DOCKER/oscm-bes/
 
 
 # copy resources for initdb
