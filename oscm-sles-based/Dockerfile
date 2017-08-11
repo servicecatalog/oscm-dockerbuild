@@ -14,5 +14,6 @@ RUN export http_proxy=$HTTP_PROXY && \
     zypper update -y && \
     zypper install -y \
         unzip \
-        wget && \
+        wget \
+        gettext-runtime && \
     zypper clean -a
