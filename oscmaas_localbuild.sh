@@ -143,14 +143,14 @@ docker run --name ubuntu-copy-${TIMESTAMP} --rm -v ${DEVDIR}:/build ubuntu /bin/
 
 # Build Glassfish image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-tomee \
+	docker build -t oscm-gf \
 	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
 		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
-		oscm-dockerbuild/oscm-tomee
+		oscm-dockerbuild/oscm-gf
 else
-	docker build -t oscm-tomee oscm-dockerbuild/oscm-tomee
+	docker build -t oscm-gf oscm-dockerbuild/oscm-gf
 fi
 
 # Build final BES image

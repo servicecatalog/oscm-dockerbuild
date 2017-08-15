@@ -2,23 +2,39 @@ FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
-    zypper -n in vim postgresql94 java-1_8_0-openjdk java-1_8_0-openjdk-devel && \
+    zypper -n in gettext-runtime vim postgresql94 java-1_8_0-openjdk java-1_8_0-openjdk-devel && \
     zypper clean && \
     SUSEConnect --cleanup && \
     if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
     if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
     if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi && \
-    wget http://download.java.net/glassfish/4.1.2/release/glassfish-4.1.2.zip -O /tmp/glassfish.zip && \
+    wget http://repo.maven.apache.org/maven2/org/apache/tomee/apache-tomee/7.0.3/apache-tomee-7.0.3-plume.zip -O /tmp/apache-tomee-7.0.3-plume.zip && \
 	wget https://www.bouncycastle.org/download/bcprov-jdk15on-157.jar -O /usr/lib64/jvm/java-1.8.0-openjdk/jre/lib/ext/bcprov.jar && \
 	echo "security.provider.10=org.bouncycastle.jce.provider.BouncyCastleProvider" >> /usr/lib64/jvm/java-1.8.0-openjdk/jre/lib/security/java.security && \
-    unzip /tmp/glassfish.zip -d /opt/ && \
-	rm -rf /opt/glassfish4/glassfish/domains/domain1 && \
-    rm /tmp/glassfish.zip
+    unzip /tmp/apache-tomee-7.0.3-plume.zip -d /opt/ && \
+    rm /tmp/apache-tomee-7.0.3-plume.zip
 
-COPY postgresql-9.4-1206-jdbc42.jar /opt/glassfish4/mq/lib/ext/
-COPY postgresql-9.4-1206-jdbc42.jar commons-codec-1.7.jar lucene-analyzers-common-5.3.1.jar lucene-core-5.3.1.jar /opt/glassfish4/glassfish/lib/
-COPY jboss-logging.jar org.eclipse.persistence.antlr.jar org.eclipse.persistence.asm.jar org.eclipse.persistence.core.jar /opt/glassfish4/glassfish/modules/
-COPY org.eclipse.persistence.dbws.jar org.eclipse.persistence.jpa.jar org.eclipse.persistence.jpa.jpql.jar /opt/glassfish4/glassfish/modules/
-COPY org.eclipse.persistence.jpa.modelgen.processor.jar org.eclipse.persistence.moxy.jar org.eclipse.persistence.oracle.jar /opt/glassfish4/glassfish/modules/
-COPY commons-logging-1.1.3.jar dol.jar /opt/glassfish4/glassfish/modules/
-COPY postgresql-9.4-1206-jdbc42.jar log4j-1.2.16.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
+COPY hibernate-commons-annotations-5.0.1.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-commons-annotations-5.0.1.Final.jar
+COPY hibernate-core-5.0.9.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-core-5.0.9.Final.jar
+COPY hibernate-entitymanager-5.0.9.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-entitymanager-5.0.9.Final.jar
+COPY hibernate-jpa-2.1-api-1.0.0.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar
+COPY jackson-annotations.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-annotations.jar
+COPY jackson-core.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-core.jar
+COPY jackson-databind.jar /opt/apache-tomee-plume-7.0.3/lib/jackson-databind.jar
+COPY jboss-logging.jar /opt/apache-tomee-plume-7.0.3/lib/jboss-logging.jar
+COPY dom4j-1.6.1.jar /opt/apache-tomee-plume-7.0.3/lib/dom4j-1.6.1.jar
+COPY hibernate-search-orm-5.5.4.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-search-orm-5.5.4.Final.jar
+COPY hibernate-search-engine-5.5.4.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-search-engine-5.5.4.Final.jar
+COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee-plume-7.0.3/lib/postgresql-9.4-1206-jdbc42.jar
+COPY lucene-analyzers-common-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-analyzers-common-5.3.1.jar
+COPY lucene-backward-codecs-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-backward-codecs-5.3.1.jar
+COPY lucene-core-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-core-5.3.1.jar
+COPY lucene-facet-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-facet-5.3.1.jar
+COPY lucene-misc-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-misc-5.3.1.jar
+COPY lucene-queries-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-queries-5.3.1.jar
+COPY lucene-queryparser-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-queryparser-5.3.1.jar
+COPY solr-core-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/solr-core-5.3.1.jar
+COPY solr-solrj-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/solr-solrj-5.3.1.jar
+COPY antlr4-runtime-4.1.jar /opt/apache-tomee-plume-7.0.3/lib/antlr4-runtime-4.1.jar
+
+
