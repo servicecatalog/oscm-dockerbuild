@@ -7,7 +7,7 @@
   
   <Resource id="BSSDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
-    JdbcUrl = jdbc:postgresql://oscm-db:5432/bss
+    JdbcUrl = jdbc:postgresql://${DB_HOST_BES}:5432/bss
     user = bssuser
     password = bssuser
     roleName = bssuser
