@@ -16,7 +16,7 @@
   
   <Resource id="BSSJMSDS" type="DataSource">
     JdbcDriver = org.postgresql.Driver
-    JdbcUrl = jdbc:postgresql://oscm-db:5432/bssjms
+    JdbcUrl = jdbc:postgresql://${DB_HOST_BES}:5432/bssjms
     UserName = jmsuser
     Password = jmsuser
     validationQuery = "SELECT 1"
