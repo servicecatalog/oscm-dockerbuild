@@ -45,18 +45,18 @@
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
-			  
- <Resource name="jdbcBSSDS"
-            auth="Container"
-            type="javax.sql.DataSource"
-            username="bssuser"
-            password="bssuser"
-            roleName="bssuser"
-            driverClassName="org.postgresql.Driver"
-            url="jdbc:postgresql://localhost:5432/bss"
-            validationQuery="SELECT 1"/>
 
- 
+    <Resource name="jdbcBSSDS"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="bssuser"
+              password="bssuser"
+              roleName="bssuser"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://localhost:5432/bss"
+              validationQuery="SELECT 1"/>
+
+
   </GlobalNamingResources>
 
   <!-- A "Service" is a collection of one or more "Connectors" that share
@@ -66,6 +66,8 @@
    -->
   <Service name="Catalina">
 
+    <Listener className="org.apache.tomee.loader.OpenEJBListener" />
+    <Listener className="org.apache.catalina.security.SecurityListener" />
     <!--The connectors can use a shared executor, you can define one or more named thread pools-->
     <!--
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
@@ -80,7 +82,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector port="8080" protocol="HTTP/1.1"
+    <Connector port="8180" protocol="HTTP/1.1"
                connectionTimeout="20000"
                redirectPort="8443" xpoweredBy="false" server="Apache TomEE" />
     <!-- A "Connector" using the shared thread pool-->
@@ -127,7 +129,7 @@
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
-    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+    <Connector port="8109" protocol="AJP/1.3" redirectPort="8443" />
 
 
     <!-- An Engine represents the entry point (within Catalina) that processes
@@ -151,24 +153,18 @@
       <!-- Use the LockOutRealm to prevent attempts to guess user passwords
            via a brute-force attack -->
 
-     
 
-      <Realm className="org.apache.catalina.realm.LockOutRealm">
 
-        <!-- This Realm uses the UserDatabase configured in the global JNDI
-             resources under the key "UserDatabase".  Any edits
-             that are performed against this UserDatabase are immediately
-             available for use by the Realm.  -->
-       <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-               resourceName="UserDatabase"/>
+      <!--<Realm className="org.apache.catalina.realm.LockOutRealm">
 
-     <!--  <Realm className="org.apache.catalina.realm.JAASRealm" 
-          appName="bss-realm"
-          userClassNames="org.oscm.security.UserPrincipal"
-          roleClassNames="org.oscm.security.RolePrincipal" /> -->
 
+       <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+
+      </Realm>-->
+      <Realm className="org.apache.catalina.realm.JAASRealm"
+             appName="bss-realm" userClassNames="org.oscm.security.UserPrincipal"
+             roleClassNames="org.oscm.security.RolePrincipal">
       </Realm>
-
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
 
