@@ -70,12 +70,12 @@ cp $LIB_DIR/apache-validator/javalib/commons-validator-1.4.0.jar $REPO_DOCKER/os
 cp $LIB_DIR/apache-ant-contrib/lib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-initdb/
 cp $LIB_DIR/jakarta-oro/javalib/jakarta-oro-2.0.8.jar $REPO_DOCKER/oscm-initdb/
 
-#cp $BUILD_DIR/oscm-app/oscm-app.jar $REPO_DOCKER/oscm-initdb/
+cp $BUILD_DIR/oscm-app/oscm-app.jar $REPO_DOCKER/oscm-initdb/
 
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/bes
 cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/bes/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/app
-#cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
+cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
 
 # copy resources for bes
 cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-bes/
