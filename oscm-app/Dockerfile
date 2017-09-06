@@ -5,9 +5,6 @@ ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappus
 ENV DB_TIMEOUT_APP=300 DB_WAIT_APP=60000 DB_RETRY_INTERVAL_APP=10
 ENV SMTP_HOST=localhost SMTP_PORT=25 SMTP_FROM=mail@oscm.org SMTP_USER=saas SMTP_AUTH=false SMTP_PWD=secret
 
-RUN unzip /tmp/apache-tomee-7.0.3-plume.zip -d /opt/app/ && \
-    rm /tmp/apache-tomee-7.0.3-plume.zip
-
 COPY oscm-app.ear /opt/app/apache-tomee-plume-7.0.3/apps
 
 COPY templates/*.template /opt/templates/
