@@ -252,7 +252,7 @@ fi
 # Set latest tag if requested
 if [ "${TAG_LATEST}" = "true" ]; then
 	docker tag oscm-bes:${GIT_SOURCE} oscm-bes:latest
-#	docker tag oscm-app:${GIT_SOURCE} oscm-app:latest
+	docker tag oscm-app:${GIT_SOURCE} oscm-app:latest
 	docker tag oscm-proxy:${GIT_SOURCE} oscm-proxy:latest
 	docker tag oscm-branding:${GIT_SOURCE} oscm-branding:latest
 	docker tag oscm-tomcat-birt:${GIT_SOURCE} oscm-tomcat-birt:latest
