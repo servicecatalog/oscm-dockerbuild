@@ -11,8 +11,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     wget http://repo.maven.apache.org/maven2/org/apache/tomee/apache-tomee/7.0.3/apache-tomee-7.0.3-plume.zip -O /tmp/apache-tomee-7.0.3-plume.zip && \
 	wget https://www.bouncycastle.org/download/bcprov-jdk15on-157.jar -O /usr/lib64/jvm/java-1.8.0-openjdk/jre/lib/ext/bcprov.jar && \
 	echo "security.provider.10=org.bouncycastle.jce.provider.BouncyCastleProvider" >> /usr/lib64/jvm/java-1.8.0-openjdk/jre/lib/security/java.security && \
-    unzip /tmp/apache-tomee-7.0.3-plume.zip -d /opt/ && \
-    rm /tmp/apache-tomee-7.0.3-plume.zip
+    unzip /tmp/apache-tomee-7.0.3-plume.zip -d /opt/
 
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee-plume-7.0.3/lib/postgresql-9.4-1206-jdbc42.jar
 
