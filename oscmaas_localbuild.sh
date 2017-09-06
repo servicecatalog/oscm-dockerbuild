@@ -162,7 +162,7 @@ if [ ${PROXY_ENABLED} -eq 1 ]; then
 		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
 		oscm-dockerbuild/oscm-bes
 else
-	docker build -t oscm-bes:${GIT_SOURCE} oscm-dockerbuild/oscm-bes-tomee
+	docker build -t oscm-bes:${GIT_SOURCE} oscm-dockerbuild/oscm-bes
 fi
 
 # Build final APP image
