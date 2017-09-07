@@ -9,4 +9,4 @@ until /usr/bin/psql -h ${DB_HOST_BES} -p ${DB_PORT_BES} -U ${DB_USER_BES} -l ${D
 /usr/bin/rm -f /root/.pgpass
 
 # Start domains
-/opt/app/apache-tomee-plume-7.0.3/bin/catalina.sh run &
+/opt/apache-tomee-plume-7.0.3/bin/catalina.sh run &
