@@ -8,9 +8,9 @@ ENV DB_TIMEOUT_BES=300 DB_WAIT_BES=60000 DB_RETRY_INTERVAL_BES=10 DB_TIMEOUT_MI=
 ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser DB_PWD_JMS=jmsuser
 ENV SMTP_HOST=localhost SMTP_PORT=25 SMTP_FROM=mail@oscm.org SMTP_USER=saas SMTP_AUTH=false SMTP_PWD=secret
 
-COPY oscm.ear /opt/apache-tomee-plume-7.0.3/apps
-COPY oscm-search.ear /opt/apache-tomee-plume-7.0.3/apps
-COPY oscm-portal.war /opt/apache-tomee-plume-7.0.3/webapps
+COPY oscm.ear /opt/apache-tomee-plume-7.0.3/apps/
+COPY oscm-search.ear /opt/apache-tomee-plume-7.0.3/apps/
+COPY oscm-portal.war /opt/apache-tomee-plume-7.0.3/webapps/
 
 COPY oscm-security.jar /opt/apache-tomee-plume-7.0.3/lib/
 
