@@ -21,7 +21,7 @@ COPY resources/system.properties /opt/bes/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomcat-users.xml /opt/bes/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomee.xml /opt/bes/apache-tomee-plume-7.0.3/conf/
 
-COPY start.sh /opt/
-RUN chmod +x /opt/start.sh
+COPY start.sh /opt/bes/
+RUN chmod +x /opt/bes/start.sh
 
-CMD ["/opt/start.sh"]
+CMD ["/opt/bes/start.sh"]
