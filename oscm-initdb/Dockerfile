@@ -17,10 +17,10 @@ ENV APP_USER_KEY=1000 APP_USER_NAME=administrator APP_USER_PWD=admin123 BES_ID_S
 ENV CONTROLLER_ID=ess.sample CONTROLLER_ORG_ID=orgid123 CONTROLLER_USER_KEY=1000 CONTROLLER_USER_NAME=administrator CONTROLLER_USER_PASS=admin123
 
 COPY sqlscripts/bes/*.sql /opt/sqlscripts/bes/
-#COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
+COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY templates/*.template /opt/templates/
 COPY oscm-devruntime.jar /opt/
-#COPY oscm-app.jar /opt/
+COPY oscm-app.jar /opt/
 
 COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/
 COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/bes-domain/imq/instances/imqbroker/etc/
