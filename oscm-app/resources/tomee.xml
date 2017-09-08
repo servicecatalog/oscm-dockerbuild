@@ -7,7 +7,7 @@
   
   <Resource id="BSSDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
-    JdbcUrl = jdbc:postgresql://${DB_HOST_BES}:5432/bss
+    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:5432/bss
     user = bssuser
     password = bssuser
     roleName = bssuser
@@ -16,15 +16,15 @@
   
   <Resource id="BSSJMSDS" type="DataSource">
     JdbcDriver = org.postgresql.Driver
-    JdbcUrl = jdbc:postgresql://${DB_HOST_BES}:5432/bssjms
+    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:5432/bssjms
     UserName = jmsuser
     Password = jmsuser
     validationQuery = "SELECT 1"
   </Resource>
 
   <Resource id="JmsResourceAdapter" type="ActiveMQResourceAdapter">
-    BrokerXmlConfig =  broker:(tcp://oscm-db:61616)
-    ServerUrl       =  tcp://oscm-db:61616
+    BrokerXmlConfig =  broker:(tcp://${DB_HOST_APP}:61616)
+    ServerUrl       =  tcp://${DB_HOST_APP}:61616
     DataSource      =  BSSJMSDS
   </Resource>
 
