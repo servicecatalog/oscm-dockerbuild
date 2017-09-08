@@ -1,3 +1,5 @@
 #!/bin/bash
 
-while true; do sleep 1000; done &
+while :
+do sleep 1000;
+done &
