@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo some text
+while true; do sleep 1000; done &
