@@ -1,6 +1,6 @@
 FROM oscm-nginx
 
-ENV SERVERNAME=oscm BES_NAME=oscm-bes BES_PORT=8081 BRANDING_NAME=oscm-branding BRANDING_PORT=80 BIRT_NAME=oscm-tomcat-birt BIRT_PORT=8080 APP_NAME=oscm-app APP_PORT=8881
+ENV SERVERNAME=oscm BES_NAME=oscm-bes BES_PORT=8080 BRANDING_NAME=oscm-branding BRANDING_PORT=80 BIRT_NAME=oscm-tomcat-birt BIRT_PORT=8080 APP_NAME=oscm-app APP_PORT=8881
 
 COPY start.sh /opt/start.sh
 COPY templates/*.template /opt/templates/
