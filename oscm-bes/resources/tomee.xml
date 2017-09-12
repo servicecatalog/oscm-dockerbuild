@@ -24,7 +24,7 @@
 
   <Resource id="JmsResourceAdapter" type="ActiveMQResourceAdapter">
     BrokerXmlConfig =  broker:(tcp://${BES_NAME}:61616)
-    ServerUrl       =  tcp://oscm-db:61616
+    ServerUrl       =  tcp://${BES_NAME}:61616
     DataSource      =  BSSJMSDS
   </Resource>
 
