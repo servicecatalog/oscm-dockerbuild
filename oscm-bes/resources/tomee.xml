@@ -13,7 +13,7 @@
     roleName = bssuser
     validationQuery = "SELECT 1"
   </Resource>
-  
+
   <Resource id="BSSJMSDS" type="DataSource">
     JdbcDriver = org.postgresql.Driver
     JdbcUrl = jdbc:postgresql://${DB_HOST_BES}:5432/bssjms
@@ -23,7 +23,7 @@
   </Resource>
 
   <Resource id="JmsResourceAdapter" type="ActiveMQResourceAdapter">
-    BrokerXmlConfig =  broker:(tcp://oscm-db:61616)
+    BrokerXmlConfig =  broker:(tcp://${BES_NAME}:61616)
     ServerUrl       =  tcp://oscm-db:61616
     DataSource      =  BSSJMSDS
   </Resource>
@@ -36,16 +36,14 @@
     resourceAdapter = JmsResourceAdapter
     transactionSupport = xa
   </Resource>
-  
+
   <Container id="JmsMdbContainer" ctype="MESSAGE">
     ResourceAdapter = JmsResourceAdapter
   </Container>
 
-  <Resource id="OSCMMasterIndexerQueue" type="javax.jms.Queue"/>
   <Resource id="OSCMTaskQueue" type="javax.jms.Queue"/>
-  <Resource id="OSCMIndexerQueue" type="javax.jms.Queue"/>
   <Resource id="OSCMTriggerQueue" type="javax.jms.Queue"/>
-  
+
   <Resource id="OSCMMail" type="javax.mail.Session">
    mail.smtp.host=dev.est.fujitsu.com
    mail.smtp.port=25
