@@ -30,29 +30,29 @@ cp $LIB_DIR/dol/javalib/dol.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
 
 # copy resources for tomee
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-commons-annotations-5.0.1.Final.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-core-5.0.9.Final.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-entitymanager-5.0.9.Final.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-jpa-2.1-api-1.0.0.Final.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/jackson/javalib/jackson-annotations.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/jackson/javalib//jackson-core.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/jackson/javalib//jackson-databind.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/redhat-hibernate/javalib/dom4j-1.6.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/redhat-hibernate/javalib/antlr-2.7.7.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-orm-5.5.4.Final.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-engine-5.5.4.Final.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-analyzers-common-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-backward-codecs-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-core-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-facet-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-misc-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-queries-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-queryparser-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/solr-core-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/solr-solrj-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/antlr/javalib/antlr4-runtime-4.1.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-commons-annotations-5.0.1.Final.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-core-5.0.9.Final.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-entitymanager-5.0.9.Final.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/redhat-hibernate/javalib/hibernate-jpa-2.1-api-1.0.0.Final.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/jackson/javalib/jackson-annotations.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/jackson/javalib//jackson-core.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/jackson/javalib//jackson-databind.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/redhat-hibernate/javalib/dom4j-1.6.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/redhat-hibernate/javalib/antlr-2.7.7.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-orm-5.5.4.Final.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-engine-5.5.4.Final.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/lucene-analyzers-common-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/lucene-backward-codecs-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/lucene-core-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/lucene-facet-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/lucene-misc-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/lucene-queries-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/lucene-queryparser-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/solr-core-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/apache-lucene/javalib/solr-solrj-5.3.1.jar $REPO_DOCKER/oscm-bes/
+cp $LIB_DIR/antlr/javalib/antlr4-runtime-4.1.jar $REPO_DOCKER/oscm-bes/
 
 cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-bes/
 cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-bes/
@@ -101,5 +101,8 @@ cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-app/
+cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-app/
 
-cp $LIB_DIR/sun-metro/javalib/jaxws-rt.jar $REPO_DOCKER/oscm-gf/
+
+#cp $LIB_DIR/sun-metro/javalib/jaxws-rt.jar $REPO_DOCKER/oscm-app/
+#cp $LIB_DIR/sun-metro/javalib/jaxws-api.jar $REPO_DOCKER/oscm-app/
