@@ -34,9 +34,9 @@ cp $LIB_DIR/redhat-hibernate/javalib/hibernate-commons-annotations-5.0.1.Final.j
 cp $LIB_DIR/redhat-hibernate/javalib/hibernate-core-5.0.9.Final.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/redhat-hibernate/javalib/hibernate-entitymanager-5.0.9.Final.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/redhat-hibernate/javalib/hibernate-jpa-2.1-api-1.0.0.Final.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/jackson-annotations.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/jackson-core.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/jackson-databind.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/glassfish4/modules/jackson-annotations-2.5.1.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/glassfish4/modules/jackson-core-2.5.1.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/glassfish4/modules/jackson-databind-2.5.1.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/redhat-hibernate/javalib/dom4j-1.6.1.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/redhat-hibernate/javalib/antlr-2.7.7.jar $REPO_DOCKER/oscm-gf/
