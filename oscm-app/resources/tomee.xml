@@ -7,7 +7,7 @@
   
   <Resource id="BSSDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
-    JdbcUrl = jdbc:postgresql://localhost:5432/bssapp
+    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:5432/bssapp
     user = bssappuser
     password = bssappuser
     roleName = bssappuser
