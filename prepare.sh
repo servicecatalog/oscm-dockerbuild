@@ -101,3 +101,5 @@ cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-app/
+
+cp $LIB_DIR/sun-metro/javalib/jaxws-rt.jar $REPO_DOCKER/oscm-gf/
