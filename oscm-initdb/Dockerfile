@@ -26,7 +26,7 @@ COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfi
 COPY resources/config.properties /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/
 COPY resources/config.properties /opt/glassfish4/glassfish/domains/bes-domain/imq/instances/imqbroker/props/
 
-COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar /opt/lib/
+COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar log4j-1.2.16.jar postgresql-9.4-1206-jdbc42.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
