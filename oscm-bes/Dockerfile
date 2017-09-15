@@ -41,6 +41,7 @@ COPY solr-solrj-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/solr-solrj-5.3.1.jar
 COPY lucene-queryparser-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-queryparser-5.3.1.jar
 COPY dom4j-1.6.1.jar /opt/apache-tomee-plume-7.0.3/lib/dom4j-1.6.1.jar
 COPY antlr-2.7.7.jar /opt/apache-tomee-plume-7.0.3/lib/antlr-2.7.7.jar
+COPY log4j-1.2.16.jar /opt/apache-tomee-plume-7.0.3/lib/log4j-1.2.16.jar
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
