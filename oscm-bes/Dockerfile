@@ -12,7 +12,7 @@ COPY oscm.ear /opt/apache-tomee-plume-7.0.3/apps
 COPY oscm-portal.war /opt/apache-tomee-plume-7.0.3/webapps
 
 COPY oscm-security.jar /opt/apache-tomee-plume-7.0.3/lib/
-COPY oscm-common /opt/apache-tomee-plume-7.0.3/lib/
+COPY oscm-common.jar /opt/apache-tomee-plume-7.0.3/lib/
 
 COPY resources/jaas.config /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/server.xml /opt/apache-tomee-plume-7.0.3/conf/
