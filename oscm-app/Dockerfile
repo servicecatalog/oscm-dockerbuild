@@ -18,8 +18,6 @@ COPY resources/tomee.xml /opt/apache-tomee-plume-7.0.3/conf/
 
 COPY oscm-app.ear /opt/apache-tomee-plume-7.0.3/apps
 
-#COPY jaxws-rt.jar /opt/apache-tomee-plume-7.0.3/lib/jaxws-rt.jar
-#COPY jaxws-api.jar /opt/apache-tomee-plume-7.0.3/lib/jaxws-api.jar
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee-plume-7.0.3/lib/postgresql-9.4-1206-jdbc42.jar
 
 COPY start.sh /opt/
