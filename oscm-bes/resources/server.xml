@@ -45,16 +45,6 @@
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
-			  
- <Resource name="jdbcBSSDS"
-            auth="Container"
-            type="javax.sql.DataSource"
-            username="bssuser"
-            password="bssuser"
-            roleName="bssuser"
-            driverClassName="org.postgresql.Driver"
-            url="jdbc:postgresql://localhost:5432/bss"
-            validationQuery="SELECT 1"/>
 
  
   </GlobalNamingResources>
