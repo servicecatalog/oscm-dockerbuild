@@ -19,6 +19,7 @@ COPY resources/tomee.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY oscm-app.ear /opt/apache-tomee-plume-7.0.3/apps
 
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee-plume-7.0.3/lib/postgresql-9.4-1206-jdbc42.jar
+COPY oscm-app-extsvc-2-0.jar /opt/apache-tomee-plume-7.0.3/lib/oscm-app-extsvc-2-0.jar
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
