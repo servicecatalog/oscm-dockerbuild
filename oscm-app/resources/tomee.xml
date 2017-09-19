@@ -4,7 +4,8 @@
 
   <!-- activate next line to be able to deploy applications in apps -->
   <Deployments dir="apps" />
-  
+  <Deployments dir="controllers" />
+
   <Resource id="BSSDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
     JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:5432/bssapp

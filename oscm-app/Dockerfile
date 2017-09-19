@@ -16,7 +16,7 @@ COPY resources/system.properties /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomcat-users.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomee.xml /opt/apache-tomee-plume-7.0.3/conf/
 
-COPY oscm-app.ear /opt/apache-tomee-plume-7.0.3/apps
+COPY oscm-app.ear oscm-app-aws.ear oscm-app-openstack.ear /opt/apache-tomee-plume-7.0.3/apps
 
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee-plume-7.0.3/lib/postgresql-9.4-1206-jdbc42.jar
 COPY oscm-app-extsvc-2-0.jar /opt/apache-tomee-plume-7.0.3/lib/oscm-app-extsvc-2-0.jar
