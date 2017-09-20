@@ -10,7 +10,7 @@ until /usr/bin/psql -h ${DB_HOST_BES} -p ${DB_PORT_BES} -U ${DB_USER_BES} -l ${D
 
 
 # Start domains
-if [ ${DEBUG_ENABLED} ]; then
+if [ ${TOMEE_DEBUG} ]; then
 	/opt/apache-tomee-plume-7.0.3/bin/catalina.sh jpda run
 else
 	/opt/apache-tomee-plume-7.0.3/bin/catalina.sh run
