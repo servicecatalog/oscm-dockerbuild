@@ -20,6 +20,7 @@ COPY resources/setenv.sh /opt/apache-tomee-plume-7.0.3/bin/
 COPY resources/system.properties /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomcat-users.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomee.xml /opt/apache-tomee-plume-7.0.3/conf/
+COPY resources/key /opt/apache-tomee-plume-7.0.3/bin/
 
 COPY hibernate-commons-annotations-5.0.1.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-commons-annotations-5.0.1.Final.jar
 COPY hibernate-core-5.0.9.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-core-5.0.9.Final.jar

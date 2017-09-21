@@ -16,6 +16,7 @@ COPY resources/server.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/system.properties /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomcat-users.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomee.xml /opt/apache-tomee-plume-7.0.3/conf/
+COPY resources/key /opt/apache-tomee-plume-7.0.3/bin/
 
 COPY oscm-app.ear /opt/apache-tomee-plume-7.0.3/apps/
 COPY oscm-app-aws.ear oscm-app-openstack.ear /opt/apache-tomee-plume-7.0.3/controllers/
