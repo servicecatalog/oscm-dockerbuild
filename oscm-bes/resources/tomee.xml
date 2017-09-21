@@ -3,8 +3,8 @@
   <!-- see http://tomee.apache.org/containers-and-resources.html -->
 
   <!-- activate next line to be able to deploy applications in apps -->
-  <Deployments dir="apps" />
-  
+  <Deployments dir="apps"/>
+
   <Resource id="BSSDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
     JdbcUrl = jdbc:postgresql://${DB_HOST_BES}:5432/bss
@@ -23,9 +23,9 @@
   </Resource>
 
   <Resource id="JmsResourceAdapter" type="ActiveMQResourceAdapter">
-    BrokerXmlConfig =  broker:(tcp://oscm-bes:61616)
-    ServerUrl       =  tcp://oscm-bes:61616
-    DataSource      =  BSSJMSDS
+    BrokerXmlConfig = broker:(tcp://oscm-bes:61616)
+    ServerUrl = tcp://oscm-bes:61616
+    DataSource = BSSJMSDS
   </Resource>
 
   <Resource id="JmsConnectionFactory" type="javax.jms.ConnectionFactory">
@@ -45,16 +45,17 @@
   <Resource id="OSCMTriggerQueue" type="javax.jms.Queue"/>
 
   <Resource id="OSCMMail" type="javax.mail.Session">
-   mail.smtp.host=dev.est.fujitsu.com
-   mail.smtp.port=25
-   mail.transport.protocol=smtp
-   mail.smtp.timeout=30000
-   mail-smtp-connectiontimeout=30000
-   mail.smtp.auth=false
-   mail.smtp.user=saas
-   mail.smtp.password=password
-   mail.smtp.from=service@example.com
-</Resource>
-  
-  
+    mail.smtp.host=${SMTP_HOST}
+    mail.smtp.port=${SMTP_PORT}
+    mail.transport.protocol=smtp
+    mail.smtp.timeout=30000
+    mail-smtp-connectiontimeout=30000
+    mail.smtp.auth=${SMTP_AUTH}
+    mail.smtp.user=${SMTP_USER}
+    mail.smtp.password=${SMTP_PWD}
+    mail.smtp.from=${SMTP_FROM}
+    mail.smtp.starttls.enable=${SMTP_TLS_ENABLE}
+  </Resource>
+
+
 </tomee>
