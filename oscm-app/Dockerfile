@@ -23,6 +23,7 @@ COPY oscm-app-aws.ear oscm-app-openstack.ear /opt/apache-tomee-plume-7.0.3/contr
 
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee-plume-7.0.3/lib/postgresql-9.4-1206-jdbc42.jar
 COPY oscm-app-extsvc-2-0.jar /opt/apache-tomee-plume-7.0.3/lib/oscm-app-extsvc-2-0.jar
+COPY log4j-1.2.16.jar /opt/apache-tomee-plume-7.0.3/lib/log4j-1.2.16.jar
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
