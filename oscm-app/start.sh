@@ -9,4 +9,8 @@ until /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_USER_APP} -l ${D
 /usr/bin/rm -f /root/.pgpass
 
 # Start domains
-/opt/apache-tomee-plume-7.0.3/bin/catalina.sh run
+if [ ${TOMEE_DEBUG} ]; then
+	/opt/apache-tomee-plume-7.0.3/bin/catalina.sh jpda run
+else
+	/opt/apache-tomee-plume-7.0.3/bin/catalina.sh run
+fi
