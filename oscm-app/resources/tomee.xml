@@ -6,7 +6,7 @@
   <Deployments dir="apps" />
   <Deployments dir="controllers" />
 
-  <Resource id="BSSDS" type="DataSource">
+  <Resource id="BSSAppDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
     JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:5432/bssapp
     user = bssappuser
@@ -15,7 +15,7 @@
     validationQuery = "SELECT 1"
   </Resource>
 
-  <Resource id="OSCMMail" type="javax.mail.Session">
+  <Resource id="mail/APPMail" type="javax.mail.Session">
     mail.smtp.host=${SMTP_HOST}
     mail.smtp.port=${SMTP_PORT}
     mail.transport.protocol=smtp
