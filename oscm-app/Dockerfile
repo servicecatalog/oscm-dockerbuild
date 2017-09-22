@@ -13,6 +13,7 @@ ENV DB_TIMEOUT_APP=300 DB_WAIT_APP=60000 DB_RETRY_INTERVAL_APP=10
 ENV SMTP_HOST=localhost SMTP_PORT=25 SMTP_FROM=mail@oscm.org SMTP_USER=saas SMTP_AUTH=false SMTP_PWD=secret SMTP_TLS_ENABLE=false
 
 COPY resources/server.xml /opt/apache-tomee-plume-7.0.3/conf/
+COPY resources/system.properties /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomcat-users.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomee.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/key /opt/apache-tomee-plume-7.0.3/bin/
