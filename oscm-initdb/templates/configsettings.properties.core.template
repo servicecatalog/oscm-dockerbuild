@@ -231,7 +231,7 @@ TAGGING_MIN_SCORE=1
 # Defines the timeout for outgoing JAX-WS calls. After the time intervall is passed a timeout exception is thrown by the JAX-WS framework.
 WS_TIMEOUT=30000
 
-# The authentication mode defines whether the bes internal authentication is used
+# The authentication mode defines whether the core internal authentication is used
 # or an external authentication service, such as OpenAM.
 # Default value is INTERNAL. Allowed values are: INTERNAL, SAML_SP
 AUTH_MODE=${AUTH_MODE}

@@ -8,19 +8,19 @@ db.driver.class=org.postgresql.Driver
 
 # database host
 # In cluster environment localhost must not be used!
-db.host=${DB_HOST_BES}
+db.host=${DB_HOST_CORE}
 
 # database port
-db.port=${DB_PORT_BES}
+db.port=${DB_PORT_CORE}
 
 # Name of the database
-db.name=${DB_NAME_BES}
+db.name=${DB_NAME_CORE}
 
 # Name of the user to connect to the database
-db.user=${DB_USER_BES}
+db.user=${DB_USER_CORE}
 
 # Password of the user to connect to the database
-db.pwd=${DB_PWD_BES}
+db.pwd=${DB_PWD_CORE}
 
 # Database type
 db.type=postgresql

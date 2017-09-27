@@ -114,9 +114,9 @@ fi
 
 #TODO: delete oscm-build/result/package/*
 
-# Compile BES components
+# Compile CORE components
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker run --name gc-ant-bes-${TIMESTAMP} --rm -v ${DEVDIR}:/build \
+	docker run --name gc-ant-core-${TIMESTAMP} --rm -v ${DEVDIR}:/build \
 	    -e http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		-e https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
 		-e HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
@@ -124,7 +124,7 @@ if [ ${PROXY_ENABLED} -eq 1 ]; then
 		-e ANT_OPTS="-Dhttp.proxyHost=${HTTP_PROXY_HOST} -Dhttp.proxyPort=${HTTP_PROXY_PORT} -Dhttps.proxyHost=${HTTPS_PROXY_HOST} -Dhttps.proxyPort=${HTTPS_PROXY_PORT}" \
 		gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.BES
 else
-	docker run --name gc-ant-bes-${TIMESTAMP} --rm -v ${DEVDIR}:/build gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.BES
+	docker run --name gc-ant-core-${TIMESTAMP} --rm -v ${DEVDIR}:/build gc-ant -f /build/oscm-devruntime/javares/build-oscmaas.xml BUILD.BES
 fi
 
 # Compile APP components
@@ -155,16 +155,16 @@ else
 	docker build -t oscm-gf oscm-dockerbuild/oscm-gf
 fi
 
-# Build final BES image
+# Build final CORE image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-bes:${GIT_SOURCE} \
+	docker build -t oscm-core:${GIT_SOURCE} \
 	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
 		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
-		oscm-dockerbuild/oscm-bes
+		oscm-dockerbuild/oscm-core
 else
-	docker build -t oscm-bes:${GIT_SOURCE} oscm-dockerbuild/oscm-bes
+	docker build -t oscm-core:${GIT_SOURCE} oscm-dockerbuild/oscm-core
 fi
 
 # Build final APP image
@@ -229,14 +229,14 @@ fi
 
 # Build BIRT Tomcat
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-tomcat-birt:${GIT_SOURCE} \
+	docker build -t oscm-birt:${GIT_SOURCE} \
 	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
 		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
-		oscm-dockerbuild/oscm-tomcat-birt
+		oscm-dockerbuild/oscm-birt
 else
-	docker build -t oscm-tomcat-birt:${GIT_SOURCE} oscm-dockerbuild/oscm-tomcat-birt
+	docker build -t oscm-birt:${GIT_SOURCE} oscm-dockerbuild/oscm-birt
 fi
 
 # Build InitDB
@@ -253,11 +253,11 @@ fi
 
 # Set latest tag if requested
 if [ "${TAG_LATEST}" = "true" ]; then
-	docker tag oscm-bes:${GIT_SOURCE} oscm-bes:latest
+	docker tag oscm-core:${GIT_SOURCE} oscm-core:latest
 	docker tag oscm-app:${GIT_SOURCE} oscm-app:latest
 	docker tag oscm-proxy:${GIT_SOURCE} oscm-proxy:latest
 	docker tag oscm-branding:${GIT_SOURCE} oscm-branding:latest
-	docker tag oscm-tomcat-birt:${GIT_SOURCE} oscm-tomcat-birt:latest
+	docker tag oscm-birt:${GIT_SOURCE} oscm-birt:latest
 	docker tag oscm-initdb:${GIT_SOURCE} oscm-initdb:latest
 fi
 

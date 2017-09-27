@@ -4,8 +4,8 @@
 # OSCM server #
 ###############
 
-upstream backend_bes {
-    server ${BES_NAME}:${BES_PORT};
+upstream backend_core {
+    server ${CORE_NAME}:${CORE_PORT};
 }
 
 upstream backend_branding {
@@ -56,9 +56,9 @@ server {
         rewrite ^ https://$host$uri permanent;
     }
 
-    # Proxy all requests not otherwise matching to the OSCM BES backend
+    # Proxy all requests not otherwise matching to the OSCM CORE backend
     location ~* ^/(.*)$ {
-        proxy_pass https://backend_bes;
+        proxy_pass https://backend_core;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;

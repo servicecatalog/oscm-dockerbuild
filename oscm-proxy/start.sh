@@ -13,6 +13,6 @@ chmod 644 /etc/proxy-ssl/tls.crt
 chown root: /etc/proxy-ssl/tls.key
 chmod 640 /etc/proxy-ssl/tls.key
 
-/usr/bin/envsubst '$SERVERNAME $BES_NAME $BES_PORT $BRANDING_NAME $BRANDING_PORT $BIRT_NAME $BIRT_PORT $APP_NAME $APP_PORT' < /opt/templates/oscm.conf.template > /etc/nginx/vhosts.d/oscm.conf
+/usr/bin/envsubst '$SERVERNAME $CORE_NAME $CORE_PORT $BRANDING_NAME $BRANDING_PORT $BIRT_NAME $BIRT_PORT $APP_NAME $APP_PORT' < /opt/templates/oscm.conf.template > /etc/nginx/vhosts.d/oscm.conf
 
 /usr/sbin/nginx
