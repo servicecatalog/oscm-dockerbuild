@@ -6,7 +6,7 @@ ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser 
 ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser 
 ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql SQL_DUMP_BSSAPP=bssapp.sql
 
-ENV AUTH_MODE=INTERNAL BASE_URL=http://localhost/oscm-portal BASE_URL_HTTPS=https://localhost/oscm-portal LOG_LEVEL=INFO KEY_FILE_PATH=./key 
+ENV AUTH_MODE=INTERNAL BASE_URL=http://localhost/oscm-portal BASE_URL_HTTPS=https://localhost/oscm-portal LOG_LEVEL=INFO KEY_FILE_PATH=/opt/apache-tomee-plume-7.0.3/bin/key
 ENV REPORT_ENGINEURL=http://engi.ne/url REPORT_WSDLURL=http://engi.ne/url?wsdl REPORT_SOAP_ENDPOINT=http://soap.engi.ne/url CUSTOMER_SELF_REGISTRATION_ENABLED=false
 ENV SSO_IDP_URL=http://idp.com SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD=POST SSO_ISSUER_ID=issuer SSO_STS_ENCKEY_LEN=256 SSO_STS_URL=http://sts.example.com SSO_STS_METADATA_URL=http://meta.com
 ENV SSO_DEFAULT_TENANT_ID=dftenant SSO_IDP_SAML_ASSERTION_ISSUER_ID=issuer SSO_LOGOUT_URL=url ADMIN_USER_ID=administrator
