@@ -7,4 +7,4 @@
 #/usr/sbin/update-ca-certificates
 #
 #su - tomcat -c 'source /etc/tomcat/tomcat.conf ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/sbin/tomcat-sysd start'
-/opt/tomcat-9/bin/ catalina.sh run
+/opt/tomcat-9/apache-tomcat-9.0.1/bin/ catalina.sh run
