@@ -34,7 +34,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     find /tmp/birt -type f -name birt.war -exec cp {} /opt/tomcat-9/webapps \; && \
 #    /opt/deploy.sh && \
     unzip /tmp/oscm-reports.zip -d /opt/tomcat-9/webapps/birt && \
-    chown -R tomcat: /srv/tomcat/webapps/birt && \
+    chown -R tomcat: /opt/tomcat-9/webapps/birt && \
     rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
     rm /tmp/tomcat-9.zip && \
