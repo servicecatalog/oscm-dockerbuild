@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # Wait for database
-if [ ! -z ${PGPASSWORD} ]; then
-	unset PGPASSWORD
-fi
+unset PGPASSWORD
+
 /usr/bin/touch /root/.pgpass
 /usr/bin/chmod 600 /root/.pgpass
 echo "${DB_HOST_APP}:${DB_PORT_APP}:${DB_NAME_APP}:${DB_USER_APP}:${DB_PWD_APP}" > /root/.pgpass
