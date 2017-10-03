@@ -28,7 +28,7 @@ RUN chmod +x /opt/start.sh && \
     export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
     wget http://ftp.ps.pl/pub/apache/tomcat/tomcat-9/v9.0.1/bin/apache-tomcat-9.0.1.zip -O /tmp/tomcat-9.zip && \
-    unzip /tmp/tomcat-9.zip -d /opt/tomcat-9/ && \
+    unzip /tmp/tomcat-9.zip -d /opt/tomcat-9 && \
     wget http://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4_5_0-201506092134/birt-runtime-4.5.0-20150609.zip -O /tmp/birt-runtime.zip && \
     wget https://github.com/servicecatalog/development/releases/download/v17.3.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
     mkdir /tmp/birt && \
