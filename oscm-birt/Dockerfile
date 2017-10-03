@@ -36,7 +36,7 @@ RUN chmod +x /opt/start.sh && \
     find /tmp/birt -type f -name birt.war -exec cp {} /opt/tomcat-9/apache-tomcat-9.0.1/webapps \; && \
 #    /opt/deploy.sh && \
     unzip /tmp/oscm-reports.zip -d /opt/tomcat-9/apache-tomcat-9.0.1/webapps/birt && \
-    chown -R tomcat: /opt/tomcat-9/apache-tomcat-9.0.1/webapps/birt && \
+#    chown -R tomcat: /opt/tomcat-9/apache-tomcat-9.0.1/webapps/birt && \
     rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
     rm /tmp/tomcat-9.zip && \
