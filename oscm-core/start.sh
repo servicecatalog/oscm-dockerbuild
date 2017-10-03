@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Wait for database
-unset PGPASSWORD
 
 /usr/bin/touch /root/.pgpass
 /usr/bin/chmod 600 /root/.pgpass
