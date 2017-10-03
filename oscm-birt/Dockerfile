@@ -24,7 +24,8 @@ COPY resources/server.xml /etc/tomcat/
 #
 #CMD ["/opt/start.sh"]
 
-RUN export http_proxy=$HTTP_PROXY && \
+RUN chmod +x /opt/start.sh && \
+    export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
     wget http://ftp.ps.pl/pub/apache/tomcat/tomcat-9/v9.0.1/bin/apache-tomcat-9.0.1.zip -O /tmp/tomcat-9.zip && \
     unzip /tmp/tomcat-9.zip -d /opt/tomcat-9/ && \
@@ -32,10 +33,10 @@ RUN export http_proxy=$HTTP_PROXY && \
     wget https://github.com/servicecatalog/development/releases/download/v17.3.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
     mkdir /tmp/birt && \
     unzip /tmp/birt-runtime.zip -d /tmp/birt && \
-    find /tmp/birt -type f -name birt.war -exec cp {} /opt/tomcat-9/webapps \; && \
+    find /tmp/birt -type f -name birt.war -exec cp {} /opt/tomcat-9/apache-tomcat-9.0.1/webapps \; && \
 #    /opt/deploy.sh && \
-    unzip /tmp/oscm-reports.zip -d /opt/tomcat-9/webapps/birt && \
-    chown -R tomcat: /opt/tomcat-9/webapps/birt && \
+    unzip /tmp/oscm-reports.zip -d /opt/tomcat-9/apache-tomcat-9.0.1/webapps/birt && \
+    chown -R tomcat: /opt/tomcat-9/apache-tomcat-9.0.1/webapps/birt && \
     rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
     rm /tmp/tomcat-9.zip && \
