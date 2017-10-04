@@ -16,7 +16,12 @@ mkdir -p /opt/properties/
 
 # Wait for database server to become ready
 function waitForDB {
-    until /usr/bin/psql -h $1 -p $2 -U postgres -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+
+	/usr/bin/touch /root/.pgpass
+	/usr/bin/chmod 600 /root/.pgpass
+	echo "$1:$2:$3:$DB_SUPERUSER:$DB_SUPERPWD" > /root/.pgpass
+	export PGPASSFILE=/root/.pgpass
+    until /usr/bin/psql -h $1 -p $2 -U $DB_SUPERUSER -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 }
 
 # Generate property files for CORE from environment
@@ -55,7 +60,7 @@ if [ $TARGET == "CORE" ]; then
 	genPropertyFilesCORE
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_CORE $DB_PORT_CORE
+	waitForDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
 	
 	# Initialize CORE DB
 	if [ $SOURCE == "INIT" ]; then
@@ -98,7 +103,7 @@ if [ $TARGET == "JMS" ]; then
 	genPropertyFilesJMS
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_JMS $DB_PORT_JMS
+	waitForDB $DB_HOST_JMS $DB_PORT_JMS $DB_NAME_JMS
 	
 	# Initialize JMS DB
 	if [ $SOURCE == "INIT" ]; then
@@ -131,7 +136,7 @@ if [ $TARGET == "APP" ]; then
 	genPropertyFilesAPP
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_APP $DB_PORT_APP
+	waitForDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP
 	
 	# Initialize APP DB
 	if [ $SOURCE == "INIT" ]; then    
@@ -169,7 +174,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 	genPropertyFilesAPPController
 	
 	# Wait for database server to become ready
-	waitForDB $DB_HOST_APP $DB_PORT_APP
+	waitForDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP
 	
 	# Initialize APP DB
 	if [ $SOURCE == "INIT" ]; then    
