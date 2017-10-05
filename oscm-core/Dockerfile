@@ -1,6 +1,7 @@
 FROM oscm-gf
 
 RUN mkdir /opt/apache-tomee-plume-7.0.3/apps
+RUN mkdir /templates
 
 ENV AUTH_MODE=INTERNAL KEY_SECRET=secretsecret1234 DOMAIN_PWD=adminadmin CERT_FILE=s1as.crt
 ENV DB_HOST_CORE=oscm-db DB_PORT_CORE=5432 DB_NAME_CORE=bss DB_USER_CORE=bssuser DB_PWD_CORE=bssuser
@@ -13,6 +14,7 @@ COPY oscm-portal.war /opt/apache-tomee-plume-7.0.3/webapps
 
 COPY oscm-security.jar /opt/apache-tomee-plume-7.0.3/lib/
 COPY oscm-common.jar /opt/apache-tomee-plume-7.0.3/lib/
+COPY oscm-rest-api-common.jar /opt/apache-tomee-plume-7.0.3/lib/
 
 COPY resources/jaas.config /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/server.xml /opt/apache-tomee-plume-7.0.3/conf/
@@ -44,6 +46,7 @@ COPY lucene-queryparser-5.3.1.jar /opt/apache-tomee-plume-7.0.3/lib/lucene-query
 COPY dom4j-1.6.1.jar /opt/apache-tomee-plume-7.0.3/lib/dom4j-1.6.1.jar
 COPY antlr-2.7.7.jar /opt/apache-tomee-plume-7.0.3/lib/antlr-2.7.7.jar
 COPY log4j-1.2.16.jar /opt/apache-tomee-plume-7.0.3/lib/log4j-1.2.16.jar
+COPY gson-2.6.2.jar /opt/apache-tomee-plume-7.0.3/lib/gson-2.6.2.jar
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh

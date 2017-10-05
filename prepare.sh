@@ -53,6 +53,7 @@ cp $LIB_DIR/apache-lucene/javalib/lucene-queryparser-5.3.1.jar $REPO_DOCKER/oscm
 cp $LIB_DIR/apache-lucene/javalib/solr-core-5.3.1.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/apache-lucene/javalib/solr-solrj-5.3.1.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/antlr/javalib/antlr4-runtime-4.1.jar $REPO_DOCKER/oscm-core/
+cp $LIB_DIR/gson/javalib/gson-2.6.2.jar $REPO_DOCKER/oscm-core/
 
 cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-core/
@@ -90,6 +91,7 @@ cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-core/
+cp $BUILD_DIR/oscm-rest-api-common/oscm-rest-api-common.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-core/
 
 ## copy resources for app
