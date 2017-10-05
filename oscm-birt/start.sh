@@ -8,5 +8,3 @@
 #
 #su - tomcat -c 'source /etc/tomcat/tomcat.conf ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/sbin/tomcat-sysd start'
 /opt/tomcat-9/apache-tomcat-9.0.1/bin/catalina.sh run &
-sleep 15 &
-chown -R tomcat:tomcat /opt/tomcat-9/apache-tomcat-9.0.1/webapps/birt
