@@ -38,8 +38,8 @@ RUN chmod +x /opt/start.sh && \
     cp /tmp/birt/birt-runtime-4_5_0/birt.war /opt/tomcat-9/apache-tomcat-9.0.1/webapps && \
     unzip /tmp/oscm-reports.zip -d /opt/tomcat-9/apache-tomcat-9.0.1/webapps/birt && \
     chmod -R 755 /opt/tomcat-9/ && \
-    groupadd tomcat
-    useradd -G tomcat tomcat
+    groupadd tomcat && \
+    useradd -G tomcat tomcat && \
     rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
     rm /tmp/tomcat-9.zip && \
