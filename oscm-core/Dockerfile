@@ -1,7 +1,7 @@
 FROM oscm-gf
 
 RUN mkdir /opt/apache-tomee-plume-7.0.3/apps
-RUN mkdir /templates
+RUN mkdir -p /templates/WEB-INF
 
 ENV AUTH_MODE=INTERNAL KEY_SECRET=secretsecret1234 DOMAIN_PWD=adminadmin CERT_FILE=s1as.crt
 ENV DB_HOST_CORE=oscm-db DB_PORT_CORE=5432 DB_NAME_CORE=bss DB_USER_CORE=bssuser DB_PWD_CORE=bssuser
@@ -9,6 +9,7 @@ ENV DB_TIMEOUT_CORE=300 DB_WAIT_CORE=60000 DB_RETRY_INTERVAL_CORE=10 DB_TIMEOUT_
 ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser DB_PWD_JMS=jmsuser
 ENV SMTP_HOST=localhost SMTP_PORT=25 SMTP_FROM=mail@oscm.org SMTP_USER=saas SMTP_AUTH=false SMTP_PWD=secret SMTP_TLS_ENABLE=false
 
+COPY resources/web.xml /templates/WEB-INF
 COPY oscm.ear /opt/apache-tomee-plume-7.0.3/apps
 COPY oscm-portal.war /opt/apache-tomee-plume-7.0.3/webapps
 
