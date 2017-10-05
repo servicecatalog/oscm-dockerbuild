@@ -1,5 +1,6 @@
 FROM oscm-sles-based
 
+ENV HOST_FQDN=localhost
 COPY start.sh deploy.sh /opt/
 COPY resources/server.xml /etc/tomcat/
 
