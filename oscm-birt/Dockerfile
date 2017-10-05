@@ -1,5 +1,6 @@
 FROM oscm-sles-based
 
+ENV JAVA_HOME /usr/lib64/jvm/java-1.8.0-openjdk
 #COPY start.sh deploy.sh /opt/
 COPY start.sh /opt/
 COPY resources/server.xml /etc/tomcat/
@@ -25,6 +26,7 @@ COPY resources/server.xml /etc/tomcat/
 #CMD ["/opt/start.sh"]
 
 RUN chmod +x /opt/start.sh && \
+    chmod -R 755 /opt/tomcat-9/ && \
     export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
     wget http://ftp.ps.pl/pub/apache/tomcat/tomcat-9/v9.0.1/bin/apache-tomcat-9.0.1.zip -O /tmp/tomcat-9.zip && \
