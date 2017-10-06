@@ -8,7 +8,7 @@ ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql
 ENV HOST_CORE=oscm-core:8080
 
 ENV AUTH_MODE=INTERNAL HOST_FQDN=localhost LOG_LEVEL=INFO KEY_FILE_PATH=/opt/apache-tomee-plume-7.0.3/bin/key
-ENV REPORT_ENGINEURL=http://${HOST_FQDN}/birt/frameset?__report=${reportname}.rptdesign&SessionId=${sessionid}&__locale=${locale}&WSDLURL=${wsdlurl}&SOAPEndPoint=${soapendpoint}&wsname=Report&wsport=ReportPort
+ENV REPORT_ENGINEURL=http://${HOST_FQDN}/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
 ENV REPORT_WSDLURL=http://${HOST_CORE}/Report/ReportingServiceBean?wsdl
 ENV REPORT_SOAP_ENDPOINT=http://${HOST_CORE}/Report/ReportingServiceBean CUSTOMER_SELF_REGISTRATION_ENABLED=false
 ENV SSO_IDP_URL=http://idp.com SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD=POST SSO_ISSUER_ID=issuer SSO_STS_ENCKEY_LEN=256 SSO_STS_URL=http://sts.example.com SSO_STS_METADATA_URL=http://meta.com
