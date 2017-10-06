@@ -15,7 +15,7 @@
     validationQuery = "SELECT 1"
   </Resource>
 
-  <Resource id="mail/APPMail" type="javax.mail.Session">
+  <Resource id="APPMail" type="javax.mail.Session">
     mail.smtp.host=${SMTP_HOST}
     mail.smtp.port=${SMTP_PORT}
     mail.transport.protocol=smtp

@@ -16,7 +16,12 @@ mkdir -p /opt/properties/
 
 # Wait for database server to become ready
 function waitForDB {
-    until /usr/bin/psql -h $1 -p $2 -U postgres -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
+
+	/usr/bin/touch /root/.pgpass
+	/usr/bin/chmod 600 /root/.pgpass
+	echo "$1:$2:postgres:$DB_SUPERUSER:$DB_SUPERPWD" > /root/.pgpass
+	export PGPASSFILE=/root/.pgpass
+    until /usr/bin/psql -h $1 -p $2 -U $DB_SUPERUSER -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 }
 
 # Generate property files for CORE from environment

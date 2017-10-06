@@ -1,8 +1,8 @@
 # Copyright FUJITSU LIMITED 2017
 # Asynchronous Provisioning Platform Settings
-APP_BASE_URL=${APP_BASE_URL}
+APP_BASE_URL=https://${HOST_FQDN}/oscm-app
 APP_TIMER_INTERVAL=15000
-APP_MAIL_RESOURCE=mail/APPMail
+APP_MAIL_RESOURCE=java:openejb/Resource/APPMail
 APP_ADMIN_MAIL_ADDRESS=${APP_ADMIN_MAIL_ADDRESS}
 APP_KEYSTORE_PASSWORD=changeit
 APP_TRUSTSTORE=./cacerts.jks
