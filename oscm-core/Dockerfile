@@ -12,6 +12,7 @@ ENV SMTP_HOST=localhost SMTP_PORT=25 SMTP_FROM=mail@oscm.org SMTP_USER=saas SMTP
 COPY resources/web.xml /templates/WEB-INF
 COPY oscm.ear /opt/apache-tomee-plume-7.0.3/apps
 COPY oscm-portal.war /opt/apache-tomee-plume-7.0.3/webapps
+COPY oscm-portal-help.war /opt/apache-tomee-plume-7.0.3/webapps
 
 COPY oscm-security.jar /opt/apache-tomee-plume-7.0.3/lib/
 COPY oscm-common.jar /opt/apache-tomee-plume-7.0.3/lib/
