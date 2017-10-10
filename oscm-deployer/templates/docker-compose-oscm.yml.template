@@ -1,0 +1,73 @@
+version: "3"
+services:
+  oscm-db:
+    image: ${IMAGE_DB}
+    container_name: oscm-db
+    logging:
+      driver: syslog
+      options:
+        syslog-facility: "local0"
+    volumes:
+      - ${DB_VOLUME_DATA_SRC}:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+
+  oscm-core:
+    image: ${IMAGE_CORE}
+    container_name: oscm-core
+    logging:
+      driver: syslog
+      options:
+        syslog-facility: "local1"
+    env_file: var.env
+    environment:
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket
+    links:
+      - oscm-db:oscm-db
+    ports:
+      - 8048:8048
+      - 8080:8080
+      - 8081:8081
+
+  oscm-app:
+    image: ${IMAGE_APP}
+    container_name: oscm-app
+    logging:
+      driver: syslog
+      options:
+        syslog-facility: "local2"
+    env_file: var.env
+    environment:
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket
+    links:
+      - oscm-db:oscm-db
+    ports:
+      - 8848:8848
+      - 8880:8880
+      - 8881:8881
+
+  oscm-birt:
+    image: ${IMAGE_BIRT}
+    container_name: oscm-birt
+    logging:
+      driver: syslog
+      options:
+        syslog-facility: "local3"
+    env_file: var.env
+    ports:
+      - 8181:8181
+
+  oscm-branding:
+    image: ${IMAGE_BRANDING}
+    container_name: oscm-branding
+    logging:
+      driver: syslog
+      options:
+        syslog-facility: "local4"
+    env_file: var.env
+    volumes:
+      - ${BRANDING_VOLUME_BRANDINGS_SRC}:/brandings:ro
+    ports:
+      - 4443:443
