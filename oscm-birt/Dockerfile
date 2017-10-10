@@ -25,4 +25,6 @@ RUN chmod +x /opt/start.sh && \
     rm /tmp/tomcat-9.zip && \
     rm -rf /tmp/birt
 
+COPY activation-1.1.jar /opt/tomcat-9/apache-tomcat-9.0.1/lib/activation-1.1.jar
+
 CMD ["/opt/start.sh"]
