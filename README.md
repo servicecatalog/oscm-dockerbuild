@@ -1,17 +1,17 @@
 # Quick start OSCM with Docker
-This is a quick start guide intended to help you start up a basic installation of Fujitsu [Open Service Catalog Manager (OSCM)](https://openservicecatalogmanager.org/) with Docker and Docker Compose as quickly as possible. For more advanced configuration and usage please refer to the individual Docker containers' documentation. You can find the links in the *Resources* section.
+This is a quick start guide intended to help you start up a basic installation of Fujitsu [Open Service Catalog Manager (OSCM)](https://openservicecatalogmanager.org/) with Docker and Docker Compose as quickly as possible. For more advanced configuration and usage please refer to the individual Docker containers' documentation. You can find the links in the [Resources](#resources) section.
 
 # Prerequisites
 A Linux system with:
 
-* git
-* gettext
+* [git](https://git-scm.com/)
+* [gettext](https://www.gnu.org/software/gettext/)
 * [Docker](https://docs.docker.com/engine/installation/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
 We will refer to the Linux system with Docker installed as the *docker host*.
 
-For initial tests we recommend:
+For initial tests, we recommend:
 
 * 2 CPU cores
 * 8GB of RAM
@@ -38,7 +38,7 @@ sudo apt-get -y install git
 git clone TODO
 ```
 
-We will set some configuration variables to complete the templates
+We will set some configuration variables to complete the templates:
 
 ```sh
 # The base data directory we created
@@ -49,20 +49,20 @@ export HOSTNAME_FULL=hostname.fqdn
 export SMTP_HOST=mailserver.fqdn
 ```
 
-Next we use the *envsubst* command to fill the Docker Compose file templates with the values of our variables. If the envsubst command is not available on your system, you can usually get it by installing your distribution's *gettext* package.
+Next we use the *envsubst* command to fill the Docker Compose file templates with the values of our variables. If the *envsubst* command is not available on your system, you can usually get it by installing your distribution's *gettext* package.
 
 ```sh
 # Optional installation of envsubst for Red Hat/Fedora based distributions
 sudo yum -y install gettext
 # Optional installation of envsubst for Debian/Ubuntu based distributions
 sudo apt-get -y install gettext
-# Using the variables create complete Docker Compose files in /docker
+# Using the variables created to complete Docker Compose files in /docker
 envsubst '$WORKDIR $HOSTNAME_FULL $SMTP_HOST' < docker-compose/docker-compose-initdb.yml.template > /docker/docker-compose-initdb.yml
 envsubst '$WORKDIR $HOSTNAME_FULL $SMTP_HOST' < docker-compose/docker-compose-oscm.yml.template > /docker/docker-compose-oscm.yml
 ```
 
 ## Initialize the databases
-We will start a temporary database container and several database initialization containers. This will create the initial database schemas required for running the application.
+We will start a temporary database container and several database initialization containers. This will create the initial database schemas required for running OSCM.
 
 ```sh
 # Start a database container
@@ -83,7 +83,7 @@ docker-compose -f /docker/docker-compose-initdb.yml stop
 docker-compose -f /docker/docker-compose-initdb.yml rm -f
 ```
 
-## Start the application
+## Start OSCM
 Finally we will start all the application containers.
 
 ```sh
@@ -91,7 +91,7 @@ docker-compose -f /docker/docker-compose-oscm.yml up -d
 ```
 
 # Login to the administration portal
-The application will take a few minutes to start up. Note: This may take a while if you're low on CPU power. Once everything has started you may access the administration portal in your web browser using the FQDN or IP address you specified earlier.
+The application will take a few minutes to start up. The less CPU power you have, the longer it will take. Once everything has started, you may access the OSCM administration portal in your web browser using the FQDN or IP address you specified earlier.
 
 `http://hostname.fqdn:8080/oscm-portal/`
 
@@ -101,7 +101,7 @@ The initial login credentials are:
 * Password: `admin123`
 
 # Enable login to APP and controllers
-In order to be able to login to the Asynchronous Provisioning Platform (APP) and its controllers we will make some quick changes in the administration portal.
+In order to be able to login to the Asynchronous Provisioning Platform (APP) and its service controllers, we will make some quick changes in the administration portal.
 
 * Login to the administration portal
 * *Operation* -> *Manage organization*
@@ -109,7 +109,7 @@ In order to be able to login to the Asynchronous Provisioning Platform (APP) and
 * Enable the following *Organization role*s:
     * Supplier
     * Technology provider
-* Fill in the mandatory fields (red asterisk)
+* Fill in the mandatory fields (red asterisks)
 * Click *Save*
 * *Account* -> *Manage users* (Attention: **Not** *Operation* -> *Manage users*)
 * Click on *administrator*
@@ -125,14 +125,14 @@ Now you will be able to login to the APP:
 * Username: `administrator`
 * Password: `admin123`
 
-As well as the OpenStack controller:
+As well as to the OpenStack controller:
 
 `http://hostname.fqdn:8880/oscm-app-openstack/`
 
 * Username: `administrator`
 * Password: `admin123`
 
-# Start using the application
+# Start using OSCM
 Please refer to our [Getting Started](https://github.com/servicecatalog/development/wiki/Getting-Started) guide.
 
 # Resources
@@ -149,4 +149,4 @@ Please refer to our [Getting Started](https://github.com/servicecatalog/developm
 ## Source code
 
 * [development](https://github.com/servicecatalog/development): Application source code for oscm-core and oscm-app
-* [oscm-dockerbuild](https://github.com/servicecatalog/oscm-dockerbuild): Dockerfiles and scripts for building the application and Docker images
+* [oscm-dockerbuild](https://github.com/servicecatalog/oscm-dockerbuild): Docker files and scripts for building the application and Docker images
