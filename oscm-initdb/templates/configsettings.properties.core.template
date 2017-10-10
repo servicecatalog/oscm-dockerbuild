@@ -13,11 +13,11 @@
 
 # The base URL to access the platform's landing pages, especially
 # required to create the URL for accessing the confirmation page.
-BASE_URL=http://${HOST_FQDN}/oscm-portal
+#BASE_URL=http://${HOST_FQDN}:8080/oscm-portal
 
 # The base URL for HTTPS. Required to create the URL for accessing
 #  services via HTTPS
-BASE_URL_HTTPS=https://${HOST_FQDN}/oscm-portal
+BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
 
 # URL to specify a Web page that is to be displayed in case the HTTP
 # protocol is used and a customer tries to access a marketplace

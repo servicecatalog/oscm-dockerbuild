@@ -5,7 +5,7 @@ ENV DB_HOST_CORE=oscm-db DB_PORT_CORE=5432 DB_NAME_CORE=bss DB_USER_CORE=bssuser
 ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser DB_PWD_JMS=jmsuser 
 ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser 
 ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql SQL_DUMP_BSSAPP=bssapp.sql
-ENV HOST_CORE=oscm-core:8080
+ENV HOST_CORE=oscm-core:8081
 
 ENV AUTH_MODE=INTERNAL HOST_FQDN=localhost LOG_LEVEL=INFO KEY_FILE_PATH=/opt/apache-tomee-plume-7.0.3/bin/key
 ENV REPORT_ENGINEURL=http://${HOST_FQDN}:8080/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
