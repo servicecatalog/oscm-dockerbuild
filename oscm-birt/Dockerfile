@@ -26,5 +26,6 @@ RUN chmod +x /opt/start.sh && \
     rm -rf /tmp/birt
 
 COPY activation-1.1.jar /opt/tomcat-9/apache-tomcat-9.0.1/lib/activation-1.1.jar
+COPY javax.mail-api-1.5.4.jar /opt/tomcat-9/apache-tomcat-9.0.1/lib/javax.mail-api-1.5.4.jar
 
 CMD ["/opt/start.sh"]
