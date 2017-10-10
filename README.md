@@ -1,5 +1,5 @@
 # Quick start OSCM with Docker
-This is a quick start guide intended to help you start up a basic installation of Fujitsu [Open Service Catalog Manager (OSCM)](https://openservicecatalogmanager.org/) with Docker and Docker Compose as quickly as possible. For more advanced configuration and usage please refer to the individual Docker containers' documentation. You can find the links in the [Resources](#resources) section.
+This is a quick start guide intended to help you start up a basic installation of [Open Service Catalog Manager (OSCM)](https://openservicecatalogmanager.org/) with Docker and Docker Compose as quickly as possible. For more advanced configuration and usage please refer to the individual Docker containers' documentation. You can find the links in the [Resources](#resources) section.
 
 # Prerequisites
 A Linux system with:
