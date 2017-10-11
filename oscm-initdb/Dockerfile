@@ -5,11 +5,12 @@ ENV DB_HOST_CORE=oscm-db DB_PORT_CORE=5432 DB_NAME_CORE=bss DB_USER_CORE=bssuser
 ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser DB_PWD_JMS=jmsuser 
 ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser 
 ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql SQL_DUMP_BSSAPP=bssapp.sql
+ENV HOST_CORE=oscm-core:8081
 
 ENV AUTH_MODE=INTERNAL HOST_FQDN=localhost LOG_LEVEL=INFO KEY_FILE_PATH=/opt/apache-tomee-plume-7.0.3/bin/key
-ENV REPORT_ENGINEURL=http://${HOST_FQDN}:8180/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
-ENV REPORT_WSDLURL=http://oscm-core:8080/Report/ReportingServiceBean?wsdl
-ENV REPORT_SOAP_ENDPOINT=http://oscm-core:8080/Report/ReportingServiceBean CUSTOMER_SELF_REGISTRATION_ENABLED=false
+ENV REPORT_ENGINEURL=http://${HOST_FQDN}:8080/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
+ENV REPORT_WSDLURL=http://${HOST_CORE}/oscm-reporting/ReportingServiceBean?wsdl
+ENV REPORT_SOAP_ENDPOINT=http://${HOST_CORE}/oscm-reporting/ReportingServiceBean CUSTOMER_SELF_REGISTRATION_ENABLED=false
 ENV SSO_IDP_URL=http://idp.com SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD=POST SSO_ISSUER_ID=issuer SSO_STS_ENCKEY_LEN=256 SSO_STS_URL=http://sts.example.com SSO_STS_METADATA_URL=http://meta.com
 ENV SSO_DEFAULT_TENANT_ID=dftenant SSO_IDP_SAML_ASSERTION_ISSUER_ID=issuer SSO_LOGOUT_URL=https://idp.com/logout ADMIN_USER_ID=administrator
 
