@@ -1,7 +1,7 @@
 #!/bin/bash
-# If /target/install.conf does not exist, just copy the template for the operator and exit
-if [ ! -f /target/install.conf ]; then
-    cp /opt/install.conf.template /target/install.conf
+# If /target/var.env does not exist, just copy the template for the operator and exit
+if [ ! -f /target/var.env ]; then
+    cp /opt/var.env.template /target/var.env
 else
     # Enable command traces
     set -x
@@ -58,4 +58,7 @@ else
     envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $DB_PORT $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $BRANDING_VOLUME_BRANDINGS_SRC' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${DOCKER_PATH}/docker-compose-oscm.yml
+    envsubst '$IMAGE_PROXY' \
+    < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
+    > ${DOCKER_PATH}/docker-compose-proxy.yml
 fi

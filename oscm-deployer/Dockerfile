@@ -1,8 +1,10 @@
 FROM oscm-sles-based
 
 ENV HOST_FQDN=localhost
+$IMAGE_DB $DB_VOLUME_DATA_SRC $IMAGE_INITDB
 
-COPY templates/install.conf.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template start.sh /opt/
+
+COPY templates/var.env.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template start.sh /opt/
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \

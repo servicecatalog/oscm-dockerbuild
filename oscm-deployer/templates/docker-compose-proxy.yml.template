@@ -1,0 +1,9 @@
+version: "3"
+services:
+  proxy:
+    image: ${IMAGE_PROXY}
+    container_name: proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file: var.env
