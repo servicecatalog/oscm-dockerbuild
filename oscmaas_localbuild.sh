@@ -143,7 +143,7 @@ fi
 # Copy necessary files to docker folders
 docker run --name ubuntu-copy-${TIMESTAMP} --rm -v ${DEVDIR}:/build ubuntu /bin/bash /build/oscm-dockerbuild/prepare.sh /build
 
-# Build Glassfish image
+# Build image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
 	docker build -t oscm-gf \
 	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \

@@ -24,11 +24,6 @@ COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY templates/*.template /opt/templates/
 COPY oscm-devruntime.jar oscm-app.jar /opt/
 
-COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/etc/
-COPY resources/accesscontrol.properties resources/passwd /opt/glassfish4/glassfish/domains/core-domain/imq/instances/imqbroker/etc/
-COPY resources/config.properties /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/
-COPY resources/config.properties /opt/glassfish4/glassfish/domains/core-domain/imq/instances/imqbroker/props/
-
 COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar log4j-1.2.16.jar postgresql-9.4-1206-jdbc42.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
 
 COPY start.sh /opt/

@@ -35,8 +35,6 @@ function genPropertyFilesCORE {
 # Generate property files for JMS from environment
 function genPropertyFilesJMS {
 	/usr/bin/envsubst < /opt/templates/init.sql.jms.template > /opt/sqlscripts/init.sql
-    /usr/bin/envsubst < /opt/templates/config.properties.core.template > /opt/glassfish4/glassfish/domains/core-domain/imq/instances/imqbroker/props/config.properties
-    /usr/bin/envsubst < /opt/templates/config.properties.mi.template > /opt/glassfish4/glassfish/domains/master-indexer-domain/imq/instances/imqbroker/props/config.properties
 }
 
 # Generate property files for APP from environment
@@ -109,10 +107,6 @@ if [ $TARGET == "JMS" ]; then
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-		
-		# Initialize data
-		/opt/glassfish4/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish4/glassfish/domains/master-indexer-domain/imq -javahome /usr/lib64/jvm/java
-        /opt/glassfish4/mq/bin/imqdbmgr recreate tbl -varhome /opt/glassfish4/glassfish/domains/core-domain/imq -javahome /usr/lib64/jvm/java
 	fi
 	
 	# Import SQL dumps

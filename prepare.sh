@@ -16,17 +16,6 @@ cp $LIB_DIR/jakarta-oro/javalib/jakarta-oro-2.0.8.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-lucene/javalib/lucene-analyzers-common-5.3.1.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-lucene/javalib/lucene-core-5.3.1.jar $REPO_DOCKER/oscm-gf/
-
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.antlr.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.asm.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.core.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.dbws.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.jpa.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.jpa.jpql.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.jpa.modelgen.processor.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.moxy.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/glassfish4/modules/org.eclipse.persistence.oracle.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/dol/javalib/dol.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
 
 # copy resources for tomee
