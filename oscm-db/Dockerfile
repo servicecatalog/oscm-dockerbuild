@@ -1,5 +1,7 @@
 FROM oscm-sles-based
 
+ENV DB_SUPERPWD=postgres
+
 COPY start.sh /opt/
 
 RUN export http_proxy=$HTTP_PROXY && \
