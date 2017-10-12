@@ -2,6 +2,7 @@ FROM oscm-sles-based
 
 COPY start.sh deploy.sh /opt/
 COPY resources/server.xml /etc/tomcat/
+COPY oscm.p12 /etc/tomcat/oscm.p12
 
 RUN chmod +x /opt/deploy.sh && \
     chmod +x /opt/start.sh && \

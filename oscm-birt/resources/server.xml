@@ -73,7 +73,7 @@
     <Connector port="8681" protocol="org.apache.coyote.http11.Http11NioProtocol"
                maxThreads="150" SSLEnabled="true">
         <SSLHostConfig>
-            <Certificate certificateKeystoreFile="conf/oscm.p12"
+            <Certificate certificateKeystoreFile="/etc/tomcat/oscm.p12"
                          type="RSA" xpoweredBy="false" server="Apache TomEE" />
         </SSLHostConfig>
     </Connector>
