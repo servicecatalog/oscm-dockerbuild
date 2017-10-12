@@ -7,6 +7,8 @@ export PGPASSFILE=/root/.pgpass
 until /usr/bin/psql -h ${DB_HOST_CORE} -p ${DB_PORT_CORE} -U ${DB_USER_CORE} -l ${DB_NAME_CORE} >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 /usr/bin/rm -f /root/.pgpass
 
+cp /certs/*.crt /usr/share/pki/trust/anchors
+/usr/sbin/update-ca-certificates
 
 # Start domains
 if [ ${TOMEE_DEBUG} ]; then

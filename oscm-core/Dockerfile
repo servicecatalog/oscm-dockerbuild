@@ -51,6 +51,9 @@ COPY antlr-2.7.7.jar /opt/apache-tomee-plume-7.0.3/lib/antlr-2.7.7.jar
 COPY log4j-1.2.16.jar /opt/apache-tomee-plume-7.0.3/lib/log4j-1.2.16.jar
 COPY gson-2.6.2.jar /opt/apache-tomee-plume-7.0.3/lib/gson-2.6.2.jar
 
+COPY oscm.p12 /opt/apache-tomee-plume-7.0.3/conf/oscm.p12
+COPY oscm.crt /cert/oscm.crt
+
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
 

@@ -68,7 +68,15 @@
     -->   
     <Connector port="8680" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               redirectPort="8443" />
+               redirectPort="8681" />
+               
+    <Connector port="8681" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="conf/oscm.p12"
+                         type="RSA" xpoweredBy="false" server="Apache TomEE" />
+        </SSLHostConfig>
+    </Connector>
     <!-- A "Connector" using the shared thread pool-->
     <!--  
     <Connector executor="tomcatThreadPool"
