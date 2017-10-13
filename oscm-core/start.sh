@@ -10,7 +10,7 @@ until /usr/bin/psql -h ${DB_HOST_CORE} -p ${DB_PORT_CORE} -U ${DB_USER_CORE} -l 
 cp /certs/*.crt /usr/share/pki/trust/anchors
 /usr/sbin/update-ca-certificates
 
-/usr/bin/envsubst '$DB_HOST_CORE $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS_ENABLE' < /opt/apache-tomee-plume-7.0.3/conf/tomee_template.xml > /opt/apache-tomee-plume-7.0.3/conf/tomee.xml
+/usr/bin/envsubst '$DB_HOST_CORE $DB_PORT_CORE $DB_PWD_CORE $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS_ENABLE' < /opt/apache-tomee-plume-7.0.3/conf/tomee_template.xml > /opt/apache-tomee-plume-7.0.3/conf/tomee.xml
 
 # Start domains
 if [ ${TOMEE_DEBUG} ]; then
