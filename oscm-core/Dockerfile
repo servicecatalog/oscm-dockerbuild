@@ -23,7 +23,7 @@ COPY resources/server.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/setenv.sh /opt/apache-tomee-plume-7.0.3/bin/
 COPY resources/system.properties /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomcat-users.xml /opt/apache-tomee-plume-7.0.3/conf/
-COPY resources/tomee.xml /opt/apache-tomee-plume-7.0.3/conf/
+COPY resources/tomee_template.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/key /opt/apache-tomee-plume-7.0.3/bin/
 COPY resources/web.xml /templates/WEB-INF
 

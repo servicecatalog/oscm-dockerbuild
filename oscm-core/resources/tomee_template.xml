@@ -7,16 +7,16 @@
 
   <Resource id="BSSDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
-    JdbcUrl = jdbc:postgresql://${DB_HOST_CORE}:5432/bss
-    user = bssuser
-    password = bssuser
-    roleName = bssuser
+    JdbcUrl = jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/bss
+    user = ${DB_PWD_CORE}
+    password = ${DB_PWD_CORE}
+    roleName = ${DB_PWD_CORE}
     validationQuery = "SELECT 1"
   </Resource>
 
   <Resource id="BSSJMSDS" type="DataSource">
     JdbcDriver = org.postgresql.Driver
-    JdbcUrl = jdbc:postgresql://${DB_HOST_CORE}:5432/bssjms
+    JdbcUrl = jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/bssjms
     UserName = jmsuser
     Password = jmsuser
     validationQuery = "SELECT 1"
