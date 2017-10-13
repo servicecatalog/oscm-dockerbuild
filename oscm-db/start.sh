@@ -12,5 +12,5 @@ su - postgres -c 'sed -e "s|#*max_prepared_transactions.*|max_prepared_transacti
 su - postgres -c 'echo "host all all all md5" >> /var/lib/postgresql/data/pg_hba.conf'
 su - postgres -c 'postgres -D /var/lib/postgresql/data'
 if [ ${DB_SUPERPWD} != "postgres" ]; then
-    su - postgres -c "ALTER USER postgres WITH SUPERUSER PASSWORD ${DB_SUPERPWD};"
+    su - postgres -c "ALTER USER postgres WITH SUPERUSER PASSWORD \'${DB_SUPERPWD}\';"
 fi
