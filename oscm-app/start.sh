@@ -10,6 +10,8 @@ until /usr/bin/psql -h ${DB_HOST_APP} -p ${DB_PORT_APP} -U ${DB_USER_APP} -l ${D
 cp /certs/*.crt /usr/share/pki/trust/anchors
 /usr/sbin/update-ca-certificates
 
+/usr/bin/envsubst '$DB_HOST_APP $DB_PORT_APP $DB_NAME_APP $DB_USER_APP $DB_PWD_APP' < /opt/apache-tomee-plume-7.0.3/conf/tomee_template.xml > /opt/apache-tomee-plume-7.0.3/conf/tomee.xml
+
 # Start domains
 if [ ${TOMEE_DEBUG} ]; then
 	/opt/apache-tomee-plume-7.0.3/bin/catalina.sh jpda run

@@ -8,10 +8,10 @@
 
   <Resource id="BSSAppDS" type="DataSource">
     JdbcDriver = org.postgresql.xa.PGXADataSource
-    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:5432/bssapp
-    user = bssappuser
-    password = bssappuser
-    roleName = bssappuser
+    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
+    user = ${DB_USER_APP}
+    password = ${DB_PWD_APP}
+    roleName = ${DB_USER_APP}
     validationQuery = "SELECT 1"
   </Resource>
 
