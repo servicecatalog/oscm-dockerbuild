@@ -3,6 +3,7 @@ services:
   oscm-db:
     image: ${IMAGE_DB}
     container_name: oscm-db
+    env_file: var.env
     volumes:
       - ${DB_VOLUME_DATA_SRC}:/var/lib/postgresql/data
 
@@ -42,6 +43,17 @@ services:
   oscm-initdb-controller-openstack:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-controller-openstack
+    env_file: var.env
+    environment:
+      - TARGET=CONTROLLER
+      - SOURCE=NONE
+      - OVERWRITE=true
+    links:
+      - oscm-db:oscm-db
+      
+  oscm-initdb-controller-aws:
+    image: ${IMAGE_INITDB}
+    container_name: oscm-initdb-controller-aws
     env_file: var.env
     environment:
       - TARGET=CONTROLLER

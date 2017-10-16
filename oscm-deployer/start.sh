@@ -1,6 +1,7 @@
 #!/bin/bash
 # If /target/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f /target/var.env ]; then
+    cp /opt/env.template /target/.env
     cp /opt/var.env.template /target/var.env
 else
     # Enable command traces
