@@ -1,6 +1,6 @@
 FROM oscm-nginx
 
-ENV SOURCE=LOCAL BRANDING_DIR=/brandings GS_SERVICE_ACCOUNT_KEY_FILE=/key/keyfile.json GS_BUCKET=mybucket
+ENV SOURCE=LOCAL BRANDING_DIR=/import GS_SERVICE_ACCOUNT_KEY_FILE=/key/keyfile.json GS_BUCKET=mybucket
 
 COPY start.sh /opt/start.sh
 COPY resources/brandings.conf /etc/nginx/vhosts.d/
