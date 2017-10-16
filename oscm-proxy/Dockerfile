@@ -5,14 +5,14 @@ ENV SERVERNAME=oscm CORE_NAME=oscm-core CORE_PORT=8081 BRANDING_NAME=oscm-brandi
 COPY start.sh /opt/start.sh
 COPY templates/*.template /opt/templates/
 
-RUN mkdir /etc/proxy-ssl /proxy-ssl && \
+RUN mkdir /etc/proxy-ssl /import && \
     chmod +x /opt/start.sh && \
     SUSEConnect --cleanup && \
     if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
     if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
     if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi
 
-VOLUME /proxy-ssl
+VOLUME /import
 
 EXPOSE 80 443
 
