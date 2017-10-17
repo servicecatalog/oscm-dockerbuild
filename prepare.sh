@@ -118,3 +118,4 @@ cp /tmp/oscm.crt $REPO_DOCKER/oscm-birt/
 cp /tmp/oscm.p12 $REPO_DOCKER/oscm-birt/
 cp /tmp/oscm.crt $REPO_DOCKER/oscm-branding/
 cp /tmp/oscm.p12 $REPO_DOCKER/oscm-branding/
+cp /tmp/oscm.key $REPO_DOCKER/oscm-branding/
