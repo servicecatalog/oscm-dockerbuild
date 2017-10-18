@@ -5,7 +5,7 @@ COPY resources/server.xml /etc/tomcat/
 COPY oscm.p12 /etc/tomcat/oscm.p12
 COPY oscm.crt /import/privkey/oscm.crt
 COPY oscm.crt /import/certs/oscm.crt
-COPY resources/catalina.properties /etc/tomcat/catalina.properties
+#COPY resources/catalina.properties /etc/tomcat/catalina.properties
 COPY resources/context.xml /etc/tomcat/context.xml
 
 RUN chmod +x /opt/deploy.sh && \
