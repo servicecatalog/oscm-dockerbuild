@@ -4,8 +4,8 @@ ENV SOURCE=LOCAL BRANDING_DIR=/import/brandings GS_SERVICE_ACCOUNT_KEY_FILE=/key
 
 COPY start.sh /opt/start.sh
 COPY resources/brandings.conf /etc/nginx/vhosts.d/
-COPY oscm.crt /opt/oscm.crt
-COPY oscm.key /opt/oscm.key
+COPY ssl.crt /opt/ssl.crt
+COPY ssl.key /opt/ssl.key
 # Attention: google-cloud-sdk broken; python-Jinja2 not available for SLE_12_SP1
 # RUN zypper addrepo http://download.opensuse.org/repositories/Cloud:Tools/SLE_12_SP1/Cloud:Tools.repo && \
 #     zypper --gpg-auto-import-keys refresh && \

@@ -5,15 +5,14 @@ REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
 LIB_DIR="$REPO_OSCM/libraries"
 
-# prepare common certificate, key and keystore 
+# prepare common certificate and key
 openssl rand -base64 48 > /tmp/passphrase.txt
-openssl genrsa -aes128 -passout file:/tmp/passphrase.txt -out /tmp/oscm.key 2048
-openssl req -new -passin file:/tmp/passphrase.txt -key /tmp/oscm.key -out /tmp/oscm.csr -subj "/CN=localhost"
-cp /tmp/oscm.key /tmp/oscm.key.pass
-openssl rsa -in /tmp/oscm.key.pass -passin file:/tmp/passphrase.txt -out /tmp/oscm.key
-openssl x509 -req -days 3650 -in /tmp/oscm.csr -signkey /tmp/oscm.key -out /tmp/oscm.crt
-rm -f /tmp/passphrase.txt /tmp/oscm.key.pass /tmp/oscm.csr
-openssl pkcs12 -export -name oscmcert -in /tmp/oscm.crt -inkey /tmp/oscm.key -out /tmp/oscm.p12 -password pass:changeit
+openssl genrsa -aes128 -passout file:/tmp/passphrase.txt -out /tmp/ssl.key 2048
+openssl req -new -passin file:/tmp/passphrase.txt -key /tmp/ssl.key -out /tmp/ssl.csr -subj "/CN=localhost"
+cp /tmp/ssl.key /tmp/ssl.key.pass
+openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl.key
+openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
+rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 
 # copy resource for glassfish
 cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-gf/
@@ -110,12 +109,12 @@ cp $LIB_DIR/sun-metro/javalib/activation-1.1.jar $REPO_DOCKER/oscm-birt/
 cp $LIB_DIR/javax/javalib/javax.mail-api-1.5.4.jar $REPO_DOCKER/oscm-birt/
 
 ##copy ssl related resources
-cp /tmp/oscm.crt $REPO_DOCKER/oscm-core/
-cp /tmp/oscm.p12 $REPO_DOCKER/oscm-core/
-cp /tmp/oscm.crt $REPO_DOCKER/oscm-app/
-cp /tmp/oscm.p12 $REPO_DOCKER/oscm-app/
-cp /tmp/oscm.crt $REPO_DOCKER/oscm-birt/
-cp /tmp/oscm.p12 $REPO_DOCKER/oscm-birt/
-cp /tmp/oscm.crt $REPO_DOCKER/oscm-branding/
-cp /tmp/oscm.p12 $REPO_DOCKER/oscm-branding/
-cp /tmp/oscm.key $REPO_DOCKER/oscm-branding/
+cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-core/
+cp /tmp/ssl.crt $REPO_DOCKER/oscm-app/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-app/
+cp /tmp/ssl.crt $REPO_DOCKER/oscm-birt/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-birt/
+cp /tmp/ssl.crt $REPO_DOCKER/oscm-branding/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-branding/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-branding/
