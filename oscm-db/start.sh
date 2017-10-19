@@ -18,7 +18,7 @@ su - postgres -c 'initdb -U postgres -D /var/lib/postgresql/data --pwfile=/tmp/p
 if [ $? -ne 0 ]; then
     su - postgres -c 'postgres -D /var/lib/postgresql/data' &
     until su - postgres -c 'psql -U postgres -l' >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
-    su - postgres -c "psql -U postgres -c \"ALTER USER Postgres WITH PASSWORD '${DB_SUPERPWD}';\""
+    su - postgres -c "psql -U postgres -c \"ALTER USER postgres WITH PASSWORD '${DB_SUPERPWD}';\""
     su - postgres -c 'pg_ctl -D /var/lib/postgresql/data stop'
 fi
 
