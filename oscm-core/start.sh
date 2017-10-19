@@ -8,9 +8,9 @@ until /usr/bin/psql -h ${DB_HOST_CORE} -p ${DB_PORT_CORE} -U ${DB_USER_CORE} -l 
 /usr/bin/rm -f /root/.pgpass
 
 # Copy SSL private key and certificate, generate Keystore and copy to Tomcat config
-find /import/ssl/privkey -type f -exec cp -f {} /opt/ssl.key
-find /import/ssl/cert -type f -exec cp -f {} /opt/ssl.crt
-find /import/ssl/chain -type f -exec cp -f {} /opt/ssl.chain
+find /import/ssl/privkey -type f -exec cp -f {} /opt/ssl.key \;
+find /import/ssl/cert -type f -exec cp -f {} /opt/ssl.crt \;
+find /import/ssl/chain -type f -exec cp -f {} /opt/ssl.chain \;
 if [ -f /opt/ssl.chain ]; then
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
