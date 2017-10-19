@@ -4,6 +4,8 @@ ENV SERVERNAME=oscm CORE_NAME=oscm-core CORE_PORT=8081 BRANDING_NAME=oscm-brandi
 
 COPY start.sh /opt/start.sh
 COPY templates/*.template /opt/templates/
+COPY ssl.crt /opt/ssl.crt
+COPY ssl.key /opt/ssl.key
 
 RUN mkdir /etc/proxy-ssl /import && \
     chmod +x /opt/start.sh && \
