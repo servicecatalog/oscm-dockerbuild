@@ -44,7 +44,7 @@ We will set some configuration variables to complete the templates:
 # The base data directory we created
 export WORKDIR=/docker
 # This can be the docker host's fully qualified host name (FQDN) or IP address
-export HOSTNAME_FULL=hostname.fqdn
+export HOST_FQDN=hostname.fqdn
 # FQDN or IP address of an open mail server if you have one - otherwise 'none'
 export SMTP_HOST=mailserver.fqdn
 ```
@@ -56,15 +56,20 @@ Next we use the *envsubst* command to fill the Docker Compose file templates wit
 sudo yum -y install gettext
 # Optional installation of envsubst for Debian/Ubuntu based distributions
 sudo apt-get -y install gettext
-# Using the variables created to complete Docker Compose files in /docker
-envsubst '$WORKDIR $HOSTNAME_FULL $SMTP_HOST' < docker-compose/docker-compose-initdb.yml.template > /docker/docker-compose-initdb.yml
-envsubst '$WORKDIR $HOSTNAME_FULL $SMTP_HOST' < docker-compose/docker-compose-oscm.yml.template > /docker/docker-compose-oscm.yml
+# Substitute the variables to complete Docker Compose environment files in /docker
+envsubst '$WORKDIR' < docker-compose/env.template > /docker/.env
+envsubst '$HOST_FQDN $SMTP_HOST' < docker-compose/var.env.template > /docker/var.env
+# Copy the Docker Compose files to /docker
+cp docker-compose/docker-compose-initdb.yml /docker/docker-compose-initdb.yml
+cp docker-compose/docker-compose-oscm.yml /docker/docker-compose-oscm.yml
 ```
 
 ## Initialize the databases
 We will start a temporary database container and several database initialization containers. This will create the initial database schemas required for running OSCM.
 
 ```sh
+# Change to the /docker directory, otherwise Docker Compose will not pick up the .env file
+cd /docker
 # Start a database container
 docker-compose -f /docker/docker-compose-initdb.yml up -d oscm-db
 # Initialize the database for the core application

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="quick-start-oscm-with-docker">Quick start OSCM with Docker</h1>
+<p>This is a quick start guide intended to help you start up a basic installation of <a href="https://openservicecatalogmanager.org/">Open Service Catalog Manager (OSCM)</a> with Docker and Docker Compose as quickly as possible. For more advanced configuration and usage please refer to the individual Docker containers' documentation. You can find the links in the <a href="#resources">Resources</a> section.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>A Linux system with:</p>
+<ul>
+<li><a href="https://git-scm.com/">git</a></li>
+<li><a href="https://www.gnu.org/software/gettext/">gettext</a></li>
+<li><a href="https://docs.docker.com/engine/installation/">Docker</a></li>
+<li><a href="https://docs.docker.com/compose/install/">Docker Compose</a></li>
+</ul>
+<p>We will refer to the Linux system with Docker installed as the <em>docker host</em>.</p>
+<p>For initial tests, we recommend:</p>
+<ul>
+<li>2 CPU cores</li>
+<li>8GB of RAM</li>
+<li>20GB of disk space</li>
+</ul>
+<p>Please note that this minimum configuration is not suitable for production use.</p>
+<h1 id="setup">Setup</h1>
+<h2 id="prepare-directories-on-the-host">Prepare directories on the host</h2>
+<p>We require a directory on the docker host which holds the persistent data for the database. This directory will be mounted into the database container.</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="fu">mkdir</span> -p /docker/data/oscm-db/data</code></pre></div>
+<h2 id="prepare-docker-compose-files">Prepare Docker Compose files</h2>
+<p>Check out our Docker Compose file templates from the repository.</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="co"># Optional installation of git for Red Hat/Fedora based distributions</span>
+<span class="fu">sudo</span> yum -y install git
+<span class="co"># Optional installation of git for Debian/Ubuntu based distributions</span>
+<span class="fu">sudo</span> apt-get -y install git
+<span class="fu">git</span> clone TODO</code></pre></div>
+<p>We will set some configuration variables to complete the templates:</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="co"># The base data directory we created</span>
+<span class="bu">export</span> <span class="va">WORKDIR=</span>/docker
+<span class="co"># This can be the docker host&#39;s fully qualified host name (FQDN) or IP address</span>
+<span class="bu">export</span> <span class="va">HOST_FQDN=</span>hostname.fqdn
+<span class="co"># FQDN or IP address of an open mail server if you have one - otherwise &#39;none&#39;</span>
+<span class="bu">export</span> <span class="va">SMTP_HOST=</span>mailserver.fqdn</code></pre></div>
+<p>Next we use the <em>envsubst</em> command to fill the Docker Compose file templates with the values of our variables. If the <em>envsubst</em> command is not available on your system, you can usually get it by installing your distribution's <em>gettext</em> package.</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="co"># Optional installation of envsubst for Red Hat/Fedora based distributions</span>
+<span class="fu">sudo</span> yum -y install gettext
+<span class="co"># Optional installation of envsubst for Debian/Ubuntu based distributions</span>
+<span class="fu">sudo</span> apt-get -y install gettext
+<span class="co"># Substitute the variables to complete Docker Compose environment files in /docker</span>
+<span class="ex">envsubst</span> <span class="st">&#39;$WORKDIR&#39;</span> <span class="op">&lt;</span> docker-compose/env.template <span class="op">&gt;</span> /docker/.env
+<span class="ex">envsubst</span> <span class="st">&#39;$HOST_FQDN $SMTP_HOST&#39;</span> <span class="op">&lt;</span> docker-compose/var.env.template <span class="op">&gt;</span> /docker/var.env
+<span class="co"># Copy the Docker Compose files to /docker</span>
+<span class="fu">cp</span> docker-compose/docker-compose-initdb.yml /docker/docker-compose-initdb.yml
+<span class="fu">cp</span> docker-compose/docker-compose-oscm.yml /docker/docker-compose-oscm.yml</code></pre></div>
+<h2 id="initialize-the-databases">Initialize the databases</h2>
+<p>We will start a temporary database container and several database initialization containers. This will create the initial database schemas required for running OSCM.</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="co"># Change to the /docker directory, otherwise Docker Compose will not pick up the .env file</span>
+<span class="bu">cd</span> /docker
+<span class="co"># Start a database container</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml up -d oscm-db
+<span class="co"># Initialize the database for the core application</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml up oscm-initdb-core
+<span class="co"># Initialize a supporting database for the core application</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml up oscm-initdb-jms
+<span class="co"># Initialize the database for the Asynchronous Provisioning Platform</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml up oscm-initdb-app
+<span class="co"># Initialize the database for the AWS provider</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml up oscm-initdb-controller-aws
+<span class="co"># Initialize the database for the OpenStack provider</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml up oscm-initdb-controller-openstack
+<span class="co"># Stop the database container</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml stop
+<span class="co"># Remove all stopped containers</span>
+<span class="ex">docker-compose</span> -f /docker/docker-compose-initdb.yml rm -f</code></pre></div>
+<h2 id="start-oscm">Start OSCM</h2>
+<p>Finally we will start all the application containers.</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">docker-compose</span> -f /docker/docker-compose-oscm.yml up -d</code></pre></div>
+<h1 id="login-to-the-administration-portal">Login to the administration portal</h1>
+<p>The application will take a few minutes to start up. The less CPU power you have, the longer it will take. Once everything has started, you may access the OSCM administration portal in your web browser using the FQDN or IP address you specified earlier.</p>
+<p><code>http://hostname.fqdn:8080/oscm-portal/</code></p>
+<p>The initial login credentials are:</p>
+<ul>
+<li>Username: <code>administrator</code></li>
+<li>Password: <code>admin123</code></li>
+</ul>
+<h1 id="enable-login-to-app-and-controllers">Enable login to APP and controllers</h1>
+<p>In order to be able to login to the Asynchronous Provisioning Platform (APP) and its service controllers, we will make some quick changes in the administration portal.</p>
+<ul>
+<li>Login to the administration portal</li>
+<li><em>Operation</em> -&gt; <em>Manage organization</em></li>
+<li><em>Organization ID</em>: Enter <code>PLATFORM_OPERATOR</code></li>
+<li>Enable the following <em>Organization role</em>s:
+<ul>
+<li>Supplier</li>
+<li>Technology provider</li>
+</ul></li>
+<li>Fill in the mandatory fields (red asterisks)</li>
+<li>Click <em>Save</em></li>
+<li><em>Account</em> -&gt; <em>Manage users</em> (Attention: <strong>Not</strong> <em>Operation</em> -&gt; <em>Manage users</em>)</li>
+<li>Click on <em>administrator</em></li>
+<li>Enter your Email address</li>
+<li>Enable all <em>User role</em>s:</li>
+<li>Click <em>Save</em></li>
+<li><em>Logout</em> of the administration portal and login again to enable the changes</li>
+</ul>
+<p>Now you will be able to login to the APP:</p>
+<p><code>http://hostname.fqdn:8880/oscm-app/</code></p>
+<ul>
+<li>Username: <code>administrator</code></li>
+<li>Password: <code>admin123</code></li>
+</ul>
+<p>As well as to the OpenStack controller:</p>
+<p><code>http://hostname.fqdn:8880/oscm-app-openstack/</code></p>
+<ul>
+<li>Username: <code>administrator</code></li>
+<li>Password: <code>admin123</code></li>
+</ul>
+<h1 id="start-using-oscm">Start using OSCM</h1>
+<p>Please refer to our <a href="https://github.com/servicecatalog/development/wiki/Getting-Started">Getting Started</a> guide.</p>
+<h1 id="resources">Resources</h1>
+<h2 id="docker-images-and-related-documentation">Docker images and related documentation</h2>
+<ul>
+<li><a href="">oscm-core</a>: Core application</li>
+<li><a href="">oscm-app</a>: Asynchronous Provisioning Platform (optional)</li>
+<li><a href="">oscm-db</a>: Database for oscm-core and oscm-app</li>
+<li><a href="">oscm-initdb</a>: Initializes or restores the database for oscm-core and oscm-app</li>
+<li><a href="">oscm-birt</a>: Reporting engine (optional)</li>
+<li><a href="">oscm-branding</a>: Webserver for marketplace branding packages (optional)</li>
+<li><a href="">oscm-proxy</a>: Reverse proxy for the other containers (optional)</li>
+</ul>
+<h2 id="source-code">Source code</h2>
+<ul>
+<li><a href="https://github.com/servicecatalog/development">development</a>: Application source code for oscm-core and oscm-app</li>
+<li><a href="https://github.com/servicecatalog/oscm-dockerbuild">oscm-dockerbuild</a>: Docker files and scripts for building the application and Docker images</li>
+</ul>
+</body>
+</html>
