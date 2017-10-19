@@ -1,24 +1,23 @@
 #!/bin/bash
-# If /target/var.env does not exist, just copy the template for the operator and exit
-if [ ! -f /target/var.env ]; then
-    cp /opt/env.template /target/.env
-    cp /opt/var.env.template /target/var.env
+# Variables for this script
+COMPOSE_CONFIG_PATH=/opt
+DOCKER_PATH=/target
+
+# If ${DOCKER_PATH}/var.env does not exist, just copy the template for the operator and exit
+if [ ! -f ${DOCKER_PATH}/var.env ] || [ ! -f ${DOCKER_PATH}/.env ]; then
+    cp /opt/env.template ${DOCKER_PATH}/.env
+    cp /opt/var.env.template ${DOCKER_PATH}/var.env
 else
     # Enable command traces
     set -x
-    # Exit on error
-    set -e
-    
-    # Variables for this script
-    COMPOSE_CONFIG_PATH=/opt
-    DOCKER_PATH=/target
     # Enable automatic exporting of variables
     set -a
     # Read configuration files
-    source ${CONFIG_PATH}/heat-config
-    source ${CONFIG_PATH}/oscm-config
+    source ${DOCKER_PATH}/.env
     # Disable automatic exporting of variables
     set +a
+    # Exit on error
+    set -e
     
     # Create Docker directories if they do not exist yet
     for docker_directory in \
@@ -39,24 +38,11 @@ else
         fi
     done
     
-    # Create Docker log files if they do not exist yet
-    for docker_log_file in \
-        ${DOCKER_PATH}/logs/oscm-app/oscm-app.out.log \
-        ${DOCKER_PATH}/logs/oscm-birt/oscm-birt.out.log \
-        ${DOCKER_PATH}/logs/oscm-branding/oscm-branding.out.log \
-        ${DOCKER_PATH}/logs/oscm-core/oscm-core.out.log \
-        ${DOCKER_PATH}/logs/oscm-db/oscm-db.out.log; do
-        if [ ! -f {docker_log_file} ]; then
-            touch ${docker_log_file}
-            chmod 640 ${docker_log_file}
-        fi
-    done
-    
     # Create Docker Compose files from templates
     envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $IMAGE_INITDB' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
     > ${DOCKER_PATH}/docker-compose-initdb.yml
-    envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $DB_PORT $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $BRANDING_VOLUME_BRANDINGS_SRC' \
+    envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $BRANDING_VOLUME_BRANDINGS_SRC' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${DOCKER_PATH}/docker-compose-oscm.yml
     envsubst '$IMAGE_PROXY' \
