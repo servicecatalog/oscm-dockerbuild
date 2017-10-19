@@ -26,6 +26,8 @@ COPY resources/tomcat-users.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/tomee_template.xml /opt/apache-tomee-plume-7.0.3/conf/
 COPY resources/key /opt/apache-tomee-plume-7.0.3/bin/
 COPY resources/web.xml /templates/WEB-INF
+COPY resources/catalina.properties /opt/apache-tomee-plume-7.0.3/conf/catalina.properties
+COPY resources/context.xml /opt/apache-tomee-plume-7.0.3/conf/context.xml
 
 COPY hibernate-commons-annotations-5.0.1.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-commons-annotations-5.0.1.Final.jar
 COPY hibernate-core-5.0.9.Final.jar /opt/apache-tomee-plume-7.0.3/lib/hibernate-core-5.0.9.Final.jar
