@@ -1,17 +1,15 @@
 #!/bin/bash
 
-# Copy external SSL key and cert if available
-# otherwise create our own
-if [ $(find /import -type f -name "*.crt" | wc -l) == "1" ] && [ $(find /import -type f -name "*.key" | wc -l) == "1" ]; then
-    find /import -type f -name "*.crt" -exec cp -f {} /etc/proxy-ssl/tls.crt \;
-    find /import -type f -name "*.key" -exec cp -f {} /etc/proxy-ssl/tls.key \;
+# Copy SSL private key and certificate, generate Keystore and copy to Tomcat config
+find /import/ssl/privkey -type f -exec cp -f {} /opt/ssl.key \;
+find /import/ssl/cert -type f -exec cp -f {} /opt/ssl.crt \;
+find /import/ssl/chain -type f -exec cp -f {} /opt/ssl.chain \;
+if [ -f /opt/ssl.chain ]; then
+    cat /opt/ssl.crt /opt/ssl.chain > /etc/nginx/ssl.crt
 else
-    /usr/bin/openssl req -new -newkey rsa:4096 -sha256 -days 3650 -nodes -x509 -subj "/CN=oscm" -keyout /etc/proxy-ssl/tls.key -out /etc/proxy-ssl/tls.crt
+    cp /opt/ssl.crt /etc/nginx/ssl.crt
 fi
-chown root: /etc/proxy-ssl/tls.crt
-chmod 644 /etc/proxy-ssl/tls.crt
-chown root: /etc/proxy-ssl/tls.key
-chmod 640 /etc/proxy-ssl/tls.key
+cp /opt/ssl.key /etc/nginx/ssl.key
 
 /usr/bin/envsubst '$SERVERNAME $CORE_NAME $CORE_PORT $BRANDING_NAME $BRANDING_PORT $BIRT_NAME $BIRT_PORT $APP_NAME $APP_PORT' < /opt/templates/oscm.conf.template > /etc/nginx/vhosts.d/oscm.conf
 

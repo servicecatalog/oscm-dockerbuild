@@ -74,9 +74,9 @@
            protocol="org.apache.coyote.http11.Http11NioProtocol"
            port="8681" maxThreads="200"
            scheme="https" secure="true" SSLEnabled="true"
-           keystoreFile="/etc/tomcat/oscm.p12" keystorePass="changeit"
+           keystoreFile="/etc/tomcat/ssl.p12" keystorePass="changeit"
            clientAuth="false" sslProtocol="TLS"/>
-           
+
     <!-- A "Connector" using the shared thread pool-->
     <!--  
     <Connector executor="tomcatThreadPool"
