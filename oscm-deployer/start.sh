@@ -56,4 +56,32 @@ else
     envsubst '$DOCKER_PATH $IMAGE_PROXY' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
     > ${TARGET_PATH}/docker-compose-proxy.yml
+    
+    # If the user wants us to initialize the database, do it now
+    if [ ${INITDB} == "true" ]; then
+        # If the Docker socket is not mounted, abort
+        if [ ! -S /var/run/docker.sock ]; then
+            echo "Docker socket is not mounted. Aborting."
+            exit 1
+        fi
+        cd ${TARGET_PATH}
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up -d oscm-db
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-core
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-jms
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-app
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-controller-openstack
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-controller-aws
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) stop
+        docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) rm -f
+    fi
+    
+    # If the user wants us to start up the application, do it now
+    if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
+        # If the Docker socket is not mounted, abort
+        if [ ! -S /var/run/docker.sock ]; then
+            echo "Docker socket is not mounted. Aborting."
+            exit 1
+        fi
+        docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
+    fi
 fi

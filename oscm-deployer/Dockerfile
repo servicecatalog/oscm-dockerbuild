@@ -1,6 +1,8 @@
 #FROM oscm-sles-based
 FROM centos:7
 
+ENV INITDB=false
+ENV STARTUP=false
 ENV HOST_FQDN=localhost
 ENV IMAGE_DB=oscm-db:latest
 ENV IMAGE_CORE=oscm-core:latest
@@ -15,14 +17,19 @@ COPY templates/env.template templates/var.env.template templates/docker-compose-
 
 # RUN export http_proxy=$HTTP_PROXY && \
 #     export https_proxy=$HTTPS_PROXY && \
-#     zypper -n in gettext-runtime vim && \
+#     SUSEConnect -p sle-module-containers/12/x86_64 -r '' && \
+#     zypper -n in gettext-runtime vim docker && \
 #     zypper clean && \
 #     SUSEConnect --cleanup && \
+#     curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
+#     chmod +x /usr/local/bin/docker-compose && \
 #     if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
 #     if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
 #     if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi \
 RUN yum -y update && \
-    yum -y install gettext && \
+    yum -y install gettext docker-client && \
+    curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
     chmod +x /opt/start.sh
 
 VOLUME /target
