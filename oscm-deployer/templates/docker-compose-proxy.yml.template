@@ -6,4 +6,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    - ${DOCKER_PATH}/config/oscm-proxy/ssl/privkey:/import/ssl/privkey
+    - ${DOCKER_PATH}/config/oscm-proxy/ssl/cert:/import/ssl/cert
+    - ${DOCKER_PATH}/config/oscm-proxy/ssl/chain:/import/ssl/chain
     env_file: var.env

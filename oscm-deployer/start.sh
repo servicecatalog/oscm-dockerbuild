@@ -1,19 +1,19 @@
 #!/bin/bash
 # Variables for this script
 COMPOSE_CONFIG_PATH=/opt
-DOCKER_PATH=/target
+TARGET_PATH=/target
 
-# If ${DOCKER_PATH}/var.env does not exist, just copy the template for the operator and exit
-if [ ! -f ${DOCKER_PATH}/var.env ] || [ ! -f ${DOCKER_PATH}/.env ]; then
-    cp /opt/env.template ${DOCKER_PATH}/.env
-    cp /opt/var.env.template ${DOCKER_PATH}/var.env
+# If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
+if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
+    cp /opt/env.template ${TARGET_PATH}/.env
+    cp /opt/var.env.template ${TARGET_PATH}/var.env
 else
     # Enable command traces
     set -x
     # Enable automatic exporting of variables
     set -a
     # Read configuration files
-    source ${DOCKER_PATH}/.env
+    source ${TARGET_PATH}/.env
     # Disable automatic exporting of variables
     set +a
     # Exit on error
@@ -21,18 +21,26 @@ else
     
     # Create Docker directories if they do not exist yet
     for docker_directory in \
-        ${DOCKER_PATH}/data/oscm-db/data \
-        ${DOCKER_PATH}/config/brandings\
-        ${DOCKER_PATH}/config/certs \
-        ${DOCKER_PATH}/config/privkey/oscm-core \
-        ${DOCKER_PATH}/config/privkey/oscm-app \
-        ${DOCKER_PATH}/config/privkey/oscm-birt \
-        ${DOCKER_PATH}/config/privkey/oscm-branding \
-        ${DOCKER_PATH}/logs/oscm-app \
-        ${DOCKER_PATH}/logs/oscm-birt \
-        ${DOCKER_PATH}/logs/oscm-branding \
-        ${DOCKER_PATH}/logs/oscm-core \
-        ${DOCKER_PATH}/logs/oscm-db; do
+        ${TARGET_PATH}/data/oscm-db/data \
+        ${TARGET_PATH}/config/certs \
+        ${TARGET_PATH}/config/oscm-branding/brandings \
+        ${TARGET_PATH}/config/oscm-core/ssl/privkey \
+        ${TARGET_PATH}/config/oscm-core/ssl/cert \
+        ${TARGET_PATH}/config/oscm-core/ssl/chain \
+        ${TARGET_PATH}/config/oscm-app/ssl/privkey \
+        ${TARGET_PATH}/config/oscm-app/ssl/cert \
+        ${TARGET_PATH}/config/oscm-app/ssl/chain \
+        ${TARGET_PATH}/config/oscm-birt/ssl/privkey \
+        ${TARGET_PATH}/config/oscm-birt/ssl/cert \
+        ${TARGET_PATH}/config/oscm-birt/ssl/chain \
+        ${TARGET_PATH}/config/oscm-branding/ssl/privkey \
+        ${TARGET_PATH}/config/oscm-branding/ssl/cert \
+        ${TARGET_PATH}/config/oscm-branding/ssl/chain \
+        ${TARGET_PATH}/logs/oscm-app \
+        ${TARGET_PATH}/logs/oscm-birt \
+        ${TARGET_PATH}/logs/oscm-branding \
+        ${TARGET_PATH}/logs/oscm-core \
+        ${TARGET_PATH}/logs/oscm-db; do
         if [ ! -d ${docker_directory} ]; then
             mkdir -p ${docker_directory}
         fi
@@ -41,11 +49,11 @@ else
     # Create Docker Compose files from templates
     envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $IMAGE_INITDB' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
-    > ${DOCKER_PATH}/docker-compose-initdb.yml
+    > ${TARGET_PATH}/docker-compose-initdb.yml
     envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $BRANDING_VOLUME_BRANDINGS_SRC' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
-    > ${DOCKER_PATH}/docker-compose-oscm.yml
+    > ${TARGET_PATH}/docker-compose-oscm.yml
     envsubst '$IMAGE_PROXY' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
-    > ${DOCKER_PATH}/docker-compose-proxy.yml
+    > ${TARGET_PATH}/docker-compose-proxy.yml
 fi
