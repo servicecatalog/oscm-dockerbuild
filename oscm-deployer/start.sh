@@ -47,13 +47,13 @@ else
     done
     
     # Create Docker Compose files from templates
-    envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $IMAGE_INITDB' \
+    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
     > ${TARGET_PATH}/docker-compose-initdb.yml
-    envsubst '$IMAGE_DB $DB_VOLUME_DATA_SRC $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $BRANDING_VOLUME_BRANDINGS_SRC' \
+    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
-    envsubst '$IMAGE_PROXY' \
+    envsubst '$DOCKER_PATH $IMAGE_PROXY' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
     > ${TARGET_PATH}/docker-compose-proxy.yml
 fi

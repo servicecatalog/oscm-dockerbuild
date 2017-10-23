@@ -5,7 +5,7 @@ services:
     container_name: oscm-db
     env_file: var.env
     volumes:
-      - ${DB_VOLUME_DATA_SRC}:/var/lib/postgresql/data
+      - ${DOCKER_PATH}/data/oscm-db/data:/var/lib/postgresql/data
 
   oscm-initdb-core:
     image: ${IMAGE_INITDB}
