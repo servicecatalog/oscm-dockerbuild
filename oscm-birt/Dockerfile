@@ -1,5 +1,7 @@
 FROM oscm-sles-based
 
+ENV HOST_FQDN=localhost
+
 COPY start.sh deploy.sh ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/
 COPY resources/server.xml /etc/tomcat/
