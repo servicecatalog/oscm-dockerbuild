@@ -1,0 +1,128 @@
+# /etc/nginx/conf.d/default.conf
+
+###############
+# OSCM server #
+###############
+
+upstream backend_core {
+    server ${CORE_NAME}:${CORE_PORT};
+}
+
+upstream backend_branding {
+    server ${BRANDING_NAME}:${BRANDING_PORT};
+}
+
+upstream backend_tomcat_birt {
+    server ${BIRT_NAME}:${BIRT_PORT};
+}
+
+upstream backend_app {
+    server ${APP_NAME}:${APP_PORT};
+}
+
+server {
+    server_name ${SERVERNAME};
+    listen              80;
+    listen              443 default_server ssl;
+
+    # TLS key pair
+    ssl_certificate /etc/nginx/ssl.crt;
+    ssl_certificate_key /etc/nginx/ssl.key;
+
+    # TLS configuration
+    ssl_protocols       TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA256:EECDH:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!IDEA:!ECDSA:kEDH:CAMELLIA128-SHA:AES128-SHA';
+    add_header Strict-Transport-Security max-age=15768000;
+
+    # Disable TRACE and DELETE methods
+    if ($request_method !~ ^(GET|HEAD|POST)$ ){
+        return 405;
+    }
+
+    # Do not log favicon and robots requests
+    location = /favicon.ico {
+        log_not_found off;
+        access_log off;
+    }
+    location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+    }
+
+    # Redirect to HTTPS
+    if ($ssl_protocol = "") {
+        rewrite ^ https://$host$uri permanent;
+    }
+
+    # Proxy all requests not otherwise matching to the OSCM CORE backend
+    location ~* ^/(.*)$ {
+        proxy_pass https://backend_core;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_redirect off;
+    }
+
+    # Proxy requests for marketplace branding to the branding backend
+    location ^~ /fujitsu-branding/ {
+        proxy_pass http://backend_branding/fujitsu-branding/;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_redirect off;
+    }
+
+    # Proxy requests for marketplace branding to the branding backend
+    location ^~ /demo-branding/ {
+        proxy_pass http://backend_branding/demo-branding/;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_redirect off;
+    }
+
+    # Proxy requests for birt to the tomcat birt backend
+    location ^~ /birt/ {
+        proxy_pass http://backend_tomcat_birt/birt/;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_redirect off;
+    }
+
+    # Proxy requests for app to the app backend
+    location ^~ /oscm-app/ {
+        proxy_pass https://backend_app;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_redirect off;
+    }
+
+    # Proxy requests for aws controller to the app backend
+    location ^~ /oscm-app-aws/ {
+        proxy_pass https://backend_app;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_redirect off;
+    }
+
+    # Proxy requests for openstack controller to the app backend
+    location ^~ /oscm-app-openstack/ {
+        proxy_pass https://backend_app;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_redirect off;
+    }
+}

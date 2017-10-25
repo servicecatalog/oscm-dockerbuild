@@ -1,25 +1,21 @@
-FROM centos:7
-MAINTAINER Robert Miethaner <robert.miethaner@est.fujitsu.com>
-MAINTAINER Frank Shimizu <frank.shimizu@est.fujitsu.com>
+FROM oscm-nginx
 
-# Update the OS
-RUN  export http_proxy && \
-     export https_proxy && \
-     yum clean all && \
-     yum update -y && \
-     yum clean all
+ENV SERVERNAME=oscm CORE_NAME=oscm-core CORE_PORT=8081 BRANDING_NAME=oscm-branding BRANDING_PORT=80 BIRT_NAME=oscm-birt BIRT_PORT=8680 APP_NAME=oscm-app APP_PORT=8881
 
-# Add nginx yum repository
-COPY nginx.repo /etc/yum.repos.d/
+COPY start.sh /opt/start.sh
+COPY templates/*.template /opt/templates/
+COPY ssl.crt /opt/ssl.crt
+COPY ssl.key /opt/ssl.key
 
-# Install nginx
-RUN  curl http://nginx.org/keys/nginx_signing.key -o /tmp/nginx_signing.key && \
-     rpm --import /tmp/nginx_signing.key && \
-     yum install -y nginx && \
-     yum clean all
+RUN mkdir /etc/proxy-ssl /import && \
+    chmod +x /opt/start.sh && \
+    SUSEConnect --cleanup && \
+    if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
+    if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
+    if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi
 
-# Expose ports
+VOLUME /import
+
 EXPOSE 80 443
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/opt/start.sh"]

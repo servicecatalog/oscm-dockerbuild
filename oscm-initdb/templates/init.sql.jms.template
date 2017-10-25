@@ -1,6 +1,22 @@
-\set ON_ERROR_STOP
-CREATE ROLE ${DB_USER_JMS} LOGIN PASSWORD '${DB_PWD_JMS}';
+DO $$ 
+<<create_modify_role>>
+BEGIN
+    IF NOT EXISTS ( SELECT FROM pg_catalog.pg_user WHERE usename = '${DB_USER_JMS}' ) THEN
+        CREATE ROLE ${DB_USER_JMS} LOGIN PASSWORD '${DB_PWD_JMS}';
+    ELSE
+        ALTER USER ${DB_USER_JMS} WITH PASSWORD '${DB_PWD_JMS}';
+    END IF;
+END create_modify_role $$;
+
 CREATE DATABASE ${DB_NAME_JMS} WITH OWNER=${DB_USER_JMS} TEMPLATE=template0 ENCODING='UTF8';
+
 \c ${DB_NAME_JMS}
-CREATE SCHEMA ${DB_USER_JMS};
-GRANT ALL PRIVILEGES ON SCHEMA ${DB_USER_JMS} TO ${DB_USER_JMS};
+
+DO $$
+<<create_schema>>
+BEGIN
+    IF NOT EXISTS ( SELECT schema_name FROM information_schema.schemata WHERE schema_name = '${DB_USER_CORE}' ) THEN
+        CREATE SCHEMA ${DB_USER_JMS};
+        GRANT ALL PRIVILEGES ON SCHEMA ${DB_USER_JMS} TO ${DB_USER_JMS};
+    END IF;
+END create_schema $$;

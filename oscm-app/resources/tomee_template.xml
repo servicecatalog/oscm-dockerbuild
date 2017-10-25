@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <Deployments dir="apps" />
+  <Deployments dir="controllers" />
+
+  <Resource id="BSSAppDS" type="DataSource">
+    JdbcDriver = org.postgresql.xa.PGXADataSource
+    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
+    user = ${DB_USER_APP}
+    password = ${DB_PWD_APP}
+    roleName = ${DB_USER_APP}
+    validationQuery = "SELECT 1"
+  </Resource>
+
+  <Resource id="APPMail" type="javax.mail.Session">
+    mail.smtp.host=${SMTP_HOST}
+    mail.smtp.port=${SMTP_PORT}
+    mail.transport.protocol=smtp
+    mail.smtp.timeout=30000
+    mail-smtp-connectiontimeout=30000
+    mail.smtp.auth=${SMTP_AUTH}
+    mail.smtp.user=${SMTP_USER}
+    mail.smtp.password=${SMTP_PWD}
+    mail.smtp.from=${SMTP_FROM}
+    mail.smtp.starttls.enable=${SMTP_TLS_ENABLE}
+  </Resource>
+  
+  
+</tomee>

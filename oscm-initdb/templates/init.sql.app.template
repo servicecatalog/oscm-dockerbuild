@@ -1,6 +1,22 @@
-\set ON_ERROR_STOP
-CREATE ROLE ${DB_USER_APP} LOGIN PASSWORD '${DB_PWD_APP}';
+DO $$ 
+<<create_modify_role>>
+BEGIN
+    IF NOT EXISTS ( SELECT FROM pg_catalog.pg_user WHERE usename = '${DB_USER_APP}' ) THEN
+        CREATE ROLE ${DB_USER_APP} LOGIN PASSWORD '${DB_PWD_APP}';
+    ELSE
+        ALTER USER ${DB_USER_APP} WITH PASSWORD '${DB_PWD_APP}';
+    END IF;
+END create_modify_role $$;
+
 CREATE DATABASE ${DB_NAME_APP} WITH OWNER=${DB_USER_APP} TEMPLATE=template0 ENCODING='UTF8';
+
 \c ${DB_NAME_APP}
-CREATE SCHEMA ${DB_USER_APP};
-GRANT ALL PRIVILEGES ON SCHEMA ${DB_USER_APP} TO ${DB_USER_APP};
+
+DO $$
+<<create_schema>>
+BEGIN
+    IF NOT EXISTS ( SELECT schema_name FROM information_schema.schemata WHERE schema_name = '${DB_USER_CORE}' ) THEN
+        CREATE SCHEMA ${DB_USER_APP};
+        GRANT ALL PRIVILEGES ON SCHEMA ${DB_USER_APP} TO ${DB_USER_APP};
+    END IF;
+END create_schema $$;
