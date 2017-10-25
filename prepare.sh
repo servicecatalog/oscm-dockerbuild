@@ -108,6 +108,8 @@ cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-app/
 cp $LIB_DIR/sun-metro/javalib/activation-1.1.jar $REPO_DOCKER/oscm-birt/
 cp $LIB_DIR/javax/javalib/javax.mail-api-1.5.4.jar $REPO_DOCKER/oscm-birt/
 
+cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-help/
+
 ##copy ssl related resources
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-core/
@@ -119,3 +121,5 @@ cp /tmp/ssl.crt $REPO_DOCKER/oscm-branding/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-branding/
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-proxy/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-proxy/
+cp /tmp/ssl.crt $REPO_DOCKER/oscm-help/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-help/
