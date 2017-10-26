@@ -153,5 +153,5 @@ Please refer to our [Getting Started](https://github.com/servicecatalog/developm
 
 ## Source code
 
-* [development](https://github.com/servicecatalog/development): Application source code for oscm-core and oscm-app
+* [oscm](https://github.com/servicecatalog/oscm): Application source code for oscm-core and oscm-app
 * [oscm-dockerbuild](https://github.com/servicecatalog/oscm-dockerbuild): Docker files and scripts for building the application and Docker images
