@@ -30,5 +30,7 @@ COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc
 
 COPY start.sh /opt/
 RUN mkdir /opt/sqlscripts/custom && chmod +x /opt/start.sh
+COPY resources/custom.sql /opt/sqlscripts/custom/
+
 
 CMD ["/opt/start.sh"]
