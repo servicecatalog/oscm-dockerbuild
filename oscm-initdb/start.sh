@@ -95,7 +95,8 @@ if [ $TARGET == "CORE" ]; then
 		/opt/properties/configsettings.properties /opt/properties/sso.properties    
 		
 	if [ $CUSTOM_DATA == "true" ]; then
-		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/custom/custom.sql $DB_NAME_CORE	
+		java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+			/opt/properties/db.properties /opt/sqlscripts/custom/	
 	fi	    
 fi
 
