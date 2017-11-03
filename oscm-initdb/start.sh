@@ -92,12 +92,7 @@ if [ $TARGET == "CORE" ]; then
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
-		/opt/properties/configsettings.properties /opt/properties/sso.properties    
-		
-	if [ $SOURCE == "CUSTOM" ]; then
-	    export PGPASSWORD=$DB_SUPERPWD
-		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/custom/custom.sql $DB_NAME_CORE	
-	fi	    
+		/opt/properties/configsettings.properties /opt/properties/sso.properties        
 fi
 
 # JMS
@@ -204,3 +199,20 @@ if [ $TARGET == "CONTROLLER" ]; then
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID        
 fi
+
+# Check if specific db is ready
+function checkDB {
+	export PGPASSWORD=$DB_SUPERPWD
+    until /usr/bin/psql -h $1 -p $2 -U $DB_SUPERUSER $3 >/dev/null 2>&1; do echo "Database $DB_NAME_CORE not ready - waiting..."; sleep 3s; done
+	echo "Database $DB_NAME_CORE ready ..."
+}
+
+#SAMPLE DATA
+if [ $TARGET == "SAMPLE_DATA" ]; then
+    if [ -f /opt/sqlscripts/sample-data/core/sample.sql ]; then
+    	checkDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
+		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/sample-data/core/sample.sql $DB_NAME_CORE
+	else
+		echo "No sample data found ..."
+	fi	
+fi	
