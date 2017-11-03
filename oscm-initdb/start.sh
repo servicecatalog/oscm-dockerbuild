@@ -94,9 +94,9 @@ if [ $TARGET == "CORE" ]; then
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
 		/opt/properties/configsettings.properties /opt/properties/sso.properties    
 		
-	if [ $CUSTOM_DATA == "true" ]; then
-		java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-			/opt/properties/db.properties /opt/sqlscripts/custom/	
+	if [ $SOURCE == "CUSTOM" ]; then
+	    export PGPASSWORD=$DB_SUPERPWD
+		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/custom/custom.sql $DB_NAME_CORE	
 	fi	    
 fi
 
