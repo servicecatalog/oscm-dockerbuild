@@ -4,8 +4,6 @@ This is a quick start guide intended to help you start up a basic installation o
 # Prerequisites
 A Linux system with:
 
-* [git](https://git-scm.com/)
-* [gettext](https://www.gnu.org/software/gettext/)
 * [Docker](https://docs.docker.com/engine/installation/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -20,79 +18,58 @@ For initial tests, we recommend:
 Please note that this minimum configuration is not suitable for production use.
 
 # Setup
-## Prepare directories on the host
-We require a directory on the docker host which holds the persistent data for the database. This directory will be mounted into the database container.
+## Prepare directory on the host
+We require a directory on the docker host which holds various data such as persistent database data, configuration data and so on. We will use `/docker` as an example, please substitute your own directory path.
 
 ```sh
-mkdir -p /docker/data/oscm-db/data
+mkdir /docker
 ```
 
-## Prepare Docker Compose files
-Check out our Docker Compose file templates from the repository.
+## Prepare configuration files
+We will run a deployment container which prepares configuration file templates for us. Use `-v` to mount the directory you created earlier to /target in the container.
 
 ```sh
-# Optional installation of git for Red Hat/Fedora based distributions
-sudo yum -y install git
-# Optional installation of git for Debian/Ubuntu based distributions
-sudo apt-get -y install git
-git clone TODO
+docker run --name deployer1 --rm -v /docker:/target servicecatalog/oscm-deployer
 ```
 
-We will set some configuration variables to complete the templates:
+This creates two files.
+
+* .env: Configuration for Docker, such as images and the data directory
+* var.env: Configuration for the application, such as mail server, database and other settings
+
+## Prepare Docker Compose files and start the application
+If you are using a different data directory, please change `DOCKER_PATH` in the file `.env` accordingly.
+
+Please edit the file `var.env` and adjust the following configuration settings:
+
+* SMTP_HOST: The host name or IP address of your mail server
+* SMTP_PORT: The port of your mail server
+* SMTP_FROM: The sender email address that OSCM should use
+* SMTP_USER: The user name for your mail server if it requires authentication; if no authentication is required, please set `none`
+* SMTP_PWD: The password for your mail server if it requires authentication; if no authentication is required, please set `none`
+* SMTP_AUTH: Whether your mail server requires authentication; can be `true` or `false`
+* SMTP_TLS: Whether to use TLS for mail server communication; can be `true` or `false`
+* KEY_SECRET: A secret string which will be used as a seed for encryption in the database. Please do not lose this if you plan to keep your database.
+* HOST_FQDN: The host name or IP address which you will use to access the application
+* REPORT_ENGINEURL: Replace `${HOST_FQDN}` with the same value as above; please leave the other placeholders intact
+* DB_PORT_*: The port of the PostgreSQL database; `5432`
+* DB_PWD_* and DB_SUPERPWD: Passwords for the databases and the database super user
+* APP_ADMIN_MAIL_ADDRESS: The sender email address that the Asynchronous Provisioning Platform (APP) should use
+* CONTROLLER_ORG_ID: Set to `PLATFORM_OPERATOR`
+* CONTROLLER_USER_KEY: Set to `1000`
+* CONTROLLER_USER_NAME: Set to `administrator`
+* CONTROLLER_USER_PASS: Set to `admin123`
+* TOMEE_DEBUG: Set to `false` unless you need debug logs
+
+We will run a second deployment container which does the following:
+
+* Create the necessary Docker Compose files
+* Create the necessary subdirectories
+* Initialize the application database
+* Start the application containers
 
 ```sh
-# The base data directory we created
-export WORKDIR=/docker
-# This can be the docker host's fully qualified host name (FQDN) or IP address
-export HOST_FQDN=hostname.fqdn
-# FQDN or IP address of an open mail server if you have one - otherwise 'none'
-export SMTP_HOST=mailserver.fqdn
-```
-
-Next we use the *envsubst* command to fill the Docker Compose file templates with the values of our variables. If the *envsubst* command is not available on your system, you can usually get it by installing your distribution's *gettext* package.
-
-```sh
-# Optional installation of envsubst for Red Hat/Fedora based distributions
-sudo yum -y install gettext
-# Optional installation of envsubst for Debian/Ubuntu based distributions
-sudo apt-get -y install gettext
-# Substitute the variables to complete Docker Compose environment files in /docker
-envsubst '$WORKDIR' < docker-compose/env.template > /docker/.env
-envsubst '$HOST_FQDN $SMTP_HOST' < docker-compose/var.env.template > /docker/var.env
-# Copy the Docker Compose files to /docker
-cp docker-compose/docker-compose-initdb.yml /docker/docker-compose-initdb.yml
-cp docker-compose/docker-compose-oscm.yml /docker/docker-compose-oscm.yml
-```
-
-## Initialize the databases
-We will start a temporary database container and several database initialization containers. This will create the initial database schemas required for running OSCM.
-
-```sh
-# Change to the /docker directory, otherwise Docker Compose will not pick up the .env file
-cd /docker
-# Start a database container
-docker-compose -f /docker/docker-compose-initdb.yml up -d oscm-db
-# Initialize the database for the core application
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-core
-# Initialize a supporting database for the core application
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-jms
-# Initialize the database for the Asynchronous Provisioning Platform
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-app
-# Initialize the database for the AWS provider
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-controller-aws
-# Initialize the database for the OpenStack provider
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-controller-openstack
-# Stop the database container
-docker-compose -f /docker/docker-compose-initdb.yml stop
-# Remove all stopped containers
-docker-compose -f /docker/docker-compose-initdb.yml rm -f
-```
-
-## Start OSCM
-Finally we will start all the application containers.
-
-```sh
-docker-compose -f /docker/docker-compose-oscm.yml up -d
+docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true servicecatalog/oscm-deployer
 ```
 
 # Login to the administration portal
