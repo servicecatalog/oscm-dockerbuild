@@ -95,7 +95,7 @@ As well as to the OpenStack controller:
 * Password: `admin123`
 
 # Start using OSCM
-Please refer to our [Getting Started](https://github.com/oscm/development/wiki/Getting-Started) guide.
+Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wiki/Getting-Started) guide.
 
 # Resources
 
