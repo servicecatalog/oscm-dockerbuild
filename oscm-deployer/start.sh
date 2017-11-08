@@ -48,11 +48,11 @@ done
 
 # Create Docker log files if they do not exist yet
 for docker_log_file in \
-    ${DOCKER_PATH}/logs/oscm-app/oscm-app.out.log \
-    ${DOCKER_PATH}/logs/oscm-birt/oscm-birt.out.log \
-    ${DOCKER_PATH}/logs/oscm-branding/oscm-branding.out.log \
-    ${DOCKER_PATH}/logs/oscm-core/oscm-core.out.log \
-    ${DOCKER_PATH}/logs/oscm-db/oscm-db.out.log; do
+    ${TARGET_PATH}/logs/oscm-app/oscm-app.out.log \
+    ${TARGET_PATH}/logs/oscm-birt/oscm-birt.out.log \
+    ${TARGET_PATH}/logs/oscm-branding/oscm-branding.out.log \
+    ${TARGET_PATH}/logs/oscm-core/oscm-core.out.log \
+    ${TARGET_PATH}/logs/oscm-db/oscm-db.out.log; do
     if [ ! -f {docker_log_file} ]; then
         touch ${docker_log_file}
         chmod 640 ${docker_log_file}
