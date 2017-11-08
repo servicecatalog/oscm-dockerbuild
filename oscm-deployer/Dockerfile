@@ -23,6 +23,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     SUSEConnect --cleanup && \
     curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
+    chmod +x /opt/start.sh && \
     if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
     if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
     if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi
