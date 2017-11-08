@@ -43,7 +43,7 @@ We will run a second deployment container which does the following:
 
 * Create the necessary Docker Compose files
 * Create the necessary subdirectories
-* Initialize the application database
+* Initialize the application databases
 * Start the application containers
 
 ```sh
@@ -104,7 +104,7 @@ Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wik
 * [oscm-core](https://hub.docker.com/r/servicecatalog/oscm-core/): Core application
 * [oscm-app](https://hub.docker.com/r/servicecatalog/oscm-app): Asynchronous Provisioning Platform (optional)
 * [oscm-db](https://hub.docker.com/r/servicecatalog/oscm-db): Database for oscm-core and oscm-app
-* [oscm-initdb](https://hub.docker.com/r/servicecatalog/oscm-initdb): Initializes or restores the database for oscm-core and oscm-app
+* [oscm-initdb](https://hub.docker.com/r/servicecatalog/oscm-initdb): Initializes or restores the databases for oscm-core and oscm-app
 * [oscm-birt](https://hub.docker.com/r/servicecatalog/oscm-birt): Reporting engine (optional)
 * [oscm-branding](https://hub.docker.com/r/servicecatalog/oscm-branding): Webserver for marketplace branding packages (optional)
 * [oscm-proxy](https://hub.docker.com/r/servicecatalog/oscm-proxy): Reverse proxy for the other containers (optional)
