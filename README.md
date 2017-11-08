@@ -18,6 +18,7 @@ For initial tests, we recommend:
 Please note that this minimum configuration is not suitable for production use.
 
 # Setup
+
 ## Prepare directory on the host
 We require a directory on the docker host which holds various data such as persistent database data, configuration data and so on. We will use `/docker` as an example, please substitute your own directory path.
 
@@ -49,7 +50,9 @@ We will run a second deployment container which does the following:
 docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true servicecatalog/oscm-deployer
 ```
 
-# Login to the administration portal
+# Usage
+
+## Login to the administration portal
 The application will take a few minutes to start up. The less CPU power you have, the longer it will take. Once everything has started, you may access the OSCM administration portal in your web browser using the FQDN or IP address you specified earlier.
 
 `http://hostname.fqdn:8080/oscm-portal/`
@@ -59,7 +62,7 @@ The initial login credentials are:
 * Username: `administrator`
 * Password: `admin123`
 
-# Enable login to APP and controllers
+## Enable login to APP and controllers
 In order to be able to login to the Asynchronous Provisioning Platform (APP) and its service controllers, we will make some quick changes in the administration portal.
 
 * Login to the administration portal
@@ -92,20 +95,21 @@ As well as to the OpenStack controller:
 * Password: `admin123`
 
 # Start using OSCM
-Please refer to our [Getting Started](https://github.com/servicecatalog/development/wiki/Getting-Started) guide.
+Please refer to our [Getting Started](https://github.com/oscm/development/wiki/Getting-Started) guide.
 
 # Resources
+
 ## Docker images and related documentation
 
-* [oscm-core](): Core application
-* [oscm-app](): Asynchronous Provisioning Platform (optional)
-* [oscm-db](): Database for oscm-core and oscm-app
-* [oscm-initdb](): Initializes or restores the database for oscm-core and oscm-app
-* [oscm-birt](): Reporting engine (optional)
-* [oscm-branding](): Webserver for marketplace branding packages (optional)
-* [oscm-proxy](): Reverse proxy for the other containers (optional)
+* [oscm-core](https://hub.docker.com/r/servicecatalog/oscm-core/): Core application
+* [oscm-app](https://hub.docker.com/r/servicecatalog/oscm-app): Asynchronous Provisioning Platform (optional)
+* [oscm-db](https://hub.docker.com/r/servicecatalog/oscm-db): Database for oscm-core and oscm-app
+* [oscm-initdb](https://hub.docker.com/r/servicecatalog/oscm-initdb): Initializes or restores the database for oscm-core and oscm-app
+* [oscm-birt](https://hub.docker.com/r/servicecatalog/oscm-birt): Reporting engine (optional)
+* [oscm-branding](https://hub.docker.com/r/servicecatalog/oscm-branding): Webserver for marketplace branding packages (optional)
+* [oscm-proxy](https://hub.docker.com/r/servicecatalog/oscm-proxy): Reverse proxy for the other containers (optional)
 
 ## Source code
 
-* [development](https://github.com/servicecatalog/development): Application source code for oscm-core and oscm-app
+* [oscm](https://github.com/servicecatalog/oscm): Application source code for oscm-core and oscm-app
 * [oscm-dockerbuild](https://github.com/servicecatalog/oscm-dockerbuild): Docker files and scripts for building the application and Docker images
