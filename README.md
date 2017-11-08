@@ -32,35 +32,12 @@ We will run a deployment container which prepares configuration file templates f
 docker run --name deployer1 --rm -v /docker:/target servicecatalog/oscm-deployer
 ```
 
-This creates two files.
+This creates two files with configuration variables. Please edit both files and adjust the configuration to your environment.
 
-* .env: Configuration for Docker, such as images and the data directory
+* .env: Configuration for Docker, such as images and the base data directory
 * var.env: Configuration for the application, such as mail server, database and other settings
 
 ## Prepare Docker Compose files and start the application
-If you are using a different data directory, please change `DOCKER_PATH` in the file `.env` accordingly.
-
-Please edit the file `var.env` and adjust the following configuration settings:
-
-* SMTP_HOST: The host name or IP address of your mail server
-* SMTP_PORT: The port of your mail server
-* SMTP_FROM: The sender email address that OSCM should use
-* SMTP_USER: The user name for your mail server if it requires authentication; if no authentication is required, please set `none`
-* SMTP_PWD: The password for your mail server if it requires authentication; if no authentication is required, please set `none`
-* SMTP_AUTH: Whether your mail server requires authentication; can be `true` or `false`
-* SMTP_TLS: Whether to use TLS for mail server communication; can be `true` or `false`
-* KEY_SECRET: A secret string which will be used as a seed for encryption in the database. Please do not lose this if you plan to keep your database.
-* HOST_FQDN: The host name or IP address which you will use to access the application
-* REPORT_ENGINEURL: Replace `${HOST_FQDN}` with the same value as above; please leave the other placeholders intact
-* DB_PORT_*: The port of the PostgreSQL database; `5432`
-* DB_PWD_* and DB_SUPERPWD: Passwords for the databases and the database super user
-* APP_ADMIN_MAIL_ADDRESS: The sender email address that the Asynchronous Provisioning Platform (APP) should use
-* CONTROLLER_ORG_ID: Set to `PLATFORM_OPERATOR`
-* CONTROLLER_USER_KEY: Set to `1000`
-* CONTROLLER_USER_NAME: Set to `administrator`
-* CONTROLLER_USER_PASS: Set to `admin123`
-* TOMEE_DEBUG: Set to `false` unless you need debug logs
-
 We will run a second deployment container which does the following:
 
 * Create the necessary Docker Compose files
