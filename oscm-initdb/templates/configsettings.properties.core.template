@@ -40,7 +40,7 @@ LOG_CONFIG_FILE=./log4j.properties
 
 # The path to the file containing the key required for encrypting and
 # decrypting service parameters and custom attributes.
-KEY_FILE_PATH=${KEY_FILE_PATH}
+KEY_FILE_PATH=/opt/apache-tomee/bin/key
 
 # The number of decimal places for prices. Values between 2 and 6 are supported.
 # DECIMAL_PLACES=4

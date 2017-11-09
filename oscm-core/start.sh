@@ -15,7 +15,7 @@ if [ -f /opt/ssl.chain ]; then
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
         -inkey /opt/ssl.key \
-        -out /opt/apache-tomee-plume-7.0.3/conf/ssl.p12 \
+        -out /opt/apache-tomee/conf/ssl.p12 \
         -CAfile /opt/ssl.chain \
         -chain \
         -passout pass:changeit
@@ -23,7 +23,7 @@ else
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
         -inkey /opt/ssl.key \
-        -out /opt/apache-tomee-plume-7.0.3/conf/ssl.p12 \
+        -out /opt/apache-tomee/conf/ssl.p12 \
         -passout pass:changeit
 fi
 
@@ -31,14 +31,14 @@ fi
 find /import/certs -type f -exec cp {} /usr/share/pki/trust/anchors \;
 /usr/sbin/update-ca-certificates
 
-/usr/bin/envsubst '$DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE $DB_USER_CORE $DB_PWD_CORE $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS_ENABLE' < /opt/apache-tomee-plume-7.0.3/conf/tomee_template.xml > /opt/apache-tomee-plume-7.0.3/conf/tomee.xml
+/usr/bin/envsubst '$DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE $DB_USER_CORE $DB_PWD_CORE $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS_ENABLE' < /opt/apache-tomee/conf/tomee_template.xml > /opt/apache-tomee/conf/tomee.xml
 
 # Change entropy source of Java to non-blocking
 sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre/lib/security/java.security
 
 # Start domains
 if [ ${TOMEE_DEBUG} ]; then
-	/opt/apache-tomee-plume-7.0.3/bin/catalina.sh jpda run
+	/opt/apache-tomee/bin/catalina.sh jpda run
 else
-	/opt/apache-tomee-plume-7.0.3/bin/catalina.sh run
+	/opt/apache-tomee/bin/catalina.sh run
 fi
