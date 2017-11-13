@@ -73,3 +73,10 @@ services:
     ports:
       - 8443:443
       - 8480:80
+
+  oscm-help:
+    image: ${IMAGE_HELP}
+    container_name: oscm-help
+    ports:
+      - 8543:443
+      - 8580:80
