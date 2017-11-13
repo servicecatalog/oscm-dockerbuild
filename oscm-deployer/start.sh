@@ -63,9 +63,15 @@ done
 envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
-envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING' \
-< ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
-> ${TARGET_PATH}/docker-compose-oscm.yml
+if [ ${SYSLOG} == "true" ]; then
+    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING' \
+    < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
+    > ${TARGET_PATH}/docker-compose-oscm.yml
+else
+    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING' \
+    < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+    > ${TARGET_PATH}/docker-compose-oscm.yml
+fi
 envsubst '$DOCKER_PATH $IMAGE_PROXY' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 > ${TARGET_PATH}/docker-compose-proxy.yml

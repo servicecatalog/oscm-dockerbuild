@@ -3,6 +3,7 @@ FROM oscm-sles-based
 
 ENV INITDB=false
 ENV STARTUP=false
+ENV SYSLOG=false
 ENV HOST_FQDN=localhost
 ENV IMAGE_DB=oscm-db:latest
 ENV IMAGE_CORE=oscm-core:latest
