@@ -36,9 +36,13 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-branding/ssl/privkey \
     ${TARGET_PATH}/config/oscm-branding/ssl/cert \
     ${TARGET_PATH}/config/oscm-branding/ssl/chain \
+    ${TARGET_PATH}/config/oscm-help/ssl/privkey \
+    ${TARGET_PATH}/config/oscm-help/ssl/cert \
+    ${TARGET_PATH}/config/oscm-help/ssl/chain \
     ${TARGET_PATH}/logs/oscm-app \
     ${TARGET_PATH}/logs/oscm-birt \
     ${TARGET_PATH}/logs/oscm-branding \
+    ${TARGET_PATH}/logs/oscm-help \
     ${TARGET_PATH}/logs/oscm-core \
     ${TARGET_PATH}/logs/oscm-db; do
     if [ ! -d ${docker_directory} ]; then
@@ -51,6 +55,7 @@ for docker_log_file in \
     ${TARGET_PATH}/logs/oscm-app/oscm-app.out.log \
     ${TARGET_PATH}/logs/oscm-birt/oscm-birt.out.log \
     ${TARGET_PATH}/logs/oscm-branding/oscm-branding.out.log \
+    ${TARGET_PATH}/logs/oscm-help/oscm-help.out.log \
     ${TARGET_PATH}/logs/oscm-core/oscm-core.out.log \
     ${TARGET_PATH}/logs/oscm-db/oscm-db.out.log; do
     if [ ! -f {docker_log_file} ]; then
