@@ -14,7 +14,7 @@ ENV IMAGE_INITDB=oscm-initdb:latest
 ENV IMAGE_PROXY=oscm-proxy:latest
 ENV TARGET_PATH=/target
 
-COPY templates/env.template templates/var.env.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-proxy.yml.template start.sh /opt/
+COPY templates/env.template templates/var.env.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-oscm-syslog.yml.template templates/docker-compose-proxy.yml.template start.sh /opt/
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
