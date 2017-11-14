@@ -3,6 +3,7 @@ FROM oscm-sles-based
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
     zypper addrepo http://download.opensuse.org/repositories/M17N:/fonts/SLE_12_SP3/M17N:fonts.repo && \
+    zypper --gpg-auto-import-keys refresh && \
     zypper install -y free-ttf-fonts && \
     zypper -n in gettext-runtime vim postgresql94 java-1_8_0-openjdk java-1_8_0-openjdk-devel tar && \
     zypper clean && \
