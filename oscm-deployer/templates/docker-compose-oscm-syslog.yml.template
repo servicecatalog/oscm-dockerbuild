@@ -3,6 +3,7 @@ services:
   oscm-db:
     image: ${IMAGE_DB}
     container_name: oscm-db
+    restart: always
     logging:
       driver: syslog
       options:
@@ -16,6 +17,7 @@ services:
   oscm-core:
     image: ${IMAGE_CORE}
     container_name: oscm-core
+    restart: always
     logging:
       driver: syslog
       options:
@@ -39,6 +41,7 @@ services:
   oscm-app:
     image: ${IMAGE_APP}
     container_name: oscm-app
+    restart: always
     logging:
       driver: syslog
       options:
@@ -62,6 +65,7 @@ services:
   oscm-birt:
     image: ${IMAGE_BIRT}
     container_name: oscm-birt
+    restart: always
     logging:
       driver: syslog
       options:
@@ -79,6 +83,7 @@ services:
   oscm-branding:
     image: ${IMAGE_BRANDING}
     container_name: oscm-branding
+    restart: always
     logging:
       driver: syslog
       options:
@@ -97,6 +102,7 @@ services:
   oscm-help:
     image: ${IMAGE_HELP}
     container_name: oscm-help
+    restart: always
     logging:
       driver: syslog
       options:
