@@ -3,6 +3,7 @@ FROM oscm-sles-based
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
     zypper addrepo http://download.opensuse.org/repositories/server:http/SLE_12/server:http.repo && \
+    zypper addrepo http://download.opensuse.org/repositories/M17N:/fonts/SLE_12_SP3/M17N:fonts.repo && \
     zypper --gpg-auto-import-keys refresh && \
     zypper install -y nginx && \
     zypper clean && \
