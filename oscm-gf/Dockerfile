@@ -2,7 +2,7 @@ FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
-    zypper -n in gettext-runtime vim postgresql94 java-1_8_0-openjdk java-1_8_0-openjdk-devel tar && \
+    zypper -n in gettext-runtime free-ttf-fonts vim postgresql94 java-1_8_0-openjdk java-1_8_0-openjdk-devel tar && \
     zypper clean && \
     SUSEConnect --cleanup && \
     if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
@@ -14,3 +14,4 @@ RUN export http_proxy=$HTTP_PROXY && \
     mkdir /opt/apache-tomee && \
     tar --strip-components=1 -C /opt/apache-tomee -zxf /tmp/apache-tomee.tar.gz && \
     rm /tmp/apache-tomee.tar.gz
+free-ttf-fonts
