@@ -19,6 +19,8 @@ ENV APP_USER_KEY=1000 APP_USER_NAME=administrator APP_USER_PWD=admin123 CORE_ID_
 
 ENV CONTROLLER_ID=ess.sample CONTROLLER_ORG_ID=PLATFORM_OPERATOR CONTROLLER_USER_KEY=1000 CONTROLLER_USER_NAME=administrator CONTROLLER_USER_PASS=admin123
 
+ENV CUSTOM_DATA=false
+
 COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
 COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY templates/*.template /opt/templates/
@@ -27,6 +29,6 @@ COPY oscm-devruntime.jar oscm-app.jar /opt/
 COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar log4j-1.2.16.jar postgresql-9.4-1206-jdbc42.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
 
 COPY start.sh /opt/
-RUN chmod +x /opt/start.sh
+RUN mkdir /opt/sqlscripts/custom && chmod +x /opt/start.sh
 
 CMD ["/opt/start.sh"]
