@@ -4,6 +4,7 @@ ENV HOST_FQDN=localhost
 
 COPY start.sh deploy.sh ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/
+COPY ssl.crt /usr/share/pki/trust/anchors
 COPY resources/server.xml /etc/tomcat/
 COPY resources/catalina.properties /etc/tomcat/catalina.properties
 COPY resources/context.xml /etc/tomcat/context.xml
