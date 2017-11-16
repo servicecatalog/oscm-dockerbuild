@@ -199,3 +199,28 @@ if [ $TARGET == "CONTROLLER" ]; then
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID        
 fi
+
+# Check if specific db is ready
+function checkDB {
+	export PGPASSWORD=$DB_SUPERPWD
+    until /usr/bin/psql -h $1 -p $2 -U $DB_SUPERUSER $3 >/dev/null 2>&1; do echo "Database $3 not ready - waiting..."; sleep 3s; done
+	echo "Database $3 ready ..."
+}
+
+#SAMPLE DATA
+if [ $TARGET == "SAMPLE_DATA" ]; then
+    
+    if [ -f /opt/sqlscripts/sample-data/core/sample.sql ]; then
+    	checkDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
+		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/sample-data/core/sample.sql $DB_NAME_CORE
+	else
+		echo "No sample core data found ..."
+	fi	
+	
+	if [ -f /opt/sqlscripts/sample-data/app/sample.sql ]; then
+    	checkDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/sample-data/app/sample.sql $DB_NAME_APP
+	else
+		echo "No sample app data found ..."
+	fi
+fi	
