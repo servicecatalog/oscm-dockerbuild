@@ -29,6 +29,10 @@ fi
 
 # Import SSL certificates into truststore
 find /import/certs -type f -exec cp {} /usr/share/pki/trust/anchors \;
+for certfile in /usr/share/pki/trust/anchors/*; do
+    trust anchor --store $certfile
+done
+find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
 /usr/bin/envsubst '$DB_HOST_APP $DB_PORT_APP $DB_NAME_APP $DB_USER_APP $DB_PWD_APP $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS_ENABLE' < /opt/apache-tomee/conf/tomee_template.xml > /opt/apache-tomee/conf/tomee.xml
