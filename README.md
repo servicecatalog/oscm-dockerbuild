@@ -94,6 +94,29 @@ As well as to the OpenStack controller:
 * Username: `administrator`
 * Password: `admin123`
 
+# Import custom SSL certificates and key files
+It is possible to use custom SSL keypairs for the application listeners. They may be self-signed or official. The deployer creates a directory structure and Docker Compose configuration. It is only necessary to place the respective certificate and/or key files in PEM format into the appropriate directories.
+
+## Import SSL keypairs for the application listeners
+If you prefer to use your own SSL keypairs for the application to use, instead of the built-in default one, please put your PEM files in the following directories:
+
+* Private key: `/docker/config/<CONTAINER_NAME>/ssl/privkey`
+* Certificate: `/config/<CONTAINER_NAME>/ssl/cert`
+* Intermediates / chain (optional): `/docker/config/<CONTAINER_NAME>/ssl/chain`
+
+Note:
+
+Replace `/docker` with your base directory and `<CONTAINER_NAME>` with the respective container name, e.g. `oscm-core`.
+
+## Import trusted SSL certificates
+If you wish the application to trust certain - possibly self-signed - SSL certificates, please put these certificates in PEM format in the following directory. This directory is shared by all containers. By default, if you use your own SSL keypairs, you must also place all the public certificate files here.
+
+* `/docker/config/certs`
+
+Note:
+
+Replace `/docker` with your base directory.
+
 # Start using OSCM
 Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wiki/Getting-Started) guide.
 
