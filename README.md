@@ -101,7 +101,7 @@ It is possible to use custom SSL keypairs for the application listeners. They ma
 If you prefer to use your own SSL keypairs for the application to use, instead of the built-in default one, please put your PEM files in the following directories:
 
 * Private key: `/docker/config/<CONTAINER_NAME>/ssl/privkey`
-* Certificate: `/config/<CONTAINER_NAME>/ssl/cert`
+* Certificate: `/docker/config/<CONTAINER_NAME>/ssl/cert`
 * Intermediates / chain (optional): `/docker/config/<CONTAINER_NAME>/ssl/chain`
 
 Note:
