@@ -95,7 +95,7 @@ As well as to the OpenStack controller:
 * Password: `admin123`
 
 # Import custom SSL certificates and key files
-Certificates are required for ESCM to allow for trusted communication between OSCM and the Asynchronous Provisioning Platform (APP), or an application underlying a technical service. The ESCM deployer has already created a respective directory structure and a suitable Docker Compose configuration. In this way, default certificates have been inserted into the respective containers after deployment, thus communication between ESCM and APP is secured. 
+Certificates are required to allow for trusted communication between OSCM and the Asynchronous Provisioning Platform (APP), or an application underlying a technical service. The OSCM deployer has already created a respective directory structure and a suitable Docker Compose configuration. In this way, default certificates have been inserted into the respective containers after deployment, thus communication between OSCM and APP is secured. 
 
 It is however possible to use custom SSL keypairs for the application listeners. They may be self-signed or official. Privacy Enhanced Mail (PEM) format is mandatory. This is a container format that may include just the public certificate, or an entire certificate chain including public key, private key, and root certificates. It is only necessary to place the respective certificate and/or key files in PEM format into the appropriate directories.
 
