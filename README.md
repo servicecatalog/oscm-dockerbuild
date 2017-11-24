@@ -4,8 +4,6 @@ This is a quick start guide intended to help you start up a basic installation o
 # Prerequisites
 A Linux system with:
 
-* [git](https://git-scm.com/)
-* [gettext](https://www.gnu.org/software/gettext/)
 * [Docker](https://docs.docker.com/engine/installation/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -20,82 +18,41 @@ For initial tests, we recommend:
 Please note that this minimum configuration is not suitable for production use.
 
 # Setup
-## Prepare directories on the host
-We require a directory on the docker host which holds the persistent data for the database. This directory will be mounted into the database container.
+
+## Prepare directory on the host
+We require a directory on the docker host which holds various data such as persistent database data, configuration data and so on. We will use `/docker` as an example, please substitute your own directory path.
 
 ```sh
-mkdir -p /docker/data/oscm-db/data
+mkdir /docker
 ```
 
-## Prepare Docker Compose files
-Check out our Docker Compose file templates from the repository.
+## Prepare configuration files
+We will run a deployment container which prepares configuration file templates for us. Use `-v` to mount the directory you created earlier to /target in the container.
 
 ```sh
-# Optional installation of git for Red Hat/Fedora based distributions
-sudo yum -y install git
-# Optional installation of git for Debian/Ubuntu based distributions
-sudo apt-get -y install git
-git clone TODO
+docker run --name deployer1 --rm -v /docker:/target servicecatalog/oscm-deployer
 ```
 
-We will set some configuration variables to complete the templates:
+This creates two files with configuration variables. Please edit both files and adjust the configuration to your environment.
+
+* .env: Configuration for Docker, such as images and the base data directory
+* var.env: Configuration for the application, such as mail server, database and other settings
+
+## Prepare Docker Compose files and start the application
+We will run a second deployment container which does the following:
+
+* Create the necessary Docker Compose files
+* Create the necessary subdirectories
+* Initialize the application databases
+* Start the application containers
 
 ```sh
-# The base data directory we created
-export WORKDIR=/docker
-# This can be the docker host's fully qualified host name (FQDN) or IP address
-export HOST_FQDN=hostname.fqdn
-# FQDN or IP address of an open mail server if you have one - otherwise 'none'
-export SMTP_HOST=mailserver.fqdn
+docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true servicecatalog/oscm-deployer
 ```
 
-Next we use the *envsubst* command to fill the Docker Compose file templates with the values of our variables. If the *envsubst* command is not available on your system, you can usually get it by installing your distribution's *gettext* package.
+# Usage
 
-```sh
-# Optional installation of envsubst for Red Hat/Fedora based distributions
-sudo yum -y install gettext
-# Optional installation of envsubst for Debian/Ubuntu based distributions
-sudo apt-get -y install gettext
-# Substitute the variables to complete Docker Compose environment files in /docker
-envsubst '$WORKDIR' < docker-compose/env.template > /docker/.env
-envsubst '$HOST_FQDN $SMTP_HOST' < docker-compose/var.env.template > /docker/var.env
-# Copy the Docker Compose files to /docker
-cp docker-compose/docker-compose-initdb.yml /docker/docker-compose-initdb.yml
-cp docker-compose/docker-compose-oscm.yml /docker/docker-compose-oscm.yml
-```
-
-## Initialize the databases
-We will start a temporary database container and several database initialization containers. This will create the initial database schemas required for running OSCM.
-
-```sh
-# Change to the /docker directory, otherwise Docker Compose will not pick up the .env file
-cd /docker
-# Start a database container
-docker-compose -f /docker/docker-compose-initdb.yml up -d oscm-db
-# Initialize the database for the core application
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-core
-# Initialize a supporting database for the core application
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-jms
-# Initialize the database for the Asynchronous Provisioning Platform
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-app
-# Initialize the database for the AWS provider
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-controller-aws
-# Initialize the database for the OpenStack provider
-docker-compose -f /docker/docker-compose-initdb.yml up oscm-initdb-controller-openstack
-# Stop the database container
-docker-compose -f /docker/docker-compose-initdb.yml stop
-# Remove all stopped containers
-docker-compose -f /docker/docker-compose-initdb.yml rm -f
-```
-
-## Start OSCM
-Finally we will start all the application containers.
-
-```sh
-docker-compose -f /docker/docker-compose-oscm.yml up -d
-```
-
-# Login to the administration portal
+## Login to the administration portal
 The application will take a few minutes to start up. The less CPU power you have, the longer it will take. Once everything has started, you may access the OSCM administration portal in your web browser using the FQDN or IP address you specified earlier.
 
 `http://hostname.fqdn:8080/oscm-portal/`
@@ -105,7 +62,7 @@ The initial login credentials are:
 * Username: `administrator`
 * Password: `admin123`
 
-# Enable login to APP and controllers
+## Enable login to APP and controllers
 In order to be able to login to the Asynchronous Provisioning Platform (APP) and its service controllers, we will make some quick changes in the administration portal.
 
 * Login to the administration portal
@@ -137,19 +94,49 @@ As well as to the OpenStack controller:
 * Username: `administrator`
 * Password: `admin123`
 
+# Import custom SSL certificates and key files
+Certificates are required to allow for trusted communication between OSCM and the Asynchronous Provisioning Platform (APP), or an application underlying a technical service. The OSCM deployer has already created a respective directory structure and a suitable Docker Compose configuration. In this way, default certificates have been inserted into the respective containers after deployment, thus communication between OSCM and APP is secured. 
+
+It is however possible to use custom SSL keypairs for the application listeners. They may be self-signed or official. Privacy Enhanced Mail (PEM) format is mandatory. This is a container format that may include just the public certificate, or an entire certificate chain including public key, private key, and root certificates. It is only necessary to place the respective certificate and/or key files in PEM format into the appropriate directories.
+
+## Import SSL keypairs for the application listeners
+If you want to use your own SSL key pairs that your application is to use, replace the default key pair by your PEM files in the following directories on your Docker host: 
+
+* Private key: `/docker/config/<CONTAINER_NAME>/ssl/privkey`
+* Certificate: `/docker/config/<CONTAINER_NAME>/ssl/cert`
+* Intermediates / chain (optional): `/docker/config/<CONTAINER_NAME>/ssl/chain`
+
+Note:
+
+Replace `/docker` with the directory where Docker is installed, and `<CONTAINER_NAME>` with the respective container name, e.g. `oscm-core`.
+
+The custom certificates must also be placed into the trusted directory so that a trusted relationship between the containers is established: 
+
+* `/docker/config/certs`
+
+## Import trusted SSL certificates
+If you want your application to trust certain, possibly self-signed, SSL certificates, put them in PEM format in the following directory on your Docker host: 
+
+* `/docker/config/certs`
+
+Note:
+
+Replace `/docker` with the directory where Docker is installed. This directory is shared by all containers. By default, if you use your own SSL key pairs, you must also place all the public certificate files here.
+
 # Start using OSCM
-Please refer to our [Getting Started](https://github.com/servicecatalog/development/wiki/Getting-Started) guide.
+Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wiki/Getting-Started) guide.
 
 # Resources
+
 ## Docker images and related documentation
 
-* [oscm-core](): Core application
-* [oscm-app](): Asynchronous Provisioning Platform (optional)
-* [oscm-db](): Database for oscm-core and oscm-app
-* [oscm-initdb](): Initializes or restores the database for oscm-core and oscm-app
-* [oscm-birt](): Reporting engine (optional)
-* [oscm-branding](): Webserver for marketplace branding packages (optional)
-* [oscm-proxy](): Reverse proxy for the other containers (optional)
+* [oscm-core](https://hub.docker.com/r/servicecatalog/oscm-core/): Core application
+* [oscm-app](https://hub.docker.com/r/servicecatalog/oscm-app): Asynchronous Provisioning Platform (optional)
+* [oscm-db](https://hub.docker.com/r/servicecatalog/oscm-db): Database for oscm-core and oscm-app
+* [oscm-initdb](https://hub.docker.com/r/servicecatalog/oscm-initdb): Initializes or restores the databases for oscm-core and oscm-app
+* [oscm-birt](https://hub.docker.com/r/servicecatalog/oscm-birt): Reporting engine (optional)
+* [oscm-branding](https://hub.docker.com/r/servicecatalog/oscm-branding): Webserver for marketplace branding packages (optional)
+* [oscm-proxy](https://hub.docker.com/r/servicecatalog/oscm-proxy): Reverse proxy for the other containers (optional)
 
 ## Source code
 

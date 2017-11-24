@@ -1,0 +1,88 @@
+version: "3"
+services:
+  oscm-db:
+    image: ${IMAGE_DB}
+    container_name: oscm-db
+    restart: always
+    env_file: var.env
+    volumes:
+      - ${DOCKER_PATH}/data/oscm-db/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  oscm-core:
+    image: ${IMAGE_CORE}
+    container_name: oscm-core
+    restart: always
+    env_file: var.env
+    environment:
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket
+    links:
+      - oscm-db:oscm-db
+    volumes:
+      - ${DOCKER_PATH}/config/oscm-core/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-core/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-core/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
+    ports:
+      - 8080:8080
+      - 8081:8081
+      - 8000:8000
+
+  oscm-app:
+    image: ${IMAGE_APP}
+    container_name: oscm-app
+    restart: always
+    env_file: var.env
+    environment:
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket
+    links:
+      - oscm-db:oscm-db
+    volumes:
+      - ${DOCKER_PATH}/config/oscm-app/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-app/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-app/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
+    ports:
+      - 8880:8880
+      - 8881:8881
+      - 8800:8000
+
+  oscm-birt:
+    image: ${IMAGE_BIRT}
+    container_name: oscm-birt
+    restart: always
+    env_file: var.env
+    volumes:
+      - ${DOCKER_PATH}/config/oscm-birt/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-birt/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-birt/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
+    ports:
+      - 8680:8680
+      - 8681:8681
+
+  oscm-branding:
+    image: ${IMAGE_BRANDING}
+    container_name: oscm-branding
+    restart: always
+    env_file: var.env
+    volumes:
+      - ${DOCKER_PATH}/config/brandings:/import/brandings:ro
+      - ${DOCKER_PATH}/config/oscm-branding/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-branding/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-branding/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
+    ports:
+      - 8443:443
+      - 8480:80
+
+  oscm-help:
+    image: ${IMAGE_HELP}
+    container_name: oscm-help
+    restart: always
+    ports:
+      - 8543:443
+      - 8580:80
