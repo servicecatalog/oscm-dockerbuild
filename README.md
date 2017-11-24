@@ -95,10 +95,12 @@ As well as to the OpenStack controller:
 * Password: `admin123`
 
 # Import custom SSL certificates and key files
-It is possible to use custom SSL keypairs for the application listeners. They may be self-signed or official. The deployer creates a directory structure and Docker Compose configuration. It is only necessary to place the respective certificate and/or key files in PEM format into the appropriate directories.
+Certificates are required for ESCM to allow for trusted communication between OSCM and the Asynchronous Provisioning Platform (APP), or an application underlying a technical service. The ESCM deployer has already created a respective directory structure and a suitable Docker Compose configuration. In this way, default certificates have been inserted into the respective containers after deployment, thus communication between ESCM and APP is secured. 
+
+It is however possible to use custom SSL keypairs for the application listeners. They may be self-signed or official. Privacy Enhanced Mail (PEM) format is mandatory. This is a container format that may include just the public certificate, or an entire certificate chain including public key, private key, and root certificates. It is only necessary to place the respective certificate and/or key files in PEM format into the appropriate directories.
 
 ## Import SSL keypairs for the application listeners
-If you prefer to use your own SSL keypairs for the application to use, instead of the built-in default one, please put your PEM files in the following directories:
+If you want to use your own SSL key pairs that your application is to use, replace the default key pair by your PEM files in the following directories on your Docker host: 
 
 * Private key: `/docker/config/<CONTAINER_NAME>/ssl/privkey`
 * Certificate: `/docker/config/<CONTAINER_NAME>/ssl/cert`
@@ -106,16 +108,20 @@ If you prefer to use your own SSL keypairs for the application to use, instead o
 
 Note:
 
-Replace `/docker` with your base directory and `<CONTAINER_NAME>` with the respective container name, e.g. `oscm-core`.
+Replace `/docker` with the directory where Docker is installed, and `<CONTAINER_NAME>` with the respective container name, e.g. `oscm-core`.
+
+The custom certiicates must also be placed into the trusted directory so that a trusted relationship between the containers is established: 
+
+* `/docker/config/certs`
 
 ## Import trusted SSL certificates
-If you wish the application to trust certain - possibly self-signed - SSL certificates, please put these certificates in PEM format in the following directory. This directory is shared by all containers. By default, if you use your own SSL keypairs, you must also place all the public certificate files here.
+If you want your application to trust certain, possibly self-signed, SSL certificates, put them in PEM format in the following directory on your Docker host: 
 
 * `/docker/config/certs`
 
 Note:
 
-Replace `/docker` with your base directory.
+Replace `/docker` with the directory where Docker is installed. This directory is shared by all containers. By default, if you use your own SSL key pairs, you must also place all the public certificate files here.
 
 # Start using OSCM
 Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wiki/Getting-Started) guide.
