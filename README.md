@@ -110,7 +110,7 @@ Note:
 
 Replace `/docker` with the directory where Docker is installed, and `<CONTAINER_NAME>` with the respective container name, e.g. `oscm-core`.
 
-The custom certiicates must also be placed into the trusted directory so that a trusted relationship between the containers is established: 
+The custom certificates must also be placed into the trusted directory so that a trusted relationship between the containers is established: 
 
 * `/docker/config/certs`
 
