@@ -6,6 +6,7 @@ COPY start.sh /opt/start.sh
 COPY resources/brandings.conf /etc/nginx/vhosts.d/
 COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
+COPY ssl.crt /usr/share/pki/trust/anchors
 # Attention: google-cloud-sdk broken; python-Jinja2 not available for SLE_12_SP1
 # RUN zypper addrepo http://download.opensuse.org/repositories/Cloud:Tools/SLE_12_SP1/Cloud:Tools.repo && \
 #     zypper --gpg-auto-import-keys refresh && \
