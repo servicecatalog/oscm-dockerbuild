@@ -6,7 +6,7 @@ COPY start.sh /opt/
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
-    zypper in -y postgresql94-server && \
+    zypper in -y postgresql96-server && \
     zypper clean && \
     chmod +x /opt/start.sh && \
     SUSEConnect --cleanup && \
