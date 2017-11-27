@@ -1,4 +1,4 @@
-FROM sles12sp1:latest
+FROM sles12sp3:latest
 
 # prepare variable form build-args for further use
 ARG ACTIVATION_CODE_URL
