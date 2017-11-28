@@ -32,5 +32,7 @@ RUN chmod +x /opt/deploy.sh && \
     rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
     rm -rf /tmp/birt
-    
+
+COPY resources/logging.properties /etc/tomcat/logging.properties
+
 CMD ["/opt/start.sh"]
