@@ -20,6 +20,7 @@ RUN chmod +x /opt/deploy.sh && \
     if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
     if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
     if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi && \
+    sed -i 's|^JAVA_HOME=.*|JAVA_HOME="/usr/lib64/jvm/jre"|g' /etc/tomcat/tomcat.conf && \
     wget --quiet http://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4_5_0-201506092134/birt-runtime-4.5.0-20150609.zip -O /tmp/birt-runtime.zip && \
     wget --quiet https://github.com/servicecatalog/development/releases/download/v17.3.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
     mkdir /tmp/birt && \
