@@ -17,3 +17,5 @@ RUN export http_proxy=$HTTP_PROXY && \
     mkdir /opt/apache-tomee && \
     tar --strip-components=1 -C /opt/apache-tomee -zxf /tmp/apache-tomee.tar.gz && \
     rm /tmp/apache-tomee.tar.gz
+
+COPY resources/logging.properties /opt/apache-tomee/conf/logging.properties
