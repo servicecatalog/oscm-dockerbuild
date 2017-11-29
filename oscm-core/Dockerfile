@@ -11,12 +11,17 @@ ENV SMTP_HOST=localhost SMTP_PORT=25 SMTP_FROM=mail@oscm.org SMTP_USER=saas SMTP
 
 COPY resources/web.xml /templates/WEB-INF
 COPY oscm.ear /opt/apache-tomee/apps
-COPY oscm-portal.war /opt/apache-tomee/webapps
-COPY oscm-portal-help.war /opt/apache-tomee/webapps
+# COPY oscm-portal-help.war /opt/apache-tomee/webapps
 
 COPY oscm-security.jar /opt/apache-tomee/lib/
 COPY oscm-common.jar /opt/apache-tomee/lib/
 COPY oscm-rest-api-common.jar /opt/apache-tomee/lib/
+COPY oscm-extsvc-internal.jar /opt/apache-tomee/lib/
+COPY oscm-saml2-api.jar /opt/apache-tomee/lib/
+COPY commons-validator.jar /opt/apache-tomee/lib/
+
+COPY postgresql.jar /opt/apache-tomee/lib/postgresql.jar
+COPY log4j.jar /opt/apache-tomee/lib/log4j.jar
 
 COPY resources/jaas.config /opt/apache-tomee/conf/
 COPY resources/server.xml /opt/apache-tomee/conf/
@@ -28,30 +33,6 @@ COPY resources/key /opt/apache-tomee/bin/
 COPY resources/web.xml /templates/WEB-INF
 COPY resources/catalina.properties /opt/apache-tomee/conf/catalina.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
-
-COPY hibernate-commons-annotations-5.0.1.Final.jar /opt/apache-tomee/lib/hibernate-commons-annotations-5.0.1.Final.jar
-COPY hibernate-core-5.0.9.Final.jar /opt/apache-tomee/lib/hibernate-core-5.0.9.Final.jar
-COPY hibernate-entitymanager-5.0.9.Final.jar /opt/apache-tomee/lib/hibernate-entitymanager-5.0.9.Final.jar
-COPY hibernate-jpa-2.1-api-1.0.0.Final.jar /opt/apache-tomee/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar
-COPY jackson-annotations.jar /opt/apache-tomee/lib/jackson-annotations.jar
-COPY jackson-core.jar /opt/apache-tomee/lib/jackson-core.jar
-COPY jackson-databind.jar /opt/apache-tomee/lib/jackson-databind.jar
-COPY hibernate-search-orm-5.5.4.Final.jar /opt/apache-tomee/lib/hibernate-search-orm-5.5.4.Final.jar
-COPY hibernate-search-engine-5.5.4.Final.jar /opt/apache-tomee/lib/hibernate-search-engine-5.5.4.Final.jar
-COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee/lib/postgresql-9.4-1206-jdbc42.jar
-COPY lucene-analyzers-common-5.3.1.jar /opt/apache-tomee/lib/lucene-analyzers-common-5.3.1.jar
-COPY lucene-backward-codecs-5.3.1.jar /opt/apache-tomee/lib/lucene-backward-codecs-5.3.1.jar
-COPY lucene-core-5.3.1.jar /opt/apache-tomee/lib/lucene-core-5.3.1.jar
-COPY lucene-facet-5.3.1.jar /opt/apache-tomee/lib/lucene-facet-5.3.1.jar
-COPY lucene-misc-5.3.1.jar /opt/apache-tomee/lib/lucene-misc-5.3.1.jar
-COPY lucene-queries-5.3.1.jar /opt/apache-tomee/lib/lucene-queries-5.3.1.jar
-COPY solr-core-5.3.1.jar /opt/apache-tomee/lib/solr-core-5.3.1.jar
-COPY solr-solrj-5.3.1.jar /opt/apache-tomee/lib/solr-solrj-5.3.1.jar
-COPY lucene-queryparser-5.3.1.jar /opt/apache-tomee/lib/lucene-queryparser-5.3.1.jar
-COPY dom4j-1.6.1.jar /opt/apache-tomee/lib/dom4j-1.6.1.jar
-COPY antlr-2.7.7.jar /opt/apache-tomee/lib/antlr-2.7.7.jar
-COPY log4j-1.2.16.jar /opt/apache-tomee/lib/log4j-1.2.16.jar
-COPY gson-2.6.2.jar /opt/apache-tomee/lib/gson-2.6.2.jar
 
 COPY ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/

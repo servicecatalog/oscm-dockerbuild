@@ -23,9 +23,10 @@ COPY resources/context.xml /opt/apache-tomee/conf/context.xml
 COPY oscm-app.ear /opt/apache-tomee/apps/
 COPY oscm-app-aws.ear oscm-app-openstack.ear /opt/apache-tomee/controllers/
 
-COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee/lib/postgresql-9.4-1206-jdbc42.jar
-COPY oscm-app-extsvc-2-0.jar /opt/apache-tomee/lib/oscm-app-extsvc-2-0.jar
-COPY log4j-1.2.16.jar /opt/apache-tomee/lib/log4j-1.2.16.jar
+COPY postgresql.jar /opt/apache-tomee/lib/postgresql.jar
+COPY oscm-app-extsvc.jar /opt/apache-tomee/lib/oscm-app-extsvc.jar
+COPY oscm-common.jar /opt/apache-tomee/lib/oscm-common.jar
+COPY log4j.jar /opt/apache-tomee/lib/log4j.jar
 
 COPY ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/

@@ -14,101 +14,43 @@ openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl
 openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
 rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 
-# copy resource for glassfish
-cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-codec/javalib/commons-codec-1.7.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-validator/javalib/commons-validator-1.4.0.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/jakarta-oro/javalib/jakarta-oro-2.0.8.jar $REPO_DOCKER/oscm-gf/
-
-cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-analyzers-common-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-lucene/javalib/lucene-core-5.3.1.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
-
-# copy resources for tomee
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-commons-annotations-5.0.1.Final.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-core-5.0.9.Final.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-entitymanager-5.0.9.Final.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/redhat-hibernate/javalib/hibernate-jpa-2.1-api-1.0.0.Final.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/jackson/javalib/jackson-annotations.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/jackson/javalib//jackson-core.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/jackson/javalib//jackson-databind.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/redhat-hibernate/javalib/dom4j-1.6.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/redhat-hibernate/javalib/antlr-2.7.7.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-orm-5.5.4.Final.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-engine-5.5.4.Final.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/lucene-analyzers-common-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/lucene-backward-codecs-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/lucene-core-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/lucene-facet-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/lucene-misc-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/lucene-queries-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/lucene-queryparser-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/solr-core-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-lucene/javalib/solr-solrj-5.3.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/antlr/javalib/antlr4-runtime-4.1.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/gson/javalib/gson-2.6.2.jar $REPO_DOCKER/oscm-core/
-
-cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-core/
-
-
 # copy resources for initdb
-cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-initdb/
-cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-initdb/
-cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-initdb/
-cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-initdb/
-cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-initdb/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-initdb/
-cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-initdb/
-cp $LIB_DIR/apache-validator/javalib/commons-validator-1.4.0.jar $REPO_DOCKER/oscm-initdb/
-cp $LIB_DIR/apache-ant-contrib/lib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-initdb/
-cp $LIB_DIR/jakarta-oro/javalib/jakarta-oro-2.0.8.jar $REPO_DOCKER/oscm-initdb/
 
-cp $BUILD_DIR/oscm-app/oscm-app.jar $REPO_DOCKER/oscm-initdb/
+## copy resources for core
+wget http://central.maven.org/maven2/org/postgresql/postgresql/42.1.4/postgresql-42.1.4.jar -O $REPO_DOCKER/oscm-core/postgresql.jar
+wget http://central.maven.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.jar -O $REPO_DOCKER/oscm-core/log4j.jar
+wget http://central.maven.org/maven2/commons-validator/commons-validator/1.4/commons-validator-1.4.jar -O $REPO_DOCKER/oscm-core/commons-validator.jar
 
-mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/core
-cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/core/
-mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/app
-cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
+# applications
+wget https://jitpack.io/com/github/servicecatalog/oscm/oscm-ear/fb_tomee_maven-v17.4.0-g0363f06-311/oscm-ear-fb_tomee_maven-v17.4.0-g0363f06-311.ear $REPO_DOCKER/oscm-core/oscm-ear.ear
 
-# copy resources for core
-cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-ear/oscm.ear $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-ear/tmp/oscm.ear $REPO_DOCKER/oscm-core/oscm-sso.ear
-cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-reports/oscm-reports.zip $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-security/oscm-security.jar $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-core/
-cp $BUILD_DIR/oscm-rest-api-common/oscm-rest-api-common.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-core/
+# libs
+wget https://jitpack.io/com/github/servicecatalog/oscm/oscm-security/fb_tomee_maven-v17.4.0-g0363f06-311/oscm-security-fb_tomee_maven-v17.4.0-g0363f06-311.jar -O $REPO_DOCKER/oscm-core/oscm-security.jar
+wget https://jitpack.io/com/github/servicecatalog/oscm/oscm-saml2-api/fb_tomee_maven-v17.4.0-g0363f06-311/oscm-saml2-api-fb_tomee_maven-v17.4.0-g0363f06-311.jar -O $REPO_DOCKER/oscm-core/oscm-saml2-api.jar
+wget https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/1.3/oscm-common-1.3.jar -O $REPO_DOCKER/oscm-core/oscm-common.jar
+wget https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-rest-api-common/1.3/oscm-rest-api-common-1.3.jar -O $REPO_DOCKER/oscm-core/oscm-rest-api-common.jar
+wget https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/1.2/oscm-extsvc-internal-1.2.jar -O $REPO_DOCKER/oscm-core/oscm-extsvc-internal.jar
 
 ## copy resources for app
-cp $BUILD_DIR/oscm-app-ear/oscm-app.ear $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-app-aws/oscm-app-aws.ear $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-app-openstack/oscm-app-openstack.ear $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-app-extsvc-2-0/oscm-app-extsvc-2-0.jar $REPO_DOCKER/oscm-app/
-cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-app/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-app/
+# applictaions
+wget https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app-ear/master-c6c0aae465-1/oscm-app-ear-master-c6c0aae465-1.ear -o $REPO_DOCKER/oscm-app/oscm-app.ear
+wget https://jitpack.io/com/github/servicecatalog/oscm-app-aws/oscm-app-aws-ear/master-28c31ec4af-1/oscm-app-aws-ear-master-28c31ec4af-1.ear -O $REPO_DOCKER/oscm-app/oscm-app-aws.ear
+wget https://jitpack.io/com/github/servicecatalog/oscm-app-openstack/oscm-app-openstack-ear/master-3d0c1ed0ed-1/oscm-app-openstack-ear-master-3d0c1ed0ed-1.ear -O $REPO_DOCKER/oscm-app/oscm-app-openstack.ear
 
-cp $LIB_DIR/sun-metro/javalib/activation-1.1.jar $REPO_DOCKER/oscm-birt/
-cp $LIB_DIR/javax/javalib/javax.mail-api-1.5.4.jar $REPO_DOCKER/oscm-birt/
+# libs
+wget https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/1.2/oscm-app-extsvc-1.2.jar -O $REPO_DOCKER/oscm-app/oscm-app-extsvc.jar
+wget https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/1.3/oscm-common-1.3.jar -O $REPO_DOCKER/oscm-app/oscm-common.jar
+wget https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc/1.2/oscm-extsvc-1.2.jar -O $REPO_DOCKER/oscm-app/oscm-extsvc.jar
+wget https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/1.2/oscm-extsvc-internal-1.2.jar -O $REPO_DOCKER/oscm-app/oscm-extsvc-internal.jar
+wget http://central.maven.org/maven2/org/postgresql/postgresql/42.1.4/postgresql-42.1.4.jar -O $REPO_DOCKER/oscm-app/postgresql.jar
+wget http://central.maven.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.jar -O $REPO_DOCKER/oscm-app/log4j.jar
 
-cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-help/
+## birt
+#cp $BUILD_DIR/oscm-reports/oscm-reports.zip $REPO_DOCKER/oscm-core/
+wget http://central.maven.org/maven2/javax/activation/activation/1.1/activation-1.1.jar -O $REPO_DOCKER/oscm-birt/activation.jar
+wget http://central.maven.org/maven2/javax/mail/javax.mail-api/1.5.4/javax.mail-api-1.5.4.jar -O $REPO_DOCKER/oscm-birt/javax.mail-api.jar
+
+#cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-help/
 
 ##copy ssl related resources
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
