@@ -1,0 +1,4 @@
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue=10000 WHERE settingkey='BSS_USER_KEY' AND controllerid IN ('ess.aws','ess.openstack');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='8c50dcba' WHERE settingkey='BSS_ORGANIZATION_ID' AND controllerid IN ('ess.aws','ess.openstack');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='techprovider' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.openstack');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='_crypt:techprovider' WHERE settingkey='BSS_USER_PWD' AND controllerid IN ('ess.aws','ess.openstack');

@@ -51,6 +51,12 @@ function genPropertyFilesAPPController {
     /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
+# Generate sample data files
+function genSampleData {
+    /usr/bin/envsubst < /opt/templates/sample.sql.core.template > /opt/sqlscripts/core/sample.sql
+    /usr/bin/envsubst < /opt/templates/sample.sql.app.template > /opt/sqlscripts/app/sample.sql
+}
+
 
 # CORE
 if [ $TARGET == "CORE" ]; then
@@ -210,16 +216,18 @@ function checkDB {
 #SAMPLE DATA
 if [ $TARGET == "SAMPLE_DATA" ]; then
     
-    if [ -f /opt/sqlscripts/sample-data/core/sample.sql ]; then
+    genSampleData
+    
+    if [ -f /opt/sqlscripts/core/sample.sql ]; then
     	checkDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
-		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/sample-data/core/sample.sql $DB_NAME_CORE
+		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
 	else
 		echo "No sample core data found ..."
 	fi	
 	
-	if [ -f /opt/sqlscripts/sample-data/app/sample.sql ]; then
+	if [ -f /opt/sqlscripts/app/sample.sql ]; then
     	checkDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/sample-data/app/sample.sql $DB_NAME_APP
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
 	else
 		echo "No sample app data found ..."
 	fi

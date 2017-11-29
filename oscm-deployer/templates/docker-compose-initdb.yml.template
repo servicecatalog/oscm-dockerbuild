@@ -61,3 +61,13 @@ services:
       - OVERWRITE=true
     links:
       - oscm-db:oscm-db
+      
+  oscm-initdb-sample:
+    image: ${IMAGE_INITDB}
+    container_name: oscm-initdb-sample
+    env_file: var.env
+    environment:
+      - TARGET=SAMPLE_DATA
+    links:
+      - oscm-db:oscm-db
+      
