@@ -111,3 +111,13 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     fi
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
 fi
+
+# If the user wants us to import sample data, do it now
+if [ ${SAMPLE_DATA} == "true" ] && [ -S /var/run/docker.sock ]; then
+    # If the Docker socket is not mounted, abort
+    if [ ! -S /var/run/docker.sock ]; then
+        echo "Docker socket is not mounted. Aborting."
+        exit 1
+    fi
+    docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-sample
+fi
