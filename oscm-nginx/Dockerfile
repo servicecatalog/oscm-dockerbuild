@@ -4,7 +4,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
     zypper addrepo http://download.opensuse.org/repositories/server:http/SLE_12/server:http.repo && \
     zypper --gpg-auto-import-keys refresh && \
-    zypper install -y nginx && \
+    zypper install -y nginx vim && \
     zypper clean && \
     mkdir /etc/nginx/conf.d && \
     mkdir /etc/nginx/vhosts.d &&\
@@ -12,6 +12,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
 COPY resources/nginx.conf /etc/nginx/
+COPY resources/mime.types /etc/nginx/
 
 EXPOSE 80 443
 
