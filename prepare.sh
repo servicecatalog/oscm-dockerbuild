@@ -19,7 +19,7 @@ rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 ## copy resources for core
 wget -e use_proxy=yes -e http_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/org/postgresql/postgresql/42.1.4/postgresql-42.1.4.jar -O $REPO_DOCKER/oscm-core/postgresql.jar
 wget -e use_proxy=yes -e http_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.jar -O $REPO_DOCKER/oscm-core/log4j.jar
-wget -e use_proxy=yes -e http_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/commons-validator/commons-validator/1.4/commons-validator-1.4.jar -O $REPO_DOCKER/oscm-core/commons-validator.jar
+wget -e use_proxy=yes -e http_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/commons-validator/commons-validator/1.4.0/commons-validator-1.4.0.jar -O $REPO_DOCKER/oscm-core/commons-validator.jar
 
 # applications
 wget -e use_proxy=yes -e http_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-ear/fb_tomee_maven-v17.4.0-g0363f06-311/oscm-ear-fb_tomee_maven-v17.4.0-g0363f06-311.ear $REPO_DOCKER/oscm-core/oscm-ear.ear
