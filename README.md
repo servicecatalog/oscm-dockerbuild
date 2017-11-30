@@ -82,14 +82,14 @@ In order to be able to login to the Asynchronous Provisioning Platform (APP) and
 
 Now you will be able to login to the APP:
 
-`http://hostname.fqdn:8880/oscm-app/`
+`https://hostname.fqdn:8881/oscm-app/`
 
 * Username: `administrator`
 * Password: `admin123`
 
 As well as to the OpenStack controller:
 
-`http://hostname.fqdn:8880/oscm-app-openstack/`
+`https://hostname.fqdn:8881/oscm-app-openstack/`
 
 * Username: `administrator`
 * Password: `admin123`
