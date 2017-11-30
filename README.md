@@ -55,7 +55,7 @@ docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var
 ## Login to the administration portal
 The application will take a few minutes to start up. The less CPU power you have, the longer it will take. Once everything has started, you may access the OSCM administration portal in your web browser using the FQDN or IP address you specified earlier.
 
-`http://hostname.fqdn:8080/oscm-portal/`
+`https://hostname.fqdn:8081/oscm-portal/`
 
 The initial login credentials are:
 
