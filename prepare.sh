@@ -22,7 +22,7 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http:/
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/commons-validator/commons-validator/1.4.0/commons-validator-1.4.0.jar -O $REPO_DOCKER/oscm-core/commons-validator.jar
 
 # applications
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-ear/fb_tomee_maven-v17.4.0-g0363f06-311/oscm-ear-fb_tomee_maven-v17.4.0-g0363f06-311.ear -O $REPO_DOCKER/oscm-core/oscm-ear.ear
+wget -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-ear/fb_tomee_maven-v17.4.0-g0363f06-311/oscm-ear-fb_tomee_maven-v17.4.0-g0363f06-311.ear -O $REPO_DOCKER/oscm-core/oscm-ear.ear
 
 # libs
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-security/fb_tomee_maven-v17.4.0-g0363f06-311/oscm-security-fb_tomee_maven-v17.4.0-g0363f06-311.jar -O $REPO_DOCKER/oscm-core/oscm-security.jar
