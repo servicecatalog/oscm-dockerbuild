@@ -42,9 +42,10 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https:
 
 ## copy resources for app
 # applictaions
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app-ear/master-c6c0aae465-1/oscm-app-ear-master-c6c0aae465-1.ear -o $REPO_DOCKER/oscm-app/oscm-app.ear
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app-ear/master-1fa8b825b1-1/oscm-app-ear-master-1fa8b825b1-1.ear -o $REPO_DOCKER/oscm-app/oscm-app.ear
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-aws/oscm-app-aws-ear/master-28c31ec4af-1/oscm-app-aws-ear-master-28c31ec4af-1.ear -O $REPO_DOCKER/oscm-app/oscm-app-aws.ear
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-openstack/oscm-app-openstack-ear/master-3d0c1ed0ed-1/oscm-app-openstack-ear-master-3d0c1ed0ed-1.ear -O $REPO_DOCKER/oscm-app/oscm-app-openstack.ear
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/master-1fa8b825b1-1/oscm-app-master-1fa8b825b1-1.jar -O $REPO_DOCKER/oscm-app/libs/oscm-app.jar
 
 # libs
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/1.2/oscm-app-extsvc-1.2.jar -O $REPO_DOCKER/oscm-app/oscm-app-extsvc.jar

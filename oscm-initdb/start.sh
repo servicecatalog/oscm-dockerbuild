@@ -157,9 +157,13 @@ if [ $TARGET == "APP" ]; then
 		/opt/properties/db.properties /opt/sqlscripts/app
    
     # Update properties
-	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE
+	#java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		#"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		#/opt/properties/configsettings.properties $OVERWRITE
+
+	tar -xf /opt/flyway.tar.gz
+	cp /opt/lib/* /opt/flyway/jars/
+	/opt/flyway/flyway migrate -user=$DB_USER_APP -schemas=${$DB_PWD_APP} -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
 fi
 
 # APP Controller
