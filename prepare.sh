@@ -21,7 +21,7 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http:/
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.jar -O $REPO_DOCKER/oscm-initdb/libs/log4j.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/oro/oro/2.0.8/oro-2.0.8.jar -O $REPO_DOCKER/oscm-initdb/libs/oro.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/1.3/oscm-common-1.3.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-common.jar
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-devruntime/fb_tomee_maven-v17.4.0-gb6f1e73-330/oscm-devruntime-fb_tomee_maven-v17.4.0-gb6f1e73-330.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-devruntime.jar
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-devruntime/fb_tomee_maven-v17.4.0-g746605d-332/oscm-devruntime-fb_tomee_maven-v17.4.0-g746605d-332.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-devruntime.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc/1.2/oscm-extsvc-1.2.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-extsvc.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/1.2/oscm-extsvc-internal-1.2.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-extsvc-internal.jar
 
@@ -31,11 +31,11 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http:/
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/commons-validator/commons-validator/1.4.0/commons-validator-1.4.0.jar -O $REPO_DOCKER/oscm-core/commons-validator.jar
 
 # applications
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-ear/fb_tomee_maven-v17.4.0-gb6f1e73-330/oscm-ear-fb_tomee_maven-v17.4.0-gb6f1e73-330.ear -O $REPO_DOCKER/oscm-core/oscm.ear
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-ear/fb_tomee_maven-v17.4.0-g746605d-332/oscm-ear-fb_tomee_maven-v17.4.0-g746605d-332.ear -O $REPO_DOCKER/oscm-core/oscm.ear
 
 # libs
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-security/fb_tomee_maven-v17.4.0-gb6f1e73-330/oscm-security-fb_tomee_maven-v17.4.0-gb6f1e73-330.jar -O $REPO_DOCKER/oscm-core/oscm-security.jar
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-saml2-api/fb_tomee_maven-v17.4.0-gb6f1e73-330/oscm-saml2-api-fb_tomee_maven-v17.4.0-gb6f1e73-330.jar -O $REPO_DOCKER/oscm-core/oscm-saml2-api.jar
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-security/fb_tomee_maven-v17.4.0-g746605d-332/oscm-security-fb_tomee_maven-v17.4.0-g746605d-332.jar -O $REPO_DOCKER/oscm-core/oscm-security.jar
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-saml2-api/fb_tomee_maven-v17.4.0-g746605d-332/oscm-saml2-api-fb_tomee_maven-v17.4.0-g746605d-332.jar -O $REPO_DOCKER/oscm-core/oscm-saml2-api.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/1.3/oscm-common-1.3.jar -O $REPO_DOCKER/oscm-core/oscm-common.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-rest-api-common/1.3/oscm-rest-api-common-1.3.jar -O $REPO_DOCKER/oscm-core/oscm-rest-api-common.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/1.2/oscm-extsvc-internal-1.2.jar -O $REPO_DOCKER/oscm-core/oscm-extsvc-internal.jar
