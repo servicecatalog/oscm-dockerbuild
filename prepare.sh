@@ -15,6 +15,7 @@ openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ss
 rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 
 # copy resources for initdb
+mkdir $REPO_DOCKER/oscm-initdb/libs/
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.2.0/flyway-commandline-4.2.0-linux-x64.tar.gz -O $REPO_DOCKER/oscm-initdb/flyway.tar.gz
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar -O $REPO_DOCKER/oscm-initdb/libs/commons-logging.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/commons-validator/commons-validator/1.4.0/commons-validator-1.4.0.jar -O $REPO_DOCKER/oscm-initdb/libs/commons-validator.jar
