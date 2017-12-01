@@ -29,6 +29,7 @@ COPY flyway.tar.gz /opt/
 COPY libs/ /opt/lib/
 
 COPY start.sh /opt/
-RUN mkdir /opt/sqlscripts/custom && chmod +x /opt/start.sh
+#RUN mkdir /opt/sqlscripts/custom &&
+RUN chmod +x /opt/start.sh
 
 CMD ["/opt/start.sh"]
