@@ -81,18 +81,18 @@ if [ $TARGET == "CORE" ]; then
 	fi
 	
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+	java -cp "/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/core
-	
+	tar -xf /opt/flyway.tar.gz
+	cp /opt/lib/* /opt/flyway/jars/
 	# Update properties
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
-		/opt/properties/configsettings.properties $OVERWRITE
+	/opt/flyway/flyway migrate -user=$DB_USER_CORE -schemas=${DB_NAME_CORE} -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}
+
 	
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
-		/opt/properties/configsettings.properties /opt/properties/sso.properties        
+	#java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
+		#"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
+		#/opt/properties/configsettings.properties /opt/properties/sso.properties
 fi
 
 # JMS
