@@ -81,8 +81,8 @@ if [ $TARGET == "CORE" ]; then
 	fi
 	
 	# Initialize and update data
-	java -cp "/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/core
+	#java -cp "/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+	#	/opt/properties/db.properties /opt/sqlscripts/core
 	tar -xf /opt/flyway.tar.gz
 	cp /opt/lib/* /opt/flyway/jars/
 	# Update properties
@@ -153,8 +153,8 @@ if [ $TARGET == "APP" ]; then
 	fi
 	
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/app
+	#java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		#/opt/properties/db.properties /opt/sqlscripts/app
    
     # Update properties
 	#java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
