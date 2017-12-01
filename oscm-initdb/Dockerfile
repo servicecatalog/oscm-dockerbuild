@@ -21,8 +21,8 @@ ENV CONTROLLER_ID=ess.sample CONTROLLER_ORG_ID=PLATFORM_OPERATOR CONTROLLER_USER
 
 ENV CUSTOM_DATA=false
 
-COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
-COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
+#COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
+#COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY templates/*.template /opt/templates/
 
 COPY flyway.tar.gz /opt/
