@@ -15,8 +15,7 @@ openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl
 openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
 rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 
-BUILD_VERSION=$(curl -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm/${TAG_REPO_DEVELOPMENT}/build.log)
-
+BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm/$TAG_REPO_DEVELOPMENT/build.log | awk -F '/' '{print $(NF-1)}')
 # copy resources for initdb
 mkdir $REPO_DOCKER/oscm-initdb/libs/
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.2.0/flyway-commandline-4.2.0-linux-x64.tar.gz -O $REPO_DOCKER/oscm-initdb/flyway.tar.gz
