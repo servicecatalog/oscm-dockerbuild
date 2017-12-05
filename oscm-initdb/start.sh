@@ -26,6 +26,7 @@ function waitForDB {
 
 # Generate property files for CORE from environment
 function genPropertyFilesCORE {
+    mkdir /opt/sqlscripts
 	/usr/bin/envsubst < /opt/templates/init.sql.core.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.core.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.core.template > /opt/properties/configsettings.properties
@@ -34,11 +35,13 @@ function genPropertyFilesCORE {
 
 # Generate property files for JMS from environment
 function genPropertyFilesJMS {
+    mkdir /opt/sqlscripts
 	/usr/bin/envsubst < /opt/templates/init.sql.jms.template > /opt/sqlscripts/init.sql
 }
 
 # Generate property files for APP from environment
 function genPropertyFilesAPP {
+    mkdir /opt/sqlscripts
 	/usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
@@ -46,6 +49,7 @@ function genPropertyFilesAPP {
 
 # Generate property files for APP Controller from environment
 function genPropertyFilesAPPController {
+    mkdir /opt/sqlscripts
     /usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
