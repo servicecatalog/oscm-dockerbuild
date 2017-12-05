@@ -21,14 +21,15 @@ ENV CONTROLLER_ID=ess.sample CONTROLLER_ORG_ID=PLATFORM_OPERATOR CONTROLLER_USER
 
 ENV CUSTOM_DATA=false
 
-COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
-COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
+#COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
+#COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY templates/*.template /opt/templates/
 
 COPY flyway.tar.gz /opt/
 COPY libs/ /opt/lib/
 
 COPY start.sh /opt/
-RUN mkdir /opt/sqlscripts/custom && RUN chmod +x /opt/start.sh
+#RUN mkdir /opt/sqlscripts/custom &&
+RUN chmod +x /opt/start.sh
 
 CMD ["/opt/start.sh"]
