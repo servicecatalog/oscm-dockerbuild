@@ -90,7 +90,7 @@ if [ $TARGET == "CORE" ]; then
 	tar -xf /opt/flyway.tar.gz -C /opt/
 	cp /opt/lib/* /opt/flyway-4.2.0/jars/
 	# Update properties
-	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_CORE -schemas=${DB_NAME_CORE} -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}
+	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_CORE -schemas=$DB_USER_CORE -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}
 
 	
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
@@ -167,7 +167,7 @@ if [ $TARGET == "APP" ]; then
 
 	tar -xf /opt/flyway.tar.gz -C /opt/
 	cp /opt/lib/* /opt/flyway-4.2.0/jars/
-	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=${$DB_PWD_APP} -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
+	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
 fi
 
 # APP Controller
