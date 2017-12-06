@@ -1,4 +1,4 @@
-FROM oscm-gf
+FROM oscm-tomee
 
 RUN mkdir /opt/apache-tomee/apps && \
  mkdir /opt/apache-tomee/controllers && \

@@ -145,14 +145,14 @@ docker run --name ubuntu-copy-${TIMESTAMP} --rm -v ${DEVDIR}:/build ubuntu /bin/
 
 # Build image
 if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-gf \
+	docker build -t oscm-tomee \
 	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
 		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
 		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
-		oscm-dockerbuild/oscm-gf
+		oscm-dockerbuild/oscm-tomee
 else
-	docker build -t oscm-gf oscm-dockerbuild/oscm-gf
+	docker build -t oscm-tomee oscm-dockerbuild/oscm-tomee
 fi
 
 # Build final CORE image
@@ -262,4 +262,4 @@ if [ "${TAG_LATEST}" = "true" ]; then
 fi
 
 # Cleanup
-#docker rmi oscm-sles-based oscm-nginx gc-ant oscm-gf
+#docker rmi oscm-sles-based oscm-nginx gc-ant oscm-tomee
