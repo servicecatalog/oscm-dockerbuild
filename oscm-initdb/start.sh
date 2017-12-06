@@ -86,10 +86,10 @@ if [ $TARGET == "CORE" ]; then
 	
 	# Initialize and update data
 	tar -xf /opt/flyway.tar.gz -C /opt/
-	cp /opt/core-flyway-jars/* /opt/flyway-4.2.0/jars/
+	cp /opt/flyway-core-jars/* /opt/flyway-4.2.0/jars/
 	# Update properties
 	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_CORE -schemas=$DB_USER_CORE -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}
-    find /opt/core-flyway-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
+    find /opt/flyway-core-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 	
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
 	#java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
