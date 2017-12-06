@@ -158,7 +158,7 @@ if [ $TARGET == "APP" ]; then
 
 	tar -xf /opt/flyway.tar.gz -C /opt/
 	cp /opt/flyway-app-jars/* /opt/flyway-4.2.0/jars/
-	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_APP -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
+	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_APP -sqlMigrationPrefix=upd_postgresql_ -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
 	find /opt/flyway-app-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 fi
 
@@ -192,13 +192,13 @@ if [ $TARGET == "CONTROLLER" ]; then
 	fi
 	
 	# Initialize and update data
-	java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/app
+	# java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.setup.DatabaseUpgradeHandler \
+	#	/opt/properties/db.properties /opt/sqlscripts/app
 	
 	# Import controller properties        
-	java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
+	#java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+	#	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+	#	/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
 fi
 
 # Check if specific db is ready
