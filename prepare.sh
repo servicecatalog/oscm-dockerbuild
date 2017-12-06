@@ -5,8 +5,11 @@ REPO_OSCM="$1"
 TAG_REPO_DEVELOPMENT="$2"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
 LIB_DIR="$REPO_OSCM/libraries"
-OSCM_INTERFACES_BUILD_VERSION="$3"
-OSCM_COMMONS_BUILD_VERSION="$4"
+TAG_REPO_OSCM_INTERFACES="$3"
+TAG_REPO_OSCM_COMMONS="$4"
+TAG_REPO_APP="$5"
+TAG_REPO_AWS="$6"
+TAG_REPO_OPENSTACK="$7"
 
 # prepare common certificate and key
 openssl rand -base64 48 > /tmp/passphrase.txt
@@ -18,6 +21,11 @@ openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ss
 rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 
 OSCM_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm/$TAG_REPO_DEVELOPMENT/build.log | awk -F '/' '{print $(NF-1)}')
+APP_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-app/$TAG_REPO_APP/build.log | awk -F '/' '{print $(NF-1)}')
+APP_OPENSTACK_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-app-openstack/$TAG_REPO_OPENSTACK/build.log | awk -F '/' '{print $(NF-1)}')
+APP_AWS_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-app-aws/$TAG_REPO_AWS/build.log | awk -F '/' '{print $(NF-1)}')
+OSCM_INTERFACES_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-interfaces/$TAG_REPO_OSCM_INTERFACES/build.log | awk -F '/' '{print $(NF-1)}')
+OSCM_COMMONS_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-commons/$TAG_REPO_OSCM_COMMONS/build.log | awk -F '/' '{print $(NF-1)}')
 # copy resources for initdb
 mkdir $REPO_DOCKER/oscm-initdb/libs/
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.2.0/flyway-commandline-4.2.0-linux-x64.tar.gz -O $REPO_DOCKER/oscm-initdb/flyway.tar.gz
@@ -29,7 +37,7 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https:
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-devruntime/${OSCM_BUILD_VERSION}/oscm-devruntime-${OSCM_BUILD_VERSION}.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-devruntime.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc/$OSCM_INTERFACES_BUILD_VERSION/oscm-extsvc-$OSCM_INTERFACES_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-extsvc.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/$OSCM_INTERFACES_BUILD_VERSION/oscm-extsvc-internal-$OSCM_INTERFACES_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-extsvc-internal.jar
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/master-1fa8b825b1-1/oscm-app-master-1fa8b825b1-1.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-app.jar
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/$APP_BUILD_VERSION/oscm-app-$APP_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-app.jar
 
 ## copy resources for core
 wget -q -e use_proxy=yes -e http_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/org/postgresql/postgresql/42.1.4/postgresql-42.1.4.jar -O $REPO_DOCKER/oscm-core/postgresql.jar
@@ -48,10 +56,10 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https:
 
 ## copy resources for app
 # applictaions
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app-ear/master-1fa8b825b1-1/oscm-app-ear-master-1fa8b825b1-1.ear -o $REPO_DOCKER/oscm-app/oscm-app.ear
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-aws/oscm-app-aws-ear/master-28c31ec4af-1/oscm-app-aws-ear-master-28c31ec4af-1.ear -O $REPO_DOCKER/oscm-app/oscm-app-aws.ear
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-openstack/oscm-app-openstack-ear/master-3d0c1ed0ed-1/oscm-app-openstack-ear-master-3d0c1ed0ed-1.ear -O $REPO_DOCKER/oscm-app/oscm-app-openstack.ear
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/master-1fa8b825b1-1/oscm-app-master-1fa8b825b1-1.jar -O $REPO_DOCKER/oscm-app/libs/oscm-app.jar
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app-ear/$APP_BUILD_VERSION/oscm-app-ear-$APP_BUILD_VERSION.ear -o $REPO_DOCKER/oscm-app/oscm-app.ear
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-aws/oscm-app-aws-ear/$APP_AWS_BUILD_VERSION/oscm-app-aws-ear-$APP_AWS_BUILD_VERSION.ear -O $REPO_DOCKER/oscm-app/oscm-app-aws.ear
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-openstack/oscm-app-openstack-ear/$APP_OPENSTACK_BUILD_VERSION/oscm-app-openstack-ear-$APP_OPENSTACK_BUILD_VERSION.ear -O $REPO_DOCKER/oscm-app/oscm-app-openstack.ear
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/$APP_BUILD_VERSION/oscm-app-$APP_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-app/libs/oscm-app.jar
 
 # libs
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/$OSCM_INTERFACES_BUILD_VERSION/oscm-app-extsvc-$OSCM_INTERFACES_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-app/oscm-app-extsvc.jar
