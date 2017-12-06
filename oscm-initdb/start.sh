@@ -27,6 +27,7 @@ function waitForDB {
 # Generate property files for CORE from environment
 function genPropertyFilesCORE {
     mkdir /opt/sqlscripts
+    mkdir /opt/properties
 	/usr/bin/envsubst < /opt/templates/init.sql.core.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.core.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.core.template > /opt/properties/configsettings.properties
@@ -42,6 +43,7 @@ function genPropertyFilesJMS {
 # Generate property files for APP from environment
 function genPropertyFilesAPP {
     mkdir /opt/sqlscripts
+    mkdir /opt/properties
 	/usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
@@ -156,12 +158,13 @@ if [ $TARGET == "APP" ]; then
 
 	tar -xf /opt/flyway.tar.gz -C /opt/
 	cp /opt/flyway-app-jars/* /opt/flyway-4.2.0/jars/
-	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_CORE -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
+	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_APP -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
 	find /opt/flyway-app-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 fi
 
 # APP Controller
 if [ $TARGET == "CONTROLLER" ]; then
+    # In general this part will not work as the sql scripts are not in folder: /opt/sqlscripts/app. Add them there first.
 	# Generate property files from environment
 	genPropertyFilesAPPController
 	
@@ -189,13 +192,13 @@ if [ $TARGET == "CONTROLLER" ]; then
 	fi
 	
 	# Initialize and update data
-	#java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-	#	/opt/properties/db.properties /opt/sqlscripts/app
+	java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/app
 	
 	# Import controller properties        
-	#java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-	#	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-	#	/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
+	java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
 fi
 
 # Check if specific db is ready
