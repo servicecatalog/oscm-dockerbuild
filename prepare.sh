@@ -60,7 +60,7 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https:
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app-ear/$APP_BUILD_VERSION/oscm-app-ear-$APP_BUILD_VERSION.ear -o $REPO_DOCKER/oscm-app/oscm-app.ear
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-aws/oscm-app-aws-ear/$APP_AWS_BUILD_VERSION/oscm-app-aws-ear-$APP_AWS_BUILD_VERSION.ear -O $REPO_DOCKER/oscm-app/oscm-app-aws.ear
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app-openstack/oscm-app-openstack-ear/$APP_OPENSTACK_BUILD_VERSION/oscm-app-openstack-ear-$APP_OPENSTACK_BUILD_VERSION.ear -O $REPO_DOCKER/oscm-app/oscm-app-openstack.ear
-wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/$APP_BUILD_VERSION/oscm-app-$APP_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-app/libs/oscm-app.jar
+# wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/$APP_BUILD_VERSION/oscm-app-$APP_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-app/libs/oscm-app.jar
 
 # libs
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/$OSCM_INTERFACES_BUILD_VERSION/oscm-app-extsvc-$OSCM_INTERFACES_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-app/oscm-app-extsvc.jar
