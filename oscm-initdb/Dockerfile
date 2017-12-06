@@ -27,13 +27,13 @@ COPY templates/*.template /opt/templates/
 
 COPY flyway.tar.gz /opt/
 
-COPY libs/commons-logging.jar    /opt/core-flyway-jars/
-COPY libs/commons-validator.jar    /opt/core-flyway-jars/
-COPY libs/log4j.jar    /opt/core-flyway-jars/
-COPY libs/oro.jar    /opt/core-flyway-jars/
-COPY libs/oscm-common.jar    /opt/core-flyway-jars/
-COPY libs/oscm-devruntime.jar    /opt/core-flyway-jars/
-COPY libs/oscm-extsvc.jar    /opt/core-flyway-jars/
+COPY libs/commons-logging.jar    /opt/flyway-core-jars/
+COPY libs/commons-validator.jar    /opt/flyway-core-jars/
+COPY libs/log4j.jar    /opt/flyway-core-jars/
+COPY libs/oro.jar    /opt/flyway-core-jars/
+COPY libs/oscm-common.jar    /opt/flyway-core-jars/
+COPY libs/oscm-devruntime.jar    /opt/flyway-core-jars/
+COPY libs/oscm-extsvc.jar    /opt/flyway-core-jars/
 COPY libs/oscm-extsvc-internal.jar    /opt/flyway-core-jars/
 
 COPY libs/oscm-app.jar /opt/flyway-app-jars/
