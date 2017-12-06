@@ -85,13 +85,11 @@ if [ $TARGET == "CORE" ]; then
 	fi
 	
 	# Initialize and update data
-	#java -cp "/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-	#	/opt/properties/db.properties /opt/sqlscripts/core
 	tar -xf /opt/flyway.tar.gz -C /opt/
-	cp /opt/lib/* /opt/flyway-4.2.0/jars/
+	cp /opt/core-flyway-jars/* /opt/flyway-4.2.0/jars/
 	# Update properties
 	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_CORE -schemas=$DB_USER_CORE -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}
-
+    find /opt/core-flyway-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 	
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
 	#java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
@@ -156,18 +154,10 @@ if [ $TARGET == "APP" ]; then
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
 	
-	# Initialize and update data
-	#java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		#/opt/properties/db.properties /opt/sqlscripts/app
-   
-    # Update properties
-	#java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		#"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		#/opt/properties/configsettings.properties $OVERWRITE
-
 	tar -xf /opt/flyway.tar.gz -C /opt/
-	cp /opt/lib/* /opt/flyway-4.2.0/jars/
-	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
+	cp /opt/lib/oscm-app.jar /opt/flyway-app-jars/
+	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_CORE -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
+	find /opt/core-app-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 fi
 
 # APP Controller

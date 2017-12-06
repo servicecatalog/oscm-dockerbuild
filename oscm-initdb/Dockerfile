@@ -26,7 +26,17 @@ ENV CUSTOM_DATA=false
 COPY templates/*.template /opt/templates/
 
 COPY flyway.tar.gz /opt/
-COPY libs/ /opt/lib/
+
+COPY libs/commons-logging.jar    /opt/core-flyway-jars/
+COPY libs/commons-validator.jar    /opt/core-flyway-jars/
+COPY libs/log4j.jar    /opt/core-flyway-jars/
+COPY libs/oro.jar    /opt/core-flyway-jars/
+COPY libs/oscm-common.jar    /opt/core-flyway-jars/
+COPY libs/oscm-devruntime.jar    /opt/core-flyway-jars/
+COPY libs/oscm-extsvc.jar    /opt/core-flyway-jars/
+COPY libs/oscm-extsvc-internal.jar    /opt/core-flyway-jars/
+
+COPY libs/oscm-app.jar /opt/flyway-app-jars/
 
 COPY start.sh /opt/
 #RUN mkdir /opt/sqlscripts/custom &&

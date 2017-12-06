@@ -29,6 +29,7 @@ wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https:
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm/oscm-devruntime/${OSCM_BUILD_VERSION}/oscm-devruntime-${OSCM_BUILD_VERSION}.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-devruntime.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc/$OSCM_INTERFACES_BUILD_VERSION/oscm-extsvc-$OSCM_INTERFACES_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-extsvc.jar
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/$OSCM_INTERFACES_BUILD_VERSION/oscm-extsvc-internal-$OSCM_INTERFACES_BUILD_VERSION.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-extsvc-internal.jar
+wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://jitpack.io/com/github/servicecatalog/oscm-app/oscm-app/master-1fa8b825b1-1/oscm-app-master-1fa8b825b1-1.jar -O $REPO_DOCKER/oscm-initdb/libs/oscm-app.jar
 
 ## copy resources for core
 wget -q -e use_proxy=yes -e http_proxy=proxy.intern.est.fujitsu.com:8080 http://central.maven.org/maven2/org/postgresql/postgresql/42.1.4/postgresql-42.1.4.jar -O $REPO_DOCKER/oscm-core/postgresql.jar
