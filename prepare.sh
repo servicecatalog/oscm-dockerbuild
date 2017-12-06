@@ -26,6 +26,7 @@ APP_OPENSTACK_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 
 APP_AWS_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-app-aws/$TAG_REPO_AWS/build.log | awk -F '/' '{print $(NF-1)}')
 OSCM_INTERFACES_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-interfaces/$TAG_REPO_OSCM_INTERFACES/build.log | awk -F '/' '{print $(NF-1)}')
 OSCM_COMMONS_BUILD_VERSION=$(curl -x https://proxy.intern.est.fujitsu.com:8080 -Ls -o /dev/null -w %{url_effective} https://jitpack.io/com/github/servicecatalog/oscm-commons/$TAG_REPO_OSCM_COMMONS/build.log | awk -F '/' '{print $(NF-1)}')
+echo "Using following versions. oscm: $OSCM_BUILD_VERSION, oscm-app: $APP_BUILD_VERSION, oscm-openstack: $APP_OPENSTACK_BUILD_VERSION, oscm-aws: $APP_AWS_BUILD_VERSION, oscm-interfaces: $OSCM_INTERFACES_BUILD_VERSION, oscm-commons: $OSCM_COMMONS_BUILD_VERSION"
 # copy resources for initdb
 mkdir $REPO_DOCKER/oscm-initdb/libs/
 wget -q -e use_proxy=yes -e https_proxy=proxy.intern.est.fujitsu.com:8080 https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.2.0/flyway-commandline-4.2.0-linux-x64.tar.gz -O $REPO_DOCKER/oscm-initdb/flyway.tar.gz
