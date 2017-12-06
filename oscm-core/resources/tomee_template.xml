@@ -37,6 +37,11 @@
     transactionSupport = xa
   </Resource>
 
+  <Container id="Default Stateless Container" type="STATELESS">
+    callbackThreads = 5
+    maxSize = 10
+  </Container>
+  
   <Container id="JmsMdbContainer" ctype="MESSAGE">
     ResourceAdapter = JmsResourceAdapter
   </Container>

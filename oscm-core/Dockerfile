@@ -28,6 +28,7 @@ COPY resources/key /opt/apache-tomee/bin/
 COPY resources/web.xml /templates/WEB-INF
 COPY resources/catalina.properties /opt/apache-tomee/conf/catalina.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
+COPY resources/Sample.yaml /templates/
 
 COPY hibernate-commons-annotations-5.0.1.Final.jar /opt/apache-tomee/lib/hibernate-commons-annotations-5.0.1.Final.jar
 COPY hibernate-core-5.0.9.Final.jar /opt/apache-tomee/lib/hibernate-core-5.0.9.Final.jar
