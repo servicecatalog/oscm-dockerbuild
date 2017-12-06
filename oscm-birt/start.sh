@@ -34,4 +34,9 @@ find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-categ
 # Change entropy source of Java to non-blocking
 sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre/lib/security/java.security
 
+# Check ownership of Tomcat log dir and fix if necessary
+if [ ! $(stat -c %U /var/log/tomcat) = "tomcat" ]; then
+    chown tomcat /var/log/tomcat
+fi
+
 su - tomcat -c 'source /etc/tomcat/tomcat.conf ; source /etc/sysconfig/tomcat ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/lib/tomcat/server start'

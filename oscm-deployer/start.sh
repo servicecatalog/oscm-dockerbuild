@@ -40,10 +40,13 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-help/ssl/cert \
     ${TARGET_PATH}/config/oscm-help/ssl/chain \
     ${TARGET_PATH}/logs/oscm-app \
+    ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \
+    ${TARGET_PATH}/logs/oscm-birt/tomcat \
     ${TARGET_PATH}/logs/oscm-branding \
     ${TARGET_PATH}/logs/oscm-help \
     ${TARGET_PATH}/logs/oscm-core \
+    ${TARGET_PATH}/logs/oscm-core/tomcat \
     ${TARGET_PATH}/logs/oscm-db; do
     if [ ! -d ${docker_directory} ]; then
         mkdir -p ${docker_directory}

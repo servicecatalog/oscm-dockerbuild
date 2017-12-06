@@ -33,6 +33,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-core/ssl/cert:/import/ssl/cert
       - ${DOCKER_PATH}/config/oscm-core/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
+      - ${DOCKER_PATH}/logs/oscm-core/tomcat:/opt/apache-tomee/logs
     ports:
       - 8080:8080
       - 8081:8081
@@ -57,6 +58,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-app/ssl/cert:/import/ssl/cert
       - ${DOCKER_PATH}/config/oscm-app/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
+      - ${DOCKER_PATH}/logs/oscm-app/tomcat:/opt/apache-tomee/logs
     ports:
       - 8880:8880
       - 8881:8881
@@ -76,6 +78,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-birt/ssl/cert:/import/ssl/cert
       - ${DOCKER_PATH}/config/oscm-birt/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
+      - ${DOCKER_PATH}/logs/oscm-birt/tomcat:/var/log/tomcat
     ports:
       - 8680:8680
       - 8681:8681
