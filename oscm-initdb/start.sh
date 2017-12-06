@@ -155,7 +155,7 @@ if [ $TARGET == "APP" ]; then
 	fi
 
 	tar -xf /opt/flyway.tar.gz -C /opt/
-	cp /opt/flyway-app-jars/* /opt/flyway-4.2.0/libs/
+	cp /opt/flyway-app-jars/* /opt/flyway-4.2.0/jars/
 	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_CORE -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
 	find /opt/core-app-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 fi
