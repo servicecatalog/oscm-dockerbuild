@@ -153,9 +153,9 @@ if [ $TARGET == "APP" ]; then
         fi
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
-	
+
 	tar -xf /opt/flyway.tar.gz -C /opt/
-	cp /opt/lib/oscm-app.jar /opt/flyway-app-jars/
+	cp /opt/flyway-app-jars/* /opt/flyway-4.2.0/libs/
 	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_CORE -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
 	find /opt/core-app-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 fi
