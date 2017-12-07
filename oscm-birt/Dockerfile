@@ -8,6 +8,7 @@ COPY ssl.crt /usr/share/pki/trust/anchors
 COPY resources/server.xml /etc/tomcat/
 COPY resources/catalina.properties /etc/tomcat/catalina.properties
 COPY resources/context.xml /etc/tomcat/context.xml
+COPY resources/logging.properties /etc/tomcat/logging.properties
 
 RUN chmod +x /opt/deploy.sh && \
     chmod +x /opt/start.sh && \
@@ -32,5 +33,5 @@ RUN chmod +x /opt/deploy.sh && \
     rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
     rm -rf /tmp/birt
-    
+
 CMD ["/opt/start.sh"]

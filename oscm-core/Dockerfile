@@ -33,6 +33,7 @@ COPY resources/key /opt/apache-tomee/bin/
 COPY resources/web.xml /templates/WEB-INF
 COPY resources/catalina.properties /opt/apache-tomee/conf/catalina.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
+COPY resources/Sample.yaml /templates/
 
 COPY ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/

@@ -55,7 +55,7 @@ docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var
 ## Login to the administration portal
 The application will take a few minutes to start up. The less CPU power you have, the longer it will take. Once everything has started, you may access the OSCM administration portal in your web browser using the FQDN or IP address you specified earlier.
 
-`http://hostname.fqdn:8080/oscm-portal/`
+`https://hostname.fqdn:8081/oscm-portal/`
 
 The initial login credentials are:
 
@@ -82,14 +82,14 @@ In order to be able to login to the Asynchronous Provisioning Platform (APP) and
 
 Now you will be able to login to the APP:
 
-`http://hostname.fqdn:8880/oscm-app/`
+`https://hostname.fqdn:8881/oscm-app/`
 
 * Username: `administrator`
 * Password: `admin123`
 
 As well as to the OpenStack controller:
 
-`http://hostname.fqdn:8880/oscm-app-openstack/`
+`https://hostname.fqdn:8881/oscm-app-openstack/`
 
 * Username: `administrator`
 * Password: `admin123`
