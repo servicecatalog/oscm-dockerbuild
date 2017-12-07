@@ -33,6 +33,7 @@ COPY libs/oscm-common.jar    /opt/flyway-core-jars/
 COPY libs/oscm-devruntime.jar    /opt/flyway-core-jars/
 COPY libs/oscm-extsvc.jar    /opt/flyway-core-jars/
 COPY libs/oscm-extsvc-internal.jar    /opt/flyway-core-jars/
+COPY postgresql.jar    /opt/
 
 COPY libs/oscm-app.jar /opt/flyway-app-jars/
 

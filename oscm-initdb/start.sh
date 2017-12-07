@@ -190,7 +190,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 	fi
 	
 	# Import controller properties
-	java -cp "/opt/flyway-app-jars/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+	java -cp "/opt/flyway-app-jars/*;postgresql.jar" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
 fi
