@@ -21,7 +21,7 @@ COPY resources/catalina.properties /opt/apache-tomee/conf/catalina.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
 
 COPY oscm-app.ear /opt/apache-tomee/apps/
-COPY oscm-app-aws.ear oscm-app-openstack.ear /opt/apache-tomee/controllers/
+# COPY oscm-app-aws.ear oscm-app-openstack.ear /opt/apache-tomee/controllers/
 
 COPY postgresql.jar /opt/apache-tomee/lib/postgresql.jar
 COPY oscm-app-extsvc.jar /opt/apache-tomee/lib/oscm-app-extsvc.jar
