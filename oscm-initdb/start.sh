@@ -91,8 +91,7 @@ if [ $TARGET == "CORE" ]; then
 	cp /opt/flyway-core-jars/* /opt/flyway-4.2.0/jars/
 	# Update properties
 	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_CORE -schemas=$DB_USER_CORE -password=$DB_PWD_CORE -locations=classpath:/org/oscm/propertyimport,classpath:/sql,classpath:/org/oscm/dbtask -url=jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}
-    find /opt/flyway-core-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
-	
+
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
 	#java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
 		#"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
@@ -159,7 +158,6 @@ if [ $TARGET == "APP" ]; then
 	tar -xf /opt/flyway.tar.gz -C /opt/
 	cp /opt/flyway-app-jars/* /opt/flyway-4.2.0/jars/
 	/opt/flyway-4.2.0/flyway migrate -user=$DB_USER_APP -schemas=$DB_USER_APP -password=$DB_PWD_APP -sqlMigrationPrefix=upd_postgresql_ -locations=classpath:/sql -url=jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}
-	find /opt/flyway-app-jars/* -printf "%f\n" | xargs -I {} rm -r /opt/flyway-4.2.0/jars/{}
 fi
 
 # APP Controller
@@ -191,14 +189,10 @@ if [ $TARGET == "CONTROLLER" ]; then
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
 	
-	# Initialize and update data
-	# java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.setup.DatabaseUpgradeHandler \
-	#	/opt/properties/db.properties /opt/sqlscripts/app
-	
-	# Import controller properties        
-	#java -cp "/opt/flyway-app-jars/*:/opt/flyway-core-jars/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-	#	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-	#	/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
+	# Import controller properties
+	java -cp "/opt/flyway-app-jars/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
 fi
 
 # Check if specific db is ready
