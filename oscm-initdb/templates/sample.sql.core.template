@@ -40,7 +40,7 @@ INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sou
 INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sourcekey, referencetype) VALUES (10003, 0, 10001, 1, 'PLATFORM_OPERATOR_TO_SUPPLIER');
 INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sourcekey, referencetype) VALUES (10004, 0, 10000, 10000, 'TECHNOLOGY_PROVIDER_TO_SUPPLIER');
 INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sourcekey, referencetype) VALUES (10005, 0, 10001, 10000, 'TECHNOLOGY_PROVIDER_TO_SUPPLIER');
-INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sourcekey, referencetype) VALUES (11000, 0, 11000, 10001, 'SUPPLIER_TO_CUSTOMER');
+INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sourcekey, referencetype) VALUES (11000, 0, 11000, 10000, 'SUPPLIER_TO_CUSTOMER');
 
 INSERT INTO ${DB_USER_CORE}.catalogentryhistory (tkey, moddate, modtype, moduser, objkey, objversion, productobjkey, anonymousvisible, marketplaceobjkey, invocationdate, visibleincatalog, brokerpricemodelobjkey, resellerpricemodelobjkey, operatorpricemodelobjkey) VALUES (10000, '2017-12-04 14:03:23.492', 'ADD', '10001', 10000, 0, 10000, false, NULL, '2017-12-04 14:03:23.492', false, NULL, NULL, 11000);
 INSERT INTO ${DB_USER_CORE}.catalogentryhistory (tkey, moddate, modtype, moduser, objkey, objversion, productobjkey, anonymousvisible, marketplaceobjkey, invocationdate, visibleincatalog, brokerpricemodelobjkey, resellerpricemodelobjkey, operatorpricemodelobjkey) VALUES (10001, '2017-12-04 14:03:24.078', 'MODIFY', '10001', 10000, 1, 10000, true, NULL, '2017-12-04 14:03:24.078', true, NULL, NULL, 11000);
