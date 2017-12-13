@@ -213,7 +213,8 @@ function checkDB {
 	echo "Database $3 ready ..."
 }
 
-#function checkSampleDataExec {
+# Check if any data is loaded
+function checkSampleDataExec {
 	export PGPASSWORD=$DB_SUPERPWD
     countorgs=$(psql -t -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -d $DB_NAME_CORE -c "SELECT COUNT(*) FROM $DB_USER_CORE.organization;")
     echo $countorgs
