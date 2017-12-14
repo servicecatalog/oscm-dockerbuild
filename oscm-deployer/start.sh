@@ -68,7 +68,7 @@ for docker_log_file in \
 done
 
 # Create Docker Compose files from templates
-envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB' \
+envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
