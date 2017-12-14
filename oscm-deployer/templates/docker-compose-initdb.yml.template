@@ -45,6 +45,7 @@ services:
     container_name: oscm-initdb-controller-openstack
     env_file: var.env
     environment:
+      - CONTROLLER_ID=ess.openstack
       - TARGET=CONTROLLER
       - SOURCE=NONE
       - OVERWRITE=true
@@ -56,6 +57,7 @@ services:
     container_name: oscm-initdb-controller-aws
     env_file: var.env
     environment:
+      - CONTROLLER_ID=ess.aws
       - TARGET=CONTROLLER
       - SOURCE=NONE
       - OVERWRITE=true
