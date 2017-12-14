@@ -38,8 +38,8 @@
   </Resource>
 
   <Container id="Default Stateless Container" type="STATELESS">
-    callbackThreads = 5
-    maxSize = 10
+    callbackThreads = ${CONTAINER_CALLBACK_THREADS}
+    maxSize = ${CONTAINER_MAX_SIZE}
   </Container>
   
   <Container id="JmsMdbContainer" ctype="MESSAGE">
