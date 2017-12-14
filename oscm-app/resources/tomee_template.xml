@@ -15,6 +15,11 @@
     validationQuery = "SELECT 1"
   </Resource>
 
+  <Container id="Default Stateless Container" type="STATELESS">
+    callbackThreads = ${CONTAINER_CALLBACK_THREADS}
+    maxSize = ${CONTAINER_MAX_SIZE}
+  </Container>
+
   <Resource id="APPMail" type="javax.mail.Session">
     mail.smtp.host=${SMTP_HOST}
     mail.smtp.port=${SMTP_PORT}
