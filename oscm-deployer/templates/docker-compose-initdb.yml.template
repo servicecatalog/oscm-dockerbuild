@@ -15,7 +15,7 @@ services:
       - TARGET=CORE
       - SOURCE=INIT
       - OVERWRITE=true
-      - LOG_LEVEL=WARN
+      - LOG_LEVEL=INFO
     links:
       - oscm-db:oscm-db
       
