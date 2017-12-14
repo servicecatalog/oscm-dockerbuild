@@ -1,6 +1,6 @@
 # Optional: Special character encoding for emails sent in japanese
 # locale. Default is UTF-8.
-# MAIL_JA_CHARSET=UTF-8
+MAIL_JA_CHARSET=${MAIL_JA_CHARSET}
 
 # The maximum number of login attempts. If a user does not log in
 # successfully with this number of attempts, his account is locked.
@@ -33,10 +33,10 @@ MP_ERROR_REDIRECT_HTTPS=${MP_ERROR_REDIRECT_HTTPS}
 LOG_LEVEL=${LOG_LEVEL}
 
 # The path to the log files.
-LOG_FILE_PATH=../logs
+LOG_FILE_PATH=${LOG_FILE_PATH}
 
 # The path to the log4j configuration file.
-LOG_CONFIG_FILE=./log4j.properties
+LOG_CONFIG_FILE=${LOG_CONFIG_FILE}
 
 # The path to the file containing the key required for encrypting and
 # decrypting service parameters and custom attributes.
