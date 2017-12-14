@@ -1,11 +1,11 @@
 # Optional: Special character encoding for emails sent in japanese
 # locale. Default is UTF-8.
-# MAIL_JA_CHARSET=UTF-8
+MAIL_JA_CHARSET=${MAIL_JA_CHARSET}
 
 # The maximum number of login attempts. If a user does not log in
 # successfully with this number of attempts, his account is locked.
 # The default is 3.
-# MAX_NUMBER_LOGIN_ATTEMPTS=3
+MAX_NUMBER_LOGIN_ATTEMPTS=${MAX_NUMBER_LOGIN_ATTEMPTS}
 
 # The maximum number of entries that will be returned by an LDAP
 # query. The default is 100.
@@ -22,28 +22,28 @@ BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
 # URL to specify a Web page that is to be displayed in case the HTTP
 # protocol is used and a customer tries to access a marketplace
 # without a valid marketplace ID.
-# MP_ERROR_REDIRECT_HTTP=http://<your server>:<your port>/oscm-portal/marketplace?mid=8f78f156
+#MP_ERROR_REDIRECT_HTTP=http://<your server>:<your port>/oscm-portal/marketplace?mid=8f78f156
 
 # URL to specify a Web page that is to be displayed in case the HTTPS
 # protocol is used and a customer tries to access a marketplace
 # without a valid marketplace ID.
-# MP_ERROR_REDIRECT_HTTPS=https://<your server>:<your port>/oscm-portal/marketplace?mid=8f78f156
+MP_ERROR_REDIRECT_HTTPS=${MP_ERROR_REDIRECT_HTTPS}
 
 # The log level valid for the entire application.
 LOG_LEVEL=${LOG_LEVEL}
 
 # The path to the log files.
-LOG_FILE_PATH=../logs
+LOG_FILE_PATH=${LOG_FILE_PATH}
 
 # The path to the log4j configuration file.
-LOG_CONFIG_FILE=./log4j.properties
+LOG_CONFIG_FILE=${LOG_CONFIG_FILE}
 
 # The path to the file containing the key required for encrypting and
 # decrypting service parameters and custom attributes.
 KEY_FILE_PATH=/opt/apache-tomee/bin/key
 
 # The number of decimal places for prices. Values between 2 and 6 are supported.
-# DECIMAL_PLACES=4
+DECIMAL_PLACES=${DECIMAL_PLACES}
 
 # Specifies whether the customer self-registration is used for the
 # current environment.
@@ -53,39 +53,39 @@ CUSTOMER_SELF_REGISTRATION_ENABLED=${CUSTOMER_SELF_REGISTRATION_ENABLED}
 # account must be confirmed. After this time has passed, the
 # account may be removed. The value is in milliseconds, the default
 # is seven days.
-# PERMITTED_PERIOD_UNCONFIRMED_ORGANIZATIONS=604800000
+PERMITTED_PERIOD_UNCONFIRMED_ORGANIZATIONS=${PERMITTED_PERIOD_UNCONFIRMED_ORGANIZATIONS}
 
 # The time interval at which tasks related to organizations are
 # executed. The value is in milliseconds. A value of 0 indicates
 # that this timer is disabled.
-# TIMER_INTERVAL_ORGANIZATION=0
+TIMER_INTERVAL_ORGANIZATION=${TIMER_INTERVAL_ORGANIZATION}
 
 # The offset of the timer for organization-related tasks.
 # The value is in milliseconds, based on January 1, 00:00.
-# TIMER_INTERVAL_ORGANIZATION_OFFSET=0
+TIMER_INTERVAL_ORGANIZATION_OFFSET=${TIMER_INTERVAL_ORGANIZATION_OFFSET}
 
 # The time interval at which a check for expired subscriptions
 # is executed. The value is in milliseconds, the default is 24 hours.
 # The value must be greater than 0.
-# TIMER_INTERVAL_SUBSCRIPTION_EXPIRATION=86400000
+TIMER_INTERVAL_SUBSCRIPTION_EXPIRATION=${TIMER_INTERVAL_SUBSCRIPTION_EXPIRATION}
 
 # The offset of the timer for subscription expiration checks.
 # The value is in milliseconds, based on January 1, 00:00.
-# TIMER_INTERVAL_SUBSCRIPTION_EXPIRATION_OFFSET=0
+TIMER_INTERVAL_SUBSCRIPTION_EXPIRATION_OFFSET=${TIMER_INTERVAL_SUBSCRIPTION_EXPIRATION_OFFSET}
 
 # The time interval at which a check for timed-out pending
 # subscriptions is executed. The value is in milliseconds.
 # A value of 0 indicates that this timer is disabled.
-# TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT=0
+TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT=${TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT}
 
 # The offset of the timer for pending subscription checks.
 # The value is in milliseconds, based on January 1, 00:00.
-# TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT_OFFSET=0
+TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT_OFFSET=${TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT_OFFSET}
 
 # The offset of the timer for terminating the discounts
 # for all organizations. The timer interval is one day.
 # The offset is in milliseconds, based on January 1, 00:00.
-# TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET=0
+TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET=${TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET}
 
 # The URL template of the report engine. If this value is not
 # configured, reporting will not be available.
@@ -113,7 +113,7 @@ REPORT_SOAP_ENDPOINT=${REPORT_SOAP_ENDPOINT}
 
 # Specifies whether the PSP integration is used for the
 # current environment.
-PSP_USAGE_ENABLED=false
+PSP_USAGE_ENABLED=${PSP_USAGE_ENABLED}
 
 # The billing run offset and the timer's expiration time.
 # The value is configured in milliseconds.
@@ -123,7 +123,7 @@ PSP_USAGE_ENABLED=false
 # To determine the billing-run-start-time the hour-, minute-, second-, millisecond-values will be used.
 # The default billing-run-offset is 4 days, i.e. billing starts 4 days after period end.
 # The default billing-run-start-time is 00:00:00.0000
-# TIMER_INTERVAL_BILLING_OFFSET=345600000
+TIMER_INTERVAL_BILLING_OFFSET=${TIMER_INTERVAL_BILLING_OFFSET}
 
 # The list of menus and groups of fields in dialogs, which are
 # hidden. These values are allowed:
@@ -202,7 +202,8 @@ PSP_USAGE_ENABLED=false
 # organization.edit.organizationData
 # organization.edit.userProfile
 # user.list.subscriptions
-# HIDDEN_UI_ELEMENTS=operator.manageBillingAdapters,techService.viewBillingAdapters
+# Default: operator.manageBillingAdapters,techService.viewBillingAdapters
+HIDDEN_UI_ELEMENTS=${HIDDEN_UI_ELEMENTS}
 
 # Specifies whether the supplier sets the payment type invoice as default payment info for his customers.
 # SUPPLIER_SETS_INVOICE_AS_DEFAULT=false
@@ -222,14 +223,15 @@ TAGGING_MIN_SCORE=1
 # The time interval at which a check for inactive on-behalf users
 # is executed. The value is in milliseconds. A value of 0 indicates
 # that this timer is disabled.
-# TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS=0
+TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS=${TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS}
 
 # The offset of the timer for removing inactive on-behalf users.
 # The offset is in milliseconds, based on January 1, 00:00.
 # TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS_OFFSET=0
+TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS_OFFSET=${TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS_OFFSET}
 
 # Defines the timeout for outgoing JAX-WS calls. After the time intervall is passed a timeout exception is thrown by the JAX-WS framework.
-WS_TIMEOUT=30000
+WS_TIMEOUT=${WS_TIMEOUT}
 
 # The authentication mode defines whether the core internal authentication is used
 # or an external authentication service, such as OpenAM.
@@ -256,10 +258,10 @@ SSO_ISSUER_ID=${SSO_ISSUER_ID}
 SSO_STS_ENCKEY_LEN=${SSO_STS_ENCKEY_LEN}
 
 # Specifies whether the audit logging is enabled
-AUDIT_LOG_ENABLED=false
+AUDIT_LOG_ENABLED=${AUDIT_LOG_ENABLED}
 
 # Specifies the batch size for audit logging
-AUDIT_LOG_MAX_ENTRIES_RETRIEVED=100
+AUDIT_LOG_MAX_ENTRIES_RETRIEVED=${AUDIT_LOG_MAX_ENTRIES_RETRIEVED}
 
 # URL of STS service
 SSO_STS_URL=${SSO_STS_URL}
@@ -271,10 +273,10 @@ SSO_STS_METADATA_URL=${SSO_STS_METADATA_URL}
 SSO_LOGOUT_URL=${SSO_LOGOUT_URL}
 
 # The maximum number of users that can be registered on the platform
-MAX_NUMBER_ALLOWED_USERS=1000
+MAX_NUMBER_ALLOWED_USERS=${MAX_NUMBER_ALLOWED_USERS}
 
 # The time interval in milliseconds at which the amount of user registered on the platform is checked
-TIMER_INTERVAL_USER_COUNT=43200000
+TIMER_INTERVAL_USER_COUNT=${TIMER_INTERVAL_USER_COUNT}
 
 # Specifies whether payment information is required for subscribing to services 
 # that use the native billing system and are not free of charge. 
