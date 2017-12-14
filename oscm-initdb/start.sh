@@ -227,6 +227,7 @@ function checkSampleDataExec {
 #SAMPLE DATA
 if [ $TARGET == "SAMPLE_DATA" ]; then
     
+    checkDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
     checkSampleDataExec
     genSampleData
     
