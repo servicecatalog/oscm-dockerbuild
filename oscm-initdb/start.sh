@@ -236,4 +236,11 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 	else
 		echo "No sample core data found ..."
 	fi	
+	
+	if [ -f /opt/sqlscripts/app/sample.sql ]; then		
+		checkDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP		
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP		
+	else		
+		echo "No sample app data found ..."		
+	fi
 fi	
