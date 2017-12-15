@@ -217,7 +217,6 @@ function checkDB {
 function checkSampleDataExec {
 	export PGPASSWORD=$DB_SUPERPWD
     countorgs=$(psql -t -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -d $DB_NAME_CORE -c "SELECT COUNT(*) FROM $DB_USER_CORE.organization;")
-    echo $countorgs
     if [ $countorgs -gt 1 ]; then
     	echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
     	exit 0
