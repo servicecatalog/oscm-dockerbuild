@@ -213,9 +213,21 @@ function checkDB {
 	echo "Database $3 ready ..."
 }
 
+# Check if any data is loaded
+function checkSampleDataExec {
+	export PGPASSWORD=$DB_SUPERPWD
+    countorgs=$(psql -t -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -d $DB_NAME_CORE -c "SELECT COUNT(*) FROM $DB_USER_CORE.organization;")
+    if [ $countorgs -gt 1 ]; then
+    	echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
+    	exit 0
+	fi
+}
+
 #SAMPLE DATA
 if [ $TARGET == "SAMPLE_DATA" ]; then
     
+    checkDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
+    checkSampleDataExec
     genSampleData
     
     if [ -f /opt/sqlscripts/core/sample.sql ]; then
@@ -225,10 +237,10 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 		echo "No sample core data found ..."
 	fi	
 	
-	if [ -f /opt/sqlscripts/app/sample.sql ]; then
-    	checkDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
-	else
-		echo "No sample app data found ..."
+	if [ -f /opt/sqlscripts/app/sample.sql ]; then		
+		checkDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP		
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP		
+	else		
+		echo "No sample app data found ..."		
 	fi
 fi	
