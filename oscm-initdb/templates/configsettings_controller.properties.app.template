@@ -1,4 +1,4 @@
-# Copyright FUJITSU LIMITED 2017
+# Copyright FUJITSU LIMITED 2018
 # Asynchronous Provisioning Platform Controller Settings
 CONTROLLER_ID=${CONTROLLER_ID}
 BSS_ORGANIZATION_ID=${CONTROLLER_ORG_ID}

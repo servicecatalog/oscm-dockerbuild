@@ -1,4 +1,4 @@
-# Copyright FUJITSU LIMITED 2017
+# Copyright FUJITSU LIMITED 2018
 # Asynchronous Provisioning Platform Settings
 APP_BASE_URL=https://${HOST_FQDN}:8881/oscm-app
 APP_TIMER_INTERVAL=15000
