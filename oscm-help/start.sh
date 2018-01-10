@@ -1,5 +1,16 @@
 #!/bin/bash
 
+if [ ${SOURCE} == "LOCAL" ]; then
+    /usr/bin/cp ${HELP_DIR}/*.tar.gz /tmp/work
+fi
+
+for file in /tmp/work/*.tar.gz
+do
+    /bin/tar -zxf $file -C /srv/www/htdocs
+done
+/usr/bin/chown -R nginx: /srv/www/htdocs
+/usr/bin/rm -r /tmp/work
+
 # Copy SSL private key and certificate, generate Keystore and copy to nginx config
 find /import/ssl/privkey -type f -exec cp -f {} /opt/ssl.key \;
 find /import/ssl/cert -type f -exec cp -f {} /opt/ssl.crt \;

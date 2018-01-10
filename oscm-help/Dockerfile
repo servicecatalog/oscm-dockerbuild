@@ -1,5 +1,7 @@
 FROM oscm-nginx
 
+ENV SOURCE=LOCAL HELP_DIR=/import/oscm-portal-help
+
 COPY start.sh /opt/start.sh
 COPY resources/help.conf /etc/nginx/vhosts.d/
 COPY oscm-portal-help.war /opt/oscm-portal-help.war
