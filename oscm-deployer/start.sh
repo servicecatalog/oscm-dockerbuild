@@ -2,11 +2,21 @@
 # Variables for this script
 COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
+LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
+
+# Check whether another instance of this script is already running
+if [ ! -f ${LOCKFILE} ]; then
+    touch ${LOCKFILE}
+else
+    echo "Lock file is already present. Aborting."
+    exit 1
+fi
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     cp /opt/env.template ${TARGET_PATH}/.env
     cp /opt/var.env.template ${TARGET_PATH}/var.env
+    rm -f ${LOCKFILE}
     exit 0
 fi
 
@@ -89,6 +99,7 @@ if [ ${INITDB} == "true" ]; then
     # If the Docker socket is not mounted, abort
     if [ ! -S /var/run/docker.sock ]; then
         echo "Docker socket is not mounted. Aborting."
+        rm -f ${LOCKFILE}
         exit 1
     fi
     cd ${TARGET_PATH}
@@ -107,6 +118,7 @@ if [ ${SAMPLE_DATA} == "true" ] && [ -S /var/run/docker.sock ]; then
     # If the Docker socket is not mounted, abort
     if [ ! -S /var/run/docker.sock ]; then
         echo "Docker socket is not mounted. Aborting."
+        rm -f ${LOCKFILE}
         exit 1
     fi
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up -d oscm-db
@@ -120,7 +132,10 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     # If the Docker socket is not mounted, abort
     if [ ! -S /var/run/docker.sock ]; then
         echo "Docker socket is not mounted. Aborting."
+        rm -f ${LOCKFILE}
         exit 1
     fi
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
 fi
+
+rm -f ${LOCKFILE}
