@@ -2,6 +2,7 @@
 # Variables for this script
 COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
+LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
@@ -92,6 +93,9 @@ if [ ${INITDB} == "true" ]; then
         exit 1
     fi
     cd ${TARGET_PATH}
+    # Pull latest images
+    docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) pull
+    # Run
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up -d oscm-db
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-core
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-jms
@@ -122,5 +126,8 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
         echo "Docker socket is not mounted. Aborting."
         exit 1
     fi
+    # Pull latest images
+    docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) pull
+    # Run
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
 fi
