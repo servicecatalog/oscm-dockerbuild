@@ -212,10 +212,8 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 	# Generate sample data SQL files
     genSampleData
     
-	if [ ! -f /opt/sqlscripts/core/sample.sql ]; then
-		echo "No sample core data found ..."
-	else if [ ! -f /opt/sqlscripts/app/sample.sql ]; then
-		echo "No sample app data found ..."
+	if [ ! -f /opt/sqlscripts/core/sample.sql ] || [ ! -f /opt/sqlscripts/app/sample.sql ]; then
+		echo "No sample data found ..."
 	else
 		# Check whether data already exists in the database
 		if [ ! $(psql -t -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -d $DB_NAME_CORE -c "SELECT COUNT(*) FROM $DB_USER_CORE.organization;") -gt 1 ]; then
