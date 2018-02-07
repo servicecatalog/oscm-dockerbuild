@@ -12,6 +12,7 @@ ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappus
 ENV DB_TIMEOUT_APP=300 DB_WAIT_APP=60000 DB_RETRY_INTERVAL_APP=10
 ENV SMTP_HOST=localhost SMTP_PORT=25 SMTP_FROM=mail@oscm.org SMTP_USER=saas SMTP_AUTH=false SMTP_PWD=secret SMTP_TLS_ENABLE=false
 ENV CONTAINER_CALLBACK_THREADS=50 CONTAINER_MAX_SIZE=50
+ENV PROXY_SET=true PROXY_HOST=none PROXY_PORT=0 NON_PROXY_HOSTS=oscm-core
 
 COPY resources/server.xml /opt/apache-tomee/conf/
 COPY resources/system.properties /opt/apache-tomee/conf/
