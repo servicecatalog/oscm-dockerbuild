@@ -20,6 +20,7 @@ COPY resources/tomee_template.xml /opt/apache-tomee/conf/
 COPY resources/key /opt/apache-tomee/bin/
 COPY resources/catalina.properties /opt/apache-tomee/conf/catalina.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
+COPY resources/catalina_template.sh /opt/apache-tomee/bin/catalina_template.sh
 
 COPY oscm-app.ear /opt/apache-tomee/apps/
 COPY oscm-app-aws.ear oscm-app-openstack.ear /opt/apache-tomee/controllers/
@@ -34,5 +35,6 @@ COPY ssl.crt /usr/share/pki/trust/anchors
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
+RUN chmod +x /opt/apache-tomee/bin/catalina_template.sh
 
 CMD ["/opt/start.sh"]
