@@ -218,8 +218,8 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 		# Check whether data already exists in the database
 		if [ ! $(PGPASSWORD=${DB_SUPERPWD} psql -t -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -d $DB_NAME_CORE -c "SELECT COUNT(*) FROM $DB_USER_CORE.organization;") -gt 1 ]; then
 			# Import sample data to databases
-			$(PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
-			$(PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
+			$PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
+			$PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
 			exit 0
