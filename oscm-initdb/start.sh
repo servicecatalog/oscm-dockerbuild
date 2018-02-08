@@ -6,7 +6,6 @@
 # SQL_DUMP_BSSJMS="/opt/sqldump/bssjms.sql": Dump of the jms database
 # SQL_DUMP_BSSAPP="/opt/sqldump/bssapp.sql": Dump of the app database
 
-
 # Exit on error
 trap 'echo ERROR at line $LINENO; exit' ERR
 
@@ -14,9 +13,8 @@ export PGCONNECT_TIMEOUT=2
 
 mkdir -p /opt/properties/
 
-# Wait for database server to become ready
+# HELPER: Wait for database server to become ready
 function waitForDB {
-
 	/usr/bin/touch /root/.pgpass
 	/usr/bin/chmod 600 /root/.pgpass
 	echo "$1:$2:postgres:$DB_SUPERUSER:$DB_SUPERPWD" > /root/.pgpass
@@ -24,7 +22,7 @@ function waitForDB {
     until /usr/bin/psql -h $1 -p $2 -U $DB_SUPERUSER -l >/dev/null 2>&1; do echo "Database not ready - waiting..."; sleep 3s; done
 }
 
-# Generate property files for CORE from environment
+# HELPER: Generate property files for CORE from environment
 function genPropertyFilesCORE {
 	/usr/bin/envsubst < /opt/templates/init.sql.core.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.core.template > /opt/properties/db.properties
@@ -32,32 +30,32 @@ function genPropertyFilesCORE {
 	/usr/bin/envsubst < /opt/templates/sso.properties.core.template > /opt/properties/sso.properties
 }
 
-# Generate property files for JMS from environment
+# HELPER: Generate property files for JMS from environment
 function genPropertyFilesJMS {
 	/usr/bin/envsubst < /opt/templates/init.sql.jms.template > /opt/sqlscripts/init.sql
 }
 
-# Generate property files for APP from environment
+# HELPER: Generate property files for APP from environment
 function genPropertyFilesAPP {
 	/usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
 }
 
-# Generate property files for APP Controller from environment
+# HELPER: Generate property files for APP Controller from environment
 function genPropertyFilesAPPController {
     /usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
-# Generate sample data files
+# HELPER: Generate sample data files
 function genSampleData {
     /usr/bin/envsubst < /opt/templates/sample.sql.core.template > /opt/sqlscripts/core/sample.sql
     /usr/bin/envsubst < /opt/templates/sample.sql.app.template > /opt/sqlscripts/app/sample.sql
 }
 
-
+# Main script
 # CORE
 if [ $TARGET == "CORE" ]; then
 	# Generate property files from environment
@@ -206,41 +204,25 @@ if [ $TARGET == "CONTROLLER" ]; then
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID        
 fi
 
-# Check if specific db is ready
-function checkDB {
-	export PGPASSWORD=$DB_SUPERPWD
-    until /usr/bin/psql -h $1 -p $2 -U $DB_SUPERUSER $3 >/dev/null 2>&1; do echo "Database $3 not ready - waiting..."; sleep 3s; done
-	echo "Database $3 ready ..."
-}
-
-# Check if any data is loaded
-function checkSampleDataExec {
-	export PGPASSWORD=$DB_SUPERPWD
-    countorgs=$(psql -t -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -d $DB_NAME_CORE -c "SELECT COUNT(*) FROM $DB_USER_CORE.organization;")
-    if [ $countorgs -gt 1 ]; then
-    	echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
-    	exit 0
-	fi
-}
-
-#SAMPLE DATA
+# Sample data
 if [ $TARGET == "SAMPLE_DATA" ]; then
-    
-    checkDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
-    checkSampleDataExec
+	# Wait for databases to be reachable
+    waitForDB $DB_HOST_CORE $DB_PORT_CORE
+	waitForDB $DB_HOST_APP $DB_PORT_APP
+	# Generate sample data SQL files
     genSampleData
     
-    if [ -f /opt/sqlscripts/core/sample.sql ]; then
-    	checkDB $DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE
-		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
+	if [ ! -f /opt/sqlscripts/core/sample.sql ] || [ ! -f /opt/sqlscripts/app/sample.sql ]; then
+		echo "No sample data found ..."
 	else
-		echo "No sample core data found ..."
-	fi	
-	
-	if [ -f /opt/sqlscripts/app/sample.sql ]; then		
-		checkDB $DB_HOST_APP $DB_PORT_APP $DB_NAME_APP		
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP		
-	else		
-		echo "No sample app data found ..."		
+		# Check whether data already exists in the database
+		if [ ! $(PGPASSWORD=${DB_SUPERPWD} psql -t -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -d $DB_NAME_CORE -c "SELECT COUNT(*) FROM $DB_USER_CORE.organization;") -gt 1 ]; then
+			# Import sample data to databases
+			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
+			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
+		else
+			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
+			exit 0
+		fi
 	fi
 fi	
