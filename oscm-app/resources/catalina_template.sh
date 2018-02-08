@@ -99,17 +99,17 @@
 #                   signals. Default is "false" unless running on HP-UX in which
 #                   case the default is "true"
 # -----------------------------------------------------------------------------
-JAVA_OPTS="$JAVA_OPTS -Dhttp.proxySet=$PROXY_SET"
+JAVA_OPTS="$JAVA_OPTS -Dhttp.proxySet=$PROXY_ENABLED"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=$PROXY_HOST"
+JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=$PROXY_HTTP_HOST"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyPort=$PROXY_PORT"
+JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyPort=$PROXY_HTTP_PORT"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyHost=$PROXY_HOST"
+JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyHost=$PROXY_HTTPS_HOST"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyPort=$PROXY_PORT"
+JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyPort=$PROXY_HTTPS_PORT"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttp.nonProxyHosts=$NON_PROXY_HOSTS"
+JAVA_OPTS="$JAVA_OPTS -Dhttp.nonProxyHosts=$PROXY_NOPROXY"
 
 # OS specific support.  $var _must_ be set to either true or false.
 cygwin=false
