@@ -35,6 +35,10 @@ done
 find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
+if [ -z "$PROXY_NOPROXY" ]; then
+    export PROXY_NOPROXY="oscm-core"
+fi
+
 /usr/bin/envsubst '$DB_HOST_APP $DB_PORT_APP $DB_NAME_APP $DB_USER_APP $DB_PWD_APP $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS_ENABLE $CONTAINER_CALLBACK_THREADS $CONTAINER_MAX_SIZE' < /opt/apache-tomee/conf/tomee_template.xml > /opt/apache-tomee/conf/tomee.xml
 /usr/bin/envsubst '$PROXY_ENABLED $PROXY_HTTP_HOST $PROXY_HTTP_PORT $PROXY_HTTPS_HOST $PROXY_HTTPS_PORT $PROXY_NOPROXY' < /opt/apache-tomee/bin/catalina_template.sh > /opt/apache-tomee/bin/catalina.sh
 /usr/bin/envsubst '$PROXY_HTTP_HOST $PROXY_HTTP_PORT $PROXY_HTTPS_HOST $PROXY_HTTPS_PORT $PROXY_NOPROXY' < /opt/apache-tomee/conf/catalina_template.properties > /opt/apache-tomee/conf/catalina.properties
