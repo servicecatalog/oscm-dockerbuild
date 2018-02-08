@@ -6,7 +6,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     zypper --gpg-auto-import-keys refresh && \
     zypper install -y nginx && \
     zypper clean && \
-    if [ ! -d /etc/nginx/conf.d ]; then mkdir /etc/nginx/conf.d fi && \
+    if [ ! -d /etc/nginx/conf.d ]; then mkdir /etc/nginx/conf.d; fi && \
     mkdir /etc/nginx/vhosts.d &&\
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
