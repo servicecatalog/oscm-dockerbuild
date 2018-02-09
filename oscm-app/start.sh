@@ -35,7 +35,9 @@ done
 find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
-if [ -z "$PROXY_NOPROXY" ]; then
+if [ -n "$PROXY_NOPROXY" ]; then
+    export PROXY_NOPROXY="${PROXY_NOPROXY},oscm-core"
+else
     export PROXY_NOPROXY="oscm-core"
 fi
 
