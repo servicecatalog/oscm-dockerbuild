@@ -35,10 +35,17 @@ done
 find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
+# Add oscm-core to NOPROXY
 if [ -n "$PROXY_NOPROXY" ]; then
     export PROXY_NOPROXY="${PROXY_NOPROXY},oscm-core"
 else
     export PROXY_NOPROXY="oscm-core"
+fi
+
+# Add Keystone host to NOPROXY
+if [ -n "$OS_KEYSTONE_URL" ]; then
+    KEYSTONE_HOST=$(echo $OS_KEYSTONE_URL | cut -d'/' -f3 | cut -d':' -f1)
+    export PROXY_NOPROXY="${PROXY_NOPROXY},$KEYSTONE_HOST"
 fi
 
 /usr/bin/envsubst '$DB_HOST_APP $DB_PORT_APP $DB_NAME_APP $DB_USER_APP $DB_PWD_APP $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS_ENABLE $CONTAINER_CALLBACK_THREADS $CONTAINER_MAX_SIZE' < /opt/apache-tomee/conf/tomee_template.xml > /opt/apache-tomee/conf/tomee.xml
