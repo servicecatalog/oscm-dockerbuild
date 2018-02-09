@@ -35,7 +35,6 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
       - ${DOCKER_PATH}/logs/oscm-core/tomcat:/opt/apache-tomee/logs
     ports:
-      - 8080:8080
       - 8081:8081
       - 8000:8000
 
@@ -60,7 +59,6 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
       - ${DOCKER_PATH}/logs/oscm-app/tomcat:/opt/apache-tomee/logs
     ports:
-      - 8880:8880
       - 8881:8881
       - 8800:8000
 
@@ -80,7 +78,6 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
       - ${DOCKER_PATH}/logs/oscm-birt/tomcat:/var/log/tomcat
     ports:
-      - 8680:8680
       - 8681:8681
 
   oscm-branding:
@@ -100,7 +97,6 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
       - 8443:443
-      - 8480:80
 
   oscm-help:
     image: ${IMAGE_HELP}
@@ -112,4 +108,3 @@ services:
         syslog-facility: "local5"
     ports:
       - 8543:443
-      - 8580:80
