@@ -14,7 +14,7 @@ services:
     environment:
       - TARGET=CORE
       - SOURCE=INIT
-      - OVERWRITE=true
+      - OVERWRITE=false
       - LOG_LEVEL=INFO
     links:
       - oscm-db:oscm-db
@@ -37,7 +37,7 @@ services:
     environment:
       - TARGET=APP
       - SOURCE=INIT
-      - OVERWRITE=true
+      - OVERWRITE=false
     links:
       - oscm-db:oscm-db
       
@@ -49,7 +49,7 @@ services:
       - CONTROLLER_ID=ess.openstack
       - TARGET=CONTROLLER
       - SOURCE=NONE
-      - OVERWRITE=true
+      - OVERWRITE=false
     links:
       - oscm-db:oscm-db
       
