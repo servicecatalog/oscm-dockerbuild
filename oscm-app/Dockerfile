@@ -18,7 +18,7 @@ COPY resources/server.xml /opt/apache-tomee/conf/
 COPY resources/system.properties /opt/apache-tomee/conf/
 COPY resources/tomcat-users.xml /opt/apache-tomee/conf/
 COPY resources/tomee_template.xml /opt/apache-tomee/conf/
-COPY resources/key /opt/apache-tomee/bin/
+COPY resources/key ./
 COPY resources/catalina_template.properties /opt/apache-tomee/conf/catalina_template.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
 COPY resources/catalina_template.sh /opt/apache-tomee/bin/catalina_template.sh
