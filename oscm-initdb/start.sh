@@ -28,6 +28,7 @@ function genPropertyFilesCORE {
     /usr/bin/envsubst < /opt/templates/db.properties.core.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.core.template > /opt/properties/configsettings.properties
 	/usr/bin/envsubst < /opt/templates/sso.properties.core.template > /opt/properties/sso.properties
+	/usr/bin/envsubst < /opt/templates/hostfqdn.sql.core.template > /opt/sqlscripts/core/hostfqdn.sql
 }
 
 # HELPER: Generate property files for JMS from environment
@@ -40,6 +41,7 @@ function genPropertyFilesAPP {
 	/usr/bin/envsubst < /opt/templates/init.sql.app.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.app.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
+    /usr/bin/envsubst < /opt/templates/hostfqdn.sql.app.template > /opt/sqlscripts/app/hostfqdn.sql
 }
 
 # HELPER: Generate property files for APP Controller from environment
@@ -226,3 +228,20 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 		fi
 	fi
 fi	
+
+# HOST_FQDN values update
+
+waitForDB $DB_HOST_CORE $DB_PORT_CORE
+waitForDB $DB_HOST_APP $DB_PORT_APP
+
+if [ -f /opt/sqlscripts/core/hostfqdn.sql ]; then
+	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/hostfqdn.sql $DB_NAME_CORE
+fi
+
+if [ -f /opt/sqlscripts/app/hostfqdn.sql ]; then
+	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/hostfqdn.sql $DB_NAME_APP
+fi
+		
+
+			
+
