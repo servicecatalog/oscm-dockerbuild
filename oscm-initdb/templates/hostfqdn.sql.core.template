@@ -1,6 +1,6 @@
 UPDATE ${DB_USER_CORE}.configurationsetting SET env_value='https://${HOST_FQDN}:8081/oscm-portal' WHERE information_id='BASE_URL_HTTPS';
-UPDATE ${DB_USER_CORE}.configurationsetting SET env_value='https://${HOST_FQDN}:8681/birt/frameset?__report=${reportname}.rptdesign&SessionId=${sessionid}&__locale=${locale}&WSDLURL=${wsdlurl}&SOAPEndPoint=${soapendpoint}&wsname=Report&wsport=ReportPort' WHERE information_id='REPORT_ENGINEURL';
-UPDATE ${DB_USER_CORE}.configurationsetting SET env_value='${REPORT_ENGINEURL}' WHERE information_id='MP_ERROR_REDIRECT_HTTPS';
+UPDATE ${DB_USER_CORE}.configurationsetting SET env_value='${REPORT_ENGINEURL}' WHERE information_id='REPORT_ENGINEURL';
+UPDATE ${DB_USER_CORE}.configurationsetting SET env_value='https://${HOST_FQDN}:8081/oscm-portal/marketplace?mid=959c9bf7' WHERE information_id='MP_ERROR_REDIRECT_HTTPS';
 
 UPDATE ${DB_USER_CORE}.parameter SET value='External (floating) network address: ${HOST_FQDN}' where tkey=10003;
 UPDATE ${DB_USER_CORE}.parameterhistory SET value='External (floating) network address: ${HOST_FQDN}' where tkey=10003;
