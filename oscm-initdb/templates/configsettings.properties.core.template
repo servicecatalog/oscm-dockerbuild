@@ -27,7 +27,7 @@ BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
 # URL to specify a Web page that is to be displayed in case the HTTPS
 # protocol is used and a customer tries to access a marketplace
 # without a valid marketplace ID.
-MP_ERROR_REDIRECT_HTTPS=${MP_ERROR_REDIRECT_HTTPS}
+MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}:8081/oscm-portal/marketplace?mid=959c9bf7
 
 # The log level valid for the entire application.
 LOG_LEVEL=${LOG_LEVEL}

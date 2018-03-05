@@ -52,7 +52,21 @@ function genPropertyFilesAPPController {
 # HELPER: Generate sample data files
 function genSampleData {
     /usr/bin/envsubst < /opt/templates/sample.sql.core.template > /opt/sqlscripts/core/sample.sql
-    /usr/bin/envsubst < /opt/templates/sample.sql.app.template > /opt/sqlscripts/app/sample.sql
+    /usr/bin/envsubst < /opt/templates/sample.sql.app.template > /opt/sqlscripts/app/sample.sql   
+}
+
+# HELPER: Update db values related to HOST_FQDN setting
+function updateHostFqdnValues {
+	/usr/bin/envsubst < /opt/templates/hostfqdn.sql.core.template > /opt/sqlscripts/core/hostfqdn.sql
+    /usr/bin/envsubst < /opt/templates/hostfqdn.sql.app.template > /opt/sqlscripts/app/hostfqdn.sql
+    
+    if [ ! -f /opt/sqlscripts/core/hostfqdn.sql ] || [ ! -f /opt/sqlscripts/app/hostfqdn.sql ]; then
+		echo "No scripts for updating HOST_FQDN ..."
+	else
+		echo "$(date '+%Y-%m-%d %H:%M:%S') updating HOST_FQDN values"
+		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/hostfqdn.sql $DB_NAME_CORE
+		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/hostfqdn.sql $DB_NAME_APP
+	fi
 }
 
 # Main script
@@ -209,7 +223,7 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 	# Wait for databases to be reachable
     waitForDB $DB_HOST_CORE $DB_PORT_CORE
 	waitForDB $DB_HOST_APP $DB_PORT_APP
-	# Generate sample data SQL files
+	# Generate sample data and HOST_FQDN update SQL files
     genSampleData
     
 	if [ ! -f /opt/sqlscripts/core/sample.sql ] || [ ! -f /opt/sqlscripts/app/sample.sql ]; then
@@ -220,9 +234,14 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			# Import sample data to databases
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
+			
+			# Update HOST_FQDN values
+			updateHostFqdnValues
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
-			exit 0
+						
+			# Update HOST_FQDN values
+			updateHostFqdnValues		
 		fi
 	fi
 fi	

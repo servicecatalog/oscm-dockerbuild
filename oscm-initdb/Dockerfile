@@ -10,7 +10,7 @@ ENV AUTH_MODE=INTERNAL HOST_FQDN=localhost LOG_LEVEL=INFO
 ENV LOG_FILE_PATH=../logs
 ENV LOG_CONFIG_FILE=./log4j.properties
 ENV REPORT_ENGINEURL=https://${HOST_FQDN}:8681/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
-ENV MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}:8081/oscm-portal/marketplace?mid=8f78f156
+ENV MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}:8081/oscm-portal/marketplace?mid=959c9bf7
 
 ENV DECIMAL_PLACES=2
 ENV MAIL_JA_CHARSET=UTF-8
