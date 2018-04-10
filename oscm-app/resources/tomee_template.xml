@@ -30,7 +30,7 @@
     mail.smtp.user=${SMTP_USER}
     mail.smtp.password=${SMTP_PWD}
     mail.smtp.from=${SMTP_FROM}
-    mail.smtp.starttls.enable=${SMTP_TLS_ENABLE}
+    mail.smtp.starttls.enable=${SMTP_TLS}
   </Resource>
   
   
