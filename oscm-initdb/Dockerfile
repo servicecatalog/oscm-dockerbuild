@@ -6,7 +6,7 @@ ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser 
 ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser 
 ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql SQL_DUMP_BSSAPP=bssapp.sql
 
-ENV AUTH_MODE=INTERNAL HOST_FQDN=localhost LOG_LEVEL=INFO
+ENV AUTH_MODE=SAML_SP HOST_FQDN=localhost LOG_LEVEL=INFO
 ENV LOG_FILE_PATH=../logs
 ENV LOG_CONFIG_FILE=./log4j.properties
 ENV REPORT_ENGINEURL=https://${HOST_FQDN}:8681/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
@@ -38,8 +38,8 @@ ENV AUDIT_LOG_MAX_ENTRIES_RETRIEVED=100
 
 ENV REPORT_WSDLURL=http://oscm-core:8080/oscm-reporting/ReportingServiceBean?wsdl
 ENV REPORT_SOAP_ENDPOINT=http://oscm-core:8080/oscm-reporting/ReportingServiceBean CUSTOMER_SELF_REGISTRATION_ENABLED=false
-ENV SSO_IDP_URL=http://idp.com SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD=POST SSO_ISSUER_ID=issuer SSO_STS_ENCKEY_LEN=256 SSO_STS_URL=http://sts.example.com SSO_STS_METADATA_URL=http://meta.com
-ENV SSO_DEFAULT_TENANT_ID=dftenant SSO_IDP_SAML_ASSERTION_ISSUER_ID=issuer SSO_LOGOUT_URL=https://idp.com/logout ADMIN_USER_ID=administrator
+
+ENV ADMIN_USER_ID=administrator
 
 ENV APP_ADMIN_MAIL_ADDRESS=admin@mail.com APP_TRUSTSTORE_BSS_ALIAS=core-s1as
 ENV APP_USER_KEY=1000 APP_USER_NAME=administrator APP_USER_PWD=admin123 CORE_ID_SERVICE=http://oscm-core:8080/oscm-webservices/{SERVICE}/BASIC CORE_ID_SERVICE_WSDL=http://oscm-core:8080/oscm-webservices/{SERVICE}/BASIC?wsdl CORE_ID_SERVICE_STS=http://oscm-core:8080/oscm-webservices/{SERVICE}/STS CORE_ID_SERVICE_STS_WSDL=http://oscm-core:8080/oscm-webservices/{SERVICE}/STS?wsdl
