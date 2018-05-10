@@ -126,4 +126,4 @@ cp /tmp/ssl.key $REPO_DOCKER/oscm-help/
 
 ##copy trusted certificates
 mkdir -p $REPO_DOCKER/oscm-core/trusted_certs
-cp $BUILD_DIR/trusted_certs/* $REPO_DOCKER/oscm-core/trusted_certs
+cp $REPO_OSCM/trusted_certs/* $REPO_DOCKER/oscm-core/trusted_certs
