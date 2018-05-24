@@ -27,7 +27,7 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
       - 8081:8081
-      - 8000:8000
+      - 8080:8080
 
   oscm-app:
     image: ${IMAGE_APP}
@@ -46,7 +46,7 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
       - 8881:8881
-      - 8800:8000
+      - 8880:8880
 
   oscm-birt:
     image: ${IMAGE_BIRT}
