@@ -15,6 +15,15 @@
     validationQuery = "SELECT 1"
   </Resource>
 
+  <Resource id="BSSAppVMwareDS" type="DataSource">
+     JdbcDriver = org.postgresql.xa.PGXADataSource
+     JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_VMWARE}
+     user = ${DB_USER_VMWARE}
+     password = ${DB_PWD_VMWARE}
+     roleName = ${DB_USER_VMWARE}
+     validationQuery = "SELECT 1"
+   </Resource>
+
   <Container id="Default Stateless Container" type="STATELESS">
     callbackThreads = ${CONTAINER_CALLBACK_THREADS}
     maxSize = ${CONTAINER_MAX_SIZE}
@@ -32,6 +41,6 @@
     mail.smtp.from=${SMTP_FROM}
     mail.smtp.starttls.enable=${SMTP_TLS}
   </Resource>
-  
-  
+
+
 </tomee>

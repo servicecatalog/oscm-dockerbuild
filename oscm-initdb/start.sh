@@ -49,17 +49,23 @@ function genPropertyFilesAPPController {
     /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
+# HELPER: Generate property files for VMware Controller from environment
+function genPropertyFilesVMwareController {
+    /usr/bin/envsubst < /opt/templates/init.sql.vmware.template > /opt/sqlscripts/init.sql
+    /usr/bin/envsubst < /opt/templates/db.properties.vmware.template > /opt/properties/db.properties
+}
+
 # HELPER: Generate sample data files
 function genSampleData {
     /usr/bin/envsubst < /opt/templates/sample.sql.core.template > /opt/sqlscripts/core/sample.sql
-    /usr/bin/envsubst < /opt/templates/sample.sql.app.template > /opt/sqlscripts/app/sample.sql   
+    /usr/bin/envsubst < /opt/templates/sample.sql.app.template > /opt/sqlscripts/app/sample.sql
 }
 
 # HELPER: Update db values related to HOST_FQDN setting
 function updateHostFqdnValues {
 	/usr/bin/envsubst < /opt/templates/hostfqdn.sql.core.template > /opt/sqlscripts/core/hostfqdn.sql
     /usr/bin/envsubst < /opt/templates/hostfqdn.sql.app.template > /opt/sqlscripts/app/hostfqdn.sql
-    
+
     if [ ! -f /opt/sqlscripts/core/hostfqdn.sql ] || [ ! -f /opt/sqlscripts/app/hostfqdn.sql ]; then
 		echo "No scripts for updating HOST_FQDN ..."
 	else
@@ -74,16 +80,16 @@ function updateHostFqdnValues {
 if [ $TARGET == "CORE" ]; then
 	# Generate property files from environment
 	genPropertyFilesCORE
-	
+
 	# Wait for database server to become ready
 	waitForDB $DB_HOST_CORE $DB_PORT_CORE
-	
+
 	# Initialize CORE DB
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
-	
+
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
@@ -97,36 +103,36 @@ if [ $TARGET == "CORE" ]; then
         fi
 		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSS
 	fi
-	
+
 	# Initialize and update data
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/core
-	
+
 	# Update properties
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
 		/opt/properties/configsettings.properties $OVERWRITE
-	
+
 	# Import SSO properties (only if AUTH_MODE is SAML_SP)
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
-		/opt/properties/configsettings.properties /opt/properties/sso.properties        
+		/opt/properties/configsettings.properties /opt/properties/sso.properties
 fi
 
 # JMS
 if [ $TARGET == "JMS" ]; then
 	# Generate property files from environment
 	genPropertyFilesJMS
-	
+
 	# Wait for database server to become ready
 	waitForDB $DB_HOST_JMS $DB_PORT_JMS
-	
+
 	# Initialize JMS DB
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
-	
+
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
@@ -139,23 +145,23 @@ if [ $TARGET == "JMS" ]; then
             psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_GLOBALS
         fi
 		psql -h $DB_HOST_JMS -p $DB_PORT_JMS -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSJMS
-	fi	
+	fi
 fi
 
 # APP
 if [ $TARGET == "APP" ]; then
 	# Generate property files from environment
 	genPropertyFilesAPP
-	
+
 	# Wait for database server to become ready
 	waitForDB $DB_HOST_APP $DB_PORT_APP
-	
+
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then    
+	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
-	
+
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
@@ -169,11 +175,11 @@ if [ $TARGET == "APP" ]; then
         fi
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
-	
+
 	# Initialize and update data
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/app
-   
+
     # Update properties
 	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
@@ -184,16 +190,16 @@ fi
 if [ $TARGET == "CONTROLLER" ]; then
 	# Generate property files from environment
 	genPropertyFilesAPPController
-	
+
 	# Wait for database server to become ready
 	waitForDB $DB_HOST_APP $DB_PORT_APP
-	
+
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then    
+	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
-	
+
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
 		if [ -f /opt/sqldump/$SQL_DUMP_GLOBALS.gz ]; then
@@ -207,15 +213,39 @@ if [ $TARGET == "CONTROLLER" ]; then
         fi
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqldump/$SQL_DUMP_BSSAPP
 	fi
-	
+
 	# Initialize and update data
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/app
-	
-	# Import controller properties        
+
+	# Import controller properties
 	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID        
+		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
+fi
+
+# VMware Controller
+if [ $TARGET == "VMWARE" ]; then
+	# Generate property files from environment
+	genPropertyFilesVMwareController
+
+	# Wait for database server to become ready
+	waitForDB $DB_HOST_APP $DB_PORT_APP
+
+	# Initialize APP DB
+	if [ $SOURCE == "INIT" ]; then
+		# Create databases, schemas, users and roles
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+	fi
+
+	# Initialize and update data
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+		/opt/properties/db.properties /opt/sqlscripts/vmware
+
+	# Import controller properties
+	#java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+	#	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_VMWARE}" $DB_USER_VMWARE $DB_PWD_VMWARE \
+	#	/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
 fi
 
 # Sample data
@@ -225,7 +255,7 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 	waitForDB $DB_HOST_APP $DB_PORT_APP
 	# Generate sample data and HOST_FQDN update SQL files
     genSampleData
-    
+
 	if [ ! -f /opt/sqlscripts/core/sample.sql ] || [ ! -f /opt/sqlscripts/app/sample.sql ]; then
 		echo "No sample data found ..."
 	else
@@ -234,14 +264,14 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			# Import sample data to databases
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
-			
+
 			# Update HOST_FQDN values
 			updateHostFqdnValues
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
-						
+
 			# Update HOST_FQDN values
-			updateHostFqdnValues		
+			updateHostFqdnValues
 		fi
 	fi
-fi	
+fi

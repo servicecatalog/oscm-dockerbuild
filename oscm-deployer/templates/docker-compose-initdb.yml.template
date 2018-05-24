@@ -18,7 +18,7 @@ services:
       - LOG_LEVEL=INFO
     links:
       - oscm-db:oscm-db
-      
+
   oscm-initdb-jms:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-jms
@@ -29,7 +29,7 @@ services:
       - OVERWRITE=true
     links:
       - oscm-db:oscm-db
-      
+
   oscm-initdb-app:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-app
@@ -40,7 +40,7 @@ services:
       - OVERWRITE=false
     links:
       - oscm-db:oscm-db
-      
+
   oscm-initdb-controller-openstack:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-controller-openstack
@@ -52,7 +52,7 @@ services:
       - OVERWRITE=false
     links:
       - oscm-db:oscm-db
-      
+
   oscm-initdb-controller-aws:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-controller-aws
@@ -64,7 +64,19 @@ services:
       - OVERWRITE=true
     links:
       - oscm-db:oscm-db
-      
+
+  oscm-initdb-controller-vmware:
+    image: ${IMAGE_INITDB}
+    container_name: oscm-initdb-controller-vmware
+    env_file: var.env
+    environment:
+      - CONTROLLER_ID=ess.vmware
+      - TARGET=VMWARE
+      - SOURCE=NONE
+      - OVERWRITE=false
+    links:
+      - oscm-db:oscm-db
+
   oscm-initdb-sample:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-sample
@@ -73,4 +85,3 @@ services:
       - TARGET=SAMPLE_DATA
     links:
       - oscm-db:oscm-db
-      
