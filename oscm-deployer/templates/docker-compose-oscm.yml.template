@@ -73,11 +73,11 @@ services:
       - ${DOCKER_PATH}/config/oscm-branding/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
-      - 8443:8443
+      - 8443:443
 
   oscm-help:
     image: ${IMAGE_HELP}
     container_name: oscm-help
     restart: always
     ports:
-      - 8543:8543
+      - 8543:443
