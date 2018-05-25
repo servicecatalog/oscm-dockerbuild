@@ -50,6 +50,7 @@ ENV CUSTOM_DATA=false
 
 COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
 COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
+COPY sqlscripts/vmware/*.sql /opt/sqlscripts/vmware/
 COPY templates/*.template /opt/templates/
 COPY oscm-devruntime.jar oscm-app.jar /opt/
 

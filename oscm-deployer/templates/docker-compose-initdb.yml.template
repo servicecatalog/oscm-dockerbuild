@@ -72,7 +72,7 @@ services:
     environment:
       - CONTROLLER_ID=ess.vmware
       - TARGET=VMWARE
-      - SOURCE=NONE
+      - SOURCE=INIT
       - OVERWRITE=false
     links:
       - oscm-db:oscm-db
