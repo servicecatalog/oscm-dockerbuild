@@ -241,11 +241,6 @@ if [ $TARGET == "VMWARE" ]; then
 	# Initialize and update data
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/vmware
-
-	# Import controller properties
-	#java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-	#	"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_VMWARE}" $DB_USER_VMWARE $DB_PWD_VMWARE \
-	#	/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
 fi
 
 # Sample data
