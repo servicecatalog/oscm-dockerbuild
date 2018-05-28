@@ -39,8 +39,6 @@ ENV AUDIT_LOG_MAX_ENTRIES_RETRIEVED=100
 ENV REPORT_WSDLURL=http://oscm-core:8080/oscm-reporting/ReportingServiceBean?wsdl
 ENV REPORT_SOAP_ENDPOINT=http://oscm-core:8080/oscm-reporting/ReportingServiceBean CUSTOMER_SELF_REGISTRATION_ENABLED=false
 
-ENV ADMIN_USER_ID=admin@adfs.com
-
 ENV APP_ADMIN_MAIL_ADDRESS=admin@mail.com APP_TRUSTSTORE_BSS_ALIAS=core-s1as
 ENV APP_USER_KEY=1000 APP_USER_NAME=administrator APP_USER_PWD=admin123 CORE_ID_SERVICE=http://oscm-core:8080/oscm-webservices/{SERVICE}/BASIC CORE_ID_SERVICE_WSDL=http://oscm-core:8080/oscm-webservices/{SERVICE}/BASIC?wsdl CORE_ID_SERVICE_STS=http://oscm-core:8080/oscm-webservices/{SERVICE}/STS CORE_ID_SERVICE_STS_WSDL=http://oscm-core:8080/oscm-webservices/{SERVICE}/STS?wsdl
 
