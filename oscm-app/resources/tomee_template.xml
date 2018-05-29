@@ -17,7 +17,7 @@
 
   <Resource id="BSSAppVMwareDS" type="DataSource">
      JdbcDriver = org.postgresql.xa.PGXADataSource
-     JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_VMWARE}
+     JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/vmware
      user = ${DB_USER_VMWARE}
      password = ${DB_PWD_VMWARE}
      roleName = ${DB_USER_VMWARE}

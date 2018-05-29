@@ -14,7 +14,7 @@ db.host=${DB_HOST_APP}
 db.port=${DB_PORT_APP}
 
 # Name of the database
-db.name=${DB_NAME_VMWARE}
+db.name=vmware
 
 # Name of the user to connect to the database
 db.user=${DB_USER_VMWARE}
