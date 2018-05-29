@@ -35,6 +35,7 @@ done
 find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
+find /import/certs/sso -type f -exec cp {} /opt/trusted_certs \;
 # Import trusted certificates into keystore
 for trustedcert in /opt/trusted_certs/*; do
     echo "y" | keytool -importcert -file $trustedcert -keystore /opt/apache-tomee/conf/ssl.p12 -storepass changeit
