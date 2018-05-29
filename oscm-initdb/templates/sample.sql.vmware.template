@@ -1,12 +1,35 @@
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue=10000 WHERE settingkey='BSS_USER_KEY' AND controllerid IN ('ess.aws','ess.vmware');
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='959c9bf7' WHERE settingkey='BSS_ORGANIZATION_ID' AND controllerid IN ('ess.aws','ess.vmware');
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='supplier' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.vmware');
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='_crypt:supplier' WHERE settingkey='BSS_USER_PWD' AND controllerid IN ('ess.aws','ess.vmware');
+\c ${DB_NAME_APP}
 
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('TENANT_ID', '${OS_TENANT_ID}', 'ess.openstack');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('DOMAIN_NAME', '${OS_DOMAIN}', 'ess.openstack');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('KEYSTONE_API_URL', '${OS_KEYSTONE_URL}auth', 'ess.openstack');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('API_USER_NAME', '${OS_USER}', 'ess.openstack');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('TEMPLATE_BASE_URL', 'http://oscm-core:8080/templates/', 'ess.openstack');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('API_USER_PWD', '_crypt:${OS_PASSWORD}', 'ess.openstack');
+INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_USER_ID', '${CONTROLLER_USER_NAME}', 'ess.vmware');
+INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_USER_PWD', '_crypt:${CONTROLLER_USER_PASS}', 'ess.vmware');
+INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_USER_KEY', ${CONTROLLER_USER_KEY}, 'ess.vmware');
+INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_ORGANIZATION_ID', '${CONTROLLER_ORG_ID}', 'ess.vmware');
 
+\c ${DB_NAME_CORE}
+
+INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sourcekey, referencetype) VALUES (10000, 0, 1, 1, 'SUPPLIER_TO_CUSTOMER');
+INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sourcekey, referencetype) VALUES (10001, 0, 1, 1, 'PLATFORM_OPERATOR_TO_SUPPLIER');
+
+INSERT INTO ${DB_USER_CORE}.revenuesharemodel (tkey, revenueshare, revenuesharemodeltype, version) VALUES (10000, 0.00, 'OPERATOR_REVENUE_SHARE', 0);
+
+INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10000, 0, 'en', 'ORGANIZATION_DESCRIPTION', 1, '');
+
+INSERT INTO ${DB_USER_CORE}.organizationhistory (tkey, address, deregistrationdate, distinguishedname, email, locale, name, organizationid, phone, registrationdate, moddate, modtype, moduser, objkey, objversion, invocationdate, domicilecountryobjkey, url, supportemail, remoteldapactive, cutoffday, operatorpricemodelobjkey) VALUES (10000, 'None', NULL, '', 'administrator@escm.org', 'en', 'PLATFORM_OPERATOR', 'PLATFORM_OPERATOR', '123456789', 1527585941921, '2018-05-29 11:51:58.793', 'MODIFY', '1000', 1, 1, '2018-05-29 11:51:58.793', 55, 'http://google.com', NULL, false, 1, NULL);
+INSERT INTO ${DB_USER_CORE}.organizationhistory (tkey, address, deregistrationdate, distinguishedname, email, locale, name, organizationid, phone, registrationdate, moddate, modtype, moduser, objkey, objversion, invocationdate, domicilecountryobjkey, url, supportemail, remoteldapactive, cutoffday, operatorpricemodelobjkey) VALUES (10001, 'None', NULL, '', 'administrator@escm.org', 'en', 'PLATFORM_OPERATOR', 'PLATFORM_OPERATOR', '123456789', 1527585941921, '2018-05-29 11:51:59.229', 'MODIFY', '1000', 1, 2, '2018-05-29 11:51:59.229', 55, 'http://google.com', NULL, false, 1, 10000);
+
+INSERT INTO ${DB_USER_CORE}.organizationreferencehistory (tkey, moddate, modtype, moduser, objkey, objversion, targetobjkey, sourceobjkey, invocationdate, referencetype) VALUES (10000, '2018-05-29 11:51:58.793', 'ADD', '1000', 10000, 0, 1, 1, '2018-05-29 11:51:58.793', 'SUPPLIER_TO_CUSTOMER');
+INSERT INTO ${DB_USER_CORE}.organizationreferencehistory (tkey, moddate, modtype, moduser, objkey, objversion, targetobjkey, sourceobjkey, invocationdate, referencetype) VALUES (10001, '2018-05-29 11:51:58.793', 'ADD', '1000', 10001, 0, 1, 1, '2018-05-29 11:51:58.793', 'PLATFORM_OPERATOR_TO_SUPPLIER');
+
+INSERT INTO ${DB_USER_CORE}.organizationreftopaymenttype (tkey, usedasdefault, version, organizationreference_tkey, organizationrole_tkey, paymenttype_tkey, usedasservicedefault) VALUES (10000, false, 0, 10001, 1, 3, false);
+
+INSERT INTO ${DB_USER_CORE}.organizationtorole (tkey, version, organization_tkey, organizationrole_tkey) VALUES (10000, 0, 1, 1);
+INSERT INTO ${DB_USER_CORE}.organizationtorole (tkey, version, organization_tkey, organizationrole_tkey) VALUES (10001, 0, 1, 2);
+
+INSERT INTO ${DB_USER_CORE}.organizationtorolehistory (tkey, moddate, modtype, moduser, objkey, objversion, organizationroletkey, organizationtkey, invocationdate) VALUES (10000, '2018-05-29 11:51:58.793', 'ADD', '1000', 10000, 0, 1, 1, '2018-05-29 11:51:58.793');
+INSERT INTO ${DB_USER_CORE}.organizationtorolehistory (tkey, moddate, modtype, moduser, objkey, objversion, organizationroletkey, organizationtkey, invocationdate) VALUES (10001, '2018-05-29 11:51:59.229', 'ADD', '1000', 10001, 0, 2, 1, '2018-05-29 11:51:59.229');
+
+INSERT INTO ${DB_USER_CORE}.revenuesharemodelhistory (tkey, moddate, modtype, moduser, objkey, objversion, revenueshare, revenuesharemodeltype, invocationdate) VALUES (10000, '2018-05-29 11:51:59.229', 'ADD', '1000', 10000, 0, 0.00, 'OPERATOR_REVENUE_SHARE', '2018-05-29 11:51:59.229');
+
+UPDATE ${DB_USER_CORE}.organization SET organizationid='${CONTROLLER_ORG_ID}', operatorpricemodel_tkey=10000, version=2 WHERE tkey=1;
+
+UPDATE ${DB_USER_CORE}.hibernate_sequences SET sequence_next_hi_value=12 WHERE sequence_name IN ('Session', 'OrganizationHistory', 'OrganizationToRole', 'OrganizationToRoleHistory', 'OrganizationReference', 'OrganizationReferenceHistory', 'OrganizationRefToPaymentType', 'RevenueShareModel', 'LocalizedResource', 'RevenueShareModelHistory');
