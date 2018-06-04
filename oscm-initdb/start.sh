@@ -53,6 +53,7 @@ function genPropertyFilesAPPController {
 function genPropertyFilesVMwareController {
     /usr/bin/envsubst < /opt/templates/init.sql.vmware.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.vmware.template > /opt/properties/db.properties
+    /usr/bin/envsubst < /opt/templates/sample.sql.vmware.template > /opt/sqlscripts/vmware/sample.sql
 }
 
 # HELPER: Generate sample data files
@@ -241,6 +242,8 @@ if [ $TARGET == "VMWARE" ]; then
 	# Initialize and update data
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/vmware
+
+	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/vmware/sample.sql vmware
 fi
 
 # Sample data
