@@ -119,6 +119,11 @@ If you want your application to trust certain, possibly self-signed, SSL certifi
 
 * `/docker/config/certs`
 
+## Import exteral IDPs' certificates
+In SAML_SP authentication mode where you can configure external idp to manage oscm authentication, you have to put the idp's certificate used to sign SAML messages in the following directory on your Docker host: 
+
+* `/docker/config/certs/sso`
+
 Note:
 
 Replace `/docker` with the directory where Docker is installed. This directory is shared by all containers. By default, if you use your own SSL key pairs, you must also place all the public certificate files here.
