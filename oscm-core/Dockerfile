@@ -3,7 +3,7 @@ FROM oscm-gf
 RUN mkdir /opt/apache-tomee/apps
 RUN mkdir -p /templates/WEB-INF
 
-ENV AUTH_MODE=INTERNAL KEY_SECRET=secretsecret1234 DOMAIN_PWD=adminadmin CERT_FILE=s1as.crt
+ENV KEY_SECRET=secretsecret1234 DOMAIN_PWD=adminadmin CERT_FILE=s1as.crt
 ENV DB_HOST_CORE=oscm-db DB_PORT_CORE=5432 DB_NAME_CORE=bss DB_USER_CORE=bssuser DB_PWD_CORE=bssuser
 ENV DB_TIMEOUT_CORE=300 DB_WAIT_CORE=60000 DB_RETRY_INTERVAL_CORE=10 DB_TIMEOUT_MI=300 DB_WAIT_MI=60000 DB_RETRY_INTERVAL_MI=10
 ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser DB_PWD_JMS=jmsuser
@@ -58,6 +58,7 @@ COPY gson-2.6.2.jar /opt/apache-tomee/lib/gson-2.6.2.jar
 COPY ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/
 COPY ssl.crt /usr/share/pki/trust/anchors
+COPY trusted_certs /opt/trusted_certs
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh

@@ -25,6 +25,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-core/ssl/cert:/import/ssl/cert
       - ${DOCKER_PATH}/config/oscm-core/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
+      - ${DOCKER_PATH}/config/certs/sso:/import/certs/sso
     ports:
       - 8081:8081
       - 8000:8000
