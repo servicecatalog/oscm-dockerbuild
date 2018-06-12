@@ -115,7 +115,7 @@ The custom certificates must also be placed into the trusted directory so that a
 * `/docker/config/certs`
 
 ## Import trusted SSL certificates
-If you want your application to trust certain, possibly self-signed, SSL certificates, put them in PEM format in the following directory on your Docker host: 
+If you want your application to trust certain, possibly self-signed, SSL certificates, put them (e.g. your vSphere certificate) in PEM format in the following directory on your Docker host: 
 
 * `/docker/config/certs`
 
