@@ -103,7 +103,7 @@ It is however possible to use custom SSL keypairs for the application listeners.
 If you want to use your own SSL key pairs that your application is to use, replace the default key pair by your PEM files in the following directories on your Docker host: 
 
 * Private key: `/docker/config/<CONTAINER_NAME>/ssl/privkey`
-* Certificate: `/docker/config/<CONTAINER_NAME>/ssl/cert`
+* Public certificate: `/docker/config/<CONTAINER_NAME>/ssl/cert`
 * Intermediates / chain (optional): `/docker/config/<CONTAINER_NAME>/ssl/chain`
 
 Note:
@@ -113,6 +113,10 @@ Replace `/docker` with the directory where Docker is installed, and `<CONTAINER_
 The custom certificates must also be placed into the trusted directory so that a trusted relationship between the containers is established: 
 
 * `/docker/config/certs`
+
+This directory is shared by all containers. By default, if you use your own SSL key pairs, you must also place all the public certificate files here.
+
+For example, if you have a custom SSL keypair for the `oscm-core` container, you need to place the private key into the `/docker/config/oscm-core/ssl/privkey` directory, and the public certificate into the `/docker/config/oscm-core/ssl/cert` directory. Additionally, you need to place the public certificate into the `/docker/config/certs` directory on your Docker host. In this case, a restart of the `oscm-core` and `oscm-app` containers is required.
 
 ## Import trusted SSL certificates
 If you want your application to trust certain, possibly self-signed, SSL certificates, put them in PEM format in the following directory on your Docker host: 
@@ -126,7 +130,9 @@ In SAML_SP authentication mode where you can configure external idp to manage os
 
 Note:
 
-Replace `/docker` with the directory where Docker is installed. This directory is shared by all containers. By default, if you use your own SSL key pairs, you must also place all the public certificate files here.
+Replace `/docker` with the directory where Docker is installed. 
+
+For example, if you want to use the VMware service controller, you need to export the vSphere certificate in PEM format, and copy it to the `/docker/config/certs` directory.  Since the VMware service controller is running in the `oscm-app` container, a restart of this container is required.
 
 # Start using OSCM
 Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wiki/Getting-Started) guide.

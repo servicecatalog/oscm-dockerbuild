@@ -1,0 +1,22 @@
+DO $$
+<<create_modify_role>>
+BEGIN
+    IF NOT EXISTS ( SELECT FROM pg_catalog.pg_user WHERE usename = '${DB_USER_VMWARE}' ) THEN
+        CREATE ROLE ${DB_USER_VMWARE} LOGIN PASSWORD '${DB_PWD_VMWARE}';
+    ELSE
+        ALTER USER ${DB_USER_VMWARE} WITH PASSWORD '${DB_PWD_VMWARE}';
+    END IF;
+END create_modify_role $$;
+
+CREATE DATABASE vmware WITH OWNER=${DB_USER_VMWARE} TEMPLATE=template0 ENCODING='UTF8';
+
+\c vmware
+
+DO $$
+<<create_schema>>
+BEGIN
+    IF NOT EXISTS ( SELECT schema_name FROM information_schema.schemata WHERE schema_name = '${DB_USER_VMWARE}' ) THEN
+        CREATE SCHEMA ${DB_USER_VMWARE};
+        GRANT ALL PRIVILEGES ON SCHEMA ${DB_USER_VMWARE} TO ${DB_USER_VMWARE};
+    END IF;
+END create_schema $$;
