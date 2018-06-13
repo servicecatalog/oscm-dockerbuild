@@ -24,6 +24,7 @@ set -e
 for docker_directory in \
     ${TARGET_PATH}/data/oscm-db/data \
     ${TARGET_PATH}/config/certs \
+    ${TARGET_PATH}/config/certs/sso \
     ${TARGET_PATH}/config/oscm-branding/brandings \
     ${TARGET_PATH}/config/oscm-core/ssl/privkey \
     ${TARGET_PATH}/config/oscm-core/ssl/cert \

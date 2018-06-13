@@ -35,6 +35,12 @@ done
 find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
+find /import/certs/sso -type f -exec cp {} /opt/trusted_certs \;
+# Import trusted certificates into keystore
+for trustedcert in /opt/trusted_certs/*; do
+    echo "y" | keytool -importcert -file $trustedcert -keystore /opt/apache-tomee/conf/ssl.p12 -storepass changeit
+done
+
 /usr/bin/envsubst '$DB_HOST_CORE $DB_PORT_CORE $DB_NAME_CORE $DB_USER_CORE $DB_PWD_CORE $SMTP_HOST $SMTP_PORT $SMTP_AUTH $SMTP_USER $SMTP_PWD $SMTP_FROM $SMTP_TLS $CONTAINER_CALLBACK_THREADS $CONTAINER_MAX_SIZE' < /opt/apache-tomee/conf/tomee_template.xml > /opt/apache-tomee/conf/tomee.xml
 
 # Change entropy source of Java to non-blocking

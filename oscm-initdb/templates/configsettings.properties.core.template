@@ -246,10 +246,10 @@ SSO_IDP_URL=${SSO_IDP_URL}
 SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD=${SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD}
 
 # Path to the trusstore holding the IdP certificate.
-SSO_IDP_TRUSTSTORE=./cacerts.jks
+SSO_IDP_TRUSTSTORE=${SSO_IDP_TRUSTSTORE}
 
 # Password of the IdP truststore.
-SSO_IDP_TRUSTSTORE_PASSWORD=changeit
+SSO_IDP_TRUSTSTORE_PASSWORD=${SSO_IDP_TRUSTSTORE_PASSWORD}
 
 # Unique identifier of the requesting service provider for the SAML Identity Provider (IdP).
 SSO_ISSUER_ID=${SSO_ISSUER_ID}
@@ -284,13 +284,13 @@ TIMER_INTERVAL_USER_COUNT=${TIMER_INTERVAL_USER_COUNT}
 # HIDE_PAYMENT_INFORMATION=false
 
 # The alias of the private key to be used for signing SAML and custom tab requests
-SSO_SIGNING_KEY_ALIAS=s1as
+SSO_SIGNING_KEY_ALIAS=${SSO_SIGNING_KEY_ALIAS}
 
 # The password for the keystore containing the private key for signing SAML and custom tab requests
-SSO_SIGNING_KEYSTORE_PASS=changeit
+SSO_SIGNING_KEYSTORE_PASS=${SSO_SIGNING_KEYSTORE_PASS}
 
 # The path of the keystore holding the private key for signing SAML and custom tab requests.
-SSO_SIGNING_KEYSTORE=./keystore.jks
+SSO_SIGNING_KEYSTORE=${SSO_SIGNING_KEYSTORE}
 
 # The ID of the default tenant for user authentication in SAML_SP mode. 
 # The value must consist of 8 alphanumeric characters.
