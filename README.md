@@ -123,7 +123,7 @@ If you want your application to trust certain, possibly self-signed, SSL certifi
 
 * `/docker/config/certs`
 
-## Import exteral IDPs' certificates
+<!-- ## Import exteral IDPs' certificates
 In SAML_SP authentication mode where you can configure external idp to manage oscm authentication, you have to put the idp's certificate used to sign SAML messages in the following directory on your Docker host: 
 
 * `/docker/config/certs/sso`
@@ -132,7 +132,7 @@ Note:
 
 Replace `/docker` with the directory where Docker is installed. 
 
-For example, if you want to use the VMware service controller, you need to export the vSphere certificate in PEM format, and copy it to the `/docker/config/certs` directory.  Since the VMware service controller is running in the `oscm-app` container, a restart of this container is required.
+For example, if you want to use the VMware service controller, you need to export the vSphere certificate in PEM format, and copy it to the `/docker/config/certs` directory.  Since the VMware service controller is running in the `oscm-app` container, a restart of this container is required. -->
 
 # Start using OSCM
 Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wiki/Getting-Started) guide.
