@@ -1,7 +1,8 @@
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue=10000 WHERE settingkey='BSS_USER_KEY' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware');
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='959c9bf7' WHERE settingkey='BSS_ORGANIZATION_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware');
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='supplier' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='supplier@adfs.com' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware');
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='_crypt:supplier' WHERE settingkey='BSS_USER_PWD' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware');
+
 
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('TENANT_ID', '${OS_TENANT_ID}', 'ess.openstack');
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('DOMAIN_NAME', '${OS_DOMAIN}', 'ess.openstack');
