@@ -120,6 +120,7 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
         echo "Docker socket is not mounted. Aborting."
         exit 1
     fi
+    cd ${TARGET_PATH}
     # Pull latest images
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) pull
     # Run
