@@ -99,6 +99,7 @@ cp $BUILD_DIR/oscm-app-ear/oscm-app.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-aws/oscm-app-aws.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-openstack/oscm-app-openstack.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-vmware-ear/oscm-app-vmware.ear $REPO_DOCKER/oscm-app/
+cp $BUILD_DIR/oscm-app-azure/oscm-app-azure.ear $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/

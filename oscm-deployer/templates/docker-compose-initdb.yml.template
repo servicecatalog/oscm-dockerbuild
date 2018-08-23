@@ -65,6 +65,18 @@ services:
     links:
       - oscm-db:oscm-db
 
+  oscm-initdb-controller-azure:
+    image: ${IMAGE_INITDB}
+    container_name: oscm-initdb-controller-azure
+    env_file: var.env
+    environment:
+      - CONTROLLER_ID=ess.azureARM
+      - TARGET=CONTROLLER
+      - SOURCE=NONE
+      - OVERWRITE=true
+    links:
+      - oscm-db:oscm-db
+
   oscm-initdb-controller-vmware:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-controller-vmware
