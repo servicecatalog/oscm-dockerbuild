@@ -91,7 +91,7 @@ TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET=${TIMER_INTERVAL_DISCOUNT_END_NO
 # configured, reporting will not be available.
 # It supports http and https to show report.
 # But your server name must use fully qualified domain name when using https to show report.
-REPORT_ENGINEURL=${REPORT_ENGINEURL//[\\$]//$}
+REPORT_ENGINEURL=${REPORT_ENGINEURL}
 
 # The WSDL link to the reporting Web service. This value
 # has to be configured when REPORT_ENGINEURL is set.
