@@ -3,7 +3,9 @@
 REPO_DOCKER="`dirname \"$0\"`"
 REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
+BUILD_SHELL_DIR=""
 LIB_DIR="$REPO_OSCM/libraries"
+
 
 # prepare common certificate and key
 openssl rand -base64 48 > /tmp/passphrase.txt
