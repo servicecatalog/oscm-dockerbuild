@@ -32,6 +32,7 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-app/ssl/privkey \
     ${TARGET_PATH}/config/oscm-app/ssl/cert \
     ${TARGET_PATH}/config/oscm-app/ssl/chain \
+	${TARGET_PATH}/config/oscm-app/scripts \
     ${TARGET_PATH}/config/oscm-birt/ssl/privkey \
     ${TARGET_PATH}/config/oscm-birt/ssl/cert \
     ${TARGET_PATH}/config/oscm-birt/ssl/chain \
