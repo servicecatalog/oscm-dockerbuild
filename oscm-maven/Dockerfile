@@ -2,6 +2,7 @@ FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
+	zypper install tar && \
 	zypper clean && \
 	SUSEConnect --cleanup
 
