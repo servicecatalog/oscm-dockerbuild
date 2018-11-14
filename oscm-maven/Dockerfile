@@ -2,7 +2,9 @@ FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
-	zypper -n in tar && \
+	zypper addrepo https://download.opensuse.org/repositories/Java:Factory/SLE_12_SP3/Java:Factory.repo && \
+	zypper refresh && \
+	zypper -n in java-1_8_0-openjdk java-1_8_0-openjdk-devel tar which && \
 	zypper clean && \
 	SUSEConnect --cleanup
 
