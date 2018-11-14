@@ -2,9 +2,7 @@ FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTPS_PROXY && \
-	zypper addrepo https://download.opensuse.org/repositories/Java:Factory/SLE_12_SP3/Java:Factory.repo && \
-	zypper refresh && \
-	zypper -n in java-1_8_0-openjdk java-1_8_0-openjdk-devel tar which && \
+	zypper -n in tar which java-1_8_0-openjdk java-1_8_0-openjdk-devel && \
 	zypper clean && \
 	SUSEConnect --cleanup
 
@@ -20,6 +18,7 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref && \
     rm -f /tmp/apache-maven.tar.gz && \
     ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
+ENV JAVA_HOME /usr/lib64/jvm/java-1.8.0-openjdk
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
