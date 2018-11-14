@@ -26,6 +26,7 @@ COPY resources/catalina_template.sh /opt/apache-tomee/bin/catalina_template.sh
 
 COPY oscm-app.ear /opt/apache-tomee/apps/
 COPY oscm-app-aws.ear oscm-app-openstack.ear oscm-app-vmware.ear oscm-app-azure.ear /opt/apache-tomee/controllers/
+COPY shell-controller-0.0.1-SNAPSHOT.war /opt/apache-tomee/webapps/
 
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee/lib/postgresql-9.4-1206-jdbc42.jar
 COPY oscm-app-extsvc-2-0.jar /opt/apache-tomee/lib/oscm-app-extsvc-2-0.jar

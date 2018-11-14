@@ -3,7 +3,7 @@
 REPO_DOCKER="`dirname \"$0\"`"
 REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
-BUILD_SHELL_DIR=""
+BUILD_SHELL_DIR="$REPO_OSCM/oscm-app-shell/target"
 LIB_DIR="$REPO_OSCM/libraries"
 
 
@@ -115,6 +115,7 @@ cp $LIB_DIR/sun-metro/javalib/activation-1.1.jar $REPO_DOCKER/oscm-birt/
 cp $LIB_DIR/javax/javalib/javax.mail-api-1.5.4.jar $REPO_DOCKER/oscm-birt/
 
 cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-help/
+cp $BUILD_SHELL_DIR/shell-controller-0.0.1-SNAPSHOT.war $REPO_DOCKER/oscm-app/
 
 ##copy ssl related resources
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
