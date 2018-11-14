@@ -27,7 +27,6 @@ function genPropertyFilesCORE {
 	/usr/bin/envsubst < /opt/templates/init.sql.core.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.core.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.core.template > /opt/properties/configsettings.properties
-    sed -i '/REPORT_ENGINEURL/s/\\\$/$/g' /opt/properties/configsettings.properties 
     /usr/bin/envsubst < /opt/templates/sso.properties.core.template > /opt/properties/sso.properties
 }
 
