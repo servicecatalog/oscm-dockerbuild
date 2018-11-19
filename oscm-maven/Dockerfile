@@ -12,9 +12,6 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref && \
     rm -f /tmp/apache-maven.tar.gz && \
     ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-RUN groupadd jenkins && \
-    useradd -ms /bin/bash jenkins -g jenkins
-
 ENV JAVA_HOME /usr/lib64/jvm/java-1.8.0-openjdk
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "/root/.m2"
