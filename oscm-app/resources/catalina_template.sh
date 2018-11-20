@@ -101,15 +101,17 @@
 # -----------------------------------------------------------------------------
 JAVA_OPTS="$JAVA_OPTS -Dhttp.proxySet=$PROXY_ENABLED"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=$PROXY_HTTP_HOST"
+if eval $PROXY_ENABLED ; then
+	JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=$PROXY_HTTP_HOST"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyPort=$PROXY_HTTP_PORT"
+	JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyPort=$PROXY_HTTP_PORT"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyHost=$PROXY_HTTPS_HOST"
+	JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyHost=$PROXY_HTTPS_HOST"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyPort=$PROXY_HTTPS_PORT"
+	JAVA_OPTS="$JAVA_OPTS -Dhttps.proxyPort=$PROXY_HTTPS_PORT"
 
-JAVA_OPTS="$JAVA_OPTS -Dhttp.nonProxyHosts=$PROXY_NOPROXY"
+	JAVA_OPTS="$JAVA_OPTS -Dhttp.nonProxyHosts=$PROXY_NOPROXY"
+fi;
 
 # OS specific support.  $var _must_ be set to either true or false.
 cygwin=false
