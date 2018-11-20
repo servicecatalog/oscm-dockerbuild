@@ -77,6 +77,18 @@ services:
     links:
       - oscm-db:oscm-db
 
+  oscm-initdb-controller-shell:
+    image: ${IMAGE_INITDB}
+    container_name: oscm-initdb-controller-shell
+    env_file: var.env
+    environment:
+      - CONTROLLER_ID=ess.shell
+      - TARGET=CONTROLLER
+      - SOURCE=NONE
+      - OVERWRITE=true
+    links:
+      - oscm-db:oscm-db
+
   oscm-initdb-controller-vmware:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-controller-vmware
