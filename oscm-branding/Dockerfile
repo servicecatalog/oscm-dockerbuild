@@ -7,24 +7,15 @@ COPY resources/brandings.conf /etc/nginx/vhosts.d/
 COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/trust/anchors
-# Attention: google-cloud-sdk broken; python-Jinja2 not available for SLE_12_SP1
-# RUN zypper addrepo http://download.opensuse.org/repositories/Cloud:Tools/SLE_12_SP1/Cloud:Tools.repo && \
-#     zypper --gpg-auto-import-keys refresh && \
-#     zypper install -y tar google-cloud-sdk && \
-#     zypper clean && \
-#     chmod +x /opt/start.sh && \
-#     SUSEConnect -d
+
 
 RUN export http_proxy=$HTTP_PROXY && \
-    export https_proxy=$HTTPS_PROXY && \
-    zypper install -y tar && \
-    zypper clean && \
-    chmod +x /opt/start.sh && \
-    SUSEConnect --cleanup && \
-    if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
-    if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
-    if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi
+    export https_proxy=$HTTP_PROXY && \
+    yum install -y tar && \
+    yum clean all && \
+    chmod +x /opt/start.sh
 
 EXPOSE 80 443
 
 CMD ["/opt/start.sh"]
+

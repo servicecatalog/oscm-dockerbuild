@@ -1,3 +1,5 @@
+CMD ["/opt/start.sh"]
+
 FROM oscm-nginx
 
 ENV SOURCE=LOCAL HELP_DIR=/import/oscm-portal-help
@@ -10,13 +12,8 @@ COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/trust/anchors
 
 RUN export http_proxy=$HTTP_PROXY && \
-    export https_proxy=$HTTPS_PROXY && \
-    chmod +x /opt/start.sh && \
-    SUSEConnect --cleanup && \
-    if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
-    if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
-    if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi
+    export https_proxy=$HTTP_PROXY && \
+    chmod +x /opt/start.sh
 
 EXPOSE 80 443
 
-CMD ["/opt/start.sh"]

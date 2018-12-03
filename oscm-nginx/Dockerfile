@@ -1,17 +1,17 @@
-FROM oscm-sles-based
+FROM sentos-based
 
 RUN export http_proxy=$HTTP_PROXY && \
-    export https_proxy=$HTTPS_PROXY && \
-    zypper addrepo http://download.opensuse.org/repositories/server:http/SLE_12/server:http.repo && \
-    zypper --gpg-auto-import-keys refresh && \
-    zypper install -y nginx && \
-    zypper clean && \
-    mkdir -p /etc/nginx/conf.d && \
-    mkdir -p /etc/nginx/vhosts.d &&\
+    export https_proxy=$HTTP_PROXY && \
+    yum install -y epel-release && \
+    yum makecache fast && \
+    yum install -y nginx && \
+    yum clean all && \
+    mkdir -p /etc/nginx/vhosts.d && \
+    mkdir -p /var/log/nginx && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
-
-COPY resources/nginx.conf /etc/nginx/
+    
+    COPY resources/nginx.conf /etc/nginx/
 
 EXPOSE 80 443
 
