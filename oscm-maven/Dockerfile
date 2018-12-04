@@ -1,12 +1,14 @@
 FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
-    export https_proxy=$HTTPS_PROXY && \
-	zypper -n in tar which java-1_8_0-openjdk java-1_8_0-openjdk-devel && \
-	zypper clean && \
-	SUSEConnect --cleanup
-
-RUN mkdir -p /usr/share/maven /usr/share/maven/ref && \
+    export https_proxy=$HTTP_PROXY && \
+    yum install -y \
+        tar \
+        which \
+        java-1.8.0-openjdk \
+        java-1_8_0-openjdk-devel && \
+        yum clean all && \
+    mkdir -p /usr/share/maven /usr/share/maven/ref && \
     curl -fsSL -o /tmp/apache-maven.tar.gz https://apache.osuosl.org/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz && \
     tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 && \
     rm -f /tmp/apache-maven.tar.gz && \
