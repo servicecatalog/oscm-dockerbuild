@@ -1,5 +1,3 @@
-CMD ["/opt/start.sh"]
-
 FROM oscm-nginx
 
 ENV SOURCE=LOCAL HELP_DIR=/import/oscm-portal-help
