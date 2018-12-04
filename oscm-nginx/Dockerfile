@@ -1,4 +1,4 @@
-FROM sentos-based
+FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
