@@ -6,5 +6,6 @@ RUN export http_proxy=$HTTP_PROXY && \
     yum install -y \
         unzip \
         wget \
+        openssl
         gettext && \
     yum clean all
