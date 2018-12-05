@@ -58,7 +58,6 @@ COPY gson-2.6.2.jar /opt/apache-tomee/lib/gson-2.6.2.jar
 COPY ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/
 COPY ssl.crt /usr/share/pki/trust/anchors
-COPY trusted_certs /opt/trusted_certs
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
