@@ -7,6 +7,7 @@ ENV MAVEN_CONFIG "/root/.m2"
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum install -y \
+    	tar \
         which \
         java-1.8.0-openjdk \
         java-1.8.0-openjdk-devel && \
