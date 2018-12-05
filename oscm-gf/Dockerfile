@@ -2,6 +2,7 @@ FROM oscm-sles-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
+    yum update -y && \
     yum install -y \
         vim \
         postgresql \
@@ -17,3 +18,4 @@ RUN export http_proxy=$HTTP_PROXY && \
     rm /tmp/apache-tomee.tar.gz
 
 COPY resources/logging.properties /opt/apache-tomee/conf/logging.properties
+

@@ -14,6 +14,7 @@ RUN chmod +x /opt/deploy.sh && \
     chmod +x /opt/start.sh && \
     export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
+    yum update -y && \
     yum install -y \
         vim \
         tomcat && \

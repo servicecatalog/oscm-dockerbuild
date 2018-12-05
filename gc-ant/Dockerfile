@@ -5,7 +5,8 @@ ENV ANT_HOME /usr/share/ant
 ENV http_proxy $HTTP_PROXY
 ENV https_proxy $HTTP_PROXY
 
-RUN yum install -y \
+RUN yum update -y && \
+    yum install -y \
     java-1.8.0-openjdk \
     java-1.8.0-openjdk-devel 
 
