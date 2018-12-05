@@ -1,4 +1,4 @@
-FROM oscm-sles-based
+FROM oscm-centos-based
 
 ENV JAVA_HOME /usr/lib/jvm/java
 ENV ANT_HOME /usr/share/ant

@@ -1,4 +1,4 @@
-FROM oscm-sles-based
+FROM oscm-centos-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \

@@ -1,4 +1,4 @@
-FROM oscm-sles-based
+FROM oscm-centos-based
 
 ENV INITDB=false
 ENV STARTUP=false
