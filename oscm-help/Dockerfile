@@ -15,3 +15,5 @@ RUN export http_proxy=$HTTP_PROXY && \
 
 EXPOSE 80 443
 
+CMD ["/opt/start.sh"]
+

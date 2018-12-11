@@ -6,9 +6,9 @@ fi
 
 for file in /tmp/work/*.tar.gz
 do
-    /bin/tar -zxf $file -C /srv/www/htdocs
+    /bin/tar -zxf $file -C /usr/share/nginx/html/
 done
-/usr/bin/chown -R nginx: /srv/www/htdocs
+/usr/bin/chown -R nginx: /usr/share/nginx/html/
 /usr/bin/rm -r /tmp/work
 
 # Copy SSL private key and certificate, generate Keystore and copy to nginx config
@@ -28,10 +28,10 @@ for certfile in /usr/share/pki/ca-trust-source/anchors/*; do
     trust anchor --store $certfile
 done
 find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
-/usr/sbin/update-ca-certificates
+/usr/bin/update-ca-trust
 
-unzip /opt/oscm-portal-help.war -d /srv/www/htdocs/oscm-portal-help
+unzip /opt/oscm-portal-help.war -d /usr/share/nginx/html/oscm-portal-help
 
-/usr/bin/chown -R nginx: /srv/www/htdocs
+/usr/bin/chown -R nginx: /usr/share/nginx/html/
 
 /usr/sbin/nginx
