@@ -23,16 +23,17 @@ else
         -passout pass:changeit
 fi
 
+
 # Import SSL certificates into truststore
-find /import/certs -type f -exec cp {} /usr/share/pki/trust/anchors \;
-for certfile in /usr/share/pki/trust/anchors/*; do
+find /import/certs -type f -exec cp {} /usr/share/pki/ca-trust-source/anchors \;
+for certfile in /usr/share/pki/ca-trust-source/anchors/*; do
     trust anchor --store $certfile
 done
-find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
+find /usr/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
 # Change entropy source of Java to non-blocking
-sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre/lib/security/java.security
+sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64/jre/lib/security/java.security
 
 # Check ownership of Tomcat log dir and fix if necessary
 if [ ! $(stat -c %U /var/log/tomcat) = "tomcat" ]; then

@@ -6,7 +6,7 @@ COPY start.sh /opt/start.sh
 COPY resources/brandings.conf /etc/nginx/vhosts.d/
 COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
-COPY ssl.crt /usr/share/pki/trust/anchors
+COPY ssl.crt /usr/share/pki/ca-trust-source/anchors/
 
 
 RUN export http_proxy=$HTTP_PROXY && \

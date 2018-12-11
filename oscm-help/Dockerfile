@@ -7,7 +7,7 @@ COPY resources/help.conf /etc/nginx/vhosts.d/
 COPY oscm-portal-help.war /opt/oscm-portal-help.war
 COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
-COPY ssl.crt /usr/share/pki/trust/anchors
+COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
