@@ -32,7 +32,7 @@ find /import/certs -type f -exec cp {} /usr/share/pki/ca-trust-source/anchors \;
 for certfile in /usr/share/pki/ca-trust-source/anchors/*; do
     trust anchor --store $certfile
 done
-find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
+find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/sbin/update-ca-certificates
 
 find /import/certs/sso -type f -exec cp {} /opt/trusted_certs \;
