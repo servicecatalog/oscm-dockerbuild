@@ -33,7 +33,7 @@ find /usr/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-categ
 /usr/sbin/update-ca-certificates
 
 # Change entropy source of Java to non-blocking
-sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64/jre/lib/security/java.security
+sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib/jvm/java-1.8.0-openjdk/jre/lib/security/java.security
 
 # Check ownership of Tomcat log dir and fix if necessary
 if [ ! $(stat -c %U /var/log/tomcat) = "tomcat" ]; then
