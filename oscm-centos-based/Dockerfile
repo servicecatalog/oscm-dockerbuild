@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
