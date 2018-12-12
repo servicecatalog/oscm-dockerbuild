@@ -40,4 +40,4 @@ if [ ! $(stat -c %U /var/log/tomcat) = "tomcat" ]; then
     chown tomcat /var/log/tomcat
 fi
 
-su - tomcat -c 'source /etc/tomcat/tomcat.conf ; source /etc/sysconfig/tomcat ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/sbin/tomcat start'
+su -s /bin/bash -c 'source /etc/tomcat/tomcat.conf ; source /etc/sysconfig/tomcat ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/sbin/tomcat start' -g tomcat tomcat
