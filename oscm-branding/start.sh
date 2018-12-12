@@ -35,9 +35,9 @@ fi
 
 for file in /tmp/work/*.tar.gz
 do
-    /bin/tar -zxf $file -C //usr/share/nginx/html/
+    /bin/tar -zxf $file -C /usr/share/nginx/html/
 done
-/usr/bin/chown -R nginx: //usr/share/nginx/html/
+/usr/bin/chown -R nginx: /usr/share/nginx/html/
 /usr/bin/rm -r /tmp/work
 
 /usr/sbin/nginx
