@@ -8,11 +8,7 @@ COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
 
 RUN mkdir /etc/proxy-ssl /import && \
-    chmod +x /opt/start.sh && \
-    SUSEConnect --cleanup && \
-    if [ -f /etc/SUSEConnect ]; then rm -f /etc/SUSEConnect; fi && \
-    if [ -d /etc/zypp/services.d ]; then rm -f /etc/zypp/services.d/*; fi && \
-    if [ -d /etc/zypp/credentials.d ]; then rm -f /etc/zypp/credentials.d/*; fi
+    chmod +x /opt/start.sh
 
 VOLUME /import
 

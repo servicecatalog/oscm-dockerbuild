@@ -1,12 +1,14 @@
-FROM oscm-sles-based
+FROM oscm-centos-based
 
-ENV JAVA_HOME /usr/lib64/jvm/java-1.8.0-openjdk
-ENV http_proxy $HTTP_PROXY 
-ENV https_proxy $HTTPS_PROXY
-     
-RUN zypper -n in \
-    java-1_8_0-openjdk \
-    java-1_8_0-openjdk-devel
+ENV JAVA_HOME /usr/lib/jvm/java
+ENV ANT_HOME /usr/share/ant
+ENV http_proxy $HTTP_PROXY
+ENV https_proxy $HTTP_PROXY
+
+RUN yum update -y && \
+    yum install -y \
+    java-1.8.0-openjdk \
+    java-1.8.0-openjdk-devel 
 
 RUN wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.zip -O /opt/ant.zip
 RUN unzip /opt/ant.zip -d /opt/  

@@ -28,12 +28,12 @@ else
 fi
 
 # Import SSL certificates into truststore
-find /import/certs -type f -exec cp {} /usr/share/pki/trust/anchors \;
-for certfile in /usr/share/pki/trust/anchors/*; do
+find /import/certs -type f -exec cp {} /usr/share/pki/ca-trust-source/anchors \;
+for certfile in /usr/share/pki/ca-trust-source/anchors/*; do
     trust anchor --store $certfile
 done
-find /etc/pki/trust -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
-/usr/sbin/update-ca-certificates
+find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
+/usr/bin/update-ca-trust
 
 # Import script files into execution folder
 find /import/scripts -type f -exec cp {} /opt/scripts \;
@@ -62,7 +62,7 @@ export PROXY_NOPROXY=$(echo $PROXY_NOPROXY | sed -e 's/|/\\|/g')
 /usr/bin/envsubst '$PROXY_ENABLED $PROXY_HTTP_HOST $PROXY_HTTP_PORT $PROXY_HTTPS_HOST $PROXY_HTTPS_PORT $PROXY_NOPROXY' < /opt/apache-tomee/bin/catalina_template.sh > /opt/apache-tomee/bin/catalina.sh
 
 # Change entropy source of Java to non-blocking
-sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre/lib/security/java.security
+sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib/jvm/java-1.8.0-openjdk/jre/lib/security/java.security
 
 # Start domains
 if [ ${TOMEE_DEBUG} ]; then

@@ -1,4 +1,4 @@
 #!/bin/bash
-su - tomcat -c 'source /etc/tomcat/tomcat.conf ; source /etc/sysconfig/tomcat ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/lib/tomcat/server start' &
+su -s /bin/bash -c 'source /etc/tomcat/tomcat.conf ; source /etc/sysconfig/tomcat ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/libexec/tomcat/server start' -g tomcat tomcat &
 sleep 30 ; \
-su - tomcat -c 'source /etc/tomcat/tomcat.conf ; source /etc/sysconfig/tomcat ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/lib/tomcat/server stop' &
+su -s /bin/bash -c 'source /etc/tomcat/tomcat.conf ; source /etc/sysconfig/tomcat ; export CATALINA_BASE CATALINA_HOME CATALINA_TMPDIR ; /usr/libexec/tomcat/server stop' -g tomcat tomcat &

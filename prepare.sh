@@ -130,7 +130,3 @@ cp /tmp/ssl.crt $REPO_DOCKER/oscm-proxy/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-proxy/
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-help/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-help/
-
-##copy trusted sso certificates
-mkdir -p $REPO_DOCKER/oscm-core/trusted_certs
-cp $REPO_OSCM/trusted_certs/* $REPO_DOCKER/oscm-core/trusted_certs
