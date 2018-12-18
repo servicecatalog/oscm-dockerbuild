@@ -40,4 +40,6 @@ done
 /usr/bin/chown -R nginx: /usr/share/nginx/html/
 /usr/bin/rm -r /tmp/work
 
+./opt/brandings.sh &
+
 /usr/sbin/nginx
