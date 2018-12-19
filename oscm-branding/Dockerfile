@@ -3,7 +3,6 @@ FROM oscm-nginx
 ENV SOURCE=LOCAL BRANDING_DIR=/import/brandings GS_SERVICE_ACCOUNT_KEY_FILE=/key/keyfile.json GS_BUCKET=mybucket
 
 COPY start.sh /opt/start.sh
-COPY resources/brandings.sh /opt/brandings.sh
 COPY resources/brandings.conf /etc/nginx/vhosts.d/
 COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
@@ -14,7 +13,6 @@ RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum install -y \
     tar \
-    inotify-tools && \
     yum clean all && \
     chmod +x /opt/start.sh
 

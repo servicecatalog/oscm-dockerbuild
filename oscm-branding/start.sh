@@ -21,25 +21,7 @@ done
 find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/bin/update-ca-trust
 
-# Get branding archives from local directory
-if [ ${SOURCE} == "LOCAL" ]; then
-    /usr/bin/cp ${BRANDING_DIR}/*.tar.gz /tmp/work
-fi
-
-# Attention: google-cloud-sdk broken; python-Jinja2 not available for SLE_12_SP1
-# Get branding archives from bucket
-# if [ ${SOURCE} == "BUCKET" ]; then
-#     /usr/bin/gcloud auth activate-service-account --key-file ${GS_SERVICE_ACCOUNT_KEY_FILE}
-#     /usr/bin/gsutil cp gs://${GS_BUCKET}/*.tar.gz /tmp/work
-# fi
-
-for file in /tmp/work/*.tar.gz
-do
-    /bin/tar -zxf $file -C /usr/share/nginx/html/
-done
-/usr/bin/chown -R nginx: /usr/share/nginx/html/
-/usr/bin/rm -r /tmp/work
-
-./opt/brandings.sh &
+find /import/brandings -type d -exec chmod o+rx {} \;
+find /import/brandings -type f -exec chmod o+r {} \;
 
 /usr/sbin/nginx
