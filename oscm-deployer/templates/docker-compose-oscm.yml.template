@@ -46,6 +46,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-app/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/oscm-app/scripts:/import/scripts
       - ${DOCKER_PATH}/config/certs:/import/certs
+      - ${DOCKER_PATH}/config/certs:/opt/scripts
     ports:
       - 8881:8881
       - 8800:8000
