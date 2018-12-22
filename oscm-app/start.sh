@@ -35,9 +35,6 @@ done
 find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/bin/update-ca-trust
 
-# Import script files into execution folder
-find /import/scripts -type f -exec cp {} /opt/scripts \;
-
 # Add oscm-core to NOPROXY
 if [ -n "$PROXY_NOPROXY" ]; then
     export PROXY_NOPROXY="${PROXY_NOPROXY},oscm-core"
