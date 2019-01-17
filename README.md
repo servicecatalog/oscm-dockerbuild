@@ -87,17 +87,18 @@ Now you will be able to login to the APP:
 * Username: `administrator`
 * Password: `admin123`
 
-As well as to the OpenStack controller:
+As well as to the service controllers:
 
-`https://hostname.fqdn:8881/oscm-app-openstack/`
+`https://hostname.fqdn:8881/oscm-app-<controller-id>/`
 
+* <controller-id>: azureARM, openstack, vmware, shell 
 * Username: `administrator`
 * Password: `admin123`
 
 # Import custom SSL certificates and key files
 Certificates are required to allow for trusted communication between OSCM and the Asynchronous Provisioning Platform (APP), or an application underlying a technical service. The OSCM deployer has already created a respective directory structure and a suitable Docker Compose configuration. In this way, default certificates have been inserted into the respective containers after deployment, thus communication between OSCM and APP is secured. 
 
-It is however possible to use custom SSL keypairs for the application listeners. They may be self-signed or official. Privacy Enhanced Mail (PEM) format is mandatory. This is a container format that may include just the public certificate, or an entire certificate chain including public key, private key, and root certificates. It is only necessary to place the respective certificate and/or key files in PEM format into the appropriate directories.
+It is, however, possible to use custom SSL keypairs for the application listeners. They may be self-signed or official. Privacy Enhanced Mail (PEM) format is mandatory. This is a container format that may include just the public certificate, or an entire certificate chain including public key, private key, and root certificates. It is only necessary to place the respective certificate and/or key files in PEM format into the appropriate directories.
 
 ## Import SSL keypairs for the application listeners
 If you want to use your own SSL key pairs that your application is to use, replace the default key pair by your PEM files in the following directories on your Docker host: 
@@ -134,14 +135,16 @@ Replace `/docker` with the directory where Docker is installed.
 
 For example, if you want to use the VMware service controller, you need to export the vSphere certificate in PEM format, and copy it to the `/docker/config/certs` directory.  Since the VMware service controller is running in the `oscm-app` container, a restart of this container is required. -->
 
-# Import local shell scripts for oscm-app-shell component
-Oscm-app-shell component gives the user possibility to execute its own shell scripts when managing the subscriptions.
+# Import local shell scripts for the Shell integration software (oscm-app-shell)
+Using the Shell integration software, you can execute your own shell scripts when managing subscriptions.
 
-These scripts can be defined in marketable service parameters an then referenced as a script located either inside or outside (e.g. external url) the docker host machine. To reference the script inside the docker host machine:
+Such scripts can be specified in marketable service parameters, and then referenced as a script located either inside or outside (e.g. external URL) the docker host. 
 
-* put it to `/docker/config/oscm-app/scripts` directory on your Docker host
-* define proper service parameter which must include only the script filename (without any path specified e.g. sample.sh)
-* restart oscm-app container
+To reference a script located inside the docker host:
+
+* Put it into the `/docker/config/oscm-app/scripts` directory on your docker host
+* Define a proper service parameter. It may only include the script filename (without any path specified e.g. sample.sh)
+* Restart the oscm-app container
 
 # Start using OSCM
 Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wiki/Getting-Started) guide.
@@ -149,7 +152,7 @@ Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wik
 # Resources
 
 ## Docker images and related documentation
-* [oscm-deployer](https://hub.docker.com/r/servicecatalog/oscm-deployer): Appication for deploying OSCM
+* [oscm-deployer](https://hub.docker.com/r/servicecatalog/oscm-deployer): Application for deploying OSCM
 * [oscm-core](https://hub.docker.com/r/servicecatalog/oscm-core/): Core application
 * [oscm-app](https://hub.docker.com/r/servicecatalog/oscm-app): Asynchronous Provisioning Platform (optional)
 * [oscm-db](https://hub.docker.com/r/servicecatalog/oscm-db): Database for oscm-core and oscm-app
