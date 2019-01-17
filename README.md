@@ -135,7 +135,7 @@ Replace `/docker` with the directory where Docker is installed.
 
 For example, if you want to use the VMware service controller, you need to export the vSphere certificate in PEM format, and copy it to the `/docker/config/certs` directory.  Since the VMware service controller is running in the `oscm-app` container, a restart of this container is required. -->
 
-# Import local shell scripts for the Shell integration software (oscm-app-shell)
+# Import scripts for the Shell controller (oscm-app-shell)
 Using the Shell integration software, you can execute your own shell scripts when managing subscriptions.
 
 Such scripts can be specified in marketable service parameters, and then referenced as a script located either inside or outside (e.g. external URL) the docker host. 
