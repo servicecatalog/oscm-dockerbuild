@@ -61,6 +61,11 @@ export PROXY_NOPROXY=$(echo $PROXY_NOPROXY | sed -e 's/|/\\|/g')
 # Change entropy source of Java to non-blocking
 sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib/jvm/java-1.8.0-openjdk/jre/lib/security/java.security
 
+# Call custom installation tasks
+if [ -f /opt/scripts/start.sh ]; then
+        /opt/scripts/start.sh &
+fi
+
 # Start domains
 if [ ${TOMEE_DEBUG} ]; then
 	/opt/apache-tomee/bin/catalina.sh jpda run
