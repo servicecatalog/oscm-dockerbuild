@@ -91,7 +91,7 @@ As well as to the service controllers:
 
 `https://hostname.fqdn:8881/oscm-app-<controller-id>/`
 
-* <controller-id>: azureARM, openstack, vmware, shell 
+* `<controller-id>`: `azureARM`, `aws`, `openstack`, `vmware`, `shell` 
 * Username: `administrator`
 * Password: `admin123`
 
