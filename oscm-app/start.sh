@@ -61,6 +61,12 @@ export PROXY_NOPROXY=$(echo $PROXY_NOPROXY | sed -e 's/|/\\|/g')
 # Change entropy source of Java to non-blocking
 sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib/jvm/java-1.8.0-openjdk/jre/lib/security/java.security
 
+# set http_proxy and https_proxy if proxy is activated
+if [ "$PROXY_HTTP_HOST" != "" ]; then
+  export http_proxy=http://$PROXY_HTTP_HOST:$PROXY_HTTP_PORT
+  export https_proxy=http://$PROXY_HTTPS_HOST:$PROXY_HTTPS_PORT
+fi
+
 # Call custom installation tasks
 if [ -f /opt/scripts/start.sh ]; then
         /opt/scripts/start.sh &
