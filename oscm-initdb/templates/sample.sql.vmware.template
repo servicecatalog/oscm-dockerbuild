@@ -13,4 +13,4 @@ CREATE SEQUENCE IF NOT EXISTS ${DB_USER_VMWARE}.vcenter_estvcsadev_seq INCREMENT
 ALTER TABLE ${DB_USER_VMWARE}.vcenter_estvcsadev_seq OWNER TO ${DB_USER_VMWARE};
 
 INSERT INTO ${DB_USER_VMWARE}.datacenter (tkey, name, identifier, vcenter_tkey) VALUES (1, '${DATACENTER_NAME}', '${DATACENTER_NAME}', 1);
-INSERT INTO ${DB_USER_VMWARE}.cluster (tkey, name, load_balancer, datacenter_tkey) VALUES (1, '${CLUSTER_NAME}', '${LOAD_BALANCER_NAME}', 1);
+INSERT INTO ${DB_USER_VMWARE}.cluster (tkey, name, load_balancer, datacenter_tkey) VALUES (1, '${CLUSTER_NAME}', '"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><essvcenter><balancer class=\"org.oscm.app.vmware.business.balancer.DynamicEquipartitionHostBalancer\" cpuWeight=\"\" memoryWeight=\"\" vmWeight=\"\"/></essvcenter>"', 1);
