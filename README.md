@@ -154,6 +154,7 @@ Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wik
 ## Docker images and related documentation
 * [oscm-deployer](https://hub.docker.com/r/servicecatalog/oscm-deployer): Application for deploying OSCM
 * [oscm-core](https://hub.docker.com/r/servicecatalog/oscm-core/): Core application
+* [oscm-help](https://hub.docker.com/r/servicecatalog/oscm-help): Online-help for the OSCM Portal
 * [oscm-app](https://hub.docker.com/r/servicecatalog/oscm-app): Asynchronous Provisioning Platform (optional)
 * [oscm-db](https://hub.docker.com/r/servicecatalog/oscm-db): Database for oscm-core and oscm-app
 * [oscm-initdb](https://hub.docker.com/r/servicecatalog/oscm-initdb): Initializes or restores the databases for oscm-core and oscm-app
