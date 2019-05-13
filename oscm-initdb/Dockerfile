@@ -50,7 +50,7 @@ COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
 COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY sqlscripts/vmware/*.sql /opt/sqlscripts/vmware/
 COPY templates/*.template /opt/templates/
-COPY oscm-devruntime.jar oscm-app.jar /opt/
+COPY oscm-devruntime.jar /opt/
 
 COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar log4j-1.2.16.jar postgresql-9.4-1206-jdbc42.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
 
