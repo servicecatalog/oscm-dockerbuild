@@ -83,9 +83,6 @@ else
     < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
-envsubst '$DOCKER_PATH $IMAGE_PROXY' \
-< ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
-> ${TARGET_PATH}/docker-compose-proxy.yml
 
 # If the user wants us to initialize the database, do it now
 if [ ${INITDB} == "true" ]; then
