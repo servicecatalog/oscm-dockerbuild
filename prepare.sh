@@ -78,9 +78,9 @@ cp $BUILD_DIR/oscm-app/oscm-app.jar $REPO_DOCKER/oscm-initdb/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/core
 cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/core/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/app
-cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
+cp $OSCM_APP/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/vmware
-cp $REPO_OSCM/oscm-app-vmware/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/vmware/
+cp $OSCM_APP/oscm-app-vmware/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/vmware/
 
 # copy resources for core
 cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-core/
