@@ -215,17 +215,6 @@ else
 	docker build -t oscm-branding:${GIT_SOURCE} oscm-dockerbuild/oscm-branding
 fi
 
-# Build reverse proxy
-if [ ${PROXY_ENABLED} -eq 1 ]; then
-	docker build -t oscm-proxy:${GIT_SOURCE} \
-	    --build-arg http_proxy="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
-		--build-arg https_proxy="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
-		--build-arg HTTP_PROXY="http://${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}" \
-		--build-arg HTTPS_PROXY="http://${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}" \
-		oscm-dockerbuild/oscm-proxy
-else
-	docker build -t oscm-proxy:${GIT_SOURCE} oscm-dockerbuild/oscm-proxy
-fi
 
 # Build BIRT Tomcat
 if [ ${PROXY_ENABLED} -eq 1 ]; then
@@ -255,7 +244,6 @@ fi
 if [ "${TAG_LATEST}" = "true" ]; then
 	docker tag oscm-core:${GIT_SOURCE} oscm-core:latest
 	docker tag oscm-app:${GIT_SOURCE} oscm-app:latest
-	docker tag oscm-proxy:${GIT_SOURCE} oscm-proxy:latest
 	docker tag oscm-branding:${GIT_SOURCE} oscm-branding:latest
 	docker tag oscm-birt:${GIT_SOURCE} oscm-birt:latest
 	docker tag oscm-initdb:${GIT_SOURCE} oscm-initdb:latest
