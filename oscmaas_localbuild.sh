@@ -255,7 +255,6 @@ fi
 if [ "${TAG_LATEST}" = "true" ]; then
 	docker tag oscm-core:${GIT_SOURCE} oscm-core:latest
 	docker tag oscm-app:${GIT_SOURCE} oscm-app:latest
-	docker tag oscm-proxy:${GIT_SOURCE} oscm-proxy:latest
 	docker tag oscm-branding:${GIT_SOURCE} oscm-branding:latest
 	docker tag oscm-birt:${GIT_SOURCE} oscm-birt:latest
 	docker tag oscm-initdb:${GIT_SOURCE} oscm-initdb:latest
