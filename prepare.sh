@@ -136,5 +136,3 @@ cp /tmp/ssl.crt $REPO_DOCKER/oscm-proxy/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-proxy/
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-help/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-help/
-
-exit 1
