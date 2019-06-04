@@ -15,6 +15,11 @@ COPY oscm.ear /opt/apache-tomee/apps
 COPY oscm-portal.war /opt/apache-tomee/webapps
 COPY oscm-portal-help.war /opt/apache-tomee/webapps
 
+#COPY oscm-rest-api-account.war /opt/apache-tomee/webapps
+# - || -
+# - || -
+# - || -
+
 COPY oscm-security.jar /opt/apache-tomee/lib/
 COPY oscm-common.jar /opt/apache-tomee/lib/
 COPY oscm-rest-api-common.jar /opt/apache-tomee/lib/

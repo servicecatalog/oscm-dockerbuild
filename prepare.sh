@@ -4,6 +4,7 @@ REPO_DOCKER="`dirname \"$0\"`"
 REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
 OSCM_APP="$REPO_OSCM/oscm-app-maven"
+REST_API="$REPO_OSCM/oscm-rest-api"
 BUILD_SHELL_DIR="$REPO_OSCM/oscm-app-shell/target"
 LIB_DIR="$REPO_OSCM/libraries"
 
@@ -95,6 +96,12 @@ cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-rest-api-common/oscm-rest-api-common.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-core/
+
+# copy rest api for core
+#cp $REST_API/oscm-rest-api-account/target/oscm-rest-api-account.jar $REPO_DOCKER/oscm-core/
+# - || -
+# - || -
+# - || -
 
 # copy resources for app
 cp $OSCM_APP/oscm-app-ear/target/oscm-app.ear $REPO_DOCKER/oscm-app/
