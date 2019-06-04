@@ -3,6 +3,7 @@
 REPO_DOCKER="`dirname \"$0\"`"
 REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
+OSCM_APP="$REPO_OSCM/oscm-app-maven"
 BUILD_SHELL_DIR="$REPO_OSCM/oscm-app-shell/target"
 LIB_DIR="$REPO_OSCM/libraries"
 
@@ -60,6 +61,7 @@ cp $BUILD_DIR/oscm-portal/oscm-portal.war $REPO_DOCKER/oscm-core/
 
 
 # copy resources for initdb
+cp $OSCM_APP/oscm-app/target/oscm-app.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-initdb/
@@ -71,14 +73,12 @@ cp $LIB_DIR/apache-validator/javalib/commons-validator-1.4.0.jar $REPO_DOCKER/os
 cp $LIB_DIR/apache-ant-contrib/lib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-initdb/
 cp $LIB_DIR/jakarta-oro/javalib/jakarta-oro-2.0.8.jar $REPO_DOCKER/oscm-initdb/
 
-cp $BUILD_DIR/oscm-app/oscm-app.jar $REPO_DOCKER/oscm-initdb/
-
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/core
 cp $REPO_OSCM/oscm-devruntime/javares/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/core/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/app
-cp $REPO_OSCM/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
+cp $OSCM_APP/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/vmware
-cp $REPO_OSCM/oscm-app-vmware/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/vmware/
+cp $OSCM_APP/oscm-app-vmware/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/vmware/
 
 # copy resources for core
 cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-core/
@@ -96,18 +96,24 @@ cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-rest-api-common/oscm-rest-api-common.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-core/
 
-## copy resources for app
-cp $BUILD_DIR/oscm-app-ear/oscm-app.ear $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-app-aws/oscm-app-aws.ear $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-app-openstack/oscm-app-openstack.ear $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-app-vmware-ear/oscm-app-vmware.ear $REPO_DOCKER/oscm-app/
-cp $BUILD_DIR/oscm-app-azure/oscm-app-azure.ear $REPO_DOCKER/oscm-app/
+# copy resources for app
+cp $OSCM_APP/oscm-app-ear/target/oscm-app.ear $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-aws-ear/target/oscm-app-aws.ear $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-openstack-ear/target/oscm-app-openstack.ear $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-azure-ear/target/oscm-app-azure.ear $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-vmware-ear/target/oscm-app-vmware.ear $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app/target/oscm-app.jar $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-aws/target/oscm-app-aws.jar $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-openstack/target/oscm-app-openstack.jar $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-azure/target/oscm-app-azure.jar $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-vmware/target/oscm-app-vmware.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-extsvc-2-0/oscm-app-extsvc-2-0.jar $REPO_DOCKER/oscm-app/
+
 cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-app/
 cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-app/
 
