@@ -98,10 +98,13 @@ cp $BUILD_DIR/oscm-rest-api-common/oscm-rest-api-common.jar $REPO_DOCKER/oscm-co
 cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-core/
 
 # copy rest api for core
-#cp $REST_API/oscm-rest-api-account/target/oscm-rest-api-account.jar $REPO_DOCKER/oscm-core/
-# - || -
-# - || -
-# - || -
+cp $REST_API/oscm-rest-api-event/target/oscm-rest-api-event.war $REPO_DOCKER/oscm-core/
+cp $REST_API/oscm-rest-api-operation/target/oscm-rest-api-operation.war $REPO_DOCKER/oscm-core/
+cp $REST_API/oscm-rest-api-account/target/oscm-rest-api-account.war $REPO_DOCKER/oscm-core/
+cp $REST_API/oscm-rest-api-identity/target/oscm-rest-api-identity.war $REPO_DOCKER/oscm-core/
+cp $REST_API/oscm-rest-api-service/target/oscm-rest-api-service.war $REPO_DOCKER/oscm-core/
+cp $REST_API/oscm-rest-api-marketplace/target/oscm-rest-api-marketplace.war $REPO_DOCKER/oscm-core/
+cp $REST_API/oscm-rest-api-subscription/target/oscm-rest-api-subscription.war $REPO_DOCKER/oscm-core/
 
 # copy resources for app
 cp $OSCM_APP/oscm-app-ear/target/oscm-app.ear $REPO_DOCKER/oscm-app/
