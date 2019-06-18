@@ -5,6 +5,7 @@ REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
 OSCM_APP="$REPO_OSCM/oscm-app-maven"
 BUILD_SHELL_DIR="$REPO_OSCM/oscm-app-shell/target"
+BUILD_IDENTITY_DIR="$REPO_OSCM/oscm-idenity/target"
 LIB_DIR="$REPO_OSCM/libraries"
 
 
@@ -123,6 +124,9 @@ cp $LIB_DIR/javax/javalib/javax.mail-api-1.5.4.jar $REPO_DOCKER/oscm-birt/
 cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-help/
 cp $BUILD_SHELL_DIR/oscm-app-shell.war $REPO_DOCKER/oscm-app/
 
+# copy resources for identity
+cp $BUILD_IDENTITY_DIR/oscm-identity-1.0-SNAPSHOT.jar $REPO_DOCKER/oscm-identity/oscm-identity.jar
+
 ##copy ssl related resources
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-core/
@@ -134,3 +138,5 @@ cp /tmp/ssl.crt $REPO_DOCKER/oscm-branding/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-branding/
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-help/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-help/
+cp /tmp/ssl.crt $REPO_DOCKER/oscm-identity/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-identity/
