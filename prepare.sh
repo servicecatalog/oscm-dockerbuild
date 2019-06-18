@@ -125,7 +125,7 @@ cp $BUILD_DIR/oscm-portal-help/oscm-portal-help.war $REPO_DOCKER/oscm-help/
 cp $BUILD_SHELL_DIR/oscm-app-shell.war $REPO_DOCKER/oscm-app/
 
 # copy resources for identity
-cp $BUILD_IDENTITY_DIR/oscm-identity-1.0-SNAPSHOT.jar $REPO_DOCKER/oscm-identity/oscm-identity.jar
+cp $BUILD_IDENTITY_DIR/oscm-identity.jar $REPO_DOCKER/oscm-identity/
 
 ##copy ssl related resources
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
