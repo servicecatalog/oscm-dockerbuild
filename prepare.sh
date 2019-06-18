@@ -5,7 +5,7 @@ REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"
 OSCM_APP="$REPO_OSCM/oscm-app-maven"
 BUILD_SHELL_DIR="$REPO_OSCM/oscm-app-shell/target"
-BUILD_IDENTITY_DIR="$REPO_OSCM/oscm-idenity/target"
+BUILD_IDENTITY_DIR="$REPO_OSCM/oscm-identity/target"
 LIB_DIR="$REPO_OSCM/libraries"
 
 
