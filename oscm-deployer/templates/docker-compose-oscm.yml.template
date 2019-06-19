@@ -1,4 +1,4 @@
-version: "4"
+version: "3"
 services:
   oscm-db:
     image: ${IMAGE_DB}
