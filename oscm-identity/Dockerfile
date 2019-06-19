@@ -4,7 +4,12 @@ COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
-COPY oscm-identity.jar main.jar
+COPY oscm-identity.jar /opt/main.jar
 
-ENTRYPOINT ["java", "-Dhttp.proxyHost=$PROXY_HTTP_HOST", "-Dhttp.proxyPort=$PROXY_HTTP_PORT", "-Dhttps.proxyHost=$PROXY_HTTPS_HOST", "-Dhttps.proxyPort=$PROXY_HTTPS_PORT", "-Djava.security.egd=file:/dev/./urandom", "-DJAVA_OPTS==-agentlib:jdwp=transport=dt_socket,address=$JPDA_ADDRESS,server=y,suspend=n" "-jar", "/main.jar"]
+COPY start.sh /opt/
+
+RUN chmod +x /opt/start.sh
+
+CMD ["/opt/start.sh"]
+
 
