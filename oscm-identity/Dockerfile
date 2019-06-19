@@ -4,6 +4,15 @@ COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
+RUN export http_proxy=$HTTP_PROXY && \
+    export https_proxy=$HTTP_PROXY && \
+    yum install -y \
+    	tar \
+        which \
+        java-1.8.0-openjdk \
+        java-1.8.0-openjdk-devel && \
+    yum clean all
+
 COPY oscm-identity.jar /opt/main.jar
 
 COPY start.sh /opt/
