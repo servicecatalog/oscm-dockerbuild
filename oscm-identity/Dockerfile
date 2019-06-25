@@ -1,8 +1,10 @@
 FROM oscm-centos-based
 
+
 COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
+
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
@@ -15,7 +17,7 @@ RUN export http_proxy=$HTTP_PROXY && \
 
 COPY oscm-identity.jar /opt/main.jar
 
-COPY start.sh /opt/
+COPY start.sh /opt/start.sh
 
 RUN chmod +x /opt/start.sh
 
