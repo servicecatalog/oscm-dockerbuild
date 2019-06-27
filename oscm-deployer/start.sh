@@ -33,6 +33,9 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-app/ssl/cert \
     ${TARGET_PATH}/config/oscm-app/ssl/chain \
     ${TARGET_PATH}/config/oscm-app/scripts \
+    ${TARGET_PATH}/config/oscm-identity/ssl/privkey \
+    ${TARGET_PATH}/config/oscm-identity/ssl/cert \
+    ${TARGET_PATH}/config/oscm-identity/ssl/chain \
     ${TARGET_PATH}/config/oscm-birt/ssl/privkey \
     ${TARGET_PATH}/config/oscm-birt/ssl/cert \
     ${TARGET_PATH}/config/oscm-birt/ssl/chain \
@@ -46,6 +49,7 @@ for docker_directory in \
     ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \
     ${TARGET_PATH}/logs/oscm-birt/tomcat \
+    ${TARGET_PATH}/logs/oscm-identity \
     ${TARGET_PATH}/logs/oscm-branding \
     ${TARGET_PATH}/logs/oscm-help \
     ${TARGET_PATH}/logs/oscm-core \
@@ -59,6 +63,7 @@ done
 # Create Docker log files if they do not exist yet
 for docker_log_file in \
     ${TARGET_PATH}/logs/oscm-app/oscm-app.out.log \
+    ${TARGET_PATH}/logs/oscm-identity/oscm-identity.out.log \
     ${TARGET_PATH}/logs/oscm-birt/oscm-birt.out.log \
     ${TARGET_PATH}/logs/oscm-branding/oscm-branding.out.log \
     ${TARGET_PATH}/logs/oscm-help/oscm-help.out.log \
@@ -75,11 +80,11 @@ envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
-    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP' \
+    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_IDENTITY $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 else
-    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP' \
+    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_IDENTITY $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP' \
     < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
