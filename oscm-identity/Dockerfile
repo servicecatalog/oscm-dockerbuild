@@ -23,11 +23,9 @@ ENV https_proxy=$HTTP_PROXY
  
 
 COPY oscm-identity.jar /opt/identity/main.jar
-
 COPY start.sh /opt/identity/start.sh
-
  
-chmod +x /opt/identity/start.sh
+RUN chmod +x /opt/identity/start.sh
 
 CMD ["/opt/identity/start.sh"]
 
