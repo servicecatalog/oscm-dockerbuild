@@ -4,7 +4,8 @@ COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
-RUN mkdir /opt/identity/ && \
+RUN mkdir /opt/identity && \
+    mkdir /opt/identity/config && \  
 	mkdir /opt/identity/config/tenants
 	
  
