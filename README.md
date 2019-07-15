@@ -160,6 +160,7 @@ Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wik
 * [oscm-initdb](https://hub.docker.com/r/servicecatalog/oscm-initdb): Initializes or restores the databases for oscm-core and oscm-app
 * [oscm-birt](https://hub.docker.com/r/servicecatalog/oscm-birt): Reporting engine (optional)
 * [oscm-branding](https://hub.docker.com/r/servicecatalog/oscm-branding): Webserver for marketplace branding packages (optional)
+* [oscm-identity](https://hub.docker.com/r/servicecatalog/oscm-identity): OSCM Identity Service (optional, WIP)
 
 ## Source code
 
