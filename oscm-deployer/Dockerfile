@@ -11,6 +11,7 @@ ENV IMAGE_APP=oscm-app:latest
 ENV IMAGE_BIRT=oscm-birt:latest
 ENV IMAGE_BRANDING=oscm-branding:latest
 ENV IMAGE_INITDB=oscm-initdb:latest
+ENV IMAGE_IDENTITY=oscm-identity:latest
 ENV TARGET_PATH=/target
 
 COPY templates/env.template templates/var.env.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-oscm-syslog.yml.template start.sh /opt/
