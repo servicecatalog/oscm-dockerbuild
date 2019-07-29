@@ -34,12 +34,3 @@ COPY start.sh /opt/identity/start.sh
 RUN chmod +x /opt/identity/start.sh
 
 CMD ["/opt/identity/start.sh"]
-
-
-/opt/apache-tomee/apps && \
- mkdir /opt/apache-tomee/controllers && \
- mkdir /opt/properties && \
- mkdir /opt/sso && \
- mkdir /opt/certs && \
- mkdir /opt/key && \
- mkdir /opt/scripts
