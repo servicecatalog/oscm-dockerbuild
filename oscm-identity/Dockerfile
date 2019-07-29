@@ -5,7 +5,12 @@ COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
 RUN mkdir /opt/identity && \
-    mkdir /opt/identity/config && \  
+    mkdir /opt/identity/config && \
+	mkdir /opt/properties && \
+	mkdir /opt/sso && \
+	mkdir /opt/certs && \
+	mkdir /opt/key && \
+	mkdir /opt/scripts && \
 	mkdir /opt/identity/config/tenants
 	
  
@@ -31,3 +36,10 @@ RUN chmod +x /opt/identity/start.sh
 CMD ["/opt/identity/start.sh"]
 
 
+/opt/apache-tomee/apps && \
+ mkdir /opt/apache-tomee/controllers && \
+ mkdir /opt/properties && \
+ mkdir /opt/sso && \
+ mkdir /opt/certs && \
+ mkdir /opt/key && \
+ mkdir /opt/scripts
