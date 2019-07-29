@@ -137,8 +137,8 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
 	cp /tmp/ssl.key /tmp/ssl.key.pass
 	openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl.key
 	openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
-	mv /tmp/ssl.key /config/oscm-identity/ssl/privkey
-	mv /tmp/ssl.crt /config/oscm-identity/ssl/cert
+	mv /tmp/ssl.key ${TARGET_PATH}/config/oscm-identity/ssl/privkey
+	mv /tmp/ssl.crt ${TARGET_PATH}/config/oscm-identity/ssl/cert
 	rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 	
     # Run
