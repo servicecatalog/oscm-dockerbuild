@@ -13,7 +13,7 @@ if [ -f /opt/ssl.chain ]; then
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
         -inkey /opt/ssl.key \
-        -out /opt/keystore/ssl.p12 \
+        -out /opt/keystore/keystore.p12 \
         -CAfile /opt/ssl.chain \
         -chain \
         -passout pass:changeit
@@ -21,7 +21,7 @@ else
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
         -inkey /opt/ssl.key \
-        -out /opt/keystore/ssl.p12 \
+        -out /opt/keystore/keystore.p12 \
         -passout pass:changeit
 fi
 
