@@ -7,7 +7,6 @@ COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 RUN mkdir /opt/identity && \
     mkdir /opt/identity/config && \
 	mkdir /opt/certs && \
-	mkdir /opt/identity/keystore && \
 	mkdir /opt/identity/config/tenants
 	
  
