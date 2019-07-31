@@ -21,10 +21,10 @@ else
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
         -inkey /opt/ssl.key \
-        -out /opt/identity/ssl.p12 \ 
+        -out /opt/identity/ssl.p12 \
         -passout pass:changeit
+        
 fi
-
 # Import SSL certificates into truststore
 find /import/certs -type f -exec cp {} /usr/share/pki/ca-trust-source/anchors \;
 for certfile in /usr/share/pki/ca-trust-source/anchors/*; do
