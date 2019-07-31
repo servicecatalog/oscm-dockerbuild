@@ -13,7 +13,7 @@ if [ -f /opt/ssl.chain ]; then
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
         -inkey /opt/ssl.key \
-        -out /opt/identity/keystore.p12 \
+        -out /opt/identity/ssl.p12 \
         -CAfile /opt/ssl.chain \
         -chain \
         -passout pass:changeit
@@ -21,12 +21,16 @@ else
     openssl pkcs12 -export \
         -in /opt/ssl.crt \
         -inkey /opt/ssl.key \
-        -out /opt/identity/keystore.p12 \ 
+        -out /opt/identity/ssl.p12 \ 
         -passout pass:changeit
 fi
 
 # Import SSL certificates into truststore
-find /import/cert -type f -exec cp {} /usr/share/pki/ca-trust-source/anchors \;
+find /import/certs -type f -exec cp {} /usr/share/pki/ca-trust-source/anchors \;
+for certfile in /usr/share/pki/ca-trust-source/anchors/*; do
+    trust anchor --store $certfile
+done
+find /import/ssl/cert -type f -exec cp {} /usr/share/pki/ca-trust-source/anchors \;
 for certfile in /usr/share/pki/ca-trust-source/anchors/*; do
     trust anchor --store $certfile
 done
