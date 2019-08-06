@@ -92,7 +92,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-identity/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
-      - 9090:9090
+      - 9091:9091
       - 9000:9000    
 
   oscm-help:
