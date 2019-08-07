@@ -101,10 +101,10 @@ if [ $TARGET == "CORE" ]; then
 		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 		#Update the sampe users, if defined in the var.env template
 		
-		#if [ ! -z " ${ADMIN_USER_ID}"]; then
+		if [ ! -z " ${ADMIN_USER_ID}" ]; then
 			genSQLUpdateAdmin
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE 
-		#fi
+		fi
 	fi
 	
 	
@@ -287,12 +287,12 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			
 			#Update the sampe users, if defined in the var.env template
 			genSQLUpdateUser
-			#if [ ! -z "${CUSTOMER_USER_ID}"]; then
+			if [ ! -z "${CUSTOMER_USER_ID}" ]; then
 				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/customer.sql $DB_NAME_CORE 
-			#fi	
-			#if [ ! -z "${SUPPLIER_USER_ID}"]; then
+			fi	
+			if [ ! -z "${SUPPLIER_USER_ID}" ]; then
 				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/supplier.sql $DB_NAME_CORE 
-			#fi	
+			fi	
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
 
