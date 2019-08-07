@@ -286,15 +286,13 @@ genSQLUpdateUser
 $ADMIN_USER_ID = ${ADMIN_USER_ID}
 $CUSTOMER_USER_ID = ${CUSTOMER_USER_ID}
 $SUPPLIER_USER_ID = ${SUPPLIER_USER_ID}
-if[ ! -z $ADMIN_USER_ID]; then
+if [ ! -z "$ADMIN_USER_ID"]; then
 	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/administrator.sql $DB_NAME_CORE
 fi	
-if[ ! -z $CUSTOMER_USER_ID]; then
-	genSQLUpdateUser
+if [ ! -z "$CUSTOMER_USER_ID"]; then
 	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/customer.sql $DB_NAME_CORE
 fi	
-if[ ! -z $SUPPLIER_USER_ID]; then
-	genSQLUpdateUser
+if [ ! -z "$SUPPLIER_USER_ID"]; then
 	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/supplier.sql $DB_NAME_CORE
 fi	
 
