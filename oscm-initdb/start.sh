@@ -101,7 +101,7 @@ if [ $TARGET == "CORE" ]; then
 		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 		#Update the sampe users, if defined in the var.env template
 		
-		if [ ! -z " ${ADMIN_USER_ID}" ]; then
+		if [ ! -z "${ADMIN_USER_ID}" ]; then
 			genSQLUpdateAdmin
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE 
 		fi
@@ -301,5 +301,3 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 		fi
 	fi
 fi
-
-
