@@ -1,1 +1,1 @@
-UPDATE bssuser.platformuser SET userid ='${CUSTOMER_USER_ID}', realmuserid='${CUSTOMER_USER_ID}' WHERE userId='customer@adfs.com';
+UPDATE ${DB_USER_CORE}.platformuser SET userid ='${CUSTOMER_USER_ID}', realmuserid='${CUSTOMER_USER_ID}' WHERE userId='customer@adfs.com';
