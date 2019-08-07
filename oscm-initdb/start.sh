@@ -30,13 +30,6 @@ function genPropertyFilesCORE {
     /usr/bin/envsubst < /opt/templates/sso.properties.core.template > /opt/properties/sso.properties
 }
 
-# HELPER: Generate sql file for update users
-function genSQLUpdateUser {
-	/usr/bin/envsubst < /opt/templates/platformusers.sql.administrator.template > /opt/sqlscripts/core/administrator.sql
-	/usr/bin/envsubst < /opt/templates/platformusers.sql.customer.template > /opt/sqlscripts/core/customer.sql
-	/usr/bin/envsubst < /opt/templates/platformusers.sql.supplier.template > /opt/sqlscripts/core/supplier.sql
-}	
-
 # HELPER: Generate property files for JMS from environment
 function genPropertyFilesJMS {
 	/usr/bin/envsubst < /opt/templates/init.sql.jms.template > /opt/sqlscripts/init.sql
@@ -83,6 +76,16 @@ function updateHostFqdnValues {
 	fi
 }
 
+# HELPER: Generate sql file for update users
+function genSQLUpdateUser {
+	/usr/bin/envsubst < /opt/templates/platformusers.sql.customer.template > /opt/sqlscripts/core/customer.sql
+	/usr/bin/envsubst < /opt/templates/platformusers.sql.supplier.template > /opt/sqlscripts/core/supplier.sql
+}	
+
+function genSQLUpdateAdmin {
+	/usr/bin/envsubst < /opt/templates/platformusers.sql.administrator.template > /opt/sqlscripts/core/administrator.sql
+}	
+
 # Main script
 # CORE
 if [ $TARGET == "CORE" ]; then
@@ -96,7 +99,15 @@ if [ $TARGET == "CORE" ]; then
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+		#Update the sampe users, if defined in the var.env template
+		
+		if [ ! -z " ${ADMIN_USER_ID}"]; then
+			genSQLUpdateAdmin
+			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE 
+		fi
 	fi
+	
+	
 
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
@@ -125,6 +136,7 @@ if [ $TARGET == "CORE" ]; then
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
 		/opt/properties/configsettings.properties /opt/properties/sso.properties
+		
 fi
 
 # JMS
@@ -272,6 +284,15 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 
 			# Update HOST_FQDN values
 			updateHostFqdnValues
+			
+			#Update the sampe users, if defined in the var.env template
+			genSQLUpdateUser
+			if [ ! -z "${CUSTOMER_USER_ID}"]; then
+				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/customer.sql $DB_NAME_CORE 
+			fi	
+			if [ ! -z "${SUPPLIER_USER_ID}"]; then
+				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/supplier.sql $DB_NAME_CORE 
+			fi	
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
 
@@ -281,18 +302,4 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 	fi
 fi
 
-#Update the sampe users, if defined in the var.env template
-genSQLUpdateUser
-ADMIN_USER_ID = ${ADMIN_USER_ID}
-CUSTOMER_USER_ID = ${CUSTOMER_USER_ID}
-SUPPLIER_USER_ID = ${SUPPLIER_USER_ID}
-if [ ! -z "$ADMIN_USER_ID"]; then
-	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE 
-fi	
-if [ ! -z "$CUSTOMER_USER_ID"]; then
-	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/customer.sql $DB_NAME_CORE 
-fi	
-if [ ! -z "$SUPPLIER_USER_ID"]; then
-	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/supplier.sql $DB_NAME_CORE 
-fi	
 
