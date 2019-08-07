@@ -283,9 +283,9 @@ fi
 
 #Update the sampe users, if defined in the var.env template
 genSQLUpdateUser
-$ADMIN_USER_ID = ${ADMIN_USER_ID}
-$CUSTOMER_USER_ID = ${CUSTOMER_USER_ID}
-$SUPPLIER_USER_ID = ${SUPPLIER_USER_ID}
+ADMIN_USER_ID = ${ADMIN_USER_ID}
+CUSTOMER_USER_ID = ${CUSTOMER_USER_ID}
+SUPPLIER_USER_ID = ${SUPPLIER_USER_ID}
 if [ ! -z "$ADMIN_USER_ID"]; then
 	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/administrator.sql $DB_NAME_CORE
 fi	
