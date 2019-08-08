@@ -87,8 +87,12 @@ services:
       - JPDA_TRANSPORT=dt_socket
     volumes:
       - ${DOCKER_PATH}/config/oscm-identity/tenants:/opt/identity/config/tenants
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
-      - 9090:9090
+      - 9091:9091
       - 9000:9000    
 
   oscm-help:

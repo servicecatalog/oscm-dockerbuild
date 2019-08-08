@@ -5,7 +5,8 @@ COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
 RUN mkdir /opt/identity && \
-    mkdir /opt/identity/config && \  
+    mkdir /opt/identity/config && \
+	mkdir /opt/certs && \
 	mkdir /opt/identity/config/tenants
 	
  
@@ -29,5 +30,3 @@ COPY start.sh /opt/identity/start.sh
 RUN chmod +x /opt/identity/start.sh
 
 CMD ["/opt/identity/start.sh"]
-
-
