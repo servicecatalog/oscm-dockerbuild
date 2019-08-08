@@ -1,2 +1,1 @@
-# Copyright FUJITSU LIMITED 2018
 UPDATE ${DB_USER_CORE}.platformuser SET userid ='${CUSTOMER_USER_ID}', realmuserid='${CUSTOMER_USER_ID}' WHERE userId='customer@adfs.com';
