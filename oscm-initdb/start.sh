@@ -119,8 +119,6 @@ if [ $TARGET == "CORE" ]; then
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/core
 
-	echo "test"
-	echo "${DB_HOST_CORE} ${DB_PORT_CORE} ${DB_NAME_CORE} $DB_USER_CORE $DB_PWD_CORE $OVERWRITE"
 	# Update properties
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
@@ -130,7 +128,6 @@ if [ $TARGET == "CORE" ]; then
 	if [ ! -z "${ADMIN_USER_ID}" ]; then
 		genSQLUpdateAdmin
 		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE
-		echo "Ich werde ausgeführt"
 	fi
 fi
 
