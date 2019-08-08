@@ -38,7 +38,9 @@ done
 find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/bin/update-ca-trust
 
-java -Dhttp.proxyHost=$PROXY_HTTP_HOST -Dhttp.proxyPort=$PROXY_HTTP_PORT -Dhttps.proxyHost=$PROXY_HTTPS_HOST -Dhttps.proxyPort=$PROXY_HTTPS_PORT -Djava.security.egd=file:/dev/./urandom -jar /opt/identity/main.jar
-
-
+if [ ${TOMEE_DEBUG} ]; then
+	java -Dhttp.proxyHost=$PROXY_HTTP_HOST -Dhttp.proxyPort=$PROXY_HTTP_PORT -Dhttps.proxyHost=$PROXY_HTTPS_HOST -Dhttps.proxyPort=$PROXY_HTTPS_PORT -Djava.security.egd=file:/dev/./urandom -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9000 -Dlogging.level.org.oscm.identity=DEBUG -jar /opt/identity/main.jar
+else
+	java -Dhttp.proxyHost=$PROXY_HTTP_HOST -Dhttp.proxyPort=$PROXY_HTTP_PORT -Dhttps.proxyHost=$PROXY_HTTPS_HOST -Dhttps.proxyPort=$PROXY_HTTPS_PORT -Djava.security.egd=file:/dev/./urandom  jar /opt/identity/main.jar
+fi
 
