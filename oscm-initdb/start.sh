@@ -27,7 +27,6 @@ function genPropertyFilesCORE {
 	/usr/bin/envsubst < /opt/templates/init.sql.core.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.core.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/configsettings.properties.core.template > /opt/properties/configsettings.properties
-    /usr/bin/envsubst < /opt/templates/sso.properties.core.template > /opt/properties/sso.properties
 }
 
 # HELPER: Generate property files for JMS from environment
@@ -99,7 +98,6 @@ if [ $TARGET == "CORE" ]; then
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-
 	fi
 	
 	
@@ -127,15 +125,11 @@ if [ $TARGET == "CORE" ]; then
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
 		/opt/properties/configsettings.properties $OVERWRITE
 
-	# Import SSO properties (only if AUTH_MODE is SAML_SP)
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
-		/opt/properties/configsettings.properties /opt/properties/sso.properties
-		
 	#Update the sampe users, if defined in the var.env template
 	if [ ! -z "${ADMIN_USER_ID}" ]; then
 		genSQLUpdateAdmin
-		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE 
+		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE
+		echo "Ich werde ausgeführt"
 	fi
 		
 fi
