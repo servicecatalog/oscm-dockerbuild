@@ -95,6 +95,8 @@ As well as to the service controllers:
 * Username: `administrator`
 * Password: `admin123`
 
+If using SSL you can configure your own users in the var.env file. You can set therefore the ADMIN_USER_ID, SUPPLIER_USER_ID, CUSTOMER_USER_ID and CONTROLLER_USER_NAME
+
 # Import custom SSL certificates and key files
 Certificates are required to allow for trusted communication between OSCM and the Asynchronous Provisioning Platform (APP), or an application underlying a technical service. The OSCM deployer has already created a respective directory structure and a suitable Docker Compose configuration. In this way, default certificates have been inserted into the respective containers after deployment, thus communication between OSCM and APP is secured. 
 
