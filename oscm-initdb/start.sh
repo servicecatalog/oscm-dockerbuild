@@ -81,10 +81,18 @@ function genSQLUpdateUser {
 	/usr/bin/envsubst < /opt/templates/platformusers.sql.customer.template > /opt/sqlscripts/core/customer.sql
 	/usr/bin/envsubst < /opt/templates/platformusers.sql.supplier.template > /opt/sqlscripts/core/supplier.sql
 }	
-
+# HELPER: Generate sql file for update admin
 function genSQLUpdateAdmin {
 	/usr/bin/envsubst < /opt/templates/platformusers.sql.administrator.template > /opt/sqlscripts/core/administrator.sql
 }	
+
+#HELPER: Updates the DB the configurationsettings
+# Import controller properties
+function updateProperties {
+		java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID	
+}
 
 # Main script
 # CORE
@@ -234,6 +242,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
+		
 fi
 
 # VMware Controller
@@ -254,12 +263,13 @@ if [ $TARGET == "VMWARE" ]; then
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/vmware
 		
+	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/vmware/sample.sql vmware
+		
 	# Import controller properties
 	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID	
 
-	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/vmware/sample.sql vmware
 fi
 
 # Sample data
@@ -282,7 +292,7 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			# Update HOST_FQDN values
 			updateHostFqdnValues
 			
-			#Update the sampe users, if defined in the var.env template
+			#Update the sample users, if defined in the var.env template
 			genSQLUpdateUser
 			if [ ! -z "${CUSTOMER_USER_ID}" ]; then
 				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/customer.sql $DB_NAME_CORE 
