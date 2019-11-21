@@ -54,7 +54,7 @@ function genPropertyFilesVMwareController {
     /usr/bin/envsubst < /opt/templates/init.sql.vmware.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.vmware.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/sample.sql.vmware.template > /opt/sqlscripts/vmware/sample.sql
-    /usr/bin/envsubst < /opt/templates/configsettings.properties.app.template > /opt/properties/configsettings.properties
+    /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
 # HELPER: Generate sample data files
