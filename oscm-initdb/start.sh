@@ -95,6 +95,14 @@ function updateProperties {
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID	
 }
 
+#Helper: Initialize APP Data
+function initializeAppData {
+	if [ $SOURCE == "INIT" ]; then
+		# Create databases, schemas, users and roles
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+	fi
+}
+
 # Main script
 # CORE
 if [ $TARGET == "CORE" ]; then
@@ -178,10 +186,7 @@ if [ $TARGET == "APP" ]; then
 	waitForDB $DB_HOST_APP $DB_PORT_APP
 
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then
-		# Create databases, schemas, users and roles
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-	fi
+	initializeAppData
 
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
@@ -216,10 +221,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 	waitForDB $DB_HOST_APP $DB_PORT_APP
 
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then
-		# Create databases, schemas, users and roles
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-	fi
+	initializeAppData
 
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
@@ -240,9 +242,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 		/opt/properties/db.properties /opt/sqlscripts/app
 
 	# Import controller properties
-	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
+	updateProperties
 		
 fi
 
@@ -255,19 +255,14 @@ if [ $TARGET == "VMWARE" ]; then
 	waitForDB $DB_HOST_APP $DB_PORT_APP
 
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then
-		# Create databases, schemas, users and roles
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-	fi
+	initializeAppData
 
 	# Initialize and update data
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 		/opt/properties/db.properties /opt/sqlscripts/vmware
 		
 	# Import controller properties
-	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID	
+	updateProperties
 
 fi
 
