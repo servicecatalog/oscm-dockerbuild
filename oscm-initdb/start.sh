@@ -107,7 +107,6 @@ function initializeAndUpdateData {
 	/opt/properties/db.properties $1
 }
 
-
 # Main script
 # CORE
 if [ $TARGET == "CORE" ]; then
