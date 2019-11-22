@@ -180,7 +180,7 @@ if [ $TARGET == "JMS" ]; then
 	fi
 fi
 
-# APP
+# APP 
 if [ $TARGET == "APP" ]; then
 	# Generate property files from environment
 	genPropertyFilesAPP
