@@ -87,20 +87,24 @@ function genSQLUpdateAdmin {
 	/usr/bin/envsubst < /opt/templates/platformusers.sql.administrator.template > /opt/sqlscripts/core/administrator.sql
 }	
 
-#HELPER: Updates the DB the configurationsettings
-# Import controller properties
+# HELPER: Updates the DB the configurationsettings
 function updateProperties {
 		java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
 		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID	
 }
 
-#Helper: Initialize APP Data
+# HELPER: Initialize APP Data
 function initializeAppData {
 	if [ $SOURCE == "INIT" ]; then
 		# Create databases, schemas, users and roles
 		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
 	fi
+}
+# HELPER: Initialize and update data
+function InitializeAndUpdateData {
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+	/opt/properties/db.properties $1
 }
 
 # Main script
@@ -133,8 +137,7 @@ if [ $TARGET == "CORE" ]; then
 	fi
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/core
+	InitializeAndUpdateData /opt/sqlscripts/core
 
 	# Update properties
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
@@ -203,8 +206,7 @@ if [ $TARGET == "APP" ]; then
 	fi
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/app
+	InitializeAndUpdateData /opt/sqlscripts/app
 
     # Update properties
 	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
@@ -238,8 +240,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 	fi
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/app
+	InitializeAndUpdateDatas /opt/sqlscripts/app
 
 	# Import controller properties
 	updateProperties
@@ -258,8 +259,7 @@ if [ $TARGET == "VMWARE" ]; then
 	initializeAppData
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/vmware
+	InitializeAndUpdateData /opt/sqlscripts/vmware
 		
 	# Import controller properties
 	updateProperties
