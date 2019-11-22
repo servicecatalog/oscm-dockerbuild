@@ -91,7 +91,7 @@ function genSQLUpdateAdmin {
 function updateProperties {
 		java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID	
+		/opt/properties/configsettings.properties $1 $2
 }
 
 # HELPER: Initialize APP Data
@@ -102,10 +102,11 @@ function initializeAppData {
 	fi
 }
 # HELPER: Initialize and update data
-function InitializeAndUpdateData {
+function initializeAndUpdateData {
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
 	/opt/properties/db.properties $1
 }
+
 
 # Main script
 # CORE
@@ -137,7 +138,7 @@ if [ $TARGET == "CORE" ]; then
 	fi
 
 	# Initialize and update data
-	InitializeAndUpdateData /opt/sqlscripts/core
+	initializeAndUpdateData /opt/sqlscripts/core
 
 	# Update properties
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
@@ -206,12 +207,10 @@ if [ $TARGET == "APP" ]; then
 	fi
 
 	# Initialize and update data
-	InitializeAndUpdateData /opt/sqlscripts/app
+	initializeAndUpdateData /opt/sqlscripts/app
 
     # Update properties
-	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE
+	updateProperties $OVERWRITE
 fi
 
 # APP Controller
@@ -240,10 +239,10 @@ if [ $TARGET == "CONTROLLER" ]; then
 	fi
 
 	# Initialize and update data
-	InitializeAndUpdateDatas /opt/sqlscripts/app
+	initializeAndUpdateData /opt/sqlscripts/app
 
 	# Import controller properties
-	updateProperties
+	updateProperties $OVERWRITE $CONTROLLER_ID
 		
 fi
 
@@ -259,10 +258,10 @@ if [ $TARGET == "VMWARE" ]; then
 	initializeAppData
 
 	# Initialize and update data
-	InitializeAndUpdateData /opt/sqlscripts/vmware
+	initializeAndUpdateData /opt/sqlscripts/vmware
 		
 	# Import controller properties
-	updateProperties
+	updateProperties $OVERWRITE $CONTROLLER_ID
 
 fi
 
