@@ -11,12 +11,6 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     exit 0
 fi
 
-# If ${TARGET_PATH}/tenant-default.properties does not exist, just copy the template for the operator and exit
-if [ ! -f ${TARGET_PATH}//tenant-default.properties ]; then
-	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/
-    exit 0
-fi
-
 # Enable automatic exporting of variables
 set -a
 # Read configuration files
@@ -40,6 +34,7 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-app/ssl/chain \
     ${TARGET_PATH}/config/oscm-app/scripts \
     ${TARGET_PATH}/config/oscm-identity/ssl/privkey \
+    ${TARGET_PATH}/config/oscm-identity/tenants \
     ${TARGET_PATH}/config/oscm-identity/ssl/cert \
     ${TARGET_PATH}/config/oscm-identity/ssl/chain \
     ${TARGET_PATH}/config/oscm-identity/tenants \
@@ -66,6 +61,12 @@ for docker_directory in \
         mkdir -p ${docker_directory}
     fi
 done
+
+# If ${TARGET_PATH}/tenant-default.properties does not exist, just copy the template for the operator and exit
+if [ ! -f ${TARGET_PATH}//tenant-default.properties ]; then
+	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/
+    exit 0
+fi
 
 # Create Docker log files if they do not exist yet
 for docker_log_file in \
