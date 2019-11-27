@@ -131,7 +131,7 @@ cp $BUILD_SHELL_DIR/oscm-app-shell.war $REPO_DOCKER/oscm-app/
 # copy resources for identity
 cp $BUILD_IDENTITY_DIR/oscm-identity.jar $REPO_DOCKER/oscm-identity/
 mkdir $REPO_DOCKER/oscm-deployer/resources
-cp $BUILD_IDENTITY_DIR/config/tenants/tenant-default.properties $REPO_DOCKER/oscm-deployer/resources
+cp $BUILD_IDENTITY_DIR/config/tenants/tenant-default.properties $REPO_DOCKER/oscm-deployer/resources/
 
 ##copy ssl related resources
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
