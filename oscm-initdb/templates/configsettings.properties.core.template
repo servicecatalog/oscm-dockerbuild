@@ -87,6 +87,11 @@ TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT_OFFSET=${TIMER_INTERVAL_TENANT_PROVIS
 # The offset is in milliseconds, based on January 1, 00:00.
 TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET=${TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET}
 
+# The offset of the timer for sychronizing users from the OIDC provider with OSCM
+# for all organizations. The timer interval is one day.
+# The offset is in milliseconds, based on January 1, 00:00.
+TIMER_INTERVAL_SYNCHRONIZE_USERS_OFFSET=${TIMER_INTERVAL_SYNCHRONIZE_USERS_OFFSET}
+
 # The URL template of the report engine. If this value is not
 # configured, reporting will not be available.
 # It supports http and https to show report.
