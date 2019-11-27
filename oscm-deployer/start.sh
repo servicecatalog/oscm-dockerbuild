@@ -34,6 +34,7 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-app/ssl/chain \
     ${TARGET_PATH}/config/oscm-app/scripts \
     ${TARGET_PATH}/config/oscm-identity/ssl/privkey \
+    ${TARGET_PATH}/config/oscm-identity/tenants \
     ${TARGET_PATH}/config/oscm-identity/ssl/cert \
     ${TARGET_PATH}/config/oscm-identity/ssl/chain \
     ${TARGET_PATH}/config/oscm-identity/tenants \
@@ -60,6 +61,11 @@ for docker_directory in \
         mkdir -p ${docker_directory}
     fi
 done
+
+# If ${TARGET_PATH}/tenant-default.properties does not exist, copy the template for the operator
+if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-defaul.properties ]; then
+	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/
+fi
 
 # Create Docker log files if they do not exist yet
 for docker_log_file in \
