@@ -63,7 +63,7 @@ for docker_directory in \
 done
 
 # If ${TARGET_PATH}/tenant-default.properties does not exist, just copy the template for the operator and exit
-if [ ! -f ${TARGET_PATH}//tenant-default.properties ]; then
+if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-defaul.properties ]; then
 	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/
     exit 0
 fi
