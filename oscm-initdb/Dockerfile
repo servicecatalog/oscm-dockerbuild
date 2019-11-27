@@ -59,4 +59,3 @@ COPY start.sh /opt/
 RUN mkdir /opt/sqlscripts/custom && chmod +x /opt/start.sh
 
 CMD ["/opt/start.sh"]
-
