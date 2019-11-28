@@ -261,7 +261,9 @@ if [ $TARGET == "VMWARE" ]; then
 		
 	# Import controller properties
 	updateProperties $OVERWRITE $CONTROLLER_ID
-
+	
+	# Import sample data into the DB
+	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/vmware/sample.sql vmware
 fi
 
 # Sample data
@@ -280,7 +282,6 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			# Import sample data to databases
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
-			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/vmware/sample.sql vmware
 
 			# Update HOST_FQDN values
 			updateHostFqdnValues
