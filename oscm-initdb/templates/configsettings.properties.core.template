@@ -27,7 +27,7 @@ BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
 # URL to specify a Web page that is to be displayed in case the HTTPS
 # protocol is used and a customer tries to access a marketplace
 # without a valid marketplace ID.
-MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}:8081/oscm-portal/marketplace?mid=959c9bf7
+MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}:8081/oscm-portal/marketplace?mId=959c9bf7
 
 # The log level valid for the entire application.
 LOG_LEVEL=${LOG_LEVEL}
@@ -86,6 +86,12 @@ TIMER_INTERVAL_TENANT_PROVISIONING_TIMEOUT_OFFSET=${TIMER_INTERVAL_TENANT_PROVIS
 # for all organizations. The timer interval is one day.
 # The offset is in milliseconds, based on January 1, 00:00.
 TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET=${TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET}
+
+# The offset of the timer for synchronizing users from the OIDC provider with OSCM.
+# The synchronization occurs for all organizations, which belongs to a OIDC group. 
+# The timer interval is one day.
+# The offset is in milliseconds, based on January 1, 00:00.
+TIMER_INTERVAL_SYNCHRONIZE_USERS_OFFSET=${TIMER_INTERVAL_SYNCHRONIZE_USERS_OFFSET}
 
 # The URL template of the report engine. If this value is not
 # configured, reporting will not be available.

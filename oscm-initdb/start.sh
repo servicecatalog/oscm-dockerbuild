@@ -54,6 +54,7 @@ function genPropertyFilesVMwareController {
     /usr/bin/envsubst < /opt/templates/init.sql.vmware.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.vmware.template > /opt/properties/db.properties
     /usr/bin/envsubst < /opt/templates/sample.sql.vmware.template > /opt/sqlscripts/vmware/sample.sql
+    /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
 # HELPER: Generate sample data files
@@ -74,6 +75,36 @@ function updateHostFqdnValues {
 		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/hostfqdn.sql $DB_NAME_CORE
 		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/hostfqdn.sql $DB_NAME_APP
 	fi
+}
+
+# HELPER: Generate sql file for update users
+function genSQLUpdateUser {
+	/usr/bin/envsubst < /opt/templates/platformusers.sql.customer.template > /opt/sqlscripts/core/customer.sql
+	/usr/bin/envsubst < /opt/templates/platformusers.sql.supplier.template > /opt/sqlscripts/core/supplier.sql
+}	
+# HELPER: Generate sql file for update admin
+function genSQLUpdateAdmin {
+	/usr/bin/envsubst < /opt/templates/platformusers.sql.administrator.template > /opt/sqlscripts/core/administrator.sql
+}	
+
+# HELPER: Updates the DB the configurationsettings
+function updateProperties {
+		java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
+		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
+		/opt/properties/configsettings.properties $1 $2
+}
+
+# HELPER: Initialize APP Data
+function initializeAppData {
+	if [ $SOURCE == "INIT" ]; then
+		# Create databases, schemas, users and roles
+		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
+	fi
+}
+# HELPER: Initialize and update data
+function initializeAndUpdateData {
+	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
+	/opt/properties/db.properties $1
 }
 
 # Main script
@@ -106,18 +137,18 @@ if [ $TARGET == "CORE" ]; then
 	fi
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/core
+	initializeAndUpdateData /opt/sqlscripts/core
 
 	# Update properties
 	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.propertyimport.PropertyImport org.postgresql.Driver \
 		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
 		/opt/properties/configsettings.properties $OVERWRITE
 
-	# Import SSO properties (only if AUTH_MODE is SAML_SP)
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.ssopropertyimport.SSOPropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_CORE}:${DB_PORT_CORE}/${DB_NAME_CORE}" $DB_USER_CORE $DB_PWD_CORE \
-		/opt/properties/configsettings.properties /opt/properties/sso.properties
+	#Update the sampe users, if defined in the var.env template
+	if [ ! -z "${ADMIN_USER_ID}" ]; then
+		genSQLUpdateAdmin
+		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/administrator.sql $DB_NAME_CORE
+	fi
 fi
 
 # JMS
@@ -149,7 +180,7 @@ if [ $TARGET == "JMS" ]; then
 	fi
 fi
 
-# APP
+# APP 
 if [ $TARGET == "APP" ]; then
 	# Generate property files from environment
 	genPropertyFilesAPP
@@ -158,10 +189,7 @@ if [ $TARGET == "APP" ]; then
 	waitForDB $DB_HOST_APP $DB_PORT_APP
 
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then
-		# Create databases, schemas, users and roles
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-	fi
+	initializeAppData
 
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
@@ -178,13 +206,10 @@ if [ $TARGET == "APP" ]; then
 	fi
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/app
+	initializeAndUpdateData /opt/sqlscripts/app
 
     # Update properties
-	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE
+	updateProperties $OVERWRITE
 fi
 
 # APP Controller
@@ -196,10 +221,7 @@ if [ $TARGET == "CONTROLLER" ]; then
 	waitForDB $DB_HOST_APP $DB_PORT_APP
 
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then
-		# Create databases, schemas, users and roles
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-	fi
+	initializeAppData
 
 	# Import SQL dumps
 	if [ $SOURCE == "DUMP" ]; then
@@ -216,13 +238,11 @@ if [ $TARGET == "CONTROLLER" ]; then
 	fi
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/app
+	initializeAndUpdateData /opt/sqlscripts/app
 
 	# Import controller properties
-	java -cp "/opt/oscm-app.jar:/opt/lib/*" org.oscm.app.setup.PropertyImport org.postgresql.Driver \
-		"jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/${DB_NAME_APP}" $DB_USER_APP $DB_PWD_APP \
-		/opt/properties/configsettings.properties $OVERWRITE $CONTROLLER_ID
+	updateProperties $OVERWRITE $CONTROLLER_ID
+		
 fi
 
 # VMware Controller
@@ -234,15 +254,15 @@ if [ $TARGET == "VMWARE" ]; then
 	waitForDB $DB_HOST_APP $DB_PORT_APP
 
 	# Initialize APP DB
-	if [ $SOURCE == "INIT" ]; then
-		# Create databases, schemas, users and roles
-		psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/init.sql
-	fi
+	initializeAppData
 
 	# Initialize and update data
-	java -cp "/opt/oscm-devruntime.jar:/opt/lib/*" org.oscm.setup.DatabaseUpgradeHandler \
-		/opt/properties/db.properties /opt/sqlscripts/vmware
-
+	initializeAndUpdateData /opt/sqlscripts/vmware
+		
+	# Import controller properties
+	updateProperties $OVERWRITE $CONTROLLER_ID
+	
+	# Import sample data into the DB
 	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/vmware/sample.sql vmware
 fi
 
@@ -265,6 +285,15 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 
 			# Update HOST_FQDN values
 			updateHostFqdnValues
+			
+			#Update the sample users, if defined in the var.env template
+			genSQLUpdateUser
+			if [ ! -z "${CUSTOMER_USER_ID}" ]; then
+				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/customer.sql $DB_NAME_CORE 
+			fi	
+			if [ ! -z "${SUPPLIER_USER_ID}" ]; then
+				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/supplier.sql $DB_NAME_CORE 
+			fi	
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
 

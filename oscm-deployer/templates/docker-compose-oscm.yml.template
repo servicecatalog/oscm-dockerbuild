@@ -76,7 +76,25 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
       - 8443:443
- 
+     
+  oscm-identity:
+    image: ${IMAGE_IDENTITY}
+    container_name: oscm-identity
+    restart: always
+    env_file: var.env
+    environment:
+      - JPDA_ADDRESS=9000
+      - JPDA_TRANSPORT=dt_socket
+    volumes:
+      - ${DOCKER_PATH}/config/oscm-identity/tenants:/opt/identity/config/tenants
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
+    ports:
+      - 9091:9091
+      - 9000:9000    
+
   oscm-help:
     image: ${IMAGE_HELP}
     container_name: oscm-help
