@@ -19,7 +19,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     ln -s /usr/share/maven/bin/mvn /usr/bin/mvn && \
     mkdir /tmp/chromedriver/ && \
     wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE && \
-    a=$(uname -m) &&
+    a=$(uname -m) && \
     if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi && \
     latest=$(cat /tmp/chromedriver/LATEST_RELEASE) && \
     wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' && \
