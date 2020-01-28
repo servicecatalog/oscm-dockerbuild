@@ -101,3 +101,11 @@ services:
     restart: always
     ports:
       - 8543:443
+
+  oscm-maildev:
+   image: ${IMAGE_HELP}
+   container_name: oscm-maildev
+   restart: always
+   ports:
+      - 8082:80
+      - 25:25
