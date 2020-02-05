@@ -87,12 +87,10 @@ envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
-    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_IDENTITY $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP $IMAGE_MAILDEV' \
-    < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
+    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 else
-    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_IDENTITY $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP $IMAGE_MAILDEV' \
-    < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
 
