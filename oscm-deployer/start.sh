@@ -63,7 +63,7 @@ for docker_directory in \
 done
 
 # If ${TARGET_PATH}/tenant-default.properties does not exist, copy the template for the operator
-if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-defaul.properties ]; then
+if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties ]; then
 	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties.template
 fi
 
@@ -87,12 +87,10 @@ envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
-    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_IDENTITY $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP' \
-    < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
+    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 else
-    envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_CORE $IMAGE_IDENTITY $IMAGE_APP $IMAGE_BIRT $IMAGE_BRANDING $IMAGE_HELP' \
-    < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
 
