@@ -298,10 +298,6 @@ SSO_SIGNING_KEYSTORE_PASS=${SSO_SIGNING_KEYSTORE_PASS}
 # The path of the keystore holding the private key for signing SAML and custom tab requests.
 SSO_SIGNING_KEYSTORE=${SSO_SIGNING_KEYSTORE}
 
-# The ID of the default tenant for user authentication in SAML_SP mode. 
-# The value must consist of 8 alphanumeric characters.
-SSO_DEFAULT_TENANT_ID=${SSO_DEFAULT_TENANT_ID}
-
 # The unique entity ID of the IdP system used for authentication in SAML_SP mode. 
 # The ID is used for verifying that the response to an authentication request 
 # is returned by the correct IdP.
