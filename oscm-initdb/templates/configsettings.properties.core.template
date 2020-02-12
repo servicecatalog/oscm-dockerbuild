@@ -244,39 +244,17 @@ WS_TIMEOUT=${WS_TIMEOUT}
 # Default value is INTERNAL. Allowed values are: INTERNAL, SAML_SP
 AUTH_MODE=${AUTH_MODE}
 
-# URL to the SAML Identity Provider (IdP) used by CT-MG. To be considered only if the configuration setting AUTH_MODE is set 
-# to any other option than INTERNAL.
-SSO_IDP_URL=${SSO_IDP_URL}
-
-# The http method (GET or POST) used for the authentication request to the SAML Identity Provider (IdP).
-SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD=${SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD}
-
 # Path to the trusstore holding the IdP certificate.
 SSO_IDP_TRUSTSTORE=${SSO_IDP_TRUSTSTORE}
 
 # Password of the IdP truststore.
 SSO_IDP_TRUSTSTORE_PASSWORD=${SSO_IDP_TRUSTSTORE_PASSWORD}
 
-# Unique identifier of the requesting service provider for the SAML Identity Provider (IdP).
-SSO_ISSUER_ID=${SSO_ISSUER_ID}
-
-# Encryption key length for STS.
-SSO_STS_ENCKEY_LEN=${SSO_STS_ENCKEY_LEN}
-
 # Specifies whether the audit logging is enabled
 AUDIT_LOG_ENABLED=${AUDIT_LOG_ENABLED}
 
 # Specifies the batch size for audit logging
 AUDIT_LOG_MAX_ENTRIES_RETRIEVED=${AUDIT_LOG_MAX_ENTRIES_RETRIEVED}
-
-# URL of STS service
-SSO_STS_URL=${SSO_STS_URL}
-
-# MetadataReference URL of STS service
-SSO_STS_METADATA_URL=${SSO_STS_METADATA_URL}
-
-# URL of the Identity Provider's single logout service
-SSO_LOGOUT_URL=${SSO_LOGOUT_URL}
 
 # The maximum number of users that can be registered on the platform
 MAX_NUMBER_ALLOWED_USERS=${MAX_NUMBER_ALLOWED_USERS}
@@ -297,8 +275,3 @@ SSO_SIGNING_KEYSTORE_PASS=${SSO_SIGNING_KEYSTORE_PASS}
 
 # The path of the keystore holding the private key for signing SAML and custom tab requests.
 SSO_SIGNING_KEYSTORE=${SSO_SIGNING_KEYSTORE}
-
-# The unique entity ID of the IdP system used for authentication in SAML_SP mode. 
-# The ID is used for verifying that the response to an authentication request 
-# is returned by the correct IdP.
-SSO_IDP_SAML_ASSERTION_ISSUER_ID=${SSO_IDP_SAML_ASSERTION_ISSUER_ID}
