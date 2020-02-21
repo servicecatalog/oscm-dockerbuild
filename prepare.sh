@@ -22,7 +22,8 @@ rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
 # copy resource for glassfish
 cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-codec/javalib/commons-codec-1.7.jar $REPO_DOCKER/oscm-gf/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/apache-log4j/javalib/log4j-api-2.13.0.jar $REPO_DOCKER/oscm-gf/
+cp $LIB_DIR/apache-log4j/javalib/log4j-core-2.13.0.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-validator/javalib/commons-validator-1.4.0.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/apache-logging/javalib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-gf/
 cp $LIB_DIR/jakarta-oro/javalib/jakarta-oro-2.0.8.jar $REPO_DOCKER/oscm-gf/
@@ -69,7 +70,8 @@ cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-initdb/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-initdb/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-initdb/
+cp $LIB_DIR/apache-log4j/javalib/log4j-core-2.13.0.jar $REPO_DOCKER/oscm-initdb/
+cp $LIB_DIR/apache-log4j/javalib/log4j-api-2.13.0.jar $REPO_DOCKER/oscm-initdb/
 cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-initdb/
 cp $LIB_DIR/apache-validator/javalib/commons-validator-1.4.0.jar $REPO_DOCKER/oscm-initdb/
 cp $LIB_DIR/apache-ant-contrib/lib/commons-logging-1.1.3.jar $REPO_DOCKER/oscm-initdb/
@@ -96,7 +98,8 @@ cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-co
 cp $BUILD_DIR/oscm-server-common/oscm-server-common.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-core/
 cp $BUILD_DIR/oscm-rest-api-common/oscm-rest-api-common.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-core/
+cp $LIB_DIR/apache-log4j/javalib/log4j-core-2.13.0.jar $REPO_DOCKER/oscm-core/
+cp $LIB_DIR/apache-log4j/javalib/log4j-api-2.13.0.jar $REPO_DOCKER/oscm-core/
 
 # copy rest api war for core
 cp $REST_API/oscm-rest-api-uberwar/target/oscm-rest-api.war $REPO_DOCKER/oscm-core/
@@ -121,7 +124,8 @@ cp $BUILD_DIR/oscm-extsvc/oscm-extsvc-platform.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-app-extsvc-2-0/oscm-app-extsvc-2-0.jar $REPO_DOCKER/oscm-app/
 
 cp $LIB_DIR/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar $REPO_DOCKER/oscm-app/
-cp $LIB_DIR/apache-log4j/javalib/log4j-1.2.16.jar $REPO_DOCKER/oscm-app/
+cp $LIB_DIR/apache-log4j/javalib/log4j-core-2.13.0.jar $REPO_DOCKER/oscm-app/
+cp $LIB_DIR/apache-log4j/javalib/log4j-api-2.13.0.jar $REPO_DOCKER/oscm-app/
 
 cp $LIB_DIR/sun-metro/javalib/activation-1.1.jar $REPO_DOCKER/oscm-birt/
 cp $LIB_DIR/javax/javalib/javax.mail-api-1.5.4.jar $REPO_DOCKER/oscm-birt/
