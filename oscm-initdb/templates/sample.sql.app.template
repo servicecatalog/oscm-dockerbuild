@@ -1,7 +1,7 @@
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue=10000 WHERE settingkey='BSS_USER_KEY' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell');
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='959c9bf7' WHERE settingkey='BSS_ORGANIZATION_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell');
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='${CONTROLLER_USER_NAME}' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell');
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='_crypt:${CONTROLLER_USER_PASS}' WHERE settingkey='BSS_USER_PWD' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue=10000 WHERE settingkey='BSS_USER_KEY' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='959c9bf7' WHERE settingkey='BSS_ORGANIZATION_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='${CONTROLLER_USER_NAME}' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='_crypt:${CONTROLLER_USER_PASS}' WHERE settingkey='BSS_USER_PWD' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
 
 
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('TENANT_ID', '${OS_TENANT_ID}', 'ess.openstack');
@@ -10,3 +10,7 @@ INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, contr
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('API_USER_NAME', '${OS_USER}', 'ess.openstack');
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('TEMPLATE_BASE_URL', 'http://oscm-core:8080/templates/', 'ess.openstack');
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('API_USER_PWD', '_crypt:${OS_PASSWORD}', 'ess.openstack');
+
+
+INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('VERSION', '1.0', 'ess.sample');
+INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ( 'APP_PROVISIONING_ON_INSTANCE', 'false', 'ess.sample');
