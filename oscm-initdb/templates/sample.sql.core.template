@@ -74,9 +74,9 @@ INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10033, 0, 'de', 'PARAMETER_DEF_DESC', 10014, 'Email Format');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10034, 0, 'en', 'PARAMETER_DEF_DESC', 10015, 'Inline CSS for Email Notification');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10035, 0, 'en', 'PARAMETER_DEF_DESC', 10016, 'No Style for Email Notification');
-INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10036, 0, 'en', 'PRODUCT_MARKETING_NAME', 10005, 'MultiNetworkSampleService');
-INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10037, 0, 'en', 'PRODUCT_MARKETING_DESC', 10005, 'Sample APP implementation.');
-INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10038, 0, 'de', 'PRODUCT_MARKETING_DESC', 10005, 'Sample APP Implementierung.');
+INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10036, 0, 'en', 'PRODUCT_MARKETING_NAME', 10004, 'MultiNetworkSampleService');
+INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10037, 0, 'en', 'PRODUCT_MARKETING_DESC', 10004, 'Sample APP implementation.');
+INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10038, 0, 'de', 'PRODUCT_MARKETING_DESC', 10004, 'Sample APP Implementierung.');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10039, 0, 'en', 'PRICEMODEL_LICENSE', 11000, '');
 
 INSERT INTO ${DB_USER_CORE}.marketingpermission (tkey, version, technicalproduct_tkey, organizationreference_tkey) VALUES (10000, 0, 10000, 10003);
@@ -210,7 +210,7 @@ INSERT INTO ${DB_USER_CORE}.technicalproducthistory (tkey, accesstype, baseurl, 
 INSERT INTO ${DB_USER_CORE}.usergrouphistory (tkey, name, description, isdefault, invocationdate, moddate, modtype, moduser, objkey, objversion, organizationobjkey, referenceid) VALUES (10000, 'default', NULL, true, '2018-01-09 14:25:25.037', '2018-01-09 14:25:25.037', 'ADD', '1000', 10000, 0, 10000, NULL);
 INSERT INTO ${DB_USER_CORE}.usergrouphistory (tkey, name, description, isdefault, invocationdate, moddate, modtype, moduser, objkey, objversion, organizationobjkey, referenceid) VALUES (10001, 'default', NULL, true, '2018-01-09 14:29:17.771', '2018-01-09 14:29:17.771', 'ADD', '10000', 10001, 0, 10001, NULL);
 
-INSERT INTO tag (tkey, locale, value, version) VALUES (10000, 'en', 'oscm_sample_controller', 0);
-INSERT INTO technicalproducttag (tkey, tag_tkey, technicalproduct_tkey, version) VALUES (10000, 10000, 10001, 0);
+INSERT INTO ${DB_USER_CORE}.tag (tkey, locale, value, version) VALUES (10000, 'en', 'oscm_sample_controller', 0);
+INSERT INTO ${DB_USER_CORE}.technicalproducttag (tkey, tag_tkey, technicalproduct_tkey, version) VALUES (10000, 10000, 10001, 0);
 
 UPDATE ${DB_USER_CORE}.hibernate_sequences SET sequence_next_hi_value=11 WHERE sequence_name IN ('SupportedCurrency', 'RevenueShareModel', 'Organization', 'RevenueShareModelHistory', 'OrganizationHistory', 'PaymentInfo', 'LocalizedResource', 'UserGroup', 'OrganizationToRole', 'PaymentInfoHistory', 'UserGroupHistory', 'OrganizationToRoleHistory', 'PlatformUser', 'RoleAssignment', 'PlatformUserHistory', 'OrganizationReference', 'OrganizationReferenceHistory', 'OrganizationRefToPaymentType', 'Marketplace', 'PublicLandingpage', 'MarketplaceHistory', 'MarketplaceToOrganization', 'TechnicalProduct', 'TechnicalProductHistory', 'ParameterDefinition', 'ParameterDefinitionHistory', 'ParameterOption', 'ParameterOptionHistory', 'TechnicalProductOperation', 'Tag', 'TechnicalProductTag', 'MarketingPermission', 'Product', 'ParameterSet', 'Parameter', 'CatalogEntry', 'ParameterHistory', 'ProductHistory', 'CatalogEntryHistory', 'PriceModel', 'PriceModelHistory', 'UdaDefinition', 'UdaDefinitionHistory');
