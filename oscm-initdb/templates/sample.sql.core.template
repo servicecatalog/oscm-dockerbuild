@@ -20,7 +20,6 @@ INSERT INTO ${DB_USER_CORE}.marketplace (tkey, creationdate, version, organizati
 INSERT INTO ${DB_USER_CORE}.parameterset (tkey, version) VALUES (10004, 0);
 
 INSERT INTO ${DB_USER_CORE}.pricemodel (tkey, onetimefee, period, priceperperiod, priceperuserassignment, version, currency_tkey, freeperiod, type, provisioningcompleted, external, uuid) VALUES (10000, 0, NULL, 0, 0, 0, NULL, 0, 'FREE_OF_CHARGE', true, false, NULL);
-INSERT INTO ${DB_USER_CORE}.pricemodel (tkey, onetimefee, period, priceperperiod, priceperuserassignment, version, currency_tkey, freeperiod, type, provisioningcompleted, external, uuid) VALUES (11000, 0, NULL, 0, 0, 0, NULL, 0, 'FREE_OF_CHARGE', true, false, NULL);
 
 INSERT INTO ${DB_USER_CORE}.technicalproduct (tkey, accesstype, baseurl, loginpath, provisioningpassword, provisioningtimeout, provisioningtype, provisioningurl, provisioningusername, provisioningversion, technicalproductbuildid, technicalproductid, version, organizationkey, onlyonesubscriptionallowed, allowingonbehalfacting, billingidentifier) VALUES (10000, 'DIRECT', '', '/Dynamically provided.', NULL, NULL, 'ASYNCHRONOUS', 'http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl', NULL, '1.0', '2019.12.13', 'AppSampleService', 1, 10000, false, false, 'NATIVE_BILLING');
 INSERT INTO ${DB_USER_CORE}.technicalproduct (tkey, accesstype, baseurl, loginpath, provisioningpassword, provisioningtimeout, provisioningtype, provisioningurl, provisioningusername, provisioningversion, technicalproductbuildid, technicalproductid, version, organizationkey, onlyonesubscriptionallowed, allowingonbehalfacting, billingidentifier) VALUES (10001, 'DIRECT', '', '/Dynamically provided.', NULL, NULL, 'ASYNCHRONOUS', 'http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl', NULL, '1.0', '2020.02.04', 'MultiNetworkSampleService', 1, 10000, false, false, 'NATIVE_BILLING');
@@ -81,7 +80,6 @@ INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype
 
 INSERT INTO ${DB_USER_CORE}.marketingpermission (tkey, version, technicalproduct_tkey, organizationreference_tkey) VALUES (10000, 0, 10000, 10003);
 INSERT INTO ${DB_USER_CORE}.marketingpermission (tkey, version, technicalproduct_tkey, organizationreference_tkey) VALUES (10001, 0, 10001, 10003);
-
 
 INSERT INTO ${DB_USER_CORE}.marketplacehistory (tkey, creationdate, moddate, modtype, moduser, objkey, objversion, organizationobjkey, invocationdate, marketplaceid, open, taggingenabled, reviewenabled, brandingurl, categoriesenabled, pricemodelobjkey, brokerpricemodelobjkey, resellerpricemodelobjkey, trackingcode, restricted) VALUES (10000, 1515507944489, '2018-01-09 14:25:44.607', 'ADD', '1000', 10000, 0, 10000, '2018-01-09 14:25:44.607', '959c9bf7', true, true, true, NULL, true, 10003, 10001, 10002, NULL, false);
 
