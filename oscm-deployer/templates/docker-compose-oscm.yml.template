@@ -93,6 +93,7 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
       - 9091:9091
+      - 9090:9090
       - 9000:9000
 
   oscm-help:
