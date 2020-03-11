@@ -30,8 +30,8 @@ COPY oscm-app-shell.war /opt/apache-tomee/webapps/
 
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee/lib/postgresql-9.4-1206-jdbc42.jar
 COPY oscm-app-extsvc-2-0.jar /opt/apache-tomee/lib/oscm-app-extsvc-2-0.jar
-COPY log4j-api-2.11.0.jar /opt/apache-tomee/lib/log4j-api-2.11.0.jar
-COPY log4j-core-2.11.0.jar /opt/apache-tomee/lib/log4j-core-2.11.0.jar
+COPY log4j-api-2.13.0.jar /opt/apache-tomee/lib/log4j-api-2.13.0.jar
+COPY log4j-core-2.13.0.jar /opt/apache-tomee/lib/log4j-core-2.13.0.jar
 
 COPY ssl.key ssl.crt /opt/
 COPY ssl.crt /import/certs/

@@ -53,7 +53,7 @@ COPY sqlscripts/vmware/*.sql /opt/sqlscripts/vmware/
 COPY templates/*.template /opt/templates/
 COPY oscm-devruntime.jar oscm-app.jar /opt/
 
-COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar log4j-api-2.11.0.jar log4j-core-2.11.0.jar postgresql-9.4-1206-jdbc42.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
+COPY oscm-common.jar oscm-server-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar log4j-api-2.13.0.jar log4j-core-2.13.0.jar postgresql-9.4-1206-jdbc42.jar commons-validator-1.4.0.jar commons-logging-1.1.3.jar jakarta-oro-2.0.8.jar /opt/lib/
 
 COPY start.sh /opt/
 RUN mkdir /opt/sqlscripts/custom && chmod +x /opt/start.sh
