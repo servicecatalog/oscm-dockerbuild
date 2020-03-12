@@ -88,6 +88,18 @@ services:
       - OVERWRITE=true
     links:
       - oscm-db:oscm-db
+      
+  oscm-initdb-controller-sample:
+    image: ${IMAGE_INITDB}
+    container_name: oscm-initdb-controller-sample
+    env_file: var.env
+    environment:
+      - CONTROLLER_ID=ess.sample
+      - TARGET=CONTROLLER
+      - SOURCE=NONE
+      - OVERWRITE=true
+    links:
+      - oscm-db:oscm-db
 
   oscm-initdb-controller-vmware:
     image: ${IMAGE_INITDB}
