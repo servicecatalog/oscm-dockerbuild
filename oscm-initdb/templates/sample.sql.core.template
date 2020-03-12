@@ -39,8 +39,8 @@ INSERT INTO ${DB_USER_CORE}.organizationreference (tkey, version, targetkey, sou
 
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10018, 0, 'en', 'PARAMETER_DEF_DESC', 10006, 'How do you access your network?');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10019, 0, 'de', 'PARAMETER_DEF_DESC', 10006, 'Wie greifen Sie auf Ihr Netwerk zu?');
-INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10020, 1, 'en', 'PARAMETER_DEF_DESC', 10007, 'Ihre externe IP Adresse.');
-INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10021, 1, 'en', 'PARAMETER_DEF_DESC', 10008, 'Ihre interne IP Adresse.');
+INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10020, 1, 'en', 'PARAMETER_DEF_DESC', 10007, 'Your internal Ip');
+INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10021, 1, 'de', 'PARAMETER_DEF_DESC', 10008, 'Ihre interne IP Adresse.');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10022, 0, 'en', 'PARAMETER_DEF_DESC', 10009, 'Receiver');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10023, 0, 'de', 'PARAMETER_DEF_DESC', 10009, 'Empfänger');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10024, 0, 'en', 'PARAMETER_DEF_DESC', 10010, 'IAAS user');
