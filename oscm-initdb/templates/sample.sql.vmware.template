@@ -1,10 +1,5 @@
 \c ${DB_NAME_APP}
 
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_USER_ID', '${CONTROLLER_USER_NAME}', 'ess.vmware');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_USER_PWD', '_crypt:${CONTROLLER_USER_PASS}', 'ess.vmware');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_USER_KEY', ${CONTROLLER_USER_KEY}, 'ess.vmware');
-INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('BSS_ORGANIZATION_ID', '${CONTROLLER_ORG_ID}', 'ess.vmware');
-
 \c vmware
 
 INSERT INTO ${DB_USER_VMWARE}.vcenter (tkey, name, identifier, url, userid, password) VALUES (1, '${VCENTER_NAME}', '${VCENTER_NAME}', '', '', '');
