@@ -1,7 +1,3 @@
-\c ${DB_NAME_APP}
-
-\c vmware
-
 INSERT INTO ${DB_USER_VMWARE}.vcenter (tkey, name, identifier, url, userid, password) VALUES (1, '${VCENTER_NAME}', '${VCENTER_NAME}', '', '', '');
 CREATE SEQUENCE IF NOT EXISTS ${DB_USER_VMWARE}.vcenter_estvcsadev_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1 CYCLE;
 
