@@ -13,7 +13,3 @@ INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, contr
 
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('VERSION', '1.0', 'ess.sample');
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ( 'APP_PROVISIONING_ON_INSTANCE', 'false', 'ess.sample');
-
-INSERT INTO ${DB_USER_VMWARE}.vcenter (tkey, name, identifier, url, userid, password) VALUES (1, '${VCENTER_NAME}', '${VCENTER_NAME}', '', '', '');
-INSERT INTO ${DB_USER_VMWARE}.datacenter (tkey, name, identifier, vcenter_tkey) VALUES (1, '${DATACENTER_NAME}', '${DATACENTER_NAME}', 1);
-INSERT INTO ${DB_USER_VMWARE}.cluster (tkey, name, load_balancer, datacenter_tkey) VALUES (1, '${CLUSTER_NAME}', '<?xml version="1.0" encoding="UTF-8" standalone="no"?><essvcenter><balancer class="org.oscm.app.vmware.business.balancer.DynamicEquipartitionHostBalancer" cpuWeight="" memoryWeight="" vmWeight=""/></essvcenter>', 1);
