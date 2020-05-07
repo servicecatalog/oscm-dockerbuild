@@ -2,6 +2,7 @@
 # Variables for this script
 COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
+PROYy_PATH=/target/../proxy
 LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
@@ -93,6 +94,9 @@ else
     envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
+
+    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
+    > ${PROYy_PATH}/docker-compose-proxy.yml
 
 # If the user wants us to initialize the database, do it now
 if [ ${INITDB} == "true" ]; then

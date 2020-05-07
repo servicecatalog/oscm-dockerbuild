@@ -14,7 +14,7 @@ ENV IMAGE_INITDB=oscm-initdb:latest
 ENV IMAGE_IDENTITY=oscm-identity:latest
 ENV TARGET_PATH=/target
 
-COPY templates/env.template templates/var.env.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-oscm-syslog.yml.template start.sh /opt/
+COPY templates/env.template templates/var.env.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-oscm-syslog.yml.template templates/docker-compose-proxy.yml.template start.sh /opt/
 COPY resources/tenant-default.properties /opt/tenant-default.properties
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
