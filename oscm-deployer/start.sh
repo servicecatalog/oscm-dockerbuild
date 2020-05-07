@@ -96,7 +96,7 @@ else
 fi
 
     envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
-    > ${PROYy_PATH}/docker-compose-proxy.yml
+    > ${TARGET_PATH}/docker-compose-proxy.yml
 
 # If the user wants us to initialize the database, do it now
 if [ ${INITDB} == "true" ]; then
