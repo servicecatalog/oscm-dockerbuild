@@ -2,8 +2,8 @@ FROM nginx:1.18.0-alpine
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
-    apk -y update -y && \
-    apk -y add vim
+    apk update -y && \
+    apk add vim
     
 COPY resources/nginx.conf /etc/nginx/
 
