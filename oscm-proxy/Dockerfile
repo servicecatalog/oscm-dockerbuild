@@ -8,6 +8,6 @@ RUN export http_proxy=$HTTP_PROXY && \
     
 COPY resources/nginx.conf /etc/nginx/conf.d/
 
+
 EXPOSE 80 443
 
-CMD ["/usr/sbin/nginx", "-c", "/etc/nginx/nginx.conf"]
