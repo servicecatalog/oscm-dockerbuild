@@ -6,7 +6,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     apk add bash && \
     apk add vim
     
-COPY resources/nginx.conf /etc/nginx/
+COPY resources/nginx.conf /etc/nginx/conf.d/
 
 EXPOSE 80 443
 
