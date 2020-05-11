@@ -4,7 +4,8 @@ RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     apk update && \
     apk add bash && \
-    apk add vim
+    apk add vim && \
+    mkdir /etc/nginx/certs
     
 COPY resources/nginx.conf /etc/nginx/conf.d/
 

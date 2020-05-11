@@ -7,10 +7,10 @@ services:
     restart: unless-stopped
     volumes:
       - ${DOCKER_PATH}/config/oscm-proxy/data:/etc/nginx/conf.d
+      - ${DOCKER_PATH}/config/oscm-proxy/ssl/privkey:/etc/nginx/certs
+      - ${DOCKER_PATH}/config/oscm-proxy/ssl/cert:/etc/nginx/certs
+      - ${DOCKER_PATH}/config/oscm-proxye/ssl/chain:/etc/nginx/certs
       - /www:/www
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-      - ./data/oscm:/etc/oscm
     ports:
       - "80:80"
       - "443:443"
