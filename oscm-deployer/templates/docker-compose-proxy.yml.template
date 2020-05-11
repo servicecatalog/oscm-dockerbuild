@@ -6,8 +6,7 @@ services:
     container_name: oscm-proxy
     restart: unless-stopped
     volumes:
-      - /var/lib/jenkins/workspace/OSCM_Docker_pull_and_start/docker/data/oscm-proxy/data:/etc/nginx/conf.d
-      - /var/lib/jenkins/workspace/OSCM_Docker_pull_and_start_test/docker/data/oscm-proxy/data:/etc/nginx
+      - ${DOCKER_PATH}/config/oscm-proxy/data:/etc/nginx/conf.d
       - /www:/www
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
