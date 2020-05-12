@@ -51,6 +51,7 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-proxy/ssl/privkey \
     ${TARGET_PATH}/config/oscm-proxy/ssl/cert \
     ${TARGET_PATH}/config/oscm-proxy/ssl/chain \
+    ${TARGET_PATH}/config/oscm-proxy/data \
     ${TARGET_PATH}/logs/oscm-app \
     ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \

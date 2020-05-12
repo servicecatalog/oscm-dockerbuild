@@ -10,8 +10,9 @@ RUN export http_proxy=$HTTP_PROXY && \
     mkdir /etc/nginx/certs/chain && \
     mkdir /etc/nginx/certs/cert
     
-COPY resources/app.conf /etc/nginx/
+COPY resources/app.conf /etc/nginx/conf.d/
 
 
 EXPOSE 80 443
 
+CMD envsubst < /etc/nginx/conf.d/app.template > /etc/nginx/conf.d/app.conf && exec nginx -g 'daemon off;'
