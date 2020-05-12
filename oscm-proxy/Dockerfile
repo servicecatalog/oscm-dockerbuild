@@ -15,4 +15,4 @@ COPY resources/app.conf.template /etc/nginx/conf.d/
 
 EXPOSE 80 443
 
-CMD envsubst < /etc/nginx/conf.d/app.template > /etc/nginx/conf.d/app.conf && exec nginx -g 'daemon off;'
+CMD envsubst < /etc/nginx/conf.d/app.conf.template > /etc/nginx/conf.d/app.conf && exec nginx -g 'daemon off;'
