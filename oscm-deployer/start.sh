@@ -12,14 +12,17 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     exit 0
 fi
 
+
 # Enable automatic exporting of variables
 set -a
 # Read configuration files
 source ${TARGET_PATH}/.env
+source /opt/proxy.conf.template
 # Disable automatic exporting of variables
 set +a
 # Exit on error
 set -e
+
 
 # Create Docker directories if they do not exist yet
 for docker_directory in \
@@ -51,7 +54,6 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-proxy/ssl/privkey \
     ${TARGET_PATH}/config/oscm-proxy/ssl/cert \
     ${TARGET_PATH}/config/oscm-proxy/ssl/chain \
-    ${TARGET_PATH}/config/oscm-proxy/data \
     ${TARGET_PATH}/logs/oscm-app \
     ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \
@@ -70,6 +72,11 @@ done
 # If ${TARGET_PATH}/tenant-default.properties does not exist, copy the template for the operator
 if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties ]; then
 	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties.template
+fi
+
+# If ${TARGET_PATH}/tenant-default.properties does not exist, copy the template for the operator
+if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
+	cp /opt/proxy.conf.template ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 fi
 
 # Create Docker log files if they do not exist yet
@@ -102,8 +109,6 @@ fi
 envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 > ${TARGET_PATH}/docker-compose-proxy.yml
 
-envsubst < ${COMPOSE_CONFIG_PATH}/proxy.conf.template \
-> ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 
 # If the user wants us to initialize the database, do it now
 if [ ${INITDB} == "true" ]; then
