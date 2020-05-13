@@ -106,7 +106,7 @@ envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 
 # If proxy.conf does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/proxy.conf ]; then
-	envsubst < ${TARGET_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+	envsubst < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 fi
 
 # If the user wants us to initialize the database, do it now
