@@ -1,0 +1,94 @@
+server {
+    listen       80;
+    server_name www.${HOST_FQDN};
+    server_tokens off;
+
+
+   location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+     location / {
+        return 301 https://$host$request_uri;
+    }
+
+
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name www.${HOST_FQDN};
+    server_tokens off;
+
+    ssl_certificate /etc/nginx/certs/cert/ssl.crt;
+    ssl_certificate_key /etc/nginx/certs/privkey/ssl.key;
+
+    # PROXY
+    location /oscm-portal {
+        proxy_pass http://oscm-core:8080/oscm-portal;
+        # proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+    }
+
+    location /oscm-rest-api {
+        proxy_pass http://oscm-core:8080/oscm-rest-api;
+       # proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+    }
+
+   location /branding {
+       rewrite https://${HOST_FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
+       proxy_pass https://oscm-branding:443;
+       proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
+       proxy_set_header Host            $host;
+       proxy_set_header X-Forwarded-For $remote_addr;
+       client_max_body_size 50m;
+   }
+
+    location /birt {
+        rewrite https://${HOST_FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
+        proxy_pass https://oscm-birt:8681;
+        proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+    }
+
+    location /main {
+       return 302 /main/;
+    }
+
+    location /mail/ {
+        #rewrite ^(.*[^/])$ $1/ permanent;
+        proxy_pass http://oscm-maildev:80/;
+        auth_basic "Please login as OSCM administrator.";
+        auth_basic_user_file /etc/oscm/.htpasswd;
+    }
+    location /oscm-app {
+        rewrite https://${HOST_FQDN}/oscm-app([^\n\r]*)$ http://oscm-app:8880/oscm-app$1 break;
+        proxy_pass http://oscm-app:8880;
+        # proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+    }
+
+    location / {
+        root   /www/content/fep;
+        index  index.html index.htm;
+    }
+
+}

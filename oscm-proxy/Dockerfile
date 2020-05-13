@@ -9,8 +9,5 @@ RUN export http_proxy=$HTTP_PROXY && \
     mkdir /etc/nginx/certs/privkey && \
     mkdir /etc/nginx/certs/chain && \
     mkdir /etc/nginx/certs/cert
-    
-COPY resources/app.conf /etc/nginx/conf.d/
-
 
 EXPOSE 80 443
