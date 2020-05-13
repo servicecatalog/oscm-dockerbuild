@@ -5,11 +5,6 @@ TARGET_PATH=/target
 PROYy_PATH=/target/../proxy
 LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
-# If proxy.conf  does not exist, copy the template for the operator
-if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
-	cp /opt/proxy.conf.template ${TARGET_PATH}/proxy.conf
-fi
-
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     cp /opt/env.template ${TARGET_PATH}/.env
@@ -76,14 +71,8 @@ done
 
 # If ${TARGET_PATH}/tenant-default.properties does not exist, copy the template for the operator
 if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties ]; then
-	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties.template
+	cp /opt/proxy.conf.template ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties.template
 fi
-
-# If proxy.conf does exist, copy it in the correct folder
-if [ ! -f ${TARGET_PATH}/proxy.conf ]; then
-	envsubst < ${TARGET_PATH}/proxy.conf > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
-fi
-
 
 # Create Docker log files if they do not exist yet
 for docker_log_file in \
@@ -115,6 +104,10 @@ fi
 envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 > ${TARGET_PATH}/docker-compose-proxy.yml
 
+# If proxy.conf does exist, copy it in the correct folder
+if [ ! -f ${TARGET_PATH}/proxy.conf ]; then
+	envsubst < ${TARGET_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+fi
 
 # If the user wants us to initialize the database, do it now
 if [ ${INITDB} == "true" ]; then
