@@ -7,7 +7,7 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If proxy.conf  does not exist, copy the template for the operator
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
-    mkdir -p ${TARGET_PATH}/config/oscm-proxy/data \
+    mkdir -p ${TARGET_PATH}/config/oscm-proxy/data
 	cp /opt/proxy.conf.template ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 fi
 
