@@ -7,8 +7,7 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If proxy.conf  does not exist, copy the template for the operator
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
-    mkdir -p ${TARGET_PATH}/config/oscm-proxy/data
-	cp /opt/proxy.conf.template ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+	cp /opt/proxy.conf.template ${TARGET_PATH}/proxy.conf
 fi
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
@@ -59,6 +58,7 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-proxy/ssl/privkey \
     ${TARGET_PATH}/config/oscm-proxy/ssl/cert \
     ${TARGET_PATH}/config/oscm-proxy/ssl/chain \
+    ${TARGET_PATH}/config/oscm-proxy/data \
     ${TARGET_PATH}/logs/oscm-app \
     ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \
@@ -78,6 +78,12 @@ done
 if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties ]; then
 	cp /opt/tenant-default.properties ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties.template
 fi
+
+# If proxy.conf does exist, copy it in the correct folder
+if [ ! -f ${TARGET_PATH}/proxy.conf ]; then
+	cp ${TARGET_PATH}/proxy.conf ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+fi
+
 
 # Create Docker log files if they do not exist yet
 for docker_log_file in \
