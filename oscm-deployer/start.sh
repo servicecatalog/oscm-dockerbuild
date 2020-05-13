@@ -80,7 +80,7 @@ if [ ! -f ${TARGET_PATH}/config/oscm-identity/tenants/tenant-default.properties 
 fi
 
 # If proxy.conf does exist, copy it in the correct folder
-if [ ! -f ${TARGET_PATH}/proxy.conf ]; then
+if [ -f ${TARGET_PATH}/proxy.conf ]; then
 	cp ${TARGET_PATH}/proxy.conf ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 fi
 
