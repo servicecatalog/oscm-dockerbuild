@@ -1,6 +1,6 @@
 server {
     listen       80;
-    server_name www.${HOST_FQDN};
+    server_name www.${FQDN};
     server_tokens off;
 
 
@@ -26,7 +26,7 @@ server {
 
 server {
     listen 443 ssl;
-    server_name www.${HOST_FQDN};
+    server_name www.${FQDN};
     server_tokens off;
 
     ssl_certificate /etc/nginx/certs/cert/ssl.crt;
@@ -35,7 +35,6 @@ server {
     # PROXY
     location /oscm-portal {
         proxy_pass http://oscm-core:8080/oscm-portal;
-        # proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
@@ -43,25 +42,22 @@ server {
 
     location /oscm-rest-api {
         proxy_pass http://oscm-core:8080/oscm-rest-api;
-       # proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
     }
 
    location /branding {
-       rewrite https://${HOST_FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
+       rewrite https://${FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
        proxy_pass https://oscm-branding:443;
-       proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
        proxy_set_header Host            $host;
        proxy_set_header X-Forwarded-For $remote_addr;
        client_max_body_size 50m;
    }
 
     location /birt {
-        rewrite https://${HOST_FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
+        rewrite https://${FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
         proxy_pass https://oscm-birt:8681;
-        proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
@@ -78,7 +74,7 @@ server {
         auth_basic_user_file /etc/oscm/.htpasswd;
     }
     location /oscm-app {
-        rewrite https://${HOST_FQDN}/oscm-app([^\n\r]*)$ http://oscm-app:8880/oscm-app$1 break;
+        rewrite https://${FQDN}/oscm-app([^\n\r]*)$ http://oscm-app:8880/oscm-app$1 break;
         proxy_pass http://oscm-app:8880;
         # proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
         proxy_set_header Host            $host;
