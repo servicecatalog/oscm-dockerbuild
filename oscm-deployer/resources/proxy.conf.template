@@ -76,7 +76,6 @@ server {
     location /oscm-app {
         rewrite https://${FQDN}/oscm-app([^\n\r]*)$ http://oscm-app:8880/oscm-app$1 break;
         proxy_pass http://oscm-app:8880;
-        # proxy_ssl_trusted_certificate /etc/oscm/oscm.crt;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
