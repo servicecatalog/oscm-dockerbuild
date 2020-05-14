@@ -53,6 +53,7 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-proxy/ssl/cert \
     ${TARGET_PATH}/config/oscm-proxy/ssl/chain \
     ${TARGET_PATH}/config/oscm-proxy/data \
+    ${TARGET_PATH}/config/oscm-proxy/data/html \
     ${TARGET_PATH}/logs/oscm-app \
     ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \
@@ -104,8 +105,13 @@ envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 > ${TARGET_PATH}/docker-compose-proxy.yml
 
 # If proxy.conf does exist, copy it in the correct folder
-if [ ! -f ${TARGET_PATH}/proxy.conf ]; then
+if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
 	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+fi
+
+# If proxy.conf does exist, copy it in the correct folder
+if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/html/index.html ]; then
+	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/index.html > {TARGET_PATH}/config/oscm-proxy/data/html/index.html
 fi
 
 # If the user wants us to initialize the database, do it now

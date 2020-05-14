@@ -68,7 +68,7 @@ server {
     }
 
     location / {
-        root   /www/content/fep;
+        root   /usr/share/nginx/html
         index  index.html index.htm;
     }
 
