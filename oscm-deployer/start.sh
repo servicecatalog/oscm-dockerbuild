@@ -2,7 +2,6 @@
 # Variables for this script
 COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
-PROYy_PATH=/target/../proxy
 LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
