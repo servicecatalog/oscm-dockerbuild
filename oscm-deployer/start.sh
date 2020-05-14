@@ -106,7 +106,7 @@ envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 
 # If proxy.conf does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/proxy.conf ]; then
-	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+	envsubst  '$FQDN < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 fi
 
 # If the user wants us to initialize the database, do it now
@@ -157,8 +157,8 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
 	cp /tmp/ssl.key /tmp/ssl.key.pass
 	openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl.key
 	openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
-	cp /tmp/ssl.key ${TARGET_PATH}/config/oscm-proxy/ssl/privkey
-	cp /tmp/ssl.crt ${TARGET_PATH}/config/oscm-proxy/ssl/cert
+	cp /tmp/ssl.key ${TARGET_PATH}/config/oscm-proxy/ssl
+	cp /tmp/ssl.crt ${TARGET_PATH}/config/oscm-proxy/ssl
 	mv /tmp/ssl.key ${TARGET_PATH}/config/oscm-identity/ssl/privkey
 	mv /tmp/ssl.crt ${TARGET_PATH}/config/oscm-identity/ssl/cert
 	rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr

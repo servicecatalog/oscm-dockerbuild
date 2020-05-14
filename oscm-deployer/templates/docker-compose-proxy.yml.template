@@ -2,14 +2,12 @@ version: '3'
 
 services:
   oscm-proxy:
-    image: artifactory.intern.est.fujitsu.com:5003/oscmdocker/oscm-proxy:christian
+    image: ${IMAGE_PROXY}
     container_name: oscm-proxy
-    restart: unless-stopped
+    restart: always
     volumes:
       - ${DOCKER_PATH}/config/oscm-proxy/data:/etc/nginx/conf.d
-      - ${DOCKER_PATH}/config/oscm-proxy/ssl/privkey:/etc/nginx/certs/privkey
-      - ${DOCKER_PATH}/config/oscm-proxy/ssl/cert:/etc/nginx/certs/cert
-      - ${DOCKER_PATH}/config/oscm-proxye/ssl/chain:/etc/nginx/certs/chain
+      - ${DOCKER_PATH}/config/oscm-proxy/ssl:/etc/nginx/certs
       - /www:/www
     ports:
       - "80:80"
