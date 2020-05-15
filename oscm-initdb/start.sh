@@ -53,7 +53,6 @@ function genPropertyFilesAPPController {
 function genPropertyFilesVMwareController {
     /usr/bin/envsubst < /opt/templates/init.sql.vmware.template > /opt/sqlscripts/init.sql
     /usr/bin/envsubst < /opt/templates/db.properties.vmware.template > /opt/properties/db.properties
-    /usr/bin/envsubst < /opt/templates/sample.sql.vmware.template > /opt/sqlscripts/vmware/sample.sql
     /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
@@ -261,9 +260,6 @@ if [ $TARGET == "VMWARE" ]; then
 		
 	# Import controller properties
 	updateProperties $OVERWRITE $CONTROLLER_ID
-	
-	# Import sample data into the DB
-	PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/vmware/sample.sql vmware
 fi
 
 # Sample data
