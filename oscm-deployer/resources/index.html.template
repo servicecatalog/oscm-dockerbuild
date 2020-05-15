@@ -12,18 +12,19 @@
 </head>
 <body>
 <h1>Welcome to OSCM!</h1>
-<p>If you see this page, reverse proxy server is successfully installed and
-working.</p>
+<p>If you see this page, OSCM has been completely installed and the server is running. Check-out the following links.</p>
 
-<p>For further OSCM links visit:
+<p> 
+<a href ="https://github.com/servicecatalog/documentation#oscm-documentation"> Documentation </a>
 <a href="${FQDN}/oscm-portal">oscm-portal</a>.<br/>
 <a href="${FQDN}/oscm-rest-api">oscm-rest-api</a>.<br/>
 <a href="${FQDN}/oscm-app">oscm-app</a>.<br/>
 <a href="${FQDN}/oscm-app-vmware">oscm-app-vmware</a>.<br/>
 <a href="${FQDN}/oscm-app-openstack">oscm-app-openstack</a>.<br/>
+<a href="${FQDN}/oscm-app-azure">oscm-app-azure</a>.<br/>
+<a href="${FQDN}/oscm-app-aws">oscm-app-aws</a>.<br/>
 <a href="${FQDN}/birtl">birt</a>.<br/>
 <a href="${FQDN}/mail">mail</a>.<br/></p>
 
-<p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
