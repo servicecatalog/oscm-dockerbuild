@@ -111,7 +111,7 @@ fi
 
 # If proxy.conf does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/html/index.html ]; then
-	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/index.html > {TARGET_PATH}/config/oscm-proxy/data/html/index.html
+	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/index.html.template > {TARGET_PATH}/config/oscm-proxy/data/html/index.html
 fi
 
 # If the user wants us to initialize the database, do it now

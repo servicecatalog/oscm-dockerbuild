@@ -22,7 +22,6 @@ server {
     ssl_certificate /etc/nginx/certs/ssl.crt;
     ssl_certificate_key /etc/nginx/certs/ssl.key;
 
-    # PROXY
     location /oscm-portal {
         proxy_pass http://oscm-core:8080/oscm-portal;
         proxy_set_header Host            $host;
