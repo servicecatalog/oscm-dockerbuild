@@ -7,7 +7,7 @@ services:
     restart: always
     volumes:
       - ${DOCKER_PATH}/config/oscm-proxy/data:/etc/nginx/conf.d
-      - ${DOCKER_PATH}/config/oscm-proxy/data/html:/usr/share/nginx/html
+      - ${DOCKER_PATH}/config/oscm-proxy/html:/usr/share/nginx/html
       - ${DOCKER_PATH}/config/oscm-proxy/ssl:/etc/nginx/certs
       - /www:/www
     ports:
