@@ -11,6 +11,7 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     exit 0
 fi
 
+
 # Enable automatic exporting of variables
 set -a
 # Read configuration files
@@ -19,6 +20,7 @@ source ${TARGET_PATH}/.env
 set +a
 # Exit on error
 set -e
+
 
 # Create Docker directories if they do not exist yet
 for docker_directory in \
@@ -47,6 +49,11 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-help/ssl/privkey \
     ${TARGET_PATH}/config/oscm-help/ssl/cert \
     ${TARGET_PATH}/config/oscm-help/ssl/chain \
+    ${TARGET_PATH}/config/oscm-proxy/ssl/privkey \
+    ${TARGET_PATH}/config/oscm-proxy/ssl/cert \
+    ${TARGET_PATH}/config/oscm-proxy/ssl/chain \
+    ${TARGET_PATH}/config/oscm-proxy/data \
+    ${TARGET_PATH}/config/oscm-proxy/data/html \
     ${TARGET_PATH}/logs/oscm-app \
     ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \
@@ -92,6 +99,19 @@ if [ ${SYSLOG} == "true" ]; then
 else
     envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
+fi
+
+envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
+> ${TARGET_PATH}/docker-compose-proxy.yml
+
+# If proxy.conf does exist, copy it in the correct folder
+if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
+	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+fi
+
+# If index.html does exist, copy it in the correct folder
+if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/html/index.html ]; then
+	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/index.html.template > ${TARGET_PATH}/config/oscm-proxy/data/html/index.html
 fi
 
 # If the user wants us to initialize the database, do it now
@@ -142,6 +162,8 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
 	cp /tmp/ssl.key /tmp/ssl.key.pass
 	openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl.key
 	openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
+	cp /tmp/ssl.key ${TARGET_PATH}/config/oscm-proxy/ssl
+	cp /tmp/ssl.crt ${TARGET_PATH}/config/oscm-proxy/ssl
 	mv /tmp/ssl.key ${TARGET_PATH}/config/oscm-identity/ssl/privkey
 	mv /tmp/ssl.crt ${TARGET_PATH}/config/oscm-identity/ssl/cert
 	rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr

@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  oscm-proxy:
+    image: ${IMAGE_PROXY}
+    container_name: oscm-proxy
+    restart: always
+    volumes:
+      - ${DOCKER_PATH}/config/oscm-proxy/data:/etc/nginx/conf.d
+      - ${DOCKER_PATH}/config/oscm-proxy/data/html:/usr/share/nginx/html
+      - ${DOCKER_PATH}/config/oscm-proxy/ssl:/etc/nginx/certs
+      - /www:/www
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+       - docker_default
+networks:
+  docker_default:
+    external:
+      name: docker_default
