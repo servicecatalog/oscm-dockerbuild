@@ -15,7 +15,7 @@
 <p>If you see this page, OSCM has been completely installed and the server is running. Check-out the following links.</p>
 
 <p> 
-<a href ="https://github.com/servicecatalog/documentation#oscm-documentation"> Documentation </a>
+<a href ="https://github.com/servicecatalog/documentation#oscm-documentation">Documentation</a>.<br/>
 <a href="/oscm-portal">oscm-portal</a>.<br/>
 <a href="/oscm-rest-api">oscm-rest-api</a>.<br/>
 <a href="/oscm-app">oscm-app</a>.<br/>
