@@ -56,7 +56,7 @@ server {
         #rewrite ^(.*[^/])$ $1/ permanent;
         proxy_pass http://oscm-maildev:80/;
         auth_basic "Please login as OSCM administrator.";
-        auth_basic_user_file /etc/oscm/.htpasswd;
+        auth_basic_user_file /etc/nginx/pwd/.htpasswd;
     }
     location /oscm-app {
         rewrite https://${FQDN}/oscm-app([^\n\r]*)$ http://oscm-app:8880/oscm-app$1 break;
