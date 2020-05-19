@@ -53,7 +53,7 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-proxy/ssl/cert \
     ${TARGET_PATH}/config/oscm-proxy/ssl/chain \
     ${TARGET_PATH}/config/oscm-proxy/data \
-    ${TARGET_PATH}/config/oscm-proxy/data/html \
+    ${TARGET_PATH}/config/oscm-proxy/html \
     ${TARGET_PATH}/logs/oscm-app \
     ${TARGET_PATH}/logs/oscm-app/tomcat \
     ${TARGET_PATH}/logs/oscm-birt \
@@ -111,7 +111,7 @@ fi
 
 # If index.html does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/html/index.html ]; then
-	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/index.html.template > ${TARGET_PATH}/config/oscm-proxy/data/html/index.html
+	cp ${COMPOSE_CONFIG_PATH}/index.html.template  ${TARGET_PATH}/config/oscm-proxy/html/index.html
 fi
 
 # If the user wants us to initialize the database, do it now
