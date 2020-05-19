@@ -1,3 +1,4 @@
+daemon off;
 server {
     listen       80;
     server_name www.${FQDN};
