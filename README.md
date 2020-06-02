@@ -164,6 +164,7 @@ Please refer to our [Getting Started](https://github.com/servicecatalog/oscm/wik
 * [oscm-branding](https://hub.docker.com/r/servicecatalog/oscm-branding): Webserver for marketplace branding packages (optional)
 * [oscm-identity](https://hub.docker.com/r/servicecatalog/oscm-identity): OSCM Identity Service (optional)
 * [oscm-maildev](https://hub.docker.com/r/servicecatalog/oscm-maildev): Mail Service Mock (optional)
+* [oscm-proxy](https://hub.docker.com/r/servicecatalog/oscm-proxy): Reverse proxy to use default ports (optional)
 ## Source code
 
 * [oscm](https://github.com/servicecatalog/oscm): Application source code for oscm-core and oscm-app
