@@ -10,6 +10,9 @@ services:
       - ${DOCKER_PATH}/config/oscm-proxy/data:/etc/nginx/conf.d
       - ${DOCKER_PATH}/config/oscm-proxy/html:/usr/share/nginx/html
       - ${DOCKER_PATH}/config/oscm-proxy/ssl:/etc/nginx/certs
+      - ${DOCKER_PATH}/config/oscm-proxy/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-proxy/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-proxy/ssl/chain:/import/ssl/chain
       - /www:/www
     ports:
       - "80:80"
