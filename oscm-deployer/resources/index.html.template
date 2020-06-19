@@ -3,28 +3,33 @@
 <head>
 <title>Welcome to OSCM!</title>
 <style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
+body {
+  width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif;
+}
 </style>
 </head>
 <body>
-<h1>Welcome to OSCM!</h1>
-<p>If you see this page, OSCM has been completely installed and the server is running. Check-out the following links.</p>
+  <h1>Welcome to OSCM!</h1>
+  <p>If you see this page, OSCM has been completely installed and the server is running.</p>
+  <br />
+  <p />
+  <p>Check-out the following links.</p>
 
-<p> 
-<a href ="https://github.com/servicecatalog/documentation#oscm-documentation">Documentation</a>.<br/>
-<a href="/oscm-portal">oscm-portal</a>.<br/>
-<a href="/oscm-rest-api">oscm-rest-api</a>.<br/>
-<a href="/oscm-app">oscm-app</a>.<br/>
-<a href="/oscm-app-vmware">oscm-app-vmware</a>.<br/>
-<a href="/oscm-app-openstack">oscm-app-openstack</a>.<br/>
-<a href="/oscm-app-azure">oscm-app-azure</a>.<br/>
-<a href="/oscm-app-aws">oscm-app-aws</a>.<br/>
-<a href="/birt">birt</a>.<br/>
-<a href="/mail">mail</a>.<br/></p>
-
+  <ul>
+    <li><a href="https://github.com/servicecatalog/documentation#oscm-documentation">Documentation</a> - The OSCM
+      Documentation.<br /></li>
+    <li><a href="/oscm-portal/marketplace/playground/index.jsf?mId=959c9bf7">oscm-marketplace</a> - A Sample OSCM
+      Marketplace.<br /></li>
+    <li><a href="/oscm-portal">oscm-portal</a> - The OSCM Administration Portal.<br /></li>
+    <li><a href="/oscm-rest-api">oscm-rest-api</a> - A Swagger UI for the OSCM REST API.<br /></li>
+    <li><a href="/oscm-app">oscm-app</a> - The OSCM Provisioning Service.<br /></li>
+    <li><a href="/oscm-app-vmware">oscm-app-vmware</a> - The VMware Connector for OSCM.<br /></li>
+    <li><a href="/oscm-app-openstack">oscm-app-openstack</a> - The OpenStack Connector for OSCM.<br /></li>
+    <li><a href="/oscm-app-azure">oscm-app-azure</a> - The MS Azure Connector for OSCM.<br /></li>
+    <li><a href="/oscm-app-aws">oscm-app-aws</a> - The Amazon EC2 Connector for OSCM.<br /></li>
+    <li><a href="/birt">birt</a> - The OSCM Reporting Engine.<br /></li>
+    <li><a href="/mail">mail</a> - A Mail Mock Service (for testing without Mail Server connections).<br />
+    </p></li>
+  </ul>
 </body>
 </html>
