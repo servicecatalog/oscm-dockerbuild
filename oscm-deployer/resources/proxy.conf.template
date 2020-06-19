@@ -36,13 +36,13 @@ server {
         client_max_body_size 50m;
     }
 
-   location /branding {
-       rewrite https://${FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
-       proxy_pass https://oscm-branding:443;
-       proxy_set_header Host            $host;
-       proxy_set_header X-Forwarded-For $remote_addr;
-       client_max_body_size 50m;
-   }
+    location /branding {
+        rewrite https://${FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
+        proxy_pass https://oscm-branding:443;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+    }
 
     location /birt {
         rewrite https://${FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
@@ -52,13 +52,13 @@ server {
         client_max_body_size 50m;
     }
     
-     location /oscm-webservices {
+    location /oscm-webservices {
         rewrite  https://${FQDN}/oscm-webservices/([^\n\r]*)$ https://oscm-core:8081/oscm-webservices/$1 break;
         proxy_pass https://oscm-core:8081;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
-  }
+    }
 
     location /mail/ {
         #rewrite ^(.*[^/])$ $1/ permanent;
@@ -66,6 +66,7 @@ server {
         auth_basic "Please login as OSCM administrator.";
         auth_basic_user_file /etc/nginx/pwd/.htpasswd;
     }
+    
     location /oscm-app {
         rewrite https://${FQDN}/oscm-app([^\n\r]*)$ http://oscm-app:8880/oscm-app$1 break;
         proxy_pass http://oscm-app:8880;
@@ -78,5 +79,4 @@ server {
         root   /usr/share/nginx/html;
         index  index.html index.htm;
     }
-
 }
