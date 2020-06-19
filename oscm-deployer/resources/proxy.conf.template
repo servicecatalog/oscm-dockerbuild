@@ -37,11 +37,11 @@ server {
     }
 
     location /branding {
-       rewrite https://${FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
-       proxy_pass https://oscm-branding:443;
-       proxy_set_header Host            $host;
-       proxy_set_header X-Forwarded-For $remote_addr;
-       client_max_body_size 50m;
+      	rewrite https://${FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
+        proxy_pass https://oscm-branding:443;
+      	proxy_set_header Host            $host;
+       	proxy_set_header X-Forwarded-For $remote_addr;
+       	client_max_body_size 50m;
     }
 
     location /birt {
