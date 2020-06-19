@@ -28,7 +28,7 @@ body {
     <li><a href="/oscm-app-azure">oscm-app-azure</a> - The MS Azure Connector for OSCM.<br /></li>
     <li><a href="/oscm-app-aws">oscm-app-aws</a> - The Amazon EC2 Connector for OSCM.<br /></li>
     <li><a href="/birt">birt</a> - The OSCM Reporting Engine.<br /></li>
-    <li><a href="/mail">mail</a> - A Mail Mock Service (for Testing without Mail Server Connections).<br />
+    <li><a href="/mail">mail</a> - A Mail Mock Service (for testing without Mail Server connections).<br />
     </p></li>
   </ul>
 </body>
