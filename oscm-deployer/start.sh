@@ -11,6 +11,7 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     exit 0
 fi
 
+test
 
 # Enable automatic exporting of variables
 set -a
