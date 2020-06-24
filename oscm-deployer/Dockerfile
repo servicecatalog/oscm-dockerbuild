@@ -21,7 +21,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum -y update && \
     yum -y install vim \
-           docker-client && \
+           docker-client \
            dos2unix && \
     yum clean all && \
     curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
