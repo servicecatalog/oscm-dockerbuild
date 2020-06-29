@@ -7,7 +7,11 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     cp /opt/env.template ${TARGET_PATH}/.env
-    cp /opt/var.env.template ${TARGET_PATH}/var.env
+	if [ ${SAMPLE_DATA} == "true" ]; then
+        cp /opt/var.env.template ${TARGET_PATH}/var.env
+	else    
+        cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
+	fi
     exit 0
 fi
 
