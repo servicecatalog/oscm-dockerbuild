@@ -35,6 +35,18 @@ server {
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
     }
+    
+     location /oscm-identity {
+         rewrite https://${FQDN}/oscm-identity/([^\n\r]*)$ https://oscm-identity:9091/$1 break;
+         proxy_pass https://oscm-identity:9091/oscm-identity;
+         proxy_set_header Host            $host;
+         proxy_set_header X-Forwarded-For $remote_addr;
+         client_max_body_size 50m;
+         proxy_buffer_size          128k;
+         proxy_buffers              4 256k;
+         proxy_busy_buffers_size    256k;
+     }
+    
 
     location /branding {
         rewrite https://${FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
