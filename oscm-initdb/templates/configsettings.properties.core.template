@@ -23,7 +23,7 @@ BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
 #  services via HTTPS
 BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
 
-# The redirect URL for OIDC mode. Required for a succesfull login.",
+# The redirect URL for OIDC mode. Required for a successful redirect.",
 # If the proxy is used, no port is required"
 OIDC_REDIRECT_URL=https://${HOST_FQDN}:9091/oscm-identity
 
