@@ -19,10 +19,6 @@ MAX_NUMBER_LOGIN_ATTEMPTS=${MAX_NUMBER_LOGIN_ATTEMPTS}
 #  services via HTTPS
 BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
 
-# The base URL for HTTPS. Required to create the URL for accessing
-#  services via HTTPS
-BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
-
 # The HTTPS URL for connecting the oscm-identity service. 
 # This setting is required for external authentication in the OIDC mode."
 OSCM_IDENTITY_SERVICE_URL=https://${HOST_FQDN}:9091/oscm-identity
