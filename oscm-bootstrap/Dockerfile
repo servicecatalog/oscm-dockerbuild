@@ -13,13 +13,14 @@ RUN yum update -y && \
     yum groupinstall -y Development Tools && \
     yum -y makecache fast 
     
-RUN scl enable rh-ruby26 bash && \
-    gem update --system && \
+RUN scl enable rh-ruby26 bash
+
+RUN gem update --system && \
     gem install bundler && \
     gem install bootstrap -v 4.3.1 && \
     gem install sass -v 3.7.4 && \
-    sass /opt/rh/rh-ruby26/root/usr/local/share/gems/gems/bootstrap-4.3.1/assets/stylesheets/*.scss
-    
-    
+
+
+RUN sass /opt/rh/rh-ruby26/root/usr/local/share/gems/gems/bootstrap-4.3.1/assets/stylesheets/*.scss
 
 ENTRYPOINT ["/opt/rh/rh-ruby26/root/usr/local/share/gems/gems/sass-3.7.4/bin/sass"]
