@@ -12,8 +12,8 @@ RUN yum update -y && \
     gcc \
     libpng-devel \
     rh-ruby26-ruby-devel.x86_64 && \
-    yum groupinstall Development Tools && \
-    yum makecache fast && \
+    yum groupinstall -y Development Tools && \
+    yum -y makecache fast && \
     scl enable rh-ruby26 bash && \
     gem update --system && \
     gem install bundler && \
