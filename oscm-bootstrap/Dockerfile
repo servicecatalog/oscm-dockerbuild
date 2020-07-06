@@ -13,7 +13,8 @@ RUN yum update -y && \
     yum groupinstall -y Development Tools && \
     yum -y makecache fast 
     
-RUN scl enable rh-ruby26 bash
+SHELL ["scl enable rh-ruby26 bash, "-c"]    
+
 
 RUN /opt/rh/rh-ruby26/root/usr/bin/gem install bundler && \
     /opt/rh/rh-ruby26/root/usr/bin/gem install bootstrap -v 4.3.1 && \
