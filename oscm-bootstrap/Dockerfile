@@ -2,7 +2,12 @@ FROM oscm-centos-based
 
 ENV http_proxy $HTTP_PROXY
 ENV https_proxy $HTTP_PROXY
-ENV gem_home /opt/rh/rh-ruby26/root/usr/bin/gem
+ENV MANPATH=/opt/rh/rh-ruby26/root/usr/local/share/man:/opt/rh/rh-ruby26/root/usr/share/man:
+ENV LD_LIBRARY_PATH=/opt/rh/rh-ruby26/root/usr/local/lib64:/opt/rh/rh-ruby26/root/usr/lib64
+ENV PATH=/opt/rh/rh-ruby26/root/usr/local/bin:/opt/rh/rh-ruby26/root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV XDG_DATA_DIRS=/opt/rh/rh-ruby26/root/usr/local/share:/opt/rh/rh-ruby26/root/usr/share:/usr/local/share:/usr/share
+ENV PKG_CONFIG_PATH=/opt/rh/rh-ruby26/root/usr/local/lib64/pkgconfig:/opt/rh/rh-ruby26/root/usr/lib64/pkgconfig
+
 
 RUN yum update -y && \
 	yum-config-manager --enable rhel-server-rhscl-7-rpms && \
