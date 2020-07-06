@@ -2,6 +2,7 @@ FROM oscm-centos-based
 
 ENV http_proxy $HTTP_PROXY
 ENV https_proxy $HTTP_PROXY
+ENV gem_home /opt/rh/rh-ruby26/root/usr/bin/gem
 
 RUN yum update -y && \
 	yum-config-manager --enable rhel-server-rhscl-7-rpms && \
@@ -20,7 +21,7 @@ RUN /bin/bash -l -c "gem install bundler" && \
     /bin/bash -l -c "gem install bootstrap -v 4.3.1" && \
     /bin/bash -l -c "gem install sass -v 3.7.4 "
     
-RUN /bin/bash -l -c "gem update --system "
+RUN /bin/bash -l -c "gem update --system"
 
 
 RUN sass /opt/rh/rh-ruby26/root/usr/local/share/gems/gems/bootstrap-4.3.1/assets/stylesheets/*.scss
