@@ -17,6 +17,13 @@ RUN yum update -y && \
     
 RUN scl enable rh-ruby26 bash
 
+RUN yum install -y which
+
+RUN alternatives --display ruby && \
+	ruby --version && \
+	ls -la /opt/rh && \
+	which ruby
+
 RUN /bin/bash -l -c "gem install bundler" && \
     /bin/bash -l -c "gem install bootstrap -v 4.3.1" && \
     /bin/bash -l -c "gem install sass -v 3.7.4 "
