@@ -15,11 +15,11 @@ RUN yum update -y && \
     
 RUN scl enable rh-ruby26 bash
 
-RUN gem install bundler && \
-    gem install bootstrap -v 4.3.1 && \
-    gem install sass -v 3.7.4 
+RUN /opt/rh/rh-ruby26/root/usr/bin/gem install bundler && \
+    /opt/rh/rh-ruby26/root/usr/bin/gem install bootstrap -v 4.3.1 && \
+    /opt/rh/rh-ruby26/root/usr/bin/gem install sass -v 3.7.4 
     
-RUN gem update --system 
+RUN /opt/rh/rh-ruby26/root/usr/bin/gem update --system 
 
 
 RUN sass /opt/rh/rh-ruby26/root/usr/local/share/gems/gems/bootstrap-4.3.1/assets/stylesheets/*.scss
