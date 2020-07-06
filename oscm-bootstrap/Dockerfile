@@ -22,11 +22,11 @@ RUN yum install -y which
 RUN ruby --version && \
 	ls -la /opt/rh && \
 	which ruby && \
-	alternatives --display ruby 
+	echo $PATH
 
-RUN /bin/bash -l -c "gem install bundler" && \
-    /bin/bash -l -c "gem install bootstrap -v 4.3.1" && \
-    /bin/bash -l -c "gem install sass -v 3.7.4 "
+RUN /bin/bash -l -c "/opt/rh/rh-ruby26/root/usr/bin/gem install bundler" && \
+    /bin/bash -l -c "/opt/rh/rh-ruby26/root/usr/bin/gem install bootstrap -v 4.3.1" && \
+    /bin/bash -l -c "/opt/rh/rh-ruby26/root/usr/bin/gem install sass -v 3.7.4 "
     
 RUN /bin/bash -l -c "gem update --system"
 
