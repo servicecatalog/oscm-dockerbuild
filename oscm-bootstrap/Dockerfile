@@ -12,7 +12,7 @@ ENV LANG=en_US.UTF-8
 
 
 RUN yum update -y && \
-	yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+    yum-config-manager --enable rhel-server-rhscl-7-rpms && \
     yum install -y \
     rh-ruby26 \
     ruby-devel \
