@@ -209,6 +209,9 @@ if [ $TARGET == "APP" ]; then
 
     # Update properties
 	updateProperties $OVERWRITE
+	
+	# Update HOST_FQDN values
+	updateHostFqdnValues
 fi
 
 # APP Controller
