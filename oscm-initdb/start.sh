@@ -1,3 +1,5 @@
+#!/bin/bash
+
  #*****************************************************************************
  #*                                                                           *
  #* Copyright FUJITSU LIMITED 2020                                            *
@@ -6,7 +8,6 @@
  #*                                                                           *
  #*****************************************************************************
 
-#!/bin/bash
 
 # Mandatory files (mount these) for DB import from SQL files (SOURCE=DUMP)
 # SQL_DUMP_GLOBALS="/opt/sqldump/globals.sql": Dump of the globals (DBs, Schemas, Roles, ...)

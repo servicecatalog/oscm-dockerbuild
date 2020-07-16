@@ -1,3 +1,5 @@
+#!/bin/bash
+
  #*****************************************************************************
  #*                                                                           *
  #* Copyright FUJITSU LIMITED 2020                                            *
@@ -6,8 +8,6 @@
  #*                                                                           *
  #*****************************************************************************
 
-#!/bin/bash
- 
 /usr/bin/touch /root/.pgpass
 /usr/bin/chmod 600 /root/.pgpass
 echo "${DB_HOST_CORE}:${DB_PORT_CORE}:${DB_NAME_CORE}:${DB_USER_CORE}:${DB_PWD_CORE}" > /root/.pgpass
