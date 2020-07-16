@@ -26,7 +26,7 @@ OSCM_IDENTITY_SERVICE_URL=https://${HOST_FQDN}:9091/oscm-identity
 # URL to specify a Web page that is to be displayed in case the HTTP
 # protocol is used and a customer tries to access a marketplace
 # without a valid marketplace ID.
-#MP_ERROR_REDIRECT_HTTP=http://<your server>:<your port>/oscm-portal/marketplace?mid=8f78f156
+#MP_ERROR_REDIRECT_HTTP=http://<your server>:<your port>/oscm-portal/marketplace?mId=8f78f156
 
 # URL to specify a Web page that is to be displayed in case the HTTPS
 # protocol is used and a customer tries to access a marketplace
