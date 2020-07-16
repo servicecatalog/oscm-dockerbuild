@@ -1,3 +1,11 @@
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 #!/bin/bash
 
 # Mandatory files (mount these) for DB import from SQL files (SOURCE=DUMP)

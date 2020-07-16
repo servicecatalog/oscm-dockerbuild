@@ -1,3 +1,11 @@
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 #!/bin/bash
 # Create and configure data directory
 if [ ! -d /var/lib/postgresql/data ]; then
