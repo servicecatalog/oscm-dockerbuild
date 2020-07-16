@@ -1,3 +1,11 @@
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 # Optional: Special character encoding for emails sent in japanese
 # locale. Default is UTF-8.
 MAIL_JA_CHARSET=${MAIL_JA_CHARSET}

@@ -1,3 +1,11 @@
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue=10000 WHERE settingkey='BSS_USER_KEY' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='959c9bf7' WHERE settingkey='BSS_ORGANIZATION_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='${CONTROLLER_USER_NAME}' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
