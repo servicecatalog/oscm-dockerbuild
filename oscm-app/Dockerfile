@@ -1,5 +1,8 @@
 FROM oscm-gf
 
+RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo | tee /etc/yum.repos.d/microsoft.repo
+RUN yum install -y powershell
+
 RUN mkdir /opt/apache-tomee/apps && \
  mkdir /opt/apache-tomee/controllers && \
  mkdir /opt/properties && \
