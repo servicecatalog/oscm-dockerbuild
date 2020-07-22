@@ -62,20 +62,6 @@ function genSampleData {
     /usr/bin/envsubst < /opt/templates/sample.sql.app.template > /opt/sqlscripts/app/sample.sql
 }
 
-# HELPER: Update db values related to HOST_FQDN setting
-function updateHostFqdnValues {
-	/usr/bin/envsubst < /opt/templates/hostfqdn.sql.core.template > /opt/sqlscripts/core/hostfqdn.sql
-    /usr/bin/envsubst < /opt/templates/hostfqdn.sql.app.template > /opt/sqlscripts/app/hostfqdn.sql
-
-    if [ ! -f /opt/sqlscripts/core/hostfqdn.sql ] || [ ! -f /opt/sqlscripts/app/hostfqdn.sql ]; then
-		echo "No scripts for updating HOST_FQDN ..."
-	else
-		echo "$(date '+%Y-%m-%d %H:%M:%S') updating HOST_FQDN values"
-		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/hostfqdn.sql $DB_NAME_CORE
-		PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/hostfqdn.sql $DB_NAME_APP
-	fi
-}
-
 # HELPER: Generate sql file for update users
 function genSQLUpdateUser {
 	/usr/bin/envsubst < /opt/templates/platformusers.sql.customer.template > /opt/sqlscripts/core/customer.sql
