@@ -209,9 +209,6 @@ if [ $TARGET == "APP" ]; then
 
     # Update properties
 	updateProperties $OVERWRITE
-	
-	# Update HOST_FQDN values
-	updateHostFqdnValues
 fi
 
 # APP Controller
@@ -283,7 +280,6 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
 
 			# Update HOST_FQDN values
-			updateHostFqdnValues
 			
 			#Update the sample users, if defined in the var.env template
 			genSQLUpdateUser
@@ -297,7 +293,6 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
 
 			# Update HOST_FQDN values
-			updateHostFqdnValues
 		fi
 	fi
 fi
