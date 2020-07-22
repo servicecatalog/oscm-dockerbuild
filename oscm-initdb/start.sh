@@ -264,8 +264,6 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			# Import sample data to databases
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/sample.sql $DB_NAME_CORE
 			PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_APP -p $DB_PORT_APP -U $DB_SUPERUSER -f /opt/sqlscripts/app/sample.sql $DB_NAME_APP
-
-			# Update HOST_FQDN values
 			
 			#Update the sample users, if defined in the var.env template
 			genSQLUpdateUser
