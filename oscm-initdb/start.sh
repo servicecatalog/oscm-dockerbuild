@@ -277,8 +277,6 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			fi	
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
-
-			# Update HOST_FQDN values
 		fi
 	fi
 fi
