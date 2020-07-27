@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ *****************************************************************************
+ *                                                                           *
+ * Copyright FUJITSU LIMITED 2020                                            *
+ *                                                                           *
+ * Creation Date: 16-07-2020                                                 *
+ *                                                                           *
+ *****************************************************************************
+ -->
 <Server port="8805" shutdown="SHUTDOWN">
   <!-- TomEE plugin for Tomcat -->
   <Listener className="org.apache.tomee.catalina.ServerListener" />

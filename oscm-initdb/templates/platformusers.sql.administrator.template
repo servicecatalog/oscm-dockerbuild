@@ -1,1 +1,9 @@
+/*****************************************************************************
+ *                                                                           *
+ * Copyright FUJITSU LIMITED 2020                                            *
+ *                                                                           *
+ * Creation Date: 16-07-2020                                                 *
+ *                                                                           *
+ ****************************************************************************/
+
 UPDATE ${DB_USER_CORE}.platformuser SET userid ='${ADMIN_USER_ID}', realmuserid='${ADMIN_USER_ID}' WHERE userId='administrator';

@@ -1,4 +1,13 @@
 #!/bin/bash
+
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 # Variables for this script
 COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target

@@ -1,4 +1,13 @@
 #!/bin/bash
+
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 # Create and configure data directory
 if [ ! -d /var/lib/postgresql/data ]; then
     mkdir -p /var/lib/postgresql/data
