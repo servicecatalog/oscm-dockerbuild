@@ -1,9 +1,0 @@
-/*****************************************************************************
- *                                                                           *
- * Copyright FUJITSU LIMITED 2020                                            *
- *                                                                           *
- * Creation Date: 16-07-2020                                                 *
- *                                                                           *
- ****************************************************************************/
- 
-UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='https://${HOST_FQDN}:8881/oscm-app' WHERE settingkey='APP_BASE_URL' AND controllerid='PROXY';
