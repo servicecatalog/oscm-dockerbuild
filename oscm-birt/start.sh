@@ -1,4 +1,13 @@
 #!/bin/bash
+
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 if [ ! -z ${HOST_FQDN} ]; then
     sed -i "s|^#base_url=http://127.0.0.1:8080|base_url=https://${HOST_FQDN}:8681|g" /usr/share/tomcat/webapps/birt/WEB-INF/viewer.properties
 fi

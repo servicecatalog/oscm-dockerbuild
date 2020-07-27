@@ -1,4 +1,13 @@
 #!/bin/bash
+
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 HTTP_PROXY_HOST=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
 HTTP_PROXY_PORT=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
 HTTPS_PROXY_HOST=$(echo $https_proxy | cut -d'/' -f3 | cut -d':' -f1)

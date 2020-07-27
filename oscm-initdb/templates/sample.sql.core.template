@@ -1,3 +1,11 @@
+/*****************************************************************************
+ *                                                                           *
+ * Copyright FUJITSU LIMITED 2020                                            *
+ *                                                                           *
+ * Creation Date: 16-07-2020                                                 *
+ *                                                                           *
+ ****************************************************************************/
+
 INSERT INTO ${DB_USER_CORE}.revenuesharemodel (tkey, revenueshare, revenuesharemodeltype, version) VALUES (10000, 5.00, 'OPERATOR_REVENUE_SHARE', 0);
 INSERT INTO ${DB_USER_CORE}.revenuesharemodel (tkey, revenueshare, revenuesharemodeltype, version) VALUES (10001, 0.00, 'BROKER_REVENUE_SHARE', 0);
 INSERT INTO ${DB_USER_CORE}.revenuesharemodel (tkey, revenueshare, revenuesharemodeltype, version) VALUES (10002, 0.00, 'RESELLER_REVENUE_SHARE', 0);

@@ -1,5 +1,13 @@
 #!/bin/bash
 
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 REPO_DOCKER="`dirname \"$0\"`"
 REPO_OSCM="$1"
 BUILD_DIR="$REPO_OSCM/oscm-build/result/package"

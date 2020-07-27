@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- 
+ *****************************************************************************
+ *                                                                           *
+ * Copyright FUJITSU LIMITED 2020                                            *
+ *                                                                           *
+ * Creation Date: 16-07-2020                                                 *
+ *                                                                           *
+ *****************************************************************************
+ -->
+ 
+ 
 <web-app>
     <servlet>
         <servlet-name>DirectoryListing</servlet-name>

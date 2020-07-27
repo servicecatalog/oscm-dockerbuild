@@ -1,3 +1,11 @@
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 FROM oscm-gf
 
 ENV TARGET=CORE SOURCE=INIT OVERWRITE=false DB_SUPERUSER=postgres DB_SUPERPWD=postgres

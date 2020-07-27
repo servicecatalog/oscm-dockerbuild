@@ -1,3 +1,11 @@
+ #*****************************************************************************
+ #*                                                                           *
+ #* Copyright FUJITSU LIMITED 2020                                            *
+ #*                                                                           *
+ #* Creation Date: 16-07-2020                                                 *
+ #*                                                                           *
+ #*****************************************************************************
+
 heat_template_version: 2015-10-15
 
 description: Template to deploy a network stack with a single instance connected and exposed to the external world
