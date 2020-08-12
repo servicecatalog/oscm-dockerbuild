@@ -56,7 +56,7 @@
   <Service name="Catalina">
 
     <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="40000" redirectPort="8081" xpoweredBy="false"
-               server="Apache TomEE" compression="on" compressionMinSize="2048"
+               server="Apache TomEE" compression="on" compressionMinSize="2048" useSendfile="false"
                noCompressionUserAgents="gozilla, traviata"
                compressableMimeType="text/html,text/javascript,text/css,image/svg+xml,image/png"/>
 
@@ -64,7 +64,7 @@
 
     <Connector port="8081" protocol="org.apache.coyote.http11.Http11NioProtocol" maxThreads="150" SSLEnabled="true"
                compression="on" compressionMinSize="2048" noCompressionUserAgents="gozilla, traviata"
-               compressableMimeType="text/html,text/javascript,text/css,image/svg+xml,image/png">
+               compressableMimeType="text/html,text/javascript,text/css,image/svg+xml,image/png" useSendfile="false">
       <SSLHostConfig>
         <Certificate certificateKeystoreFile="conf/ssl.p12"
                      type="RSA" xpoweredBy="false" server="Apache TomEE"/>
