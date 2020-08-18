@@ -45,6 +45,8 @@
 
   <role rolename="tomee-admin" />
   <user username="tomee" password="tomee" roles="tomee-admin,manager-gui" />
-
+  <role rolename="approval" />
+  <role rolename="role1" />
+  <user username="approver" password="approver"  roles="role1,approval" />
 </tomcat-users>
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <Deployments dir="apps" />
+  <Deployments dir="controllers" />
+
+  <Resource id="BSSAppDS" type="DataSource">
+    JdbcDriver = org.postgresql.xa.PGXADataSource
+    JdbcUrl = jdbc:postgresql://oscm-db:5432/bssapp
+    user = bssappuser
+    password = mysecret
+    roleName = bssappuser
+    validationQuery = "SELECT 1"
+  </Resource>
+
+  <Resource id="BSSAppVMwareDS" type="DataSource">
+     JdbcDriver = org.postgresql.xa.PGXADataSource
+     JdbcUrl = jdbc:postgresql://oscm-db:5432/vmware
+     user = ${DB_USER_VMWARE}
+     password = ${DB_PWD_VMWARE}
+     roleName = ${DB_USER_VMWARE}
+     validationQuery = "SELECT 1"
+   </Resource>
+
+  <Container id="Default Stateless Container" type="STATELESS">
+    callbackThreads = 100
+    maxSize = 200
+  </Container>
+
+  <Resource id="APPMail" type="javax.mail.Session">
+    mail.smtp.host=10.140.18.135
+    mail.smtp.port=2525
+    mail.transport.protocol=smtp
+    mail.smtp.timeout=30000
+    mail-smtp-connectiontimeout=30000
+    mail.smtp.auth=false
+    mail.smtp.user=none
+    mail.smtp.password=none
+    mail.smtp.from=oscm@mydemo.org
+    mail.smtp.starttls.enable=false
+  </Resource>
+ 
+  <Resource id="ApprovalDS" type="DataSource">
+    JdbcDriver = org.postgresql.xa.PGXADataSource
+    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/approvaldb
+    user = approvaluser
+    password = approvaluser
+    roleName = approvaluser
+    validationQuery = "SELECT 1"
+  </Resource>
+
+</tomee>

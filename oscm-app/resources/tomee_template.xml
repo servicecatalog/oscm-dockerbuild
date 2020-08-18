@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
- *****************************************************************************
- *                                                                           *
- * Copyright FUJITSU LIMITED 2020                                            *
- *                                                                          *
- * Creation Date: 16-07-2020                                                 *
- *                                                                           *
- *****************************************************************************
- -->
 <tomee>
   <!-- see http://tomee.apache.org/containers-and-resources.html -->
 
@@ -31,7 +22,16 @@
      password = ${DB_PWD_VMWARE}
      roleName = ${DB_USER_VMWARE}
      validationQuery = "SELECT 1"
-   </Resource>
+  </Resource>
+ 
+  <Resource id="ApprovalDS" type="DataSource">
+    JdbcDriver = org.postgresql.xa.PGXADataSource
+    JdbcUrl = jdbc:postgresql://${DB_HOST_APP}:${DB_PORT_APP}/approvaldb
+    user = approvaluser
+    password = approvaluser
+    roleName = approvaluser
+    validationQuery = "SELECT 1"
+  </Resource>
 
   <Container id="Default Stateless Container" type="STATELESS">
     callbackThreads = ${CONTAINER_CALLBACK_THREADS}
