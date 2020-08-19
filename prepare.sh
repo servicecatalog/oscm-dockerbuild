@@ -92,7 +92,7 @@ cp $OSCM_APP/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/ap
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/vmware
 cp $OSCM_APP/oscm-app-vmware/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/vmware/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/approval
-cp $BUILD_DIR/oscm-approval/approval-impl/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/approval/
+cp $BUILD_DIR/oscm-approval/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/approval/
 
 # copy resources for core
 cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-core/
