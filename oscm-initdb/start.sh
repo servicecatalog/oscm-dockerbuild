@@ -68,6 +68,7 @@ function genPropertyFilesVMwareController {
 # HELPER: Generate property files for JMS from environment
 function genPropertyFilesAPPROVAL {
 	/usr/bin/envsubst < /opt/templates/init.sql.approval.template > /opt/sqlscripts/init.sql
+	/usr/bin/envsubst < /opt/templates/db.properties.approval.template > /opt/properties/db.properties
 }
 
 # HELPER: Generate sample data files
