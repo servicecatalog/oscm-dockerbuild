@@ -69,6 +69,7 @@ function genPropertyFilesVMwareController {
 function genPropertyFilesAPPROVAL {
 	/usr/bin/envsubst < /opt/templates/init.sql.approval.template > /opt/sqlscripts/init.sql
 	/usr/bin/envsubst < /opt/templates/db.properties.approval.template > /opt/properties/db.properties
+	/usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
 # HELPER: Generate sample data files
