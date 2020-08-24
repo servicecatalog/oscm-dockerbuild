@@ -21,6 +21,11 @@ INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, contr
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('VERSION', '1.0', 'ess.sample');
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ( 'APP_PROVISIONING_ON_INSTANCE', 'false', 'ess.sample');
 
+INSERT INTO bssappuser.configurationsetting (controllerid, settingkey, settingvalue) VALUES ('ess.vmware', 'USERID_959c9bf7', '${CONTROLLER_USER_NAME}');
+INSERT INTO bssappuser.configurationsetting (controllerid, settingkey, settingvalue) VALUES ('ess.vmware', 'USERKEY_959c9bf7', '10000');
+INSERT INTO bssappuser.configurationsetting (controllerid, settingkey, settingvalue) VALUES ('ess.vmware', 'USERPWD_959c9bf7', '_crypt:${CONTROLLER_USER_PASS}');
+INSERT INTO bssappuser.configurationsetting (controllerid, settingkey, settingvalue) VALUES ('ess.vmware', 'APPROVAL_URL', 'https://${HOST_FQDN}:8881/approval/')
+
 \c vmware
 INSERT INTO ${DB_USER_VMWARE}.vcenter (tkey, name, identifier, url, userid, password) VALUES (1, '${VCENTER_NAME}', '${VCENTER_NAME}', '', '', '');
 INSERT INTO ${DB_USER_VMWARE}.datacenter (tkey, name, identifier, vcenter_tkey) VALUES (1, '${DATACENTER_NAME}', '${DATACENTER_NAME}', 1);
