@@ -126,7 +126,7 @@ services:
     container_name: oscm-initdb-controller-approval
     env_file: var.env
     environment:
-      - CONTROLLER_ID=ess.approval
+      - CONTROLLER_ID=ess.vmware
       - TARGET=APPROVAL
       - SOURCE=INIT
       - OVERWRITE=false
