@@ -32,6 +32,7 @@ COPY resources/server.xml /opt/apache-tomee/conf/
 COPY resources/system.properties /opt/apache-tomee/conf/
 COPY resources/tomcat-users.xml /opt/apache-tomee/conf/
 COPY resources/tomee_template.xml /opt/apache-tomee/conf/
+COPY resources/tomee.xml /opt/apache-tomee/conf/
 COPY resources/key ./
 COPY resources/catalina_template.properties /opt/apache-tomee/conf/catalina_template.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
@@ -40,6 +41,7 @@ COPY resources/catalina_template.sh /opt/apache-tomee/bin/catalina_template.sh
 COPY oscm-app.ear /opt/apache-tomee/apps/
 COPY oscm-app-sample.ear oscm-app-openstack.ear oscm-app-aws.ear oscm-app-azure.ear oscm-app-vmware.ear /opt/apache-tomee/controllers/
 COPY oscm-app-shell.war /opt/apache-tomee/webapps/
+COPY approval-impl-0.0.2-SNAPSHOT.war /opt/apache-tomee/webapps/approval.war
 
 COPY postgresql-9.4-1206-jdbc42.jar /opt/apache-tomee/lib/postgresql-9.4-1206-jdbc42.jar
 COPY oscm-app-extsvc-2-0.jar /opt/apache-tomee/lib/oscm-app-extsvc-2-0.jar

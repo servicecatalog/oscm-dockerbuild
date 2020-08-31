@@ -10,6 +10,10 @@ UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='959c9bf7' WHERE set
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='${CONTROLLER_USER_NAME}' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
 UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='_crypt:${CONTROLLER_USER_PASS}' WHERE settingkey='BSS_USER_PWD' AND controllerid IN ('ess.aws','ess.openstack','ess.vmware', 'ess.azureARM', 'ess.shell', 'ess.sample');
 
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue=10000, settingkey='USERKEY_959c9bf7', controllerid='ess.vmware' WHERE settingkey='BSS_USER_KEY' AND controllerid IN ('ess.approval');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='${CONTROLLER_USER_NAME}', settingkey='USERID_959c9bf7', controllerid='ess.vmware' WHERE settingkey='BSS_USER_ID' AND controllerid IN ('ess.approval');
+UPDATE ${DB_USER_APP}.configurationsetting SET settingvalue='_crypt:${CONTROLLER_USER_PASS}', settingkey='USERPWD_959c9bf7', controllerid='ess.vmware' WHERE settingkey='BSS_USER_PWD' AND controllerid IN ('ess.approval');
+INSERT INTO ${DB_USER_APP}.configurationsetting (controllerid, settingkey, settingvalue) VALUES ('ess.vmware', 'APPROVAL_URL', 'https://${HOST_FQDN}:8881/approval/');
 
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('TENANT_ID', '${OS_TENANT_ID}', 'ess.openstack');
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('DOMAIN_NAME', '${OS_DOMAIN}', 'ess.openstack');

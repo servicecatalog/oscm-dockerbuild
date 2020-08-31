@@ -65,6 +65,13 @@ function genPropertyFilesVMwareController {
     /usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
 }
 
+# HELPER: Generate property files for approval from environment
+function genPropertyFilesAPPROVAL {
+	/usr/bin/envsubst < /opt/templates/init.sql.approval.template > /opt/sqlscripts/init.sql
+	/usr/bin/envsubst < /opt/templates/db.properties.approval.template > /opt/properties/db.properties
+	/usr/bin/envsubst < /opt/templates/configsettings_controller.properties.app.template > /opt/properties/configsettings.properties
+}
+
 # HELPER: Generate sample data files
 function genSampleData {
     /usr/bin/envsubst < /opt/templates/sample.sql.core.template > /opt/sqlscripts/core/sample.sql
@@ -252,6 +259,24 @@ if [ $TARGET == "VMWARE" ]; then
 
 	# Initialize and update data
 	initializeAndUpdateData /opt/sqlscripts/vmware
+		
+	# Import controller properties
+	updateProperties $OVERWRITE $CONTROLLER_ID
+fi
+
+# VMware Controller
+if [ $TARGET == "APPROVAL" ]; then
+	# Generate property files from environment
+	genPropertyFilesAPPROVAL
+
+	# Wait for database server to become ready
+	waitForDB $DB_HOST_APP $DB_PORT_APP
+
+	# Initialize APP DB
+	initializeAppData
+
+	# Initialize and update data
+	initializeAndUpdateData /opt/sqlscripts/approval
 		
 	# Import controller properties
 	updateProperties $OVERWRITE $CONTROLLER_ID

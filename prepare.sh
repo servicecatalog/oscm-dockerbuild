@@ -91,6 +91,8 @@ mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/app
 cp $OSCM_APP/oscm-app/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/app/
 mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/vmware
 cp $OSCM_APP/oscm-app-vmware/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/vmware/
+mkdir -p $REPO_DOCKER/oscm-initdb/sqlscripts/approval
+cp $REPO_OSCM/oscm-approval/resources/sql/*.sql $REPO_DOCKER/oscm-initdb/sqlscripts/approval/
 
 # copy resources for core
 cp $BUILD_DIR/oscm-search/oscm-search.ear $REPO_DOCKER/oscm-core/
@@ -124,6 +126,7 @@ cp $OSCM_APP/oscm-app-aws/target/oscm-app-aws.jar $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app-openstack/target/oscm-app-openstack.jar $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app-azure/target/oscm-app-azure.jar $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app-vmware/target/oscm-app-vmware.jar $REPO_DOCKER/oscm-app/
+cp $REPO_OSCM/oscm-approval/approval-impl/target/approval-impl-0.0.2-SNAPSHOT.war $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-devruntime/oscm-devruntime.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-common/oscm-common.jar $REPO_DOCKER/oscm-app/
 cp $BUILD_DIR/oscm-extsvc-internal/oscm-extsvc-internal.jar $REPO_DOCKER/oscm-app/

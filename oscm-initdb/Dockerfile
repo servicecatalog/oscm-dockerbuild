@@ -10,6 +10,7 @@ FROM oscm-gf
 
 ENV TARGET=CORE SOURCE=INIT OVERWRITE=false DB_SUPERUSER=postgres DB_SUPERPWD=postgres
 ENV DB_HOST_CORE=oscm-db DB_PORT_CORE=5432 DB_NAME_CORE=bss DB_USER_CORE=bssuser DB_PWD_CORE=bssuser
+ENV DB_NAME_APPROVAL=approvaldb DB_USER_APPROVAL=approvaluser DB_PWD_APPROVAL=approvaluser
 ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser DB_PWD_JMS=jmsuser
 ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser
 ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql SQL_DUMP_BSSAPP=bssapp.sql
@@ -58,6 +59,7 @@ ENV CUSTOM_DATA=false
 COPY sqlscripts/core/*.sql /opt/sqlscripts/core/
 COPY sqlscripts/app/*.sql /opt/sqlscripts/app/
 COPY sqlscripts/vmware/*.sql /opt/sqlscripts/vmware/
+COPY sqlscripts/approval/*.sql /opt/sqlscripts/approval/
 COPY templates/*.template /opt/templates/
 COPY oscm-devruntime.jar oscm-app.jar /opt/
 
