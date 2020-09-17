@@ -109,17 +109,17 @@ services:
     links:
       - oscm-db:oscm-db
 
-    oscm-initdb-controller-approval:
-      image: ${IMAGE_INITDB}
-      container_name: oscm-initdb-controller-approval
-      env_file: var.env
-      environment:
-        - CONTROLLER_ID=ess.approval
-        - TARGET=CONTROLLER
-        - SOURCE=NONE
-        - OVERWRITE=true
-      links:
-        - oscm-db:oscm-db
+  oscm-initdb-controller-approval:
+    image: ${IMAGE_INITDB}
+    container_name: oscm-initdb-controller-approval
+    env_file: var.env
+    environment:
+      - CONTROLLER_ID=ess.approval
+      - TARGET=CONTROLLER
+      - SOURCE=NONE
+      - OVERWRITE=true
+    links:
+      - oscm-db:oscm-db
 
   oscm-initdb-controller-vmware:
     image: ${IMAGE_INITDB}

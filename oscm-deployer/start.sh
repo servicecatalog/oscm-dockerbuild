@@ -148,6 +148,7 @@ if [ ${INITDB} == "true" ]; then
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-controller-vmware
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-controller-shell
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-controller-sample
+    docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-controller-approval
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) up oscm-initdb-approval
     # If the user wants us to import sample data, do it now
     if [ ${SAMPLE_DATA} == "true" ]; then
