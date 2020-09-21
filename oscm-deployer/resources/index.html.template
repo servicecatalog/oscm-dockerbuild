@@ -18,7 +18,7 @@ body {
   <ul>
     <li><a href="https://github.com/servicecatalog/documentation#oscm-documentation">Documentation</a> - The OSCM
       Documentation.<br /></li>
-    <li><a href="/oscm-portal/marketplace/playground/index.jsf?mId=959c9bf7">oscm-marketplace</a> - A Sample OSCM
+    <li><a href="/oscm-portal/marketplace/index.jsf?mId=959c9bf7">oscm-marketplace</a> - A Sample OSCM
       Marketplace.<br /></li>
     <li><a href="/oscm-portal">oscm-portal</a> - The OSCM Administration Portal.<br /></li>
     <li><a href="/oscm-rest-api">oscm-rest-api</a> - A Swagger UI for the OSCM REST API.<br /></li>

@@ -37,6 +37,7 @@ set -e
 
 # Create Docker directories if they do not exist yet
 for docker_directory in \
+    ${TARGET_PATH}/proxy \
     ${TARGET_PATH}/data/oscm-db/data \
     ${TARGET_PATH}/config/certs \
     ${TARGET_PATH}/config/certs/sso \
@@ -102,6 +103,10 @@ for docker_log_file in \
     fi
 done
 
+
+# Delete existing yml files
+rm ${TARGET_PATH}/*.yml
+
 # Create Docker Compose files from templates
 envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
@@ -115,7 +120,7 @@ else
 fi
 
 envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
-> ${TARGET_PATH}/docker-compose-proxy.yml
+> ${TARGET_PATH}/proxy/docker-compose-proxy.yml
 
 # If proxy.conf does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
