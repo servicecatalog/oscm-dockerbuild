@@ -105,7 +105,7 @@ done
 
 
 # Delete existing yml files
-rm ${TARGET_PATH}/*.yml
+rm -f ${TARGET_PATH}/*.yml
 
 # Create Docker Compose files from templates
 envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
