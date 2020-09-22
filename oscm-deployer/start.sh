@@ -16,6 +16,10 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
     cp /opt/env.template ${TARGET_PATH}/.env
+    
+    # Delete existing yml files
+    rm -f ${TARGET_PATH}/*.yml
+
 	if [ ${SAMPLE_DATA} == "true" ]; then
         cp /opt/var.env.template ${TARGET_PATH}/var.env
 	else    
@@ -104,8 +108,7 @@ for docker_log_file in \
 done
 
 
-# Delete existing yml files
-rm -f ${TARGET_PATH}/*.yml
+
 
 # Create Docker Compose files from templates
 envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
