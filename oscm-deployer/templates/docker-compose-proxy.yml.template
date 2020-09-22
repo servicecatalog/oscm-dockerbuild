@@ -13,7 +13,7 @@ services:
     image: ${IMAGE_PROXY}
     container_name: oscm-proxy
     restart: always
-    env_file: var.env
+    env_file: ../var.env
     volumes:
       - ${DOCKER_PATH}/config/oscm-proxy/data:/etc/nginx/conf.d
       - ${DOCKER_PATH}/config/oscm-proxy/html:/usr/share/nginx/html
