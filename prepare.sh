@@ -121,6 +121,7 @@ cp $OSCM_APP/oscm-app-openstack-ear/target/oscm-app-openstack.ear $REPO_DOCKER/o
 cp $OSCM_APP/oscm-app-azure-ear/target/oscm-app-azure.ear $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app-vmware-ear/target/oscm-app-vmware.ear $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app-sample-ear/target/oscm-app-sample.ear $REPO_DOCKER/oscm-app/
+cp $OSCM_APP/oscm-app-approval-ear/target/oscm-app-approval.ear $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app/target/oscm-app.jar $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app-aws/target/oscm-app-aws.jar $REPO_DOCKER/oscm-app/
 cp $OSCM_APP/oscm-app-openstack/target/oscm-app-openstack.jar $REPO_DOCKER/oscm-app/
