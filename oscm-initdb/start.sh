@@ -264,7 +264,7 @@ if [ $TARGET == "VMWARE" ]; then
 	updateProperties $OVERWRITE $CONTROLLER_ID
 fi
 
-# VMware Controller
+# Approval Tool
 if [ $TARGET == "APPROVAL" ]; then
 	# Generate property files from environment
 	genPropertyFilesAPPROVAL
