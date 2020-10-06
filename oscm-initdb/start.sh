@@ -82,6 +82,7 @@ function genSampleData {
 function genSQLUpdateUser {
 	/usr/bin/envsubst < /opt/templates/platformusers.sql.customer.template > /opt/sqlscripts/core/customer.sql
 	/usr/bin/envsubst < /opt/templates/platformusers.sql.supplier.template > /opt/sqlscripts/core/supplier.sql
+	/usr/bin/envsubst < /opt/templates/platformusers.sql.reseller.template > /opt/sqlscripts/core/reseller.sql
 }	
 # HELPER: Generate sql file for update admin
 function genSQLUpdateAdmin {
@@ -306,6 +307,9 @@ if [ $TARGET == "SAMPLE_DATA" ]; then
 			fi	
 			if [ ! -z "${SUPPLIER_USER_ID}" ]; then
 				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/supplier.sql $DB_NAME_CORE 
+			fi	
+			if [ ! -z "${RESELLER_USER_ID}" ]; then
+				PGPASSWORD=${DB_SUPERPWD} psql -h $DB_HOST_CORE -p $DB_PORT_CORE -U $DB_SUPERUSER -f /opt/sqlscripts/core/reseller.sql $DB_NAME_CORE 
 			fi	
 		else
 			echo "$(date '+%Y-%m-%d %H:%M:%S') sample data not applicable"
