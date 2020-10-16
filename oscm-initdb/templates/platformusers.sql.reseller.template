@@ -1,0 +1,10 @@
+/*****************************************************************************
+ *                                                                           *
+ * Copyright FUJITSU LIMITED 2020                                            *
+ *                                                                           *
+ * Creation Date: 16-07-2020                                                 *
+ *                                                                           *
+ ****************************************************************************/
+
+
+UPDATE ${DB_USER_CORE}.platformuser SET userid ='${RESELLER_USER_ID}', realmuserid='${RESELLER_USER_ID}' WHERE userId='reseller';
