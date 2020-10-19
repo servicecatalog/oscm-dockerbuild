@@ -117,6 +117,7 @@ INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (11002, 0, 'en', 'PRODUCT_MARKETING_NAME', 11000, 'AppSampleService');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (11003, 0, 'en', 'PRODUCT_MARKETING_DESC', 11000, 'Sample APP implementation.');
 INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (11004, 0, 'de', 'PRODUCT_MARKETING_DESC', 11000, 'Sample APP Implementierung.'); 
+INSERT INTO ${DB_USER_CORE}.localizedresource (tkey, version, locale, objecttype, objectkey, value) VALUES (10040, 0, 'en', 'MARKETPLACE_NAME', 10000, 'SupplierMP');
 
 INSERT INTO ${DB_USER_CORE}.marketingpermission (tkey, version, technicalproduct_tkey, organizationreference_tkey) VALUES (10000, 0, 10000, 10003);
 INSERT INTO ${DB_USER_CORE}.marketingpermission (tkey, version, technicalproduct_tkey, organizationreference_tkey) VALUES (10001, 0, 10001, 10003);
