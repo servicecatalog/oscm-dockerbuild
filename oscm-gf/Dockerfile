@@ -11,7 +11,7 @@ FROM oscm-centos-based
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum update -y && \
-    yum install -y --no-install-recommends \
+    yum install -y \
         vim \
         postgresql \
         java-1.8.0-openjdk \

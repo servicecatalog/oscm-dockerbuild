@@ -18,7 +18,7 @@ RUN mkdir /opt/identity && \
 	   mkdir /opt/identity/config/tenants && \
     export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
-    yum install -y --no-install-recommends \
+    yum install -y \
     	tar \
         which \
         java-1.8.0-openjdk \

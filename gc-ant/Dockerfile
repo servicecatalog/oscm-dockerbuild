@@ -18,7 +18,7 @@ ARG SASS_BINARY="dart-sass-${SASS_VERSION}-linux-x64.tar.gz"
 ARG SASS_PATH=/usr/local/dart-sass
 
 RUN yum update -y && \
-    yum install -y --no-install-recommends \
+    yum install -y \
         java-1.8.0-openjdk \
         java-1.8.0-openjdk-devel \
         git && \
