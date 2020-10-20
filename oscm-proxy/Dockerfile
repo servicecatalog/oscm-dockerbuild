@@ -15,9 +15,8 @@ RUN export http_proxy=$HTTP_PROXY && \
     mkdir /etc/nginx/pwd && \
     chmod +x /opt/start.sh
     
-    ENV ADMIN_USER_ID=administrator
-    ENV ADMIN_USER_PWD=admin123
-    
+ENV ADMIN_USER_ID=administrator
+ENV ADMIN_USER_PWD=admin123
 
 EXPOSE 80 443
 

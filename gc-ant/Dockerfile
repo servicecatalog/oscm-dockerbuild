@@ -18,15 +18,13 @@ ARG SASS_BINARY="dart-sass-${SASS_VERSION}-linux-x64.tar.gz"
 ARG SASS_PATH=/usr/local/dart-sass
 
 RUN yum update -y && \
-    yum install -y \
-    java-1.8.0-openjdk \
-    java-1.8.0-openjdk-devel 
-
-RUN wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.zip -O /opt/ant.zip
-RUN unzip /opt/ant.zip -d /opt/  
-RUN wget https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar  -O /opt/apache-ant-1.9.6/lib/ivy.jar
-
-RUN yum install -y git && \
+    yum install -y --no-install-recommends \
+        java-1.8.0-openjdk \
+        java-1.8.0-openjdk-devel \
+        git && \
+    wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.zip -O /opt/ant.zip && \
+    unzip /opt/ant.zip -d /opt/ && \
+    wget https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar  -O /opt/apache-ant-1.9.6/lib/ivy.jar && \
     wget "https://github.com/sass/dart-sass/releases/download/${SASS_VERSION}/${SASS_BINARY}" -O /tmp/"${SASS_BINARY}" && \
     tar -C /usr/local -xzf /tmp/"${SASS_BINARY}"
 

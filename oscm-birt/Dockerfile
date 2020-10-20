@@ -22,7 +22,7 @@ RUN chmod +x /opt/deploy.sh && \
     export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum update -y && \
-    yum install -y \
+    yum install -y --no-install-recommends \
         vim \
         tomcat && \
     yum clean all  && \
