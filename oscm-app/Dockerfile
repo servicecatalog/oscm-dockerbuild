@@ -9,7 +9,7 @@
 FROM oscm-gf
 
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo | tee /etc/yum.repos.d/microsoft.repo && \
-    yum install -y --no-install-recommends powershell && \
+    yum install -y powershell && \
     pwsh -Command Set-PSRepository -Name PSGallery -InstallationPolicy Trusted && \
     pwsh -Command Install-Module Az && \
     mkdir /opt/apache-tomee/apps && \
