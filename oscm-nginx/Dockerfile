@@ -10,10 +10,9 @@ FROM oscm-centos-based
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
-    yum install -y \
-        epel-release \
-        nginx && \
+    yum install -y epel-release && \
     yum makecache fast && \
+    yum install -y nginx && \
     yum clean all && \
     mkdir -p /etc/nginx/vhosts.d && \
     mkdir -p /var/log/nginx && \

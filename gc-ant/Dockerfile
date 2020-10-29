@@ -21,7 +21,8 @@ RUN yum update -y && \
     yum install -y \
         java-1.8.0-openjdk \
         java-1.8.0-openjdk-devel \
-        git && \
+        git \
+    yum clean all && \
     wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.zip -O /opt/ant.zip && \
     unzip /opt/ant.zip -d /opt/ && \
     wget https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar  -O /opt/apache-ant-1.9.6/lib/ivy.jar && \
