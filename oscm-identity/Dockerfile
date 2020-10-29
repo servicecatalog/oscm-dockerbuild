@@ -14,11 +14,9 @@ COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
 RUN mkdir /opt/identity && \
     mkdir /opt/identity/config && \
-	mkdir /opt/certs && \
-	mkdir /opt/identity/config/tenants
-	
- 
-RUN export http_proxy=$HTTP_PROXY && \
+	   mkdir /opt/certs && \
+	   mkdir /opt/identity/config/tenants && \
+    export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum install -y \
     	tar \
@@ -29,8 +27,6 @@ RUN export http_proxy=$HTTP_PROXY && \
 
 ENV http_proxy=$HTTP_PROXY
 ENV https_proxy=$HTTP_PROXY
-
- 
 
 COPY oscm-identity.jar /opt/identity/main.jar
 COPY start.sh /opt/identity/start.sh

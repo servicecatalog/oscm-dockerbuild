@@ -5,9 +5,10 @@ COPY start.sh /opt/
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     apk update && \
-    apk add bash && \
-    apk add vim && \
-    apk add apache2-utils && \
+    apk add --no-cache \
+       bash \
+       vim \
+       apache2-utils && \
     mkdir /etc/nginx/certs && \
     mkdir /etc/nginx/certs/privkey && \
     mkdir /etc/nginx/certs/chain && \
@@ -15,9 +16,8 @@ RUN export http_proxy=$HTTP_PROXY && \
     mkdir /etc/nginx/pwd && \
     chmod +x /opt/start.sh
     
-    ENV ADMIN_USER_ID=administrator
-    ENV ADMIN_USER_PWD=admin123
-    
+ENV ADMIN_USER_ID=administrator
+ENV ADMIN_USER_PWD=admin123
 
 EXPOSE 80 443
 

@@ -8,18 +8,18 @@
 
 FROM oscm-gf
 
-RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo | tee /etc/yum.repos.d/microsoft.repo
-RUN yum install -y powershell
-RUN pwsh -Command Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-RUN pwsh -Command Install-Module Az
-
-RUN mkdir /opt/apache-tomee/apps && \
- mkdir /opt/apache-tomee/controllers && \
- mkdir /opt/properties && \
- mkdir /opt/sso && \
- mkdir /opt/certs && \
- mkdir /opt/key && \
- mkdir /opt/scripts
+RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo | tee /etc/yum.repos.d/microsoft.repo && \
+    yum install -y powershell && \
+    yum clean all && \
+    pwsh -Command Set-PSRepository -Name PSGallery -InstallationPolicy Trusted && \
+    pwsh -Command Install-Module Az && \
+    mkdir /opt/apache-tomee/apps && \
+    mkdir /opt/apache-tomee/controllers && \
+    mkdir /opt/properties && \
+    mkdir /opt/sso && \
+    mkdir /opt/certs && \
+    mkdir /opt/key && \
+    mkdir /opt/scripts
 
 ENV AUTH_MODE=INTERNAL KEY_SECRET=secretsecret1234 DOMAIN_PWD=adminadmin CERT_FILE=s1as.crt IDP_WSDL_URL=dummy IDP_TARGET_NAMESPACE=dummy
 ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser
@@ -53,7 +53,7 @@ COPY ssl.crt /import/certs/
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors
 
 COPY start.sh /opt/
-RUN chmod +x /opt/start.sh
-RUN chmod +x /opt/apache-tomee/bin/catalina_template.sh
+RUN chmod +x /opt/start.sh && \
+    chmod +x /opt/apache-tomee/bin/catalina_template.sh
 
 CMD ["/opt/start.sh"]

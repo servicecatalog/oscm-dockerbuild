@@ -19,7 +19,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
     
-    COPY resources/nginx.conf /etc/nginx/
+COPY resources/nginx.conf /etc/nginx/
 
 EXPOSE 80 443
 
