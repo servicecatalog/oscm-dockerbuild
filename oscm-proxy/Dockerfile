@@ -5,9 +5,10 @@ COPY start.sh /opt/
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     apk update && \
-    apk add --no-cache bash && \
-    apk add --no-cache vim && \
-    apk add --no-cache apache2-utils && \
+    apk add --no-cache \
+       bash \
+       vim \
+       apache2-utils && \
     mkdir /etc/nginx/certs && \
     mkdir /etc/nginx/certs/privkey && \
     mkdir /etc/nginx/certs/chain && \

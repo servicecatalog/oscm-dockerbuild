@@ -19,7 +19,7 @@ COPY ssl.crt /usr/share/pki/ca-trust-source/anchors/
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum install -y \
-        tar \
+        tar && \
     yum clean all && \
     chmod +x /opt/start.sh
 

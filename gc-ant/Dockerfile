@@ -21,7 +21,7 @@ RUN yum update -y && \
     yum install -y \
         java-1.8.0-openjdk \
         java-1.8.0-openjdk-devel \
-        git \
+        git && \
     yum clean all && \
     wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.zip -O /opt/ant.zip && \
     unzip /opt/ant.zip -d /opt/ && \
