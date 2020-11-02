@@ -22,6 +22,25 @@ INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, contr
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ('VERSION', '1.0', 'ess.sample');
 INSERT INTO ${DB_USER_APP}.configurationsetting (settingkey, settingvalue, controllerid) VALUES ( 'APP_PROVISIONING_ON_INSTANCE', 'false', 'ess.sample');
 
+INSERT INTO ${DB_USER_APP}.customattribute (attributekey, attributevalue, organizationid, encrypted, controllerid) VALUES ('APPROVER_ORG_ID_d4e7e9f4', '959c9bf7', '959c9bf7', false, 'ess.approval');
+INSERT INTO ${DB_USER_APP}.customattribute (attributekey, attributevalue, organizationid, encrypted, controllerid) VALUES ('USERID_d4e7e9f4', 'customer', '959c9bf7', false, 'ess.approval');
+INSERT INTO ${DB_USER_APP}.customattribute (attributekey, attributevalue, organizationid, encrypted, controllerid) VALUES ('USERKEY_d4e7e9f4', '10001', '959c9bf7', false, 'ess.approval');
+INSERT INTO ${DB_USER_APP}.customattribute (attributekey, attributevalue, organizationid, encrypted, controllerid) VALUES ('USERPWD_d4e7e9f4', 'zN2vhTT9L0Iwk+M3U3H6ow==:F53uzVVr/1rmuKj4HwjLsw==', '959c9bf7', true, 'ess.approval'); 
+
+INSERT INTO ${DB_USER_APP}.hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('ServiceInstance', 1);
+INSERT INTO ${DB_USER_APP}.hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('InstanceParameter', 1); 
+
+INSERT INTO ${DB_USER_APP}.serviceinstance (tkey, subscriptionid, organizationid, defaultlocale, besloginurl, organizationname, requesttime, provisioningstatus, instanceid, serviceaccessinfo, servicebaseurl, serviceloginpath, locked, runwithtimer, controllerid, instanceprovisioning, controllerready, rollbackparameters, version, suspendedbyapp, referenceid, rollbackinstanceattributes, vmsnumber) VALUES (1, 'AppApprovalService', '959c9bf7', 'en', NULL, 'supplierorg', 1604060984128, 'COMPLETED', 'Instance_1604060984111', 'Access information for instance Instance_1604060984111', NULL, NULL, false, true, 'ess.approval', false, true, NULL, 1, false, '', NULL, 0); 
+
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (1, 1, 'APPROVER_ORG_ID_d4e7e9f4', '959c9bf7', false);
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (2, 1, 'USER_ID_d4e7e9f4', 'customer', false);
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (3, 1, 'USER_PWD_d4e7e9f4', 'dgsL60kUPiyoHScW8rOK2Q==:qx/EZeuS+QZu6lz/nKbOWg==', true);
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (4, 1, 'APP_BSS_USER_PWD', 'supplier', false);
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (5, 1, 'APP_BSS_USER', '10000', false);
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (7, 1, 'USER_KEY_d4e7e9f4', '10001', false);
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (8, 1, 'APP_CONTROLLER_ID', 'ess.approval', false);
+INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (6, 1, 'STATE', 'FINISHED', false); 
+
 \c vmware
 INSERT INTO ${DB_USER_VMWARE}.vcenter (tkey, name, identifier, url, userid, password) VALUES (1, '${VCENTER_NAME}', '${VCENTER_NAME}', '', '', '');
 INSERT INTO ${DB_USER_VMWARE}.datacenter (tkey, name, identifier, vcenter_tkey) VALUES (1, '${DATACENTER_NAME}', '${DATACENTER_NAME}', 1);
