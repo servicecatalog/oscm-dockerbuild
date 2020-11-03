@@ -8,11 +8,6 @@
  #*                                                                           *
  #*****************************************************************************
 
-HTTP_PROXY_HOST=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-HTTP_PROXY_PORT=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-HTTPS_PROXY_HOST=$(echo $https_proxy | cut -d'/' -f3 | cut -d':' -f1)
-HTTPS_PROXY_PORT=$(echo $https_proxy | cut -d'/' -f3 | cut -d':' -f2)
-
 # Copy SSL private key and certificate
 find /import/ssl/privkey -type f -exec cp -f {} /opt/ssl.key \;
 find /import/ssl/cert -type f -exec cp -f {} /opt/ssl.crt \;
