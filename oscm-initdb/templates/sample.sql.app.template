@@ -38,7 +38,7 @@ INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parame
 INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (8, 1, 'APP_CONTROLLER_ID', 'ess.approval', false);
 INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (6, 1, 'STATE', 'FINISHED', false); 
 
-UPDATE ${DB_USER_APP}.hibernate_sequences SET sequence_next_hi_value=1 WHERE sequence_name IN ('ServiceInstance', 'InstanceParameter');
+UPDATE ${DB_USER_APP}.hibernate_sequences SET sequence_next_hi_value=2 WHERE sequence_name IN ('ServiceInstance', 'InstanceParameter');
 
 \c vmware
 INSERT INTO ${DB_USER_VMWARE}.vcenter (tkey, name, identifier, url, userid, password) VALUES (1, '${VCENTER_NAME}', '${VCENTER_NAME}', '', '', '');
