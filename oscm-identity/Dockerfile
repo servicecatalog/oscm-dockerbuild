@@ -25,9 +25,6 @@ RUN mkdir /opt/identity && \
         java-1.8.0-openjdk-devel && \
     yum clean all
 
-ENV http_proxy=$HTTP_PROXY
-ENV https_proxy=$HTTP_PROXY
-
 COPY oscm-identity.jar /opt/identity/main.jar
 COPY start.sh /opt/identity/start.sh
  
