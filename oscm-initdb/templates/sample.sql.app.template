@@ -38,8 +38,8 @@ INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parame
 INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (8, 1, 'APP_CONTROLLER_ID', 'ess.approval', false);
 INSERT INTO ${DB_USER_APP}.instanceparameter (tkey, serviceinstance_tkey, parameterkey, parametervalue, encrypted) VALUES (6, 1, 'STATE', 'FINISHED', false); 
 
-INSERT INTO ${DB_USER_APP}.hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('ServiceInstance', 1);
-INSERT INTO ${DB_USER_APP}.hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('InstanceParameter', 1); 
+INSERT INTO ${DB_USER_APP}.hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('ServiceInstance', 2);
+INSERT INTO ${DB_USER_APP}.hibernate_sequences (sequence_name, sequence_next_hi_value) VALUES ('InstanceParameter', 2);
 
 \c vmware
 INSERT INTO ${DB_USER_VMWARE}.vcenter (tkey, name, identifier, url, userid, password) VALUES (1, '${VCENTER_NAME}', '${VCENTER_NAME}', '', '', '');
