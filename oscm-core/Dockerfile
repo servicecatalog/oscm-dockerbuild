@@ -37,6 +37,7 @@ COPY resources/tomcat-users.xml /opt/apache-tomee/conf/
 COPY resources/tomee_template.xml /opt/apache-tomee/conf/
 COPY resources/key /opt/apache-tomee/bin/
 COPY resources/web.xml /templates/WEB-INF
+RUN true
 COPY resources/catalina.properties /opt/apache-tomee/conf/catalina.properties
 COPY resources/context.xml /opt/apache-tomee/conf/context.xml
 COPY resources/Sample.yaml /templates/
