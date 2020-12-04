@@ -8,9 +8,13 @@
  #*                                                                           *
  #*****************************************************************************
 
-if [ ! -z ${HOST_FQDN} ]; then
-    sed -i "s|^#base_url=http://127.0.0.1:8080|base_url=https://${HOST_FQDN}:8681|g" /usr/share/tomcat/webapps/birt/WEB-INF/viewer.properties
+if [ z ${OSCM_BIRT_URL} ]; then
+  if [ ! -z ${REPORT_ENGINEURL} ]; then
+     export OSCM_BIRT_URL=$(echo ${REPORT_ENGINEURL} | awk -F'/' '{ print $1 "//" $3 "/" $4 }')
+     sed -i "s|^#base_url=http://127.0.0.1:8080|base_url=${OSCM_BIRT_URL}|g" /usr/share/tomcat/webapps/birt/WEB-INF/viewer.properties
+  fi
 fi
+
 
 # Copy SSL private key and certificate, generate Keystore and copy to Tomcat config
 find /import/ssl/privkey -type f -exec cp -f {} /opt/ssl.key \;
