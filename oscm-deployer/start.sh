@@ -15,16 +15,17 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
-	if [ ! -z $HOST_FQDN ]; then echo "Please set a HOST_FQDN" exit 0; fi
-    cp /opt/env.template ${TARGET_PATH}/.env
-	if [ ${SAMPLE_DATA} == "true" ]; then
-	     envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
-        cp /opt/var.env.template ${TARGET_PATH}/var.env
-	else    
-	    envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
-        cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
+	if [ -z $HOST_FQDN ]; then 
+		echo "Please set a HOST_FQDN"
+	else	
+	    cp /opt/env.template ${TARGET_PATH}/.env
+		if [ ${SAMPLE_DATA} == "true" ]; then
+		     envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
+		else    
+		    envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
+		fi
+	    exit 0
 	fi
-    exit 0
 fi
 
 
