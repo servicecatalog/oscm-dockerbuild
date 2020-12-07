@@ -8,11 +8,11 @@
 
 server {
     listen       80;
-    server_name www.${FQDN};
+    server_name www.${HOST_FQDN}};
     server_tokens off;
 
      location / {
-        return 301 https://$host$request_uri;
+        return  return 307 https://$host$request_uri;
     }
 
     # redirect server error pages to the static page /50x.html
@@ -24,7 +24,7 @@ server {
 
 server {
     listen 443 ssl;
-    server_name www.${FQDN};
+    server_name www.${HOST_FQDN};
     server_tokens off;
 
     ssl_certificate /etc/nginx/certs/cert/ssl.crt;

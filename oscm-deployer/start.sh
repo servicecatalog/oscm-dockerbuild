@@ -15,10 +15,13 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
+	if [" -z "$HOST_FQDN" ]; Please set a HOST_FQDN" exit 0; fi
     cp /opt/env.template ${TARGET_PATH}/.env
 	if [ ${SAMPLE_DATA} == "true" ]; then
+	     envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
         cp /opt/var.env.template ${TARGET_PATH}/var.env
 	else    
+	    envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
         cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
 	fi
     exit 0
@@ -125,7 +128,7 @@ envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 
 # If proxy.conf does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
-	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+	envsubst  '$HOST_FQDN' < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 fi
 
 # If index.html does exist, copy it in the correct folder
