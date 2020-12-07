@@ -24,8 +24,8 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 		else    
 		    envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
 		fi
-	    exit 0
 	fi
+	exit 0
 fi
 
 
