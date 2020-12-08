@@ -20,9 +20,12 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 	else	
 		envsubst '$HOST_FQDN' < /opt/.env.template > ${TARGET_PATH}/.env
 		if [ ${SAMPLE_DATA} == "true" ]; then
-		     envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
+		     #envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
+		     	    cp /opt/var.env.template ${TARGET_PATH}/var.env
+		     
 		else    
-		    envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
+		    #envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
+		    cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
 		fi
 	fi
 	exit 0
