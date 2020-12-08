@@ -18,7 +18,7 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 	if [ -z ${HOST_FQDN} ]; then 
 		echo "Please set a HOST_FQDN"
 	else	
-	    cp /opt/env.template ${TARGET_PATH}/.env
+		envsubst '$HOST_FQDN' < /opt/.env.template > ${TARGET_PATH}/.env
 		if [ ${SAMPLE_DATA} == "true" ]; then
 		     envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
 		else    

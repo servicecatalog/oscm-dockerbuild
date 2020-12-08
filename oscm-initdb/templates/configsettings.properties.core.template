@@ -19,10 +19,6 @@ MAX_NUMBER_LOGIN_ATTEMPTS=${MAX_NUMBER_LOGIN_ATTEMPTS}
 # query. The default is 100.
 # LDAP_SEARCH_LIMIT=100
 
-# The base URL to access the platform's landing pages, especially
-# required to create the URL for accessing the confirmation page.
-#BASE_URL=${OSCM_CORE_URL}
-
 # The base URL for HTTPS. Required to create the URL for accessing
 #  services via HTTPS
 BASE_URL_HTTPS=${OSCM_CORE_URL}
@@ -31,15 +27,10 @@ BASE_URL_HTTPS=${OSCM_CORE_URL}
 # This setting is required for external authentication in the OIDC mode."
 OSCM_IDENTITY_SERVICE_URL=${OSCM_IDENTITY_URL}
 
-# URL to specify a Web page that is to be displayed in case the HTTP
-# protocol is used and a customer tries to access a marketplace
-# without a valid marketplace ID.
-#MP_ERROR_REDIRECT_HTTP=http://<your server>:<your port>/oscm-portal/marketplace?mId=8f78f156
-
 # URL to specify a Web page that is to be displayed in case the HTTPS
 # protocol is used and a customer tries to access a marketplace
 # without a valid marketplace ID.
-MP_ERROR_REDIRECT_HTTPS=${OSCM_CORE_URL}/marketplace?mId=959c9bf7
+MP_ERROR_REDIRECT_HTTPS=${MP_ERROR_REDIRECT_HTTPS}
 
 # The log level valid for the entire application.
 LOG_LEVEL=${LOG_LEVEL}
