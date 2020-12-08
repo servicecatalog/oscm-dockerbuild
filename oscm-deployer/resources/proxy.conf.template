@@ -12,7 +12,7 @@ server {
     server_tokens off;
 
      location / {
-        return  return 307 https://$host$request_uri;
+        return 301 https://$host$request_uri;
     }
 
     # redirect server error pages to the static page /50x.html

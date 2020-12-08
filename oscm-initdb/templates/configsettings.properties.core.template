@@ -21,15 +21,15 @@ MAX_NUMBER_LOGIN_ATTEMPTS=${MAX_NUMBER_LOGIN_ATTEMPTS}
 
 # The base URL to access the platform's landing pages, especially
 # required to create the URL for accessing the confirmation page.
-#BASE_URL=http://${HOST_FQDN}:8080/oscm-portal
+#BASE_URL=${OSCM_CORE_URL}
 
 # The base URL for HTTPS. Required to create the URL for accessing
 #  services via HTTPS
-BASE_URL_HTTPS=https://${HOST_FQDN}:8081/oscm-portal
+BASE_URL_HTTPS=${OSCM_CORE_URL}
 
 # The HTTPS URL for connecting the oscm-identity service. 
 # This setting is required for external authentication in the OIDC mode."
-OSCM_IDENTITY_SERVICE_URL=https://${HOST_FQDN}:9091/oscm-identity
+OSCM_IDENTITY_SERVICE_URL=${OSCM_IDENTITY_URL}
 
 # URL to specify a Web page that is to be displayed in case the HTTP
 # protocol is used and a customer tries to access a marketplace
@@ -39,7 +39,7 @@ OSCM_IDENTITY_SERVICE_URL=https://${HOST_FQDN}:9091/oscm-identity
 # URL to specify a Web page that is to be displayed in case the HTTPS
 # protocol is used and a customer tries to access a marketplace
 # without a valid marketplace ID.
-MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}:8081/oscm-portal/marketplace?mId=959c9bf7
+MP_ERROR_REDIRECT_HTTPS=${OSCM_CORE_URL}/marketplace?mId=959c9bf7
 
 # The log level valid for the entire application.
 LOG_LEVEL=${LOG_LEVEL}
@@ -109,7 +109,7 @@ TIMER_INTERVAL_SYNCHRONIZE_USERS_OFFSET=${TIMER_INTERVAL_SYNCHRONIZE_USERS_OFFSE
 # configured, reporting will not be available.
 # It supports http and https to show report.
 # But your server name must use fully qualified domain name when using https to show report.
-REPORT_ENGINEURL=${REPORT_ENGINEURL}
+REPORT_ENGINEURL=${OSCM_BIRT_URL}
 
 # The WSDL link to the reporting Web service. This value
 # has to be configured when REPORT_ENGINEURL is set.
