@@ -33,7 +33,8 @@ source ${TARGET_PATH}/.env
 set +a
 # Exit on error
 set -e
-
+# Copies the script to upload branding
+cp /opt/oscm-upload-branding.sh ${TARGET_PATH}/oscm-upload-branding.sh
 
 # Create Docker directories if they do not exist yet
 for docker_directory in \
