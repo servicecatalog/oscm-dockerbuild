@@ -27,7 +27,7 @@ mkdir /docker
 ```
 
 ## Prepare configuration files
-We will run a deployment container which prepares configuration file templates for us. Use `-v` to mount the directory you created earlier to /target in the container.
+We will run a deployment container which prepares configuration file templates for us. Use `-v` to mount the directory you created earlier to /target in the container. Use `-e HOST_FQDN` to set your FQDN. This information will be written in the .env file. By default OSCM generates self-signed certificates using this host name in the CN field. Furthermore, OSCM requires this host name in order to rewrite the base URL links that are used for accessing the OSCM applications, API and services from the web browser.
 
 ```sh
 docker run --name deployer1 --rm -v /docker:/target -e HOST_FQDN=${fqdn} servicecatalog/oscm-deployer
