@@ -30,7 +30,7 @@ mkdir /docker
 We will run a deployment container which prepares configuration file templates for us. Use `-v` to mount the directory you created earlier to /target in the container.
 
 ```sh
-docker run --name deployer1 --rm -v /docker:/target servicecatalog/oscm-deployer
+docker run --name deployer1 --rm -v /docker:/target -e HOST_FQDN=${fqdn} servicecatalog/oscm-deployer
 ```
 
 This creates two files with configuration variables. Please edit both files and adjust the configuration to your environment.
@@ -55,7 +55,7 @@ docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var
 ## Login to the administration portal
 The application will take a few minutes to start up. The less CPU power you have, the longer it will take. Once everything has started, you may access the OSCM administration portal in your web browser using the FQDN or IP address you specified earlier.
 
-`https://hostname.fqdn:8081/oscm-portal/`
+`https://hostname.fqdn/oscm-portal/`
 
 The initial login credentials are:
 
@@ -82,14 +82,14 @@ In order to be able to login to the Asynchronous Provisioning Platform (APP) and
 
 Now you will be able to login to the APP:
 
-`https://hostname.fqdn:8881/oscm-app/`
+`https://hostname.fqdn/oscm-app/`
 
 * Username: `administrator`
 * Password: `admin123`
 
 As well as to the service controllers:
 
-`https://hostname.fqdn:8881/oscm-app-<controller-id>/`
+`https://hostname.fqdn/oscm-app-<controller-id>/`
 
 * `<controller-id>`: `azureARM`, `aws`, `openstack`, `vmware`, `shell` 
 * Username: `administrator`
