@@ -16,7 +16,7 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 	if [ -z ${HOST_FQDN} ]; then 
-		echo "Please set a HOST_FQDN"
+		echo "Please specify your host name with -e HOST_FQDN=..., where OSCM shall be accessible."
 	else	
 		envsubst '$HOST_FQDN' < /opt/env.template  > ${TARGET_PATH}/.env
 		if [ ${SAMPLE_DATA} == "true" ]; then
