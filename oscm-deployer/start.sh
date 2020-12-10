@@ -199,7 +199,7 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
 	
     # Run
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
-    if [ "${PROXY}" != "false" ]; then
+    if [ "${PROXY}" == "true" ]; then
         docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) up -d
     fi
     
