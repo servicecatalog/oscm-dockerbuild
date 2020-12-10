@@ -29,7 +29,7 @@ else
 fi
 
 if [ -f "$mp_css" ] && [ -f "$custom_theme" ]; then
-  echo "$branding_dir compiled correctly"
+  echo "SUCCESS"
 else
-  echo "Something goes wrong. Check the logs"
+  echo "WARNING: Something goes wrong. Check the logs"
 fi
