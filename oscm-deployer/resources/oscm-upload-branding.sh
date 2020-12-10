@@ -7,12 +7,23 @@ package_dir=config/brandings/$branding_name
 mp_css=$package_dir/css/mp.min.css
 custom_theme=$package_dir/customBootstrap/css/customTheme.min.css
 
+remove_css () {
+  if [ -d $package_dir/css ]; then
+    rm -rf $package_dir/css
+  fi
+  if [ -d $package_dir/customBootstrap/css ]; then
+    rm -rf $package_dir/customBootstrap/css
+  fi
+}
+
 compile_sass () {
+  remove_css
   sass $package_dir/scss/mp.scss $package_dir/css/mp.css
   sass $package_dir/customBootstrap/scss/customFooter.scss $package_dir/customBootstrap/css/customFooter.css
   sass $package_dir/customBootstrap/scss/customTheme.scss $package_dir/customBootstrap/css/customTheme.css
   docker cp oscm-core:opt/apache-tomee/webapps/oscm-portal/WEB-INF/lib/yuicompressor-2.4.7.jar ./
-  for i in $package_dir/**/*.css; do java -jar ./yuicompressor-2.4.7.jar $i -o $(echo $i | sed 's/\.css/\.min\.css/g'); done;
+  for i in $package_dir/css/*.css; do java -jar ./yuicompressor-2.4.7.jar $i -o $(echo $i | sed 's/\.css/\.min\.css/g'); done;
+  for i in $package_dir/customBootstrap/css/*.css; do java -jar ./yuicompressor-2.4.7.jar $i -o $(echo $i | sed 's/\.css/\.min\.css/g'); done;
   rm -f yuicompressor-2.4.7.jar
 }
 
@@ -25,11 +36,12 @@ if [ ${branding: -4} == ".zip" ] || [ ${branding: -4} == ".bz2" ] || [ ${brandin
   unzip $branding -d ./config/brandings
   compile_sass
 else
+  cp -r $branding ./config/brandings
   compile_sass
 fi
 
 if [ -f "$mp_css" ] && [ -f "$custom_theme" ]; then
   echo "SUCCESS"
 else
-  echo "WARNING: Something goes wrong. Check the logs"
+  echo "WARNING: Something goes wrong."
 fi
