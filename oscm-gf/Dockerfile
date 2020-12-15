@@ -19,8 +19,8 @@ RUN export http_proxy=$HTTP_PROXY && \
         tar  && \
     yum clean all && \
     wget https://repo.maven.apache.org/maven2/org/apache/tomee/apache-tomee/7.1.1/apache-tomee-7.1.1-plume.tar.gz -O /tmp/apache-tomee.tar.gz && \
-    wget https://www.bouncycastle.org/download/bcprov-jdk15on-157.jar -O /usr/lib/jvm/java-1.8.0-openjdk/jre/lib/ext/bcprov.jar && \
-    echo "security.provider.10=org.bouncycastle.jce.provider.BouncyCastleProvider" >> /usr/lib/jvm/java-1.8.0-openjdk/jre/lib/security/java.security && \
+    wget https://www.bouncycastle.org/download/bcprov-jdk15on-157.jar -O /etc/alternatives/java_sdk/jre/lib/ext/bcprov.jar && \
+    echo "security.provider.10=org.bouncycastle.jce.provider.BouncyCastleProvider" >> /etc/alternatives/java_sdk/jre/lib/security/java.security && \
     mkdir /opt/apache-tomee && \
     tar --strip-components=1 -C /opt/apache-tomee -zxf /tmp/apache-tomee.tar.gz && \
     rm /tmp/apache-tomee.tar.gz
