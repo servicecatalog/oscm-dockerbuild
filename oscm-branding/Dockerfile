@@ -12,6 +12,7 @@ ENV SOURCE=LOCAL BRANDING_DIR=/import/brandings GS_SERVICE_ACCOUNT_KEY_FILE=/key
 
 COPY start.sh /opt/start.sh
 COPY resources/brandings.conf /etc/nginx/vhosts.d/
+COPY resources/compile_branding_packages.sh /opt/
 COPY ssl.crt /opt/ssl.crt
 COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors/
