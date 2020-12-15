@@ -31,10 +31,9 @@ find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|
 /usr/bin/update-ca-trust
 
 # Copies the script that uploads branding
-cp /opt/compile_branding_packages.sh ${TARGET_PATH}/compile_branding_packages.sh
-chmod +x ${TARGET_PATH}/compile_branding_packages.sh
+chmod +x /opt/compile_branding_packages.sh
 
-find /import/brandings -type d -exec chmod o+rx {} \;
-find /import/brandings -type f -exec chmod o+r {} \;
+find /import/brandings -type d -exec chmod o+rwx {} \;
+find /import/brandings -type f -exec chmod o+rw {} \;
 
 /usr/sbin/nginx
