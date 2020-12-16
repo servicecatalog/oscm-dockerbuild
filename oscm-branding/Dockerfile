@@ -26,6 +26,7 @@ ARG YUI_JAR="yuicompressor-${YUI_VERSION}.jar"
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
     yum install -y \
+        java-1.8.0-openjdk \
         tar && \
     yum clean all && \
     wget "https://github.com/sass/dart-sass/releases/download/${SASS_VERSION}/${SASS_BINARY}" -O /tmp/"${SASS_BINARY}" && \
