@@ -11,14 +11,13 @@ remove_css () {
 }
 
 compile_sass () {
-  for dir in /*/
+  for dir in /import/brandings/*
   do
-    $package_dir=${dir%*/}
-    remove_css $package_dir
-    sass $package_dir/scss/*.scss $package_dir/css/*.css
-    sass $package_dir/customBootstrap/scss/*.scss $package_dir/customBootstrap/css/*.css
-    for i in $package_dir/css/*.css; do java -jar ./yuicompressor-2.4.7.jar $i -o $(echo $i | sed 's/\.css/\.min\.css/g'); done;
-    for i in $package_dir/customBootstrap/css/*.css; do java -jar ./yuicompressor-2.4.7.jar $i -o $(echo $i | sed 's/\.css/\.min\.css/g'); done;
+    remove_css $dir
+    sass $dir/scss/*.scss $dir/css/*.css
+    sass $dir/customBootstrap/scss/*.scss $dir/customBootstrap/css/*.css
+    for i in $dir/css/*.css; do java -jar ./yuicompressor-2.4.7.jar $i -o $(echo $i | sed 's/\.css/\.min\.css/g'); done;
+    for i in $dir/customBootstrap/css/*.css; do java -jar ./yuicompressor-2.4.7.jar $i -o $(echo $i | sed 's/\.css/\.min\.css/g'); done;
   done
 }
 

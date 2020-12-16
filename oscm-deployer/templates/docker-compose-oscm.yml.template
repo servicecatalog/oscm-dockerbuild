@@ -77,7 +77,7 @@ services:
     restart: always
     env_file: var.env
     volumes:
-      - ${DOCKER_PATH}/config/brandings:/import/brandings:ro
+      - ${DOCKER_PATH}/config/brandings:/import/brandings:rw
       - ${DOCKER_PATH}/config/oscm-branding/ssl/privkey:/import/ssl/privkey
       - ${DOCKER_PATH}/config/oscm-branding/ssl/cert:/import/ssl/cert
       - ${DOCKER_PATH}/config/oscm-branding/ssl/chain:/import/ssl/chain
