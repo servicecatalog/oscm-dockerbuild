@@ -18,9 +18,10 @@ COPY ssl.key /opt/ssl.key
 COPY ssl.crt /usr/share/pki/ca-trust-source/anchors/
 
 ARG SASS_VERSION='1.26.11'
-ARG YUI_VERSION='2.4.7'
 ARG SASS_BINARY="dart-sass-${SASS_VERSION}-linux-x64.tar.gz"
 ARG SASS_PATH=/usr/local/dart-sass
+ARG YUI_VERSION='2.4.7'
+ARG YUI_JAR="yuicompressor-${YUI_VERSION}.jar"
 
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
@@ -28,7 +29,7 @@ RUN export http_proxy=$HTTP_PROXY && \
         tar && \
     yum clean all && \
     wget "https://github.com/sass/dart-sass/releases/download/${SASS_VERSION}/${SASS_BINARY}" -O /tmp/"${SASS_BINARY}" && \
-    wget "https://repo1.maven.org/maven2/com/yahoo/platform/yui/yuicompressor/${YUI_VERSION}/yuicompressor-${YUI_VERSION}.jar" -O /usr/local && \
+    wget "https://repo1.maven.org/maven2/com/yahoo/platform/yui/yuicompressor/${YUI_VERSION}/${YUI_JAR}" -O /usr/local/"${YUI_JAR}" && \
     tar -C /usr/local -xzf /tmp/"${SASS_BINARY}" && \
     chmod +x /opt/start.sh
 
