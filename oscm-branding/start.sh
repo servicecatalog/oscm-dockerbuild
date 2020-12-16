@@ -36,4 +36,5 @@ chmod +x /opt/compile_branding_packages.sh
 find /import/brandings -type d -exec chmod o+rwx {} \;
 find /import/brandings -type f -exec chmod o+rw {} \;
 
+/opt/compile_branding_packages.sh
 /usr/sbin/nginx
