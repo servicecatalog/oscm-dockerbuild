@@ -20,7 +20,7 @@ compile_sass () {
         sass $dir/scss/$name.scss $dir/css/$name.css
       fi
     done;
-    for i in $dir/scss/*; do
+    for i in $dir/customBootstrap/scss/*; do
       file="${i##*/}"
       if [[ $file != _* ]] && [[ ${file: -5} == ".scss" ]]; then
         name="${file%%.*}"
