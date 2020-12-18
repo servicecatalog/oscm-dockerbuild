@@ -7,7 +7,7 @@
  #*****************************************************************************
  
 # Asynchronous Provisioning Platform Settings
-APP_BASE_URL=https://${HOST_FQDN}:8881/oscm-app
+APP_BASE_URL=${OSCM_APP_URL}
 APP_TIMER_INTERVAL=15000
 APP_MAIL_RESOURCE=APPMail
 APP_ADMIN_MAIL_ADDRESS=${APP_ADMIN_MAIL_ADDRESS}
