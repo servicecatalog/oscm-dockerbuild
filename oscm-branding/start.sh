@@ -30,7 +30,11 @@ done
 find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|^certificate-category: other-entry$|certificate-category: authority|g' {} \;
 /usr/bin/update-ca-trust
 
-find /import/brandings -type d -exec chmod o+rx {} \;
-find /import/brandings -type f -exec chmod o+r {} \;
+# Copies the script that uploads branding
+chmod +x /opt/compile_branding_packages.sh
 
+find /import/brandings -type d -exec chmod o+rwx {} \;
+find /import/brandings -type f -exec chmod o+rw {} \;
+
+/opt/compile_branding_packages.sh
 /usr/sbin/nginx
