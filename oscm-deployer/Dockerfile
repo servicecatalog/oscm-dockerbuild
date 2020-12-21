@@ -12,7 +12,6 @@ ENV INITDB=false
 ENV STARTUP=false
 ENV SYSLOG=false
 ENV SAMPLE_DATA=false
-ENV HOST_FQDN=localhost
 ENV IMAGE_DB=oscm-db:latest
 ENV IMAGE_CORE=oscm-core:latest
 ENV IMAGE_APP=oscm-app:latest

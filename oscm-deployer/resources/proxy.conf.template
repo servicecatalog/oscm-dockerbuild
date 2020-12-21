@@ -8,7 +8,7 @@
 
 server {
     listen       80;
-    server_name www.${FQDN};
+    server_name www.${HOST_FQDN};
     server_tokens off;
 
      location / {
@@ -24,21 +24,22 @@ server {
 
 server {
     listen 443 ssl;
-    server_name www.${FQDN};
+    server_name www.${HOST_FQDN};
     server_tokens off;
 
     ssl_certificate /etc/nginx/certs/cert/ssl.crt;
     ssl_certificate_key /etc/nginx/certs/privkey/ssl.key;
-
+    
     location /oscm-portal {
-        proxy_pass http://oscm-core:8080/oscm-portal;
+        proxy_pass https://oscm-core:8081/oscm-portal/;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
     }
 
+
     location /oscm-rest-api {
-        proxy_pass http://oscm-core:8080/oscm-rest-api;
+        proxy_pass https://oscm-core:8081/oscm-rest-api/;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;
@@ -88,8 +89,16 @@ server {
     }
     
     location /oscm-app {
-        rewrite https://${FQDN}/oscm-app([^\n\r]*)$ http://oscm-app:8880/oscm-app$1 break;
-        proxy_pass http://oscm-app:8880;
+        rewrite https://${FQDN}/oscm-app([^\n\r]*)$ https://oscm-app:8881/oscm-app$1 break;
+        proxy_pass https://oscm-app:8881;
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 50m;
+    }
+    
+    location /approval {
+        rewrite https://${FQDN}/approval([^\n\r]*)$ https://oscm-app:8881/approval$1 break;
+        proxy_pass https://oscm-app:8881;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
         client_max_body_size 50m;

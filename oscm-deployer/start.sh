@@ -15,13 +15,20 @@ LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
-    cp /opt/env.template ${TARGET_PATH}/.env
-	if [ ${SAMPLE_DATA} == "true" ]; then
-        cp /opt/var.env.template ${TARGET_PATH}/var.env
-	else    
-        cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
+	if [ -z ${HOST_FQDN} ]; then 
+		echo "Please specify your host name with -e HOST_FQDN=..., where OSCM shall be accessible."
+	else	
+		envsubst '$HOST_FQDN' < /opt/env.template  > ${TARGET_PATH}/.env
+		if [ ${SAMPLE_DATA} == "true" ]; then
+		     #envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
+		     	    cp /opt/var.env.template ${TARGET_PATH}/var.env
+		     
+		else    
+		    #envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
+		    cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
+		fi
 	fi
-    exit 0
+	exit 0
 fi
 
 
@@ -125,7 +132,7 @@ envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 
 # If proxy.conf does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
-	envsubst  '$FQDN' < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
+	envsubst '$HOST_FQDN' < ${COMPOSE_CONFIG_PATH}/proxy.conf.template > ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf
 fi
 
 # If index.html does exist, copy it in the correct folder
@@ -175,6 +182,7 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     cd ${TARGET_PATH}
     # Pull latest images
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) pull
+    docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) pull
     
     # Create common certificate and key for identitiy service
 	openssl rand -base64 48 > /tmp/passphrase.txt
@@ -191,4 +199,8 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
 	
     # Run
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
+    if [ "${PROXY}" == "true" ]; then
+        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) up -d
+    fi
+    
 fi
