@@ -60,7 +60,7 @@ COPY lucene-queries-5.3.1.jar /opt/apache-tomee/lib/lucene-queries-5.3.1.jar
 COPY solr-core-5.3.1.jar /opt/apache-tomee/lib/solr-core-5.3.1.jar
 COPY solr-solrj-5.3.1.jar /opt/apache-tomee/lib/solr-solrj-5.3.1.jar
 COPY lucene-queryparser-5.3.1.jar /opt/apache-tomee/lib/lucene-queryparser-5.3.1.jar
-COPY dom4j-1.6.1.jar /opt/apache-tomee/lib/dom4j-1.6.1.jar
+COPY dom4j-2.1.3.jar /opt/apache-tomee/lib/dom4j-2.1.3.jar
 COPY antlr-2.7.7.jar /opt/apache-tomee/lib/antlr-2.7.7.jar
 COPY log4j-api-2.13.0.jar /opt/apache-tomee/lib/log4j-api-2.13.0.jar
 COPY log4j-core-2.13.0.jar /opt/apache-tomee/lib/log4j-core-2.13.0.jar

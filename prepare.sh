@@ -50,7 +50,7 @@ cp $LIB_DIR/jackson/javalib/jackson-annotations.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/jackson/javalib//jackson-core.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/jackson/javalib//jackson-databind.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/redhat-hibernate/javalib/jboss-logging.jar $REPO_DOCKER/oscm-core/
-cp $LIB_DIR/redhat-hibernate/javalib/dom4j-1.6.1.jar $REPO_DOCKER/oscm-core/
+cp $LIB_DIR/redhat-hibernate/javalib/dom4j-2.1.3.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/redhat-hibernate/javalib/antlr-2.7.7.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-orm-5.5.4.Final.jar $REPO_DOCKER/oscm-core/
 cp $LIB_DIR/jboss-hibernate-search/javalib/hibernate-search-engine-5.5.4.Final.jar $REPO_DOCKER/oscm-core/
