@@ -19,7 +19,7 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 		echo "Please specify your host name with -e HOST_FQDN=..., where OSCM shall be accessible."
 	else	
 		envsubst '$HOST_FQDN' < /opt/env.template  > ${TARGET_PATH}/.env
-		if [ ${SAMPLE_DATA} == "true" ]; then
+		if [ "${SAMPLE_DATA}" == "true" ]; then
 		     #envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
 		     	    cp /opt/var.env.template ${TARGET_PATH}/var.env
 		     
@@ -182,7 +182,10 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     cd ${TARGET_PATH}
     # Pull latest images
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) pull
-    docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) pull
+    if [ "${PROXY}" == "true" ]; then
+        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) pull
+    fi
+    
     
     # Create common certificate and key for identitiy service
 	openssl rand -base64 48 > /tmp/passphrase.txt
