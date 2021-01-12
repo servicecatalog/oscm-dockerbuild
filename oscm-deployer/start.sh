@@ -129,6 +129,9 @@ fi
 
 envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 > ${TARGET_PATH}/proxy/docker-compose-proxy.yml
+envsubst < ${COMPOSE_CONFIG_PATH}/var.env.proxy.template \
+> ${TARGET_PATH}/proxy/var.env
+
 
 # If proxy.conf does exist, copy it in the correct folder
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/data/proxy.conf ]; then
