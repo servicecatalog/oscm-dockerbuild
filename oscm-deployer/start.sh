@@ -182,10 +182,6 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     cd ${TARGET_PATH}
     # Pull latest images
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) pull
-    if [ "${PROXY}" == "true" ]; then
-        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) pull
-    fi
-    
     
     # Create common certificate and key for identitiy service
 	openssl rand -base64 48 > /tmp/passphrase.txt
