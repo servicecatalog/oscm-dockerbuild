@@ -174,7 +174,7 @@ if [ ${INITDB} == "true" ]; then
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) stop
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) rm -f
     
-    sed -i -e "s|^\\(OVERWRITE=\\).*|\\1false|g" ${TARGET_PATH}/docker-compose-initdb.yml
+    sed -i -e "s/OVERWRITE=.*/OVERWRITE=false/g" ${TARGET_PATH}/docker-compose-initdb.yml
 fi
 
 # If the user wants us to start up the application, do it now
