@@ -45,9 +45,10 @@ We will run a second deployment container which does the following:
 * Create the necessary subdirectories
 * Initialize the application databases
 * Start the application containers
+* Start the proxy container
 
 ```sh
-docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true servicecatalog/oscm-deployer
+docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e PROXY=true -e STARTUP=true servicecatalog/oscm-deployer
 ```
 
 # Usage
