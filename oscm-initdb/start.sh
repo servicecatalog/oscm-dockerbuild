@@ -118,6 +118,7 @@ if [ $TARGET == "CORE" ]; then
 	source /target/.env
 	# Disable automatic exporting of variables
 	set +a
+	echo "HOST_FQDN="$HOSTFQDN
 
 	# Generate property files from environment
 	genPropertyFilesCORE
