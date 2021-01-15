@@ -114,14 +114,6 @@ function initializeAndUpdateData {
 # CORE
 if [ $TARGET == "CORE" ]; then
 
-	# Enable automatic exporting of variables
-	set -a
-	# Read configuration files
-	source ${TARGET_PATH}/.env
-	# Disable automatic exporting of variables
-	set +a
-	
-	
 	# Generate property files from environment
 	genPropertyFilesCORE
 

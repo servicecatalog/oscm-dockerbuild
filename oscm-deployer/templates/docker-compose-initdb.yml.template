@@ -18,7 +18,9 @@ services:
   oscm-initdb-core:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-core
-    env_file: var.env
+    env_file: 
+    	-var.env
+    	-.env
     environment:
       - TARGET=CORE
       - SOURCE=INIT
@@ -26,8 +28,6 @@ services:
       - LOG_LEVEL=INFO
     links:
       - oscm-db:oscm-db
-    volumes:
-      - ${DOCKER_PATH}:/target
 
   oscm-initdb-jms:
     image: ${IMAGE_INITDB}
