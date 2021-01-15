@@ -19,8 +19,8 @@ services:
     image: ${IMAGE_INITDB}
     container_name: oscm-initdb-core
     env_file: 
-    	- var.env
-    	- .env
+       - var.env
+       - .env
     environment:
       - TARGET=CORE
       - SOURCE=INIT
