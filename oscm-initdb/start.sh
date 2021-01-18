@@ -123,7 +123,6 @@ if [ $TARGET == "CORE" ]; then
 	set -a
 	# Read configuration files
 	source /target/.env
-	source /target/var.env
 	# Disable automatic exporting of variables
 	set +a
 	echo "HOST_FQDN="${HOST_FQDN}
