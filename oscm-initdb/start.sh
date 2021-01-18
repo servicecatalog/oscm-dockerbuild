@@ -112,6 +112,13 @@ function initializeAndUpdateData {
 # CORE
 if [ $TARGET == "CORE" ]; then
 
+
+	echo "HOST_FQDN="${HOST_FQDN}
+	echo "IMAGE_DB="${IMAGE_DB}
+	echo "OSCM_IDENTITY_URL="${OSCM_IDENTITY_URL}
+	echo "MP_ERROR_REDIRECT_HTTPS="${MP_ERROR_REDIRECT_HTTPS}
+	echo "OSCM_CORE_URL="${OSCM_CORE_URL}
+
 	# Enable automatic exporting of variables
 	set -a
 	# Read configuration files
