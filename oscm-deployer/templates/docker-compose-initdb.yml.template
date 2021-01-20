@@ -25,6 +25,7 @@ services:
       - SOURCE=INIT
       - OVERWRITE=true
       - LOG_LEVEL=INFO
+      - HOST_FQDN=${HOST_FQDN}
     links:
       - oscm-db:oscm-db
     volumes:

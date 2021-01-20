@@ -15,11 +15,14 @@ ENV DB_HOST_JMS=oscm-db DB_PORT_JMS=5432 DB_NAME_JMS=bssjms DB_USER_JMS=jmsuser 
 ENV DB_HOST_APP=oscm-db DB_PORT_APP=5432 DB_NAME_APP=bssapp DB_USER_APP=bssappuser DB_PWD_APP=bssappuser
 ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql SQL_DUMP_BSSAPP=bssapp.sql
 
-ENV HOST_FQDN=localhost LOG_LEVEL=INFO
+ENV LOG_LEVEL=INFO
 ENV LOG_FILE_PATH=../logs
 ENV LOG_CONFIG_FILE=./log4j.properties
-ENV REPORT_ENGINEURL=https://${HOST_FQDN}:8681/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
-ENV MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}:8081/oscm-portal/marketplace?mId=959c9bf7
+OSCM_CORE_URL=https://${HOST_FQDN}/oscm-portal
+OSCM_APP_URL=https://${HOST_FQDN}/oscm-app
+OSCM_IDENTITY_URL=https://${HOST_FQDN}/oscm-identity
+OSCM_BIRT_URL=https://${HOST_FQDN}/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
+MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}/oscm-portal/marketplace?mId=959c9bf7
 
 ENV DECIMAL_PLACES=2
 ENV MAIL_JA_CHARSET=UTF-8
