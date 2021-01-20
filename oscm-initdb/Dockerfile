@@ -18,11 +18,11 @@ ENV SQL_DUMP_GLOBALS=globals.sql SQL_DUMP_BSS=bss.sql SQL_DUMP_BSSJMS=bssjms.sql
 ENV LOG_LEVEL=INFO
 ENV LOG_FILE_PATH=../logs
 ENV LOG_CONFIG_FILE=./log4j.properties
-OSCM_CORE_URL=https://${HOST_FQDN}/oscm-portal
-OSCM_APP_URL=https://${HOST_FQDN}/oscm-app
-OSCM_IDENTITY_URL=https://${HOST_FQDN}/oscm-identity
-OSCM_BIRT_URL=https://${HOST_FQDN}/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
-MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}/oscm-portal/marketplace?mId=959c9bf7
+ENV OSCM_CORE_URL=https://${HOST_FQDN}/oscm-portal
+ENV OSCM_APP_URL=https://${HOST_FQDN}/oscm-app
+ENV OSCM_IDENTITY_URL=https://${HOST_FQDN}/oscm-identity
+ENV OSCM_BIRT_URL=https://${HOST_FQDN}/birt/frameset?__report=\${reportname}.rptdesign&SessionId=\${sessionid}&__locale=\${locale}&WSDLURL=\${wsdlurl}&SOAPEndPoint=\${soapendpoint}&wsname=Report&wsport=ReportPort
+ENV MP_ERROR_REDIRECT_HTTPS=https://${HOST_FQDN}/oscm-portal/marketplace?mId=959c9bf7
 
 ENV DECIMAL_PLACES=2
 ENV MAIL_JA_CHARSET=UTF-8
