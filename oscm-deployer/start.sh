@@ -20,11 +20,9 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 	else	
 		envsubst '$HOST_FQDN' < /opt/env.template  > ${TARGET_PATH}/.env
 		if [ "${SAMPLE_DATA}" == "true" ]; then
-		     #envsubst  '$HOST_FQDN' < /opt/var.env.template > ${TARGET_PATH}/var.env
-		     	    cp /opt/var.env.template ${TARGET_PATH}/var.env
+		    cp /opt/var.env.template ${TARGET_PATH}/var.env
 		     
 		else    
-		    #envsubst  '$HOST_FQDN' < /opt/var.env.withoutSampleData.template > ${TARGET_PATH}/var.env
 		    cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
 		fi
 	fi
@@ -173,6 +171,8 @@ if [ ${INITDB} == "true" ]; then
     # Stop and remove containers
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) stop
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) rm -f
+    
+    sed -i -e "s/OVERWRITE=.*/OVERWRITE=false/g" ${TARGET_PATH}/docker-compose-initdb.yml
 fi
 
 # If the user wants us to start up the application, do it now

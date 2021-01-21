@@ -8,7 +8,6 @@
  #*                                                                           *
  #*****************************************************************************
 
-
 # Mandatory files (mount these) for DB import from SQL files (SOURCE=DUMP)
 # SQL_DUMP_GLOBALS="/opt/sqldump/globals.sql": Dump of the globals (DBs, Schemas, Roles, ...)
 # SQL_DUMP_BSS="/opt/sqldump/bss.sql": Dump of the bss database
@@ -112,6 +111,7 @@ function initializeAndUpdateData {
 # Main script
 # CORE
 if [ $TARGET == "CORE" ]; then
+
 	# Generate property files from environment
 	genPropertyFilesCORE
 

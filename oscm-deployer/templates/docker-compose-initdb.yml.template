@@ -22,8 +22,9 @@ services:
     environment:
       - TARGET=CORE
       - SOURCE=INIT
-      - OVERWRITE=false
+      - OVERWRITE=true
       - LOG_LEVEL=INFO
+      - HOST_FQDN=${HOST_FQDN}
     links:
       - oscm-db:oscm-db
 
@@ -45,7 +46,7 @@ services:
     environment:
       - TARGET=APP
       - SOURCE=INIT
-      - OVERWRITE=false
+      - OVERWRITE=true
     links:
       - oscm-db:oscm-db
 
@@ -57,7 +58,7 @@ services:
       - CONTROLLER_ID=ess.openstack
       - TARGET=CONTROLLER
       - SOURCE=NONE
-      - OVERWRITE=false
+      - OVERWRITE=true
     links:
       - oscm-db:oscm-db
 
@@ -129,7 +130,7 @@ services:
       - CONTROLLER_ID=ess.vmware
       - TARGET=VMWARE
       - SOURCE=INIT
-      - OVERWRITE=false
+      - OVERWRITE=true
     links:
       - oscm-db:oscm-db
       
@@ -141,7 +142,7 @@ services:
       - CONTROLLER_ID=ess.approval
       - TARGET=APPROVAL
       - SOURCE=INIT
-      - OVERWRITE=false
+      - OVERWRITE=true
     links:
       - oscm-db:oscm-db
 
