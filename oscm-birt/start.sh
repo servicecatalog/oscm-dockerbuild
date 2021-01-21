@@ -8,7 +8,7 @@
  #*                                                                           *
  #*****************************************************************************
 
-if [ z ${OSCM_BIRT_URL} ]; then
+if [ -z ${OSCM_BIRT_URL} ]; then
   if [ ! -z ${REPORT_ENGINEURL} ]; then
      export OSCM_BIRT_URL=$(echo ${REPORT_ENGINEURL} | awk -F'/' '{ print $1 "//" $3 "/" }')
    fi
