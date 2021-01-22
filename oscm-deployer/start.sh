@@ -13,15 +13,19 @@ COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
 LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
+if [ ! -d ${TARGET_PATH}/proxy ]; then
+    mkdir -p ${TARGET_PATH}/proxy}
+fi
+
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 	if [ -z ${HOST_FQDN} ]; then 
 		echo "Please specify your host name with -e HOST_FQDN=..., where OSCM shall be accessible."
 	else	
 		envsubst '$HOST_FQDN' < /opt/env.template  > ${TARGET_PATH}/.env
+		cp /opt/var.env.proxy.template ${TARGET_PATH}/proxy/var.env
 		if [ "${SAMPLE_DATA}" == "true" ]; then
 		    cp /opt/var.env.template ${TARGET_PATH}/var.env
-		     
 		else    
 		    cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
 		fi
@@ -42,7 +46,6 @@ set -e
 
 # Create Docker directories if they do not exist yet
 for docker_directory in \
-    ${TARGET_PATH}/proxy \
     ${TARGET_PATH}/data/oscm-db/data \
     ${TARGET_PATH}/config/certs \
     ${TARGET_PATH}/config/certs/sso \
@@ -127,8 +130,7 @@ fi
 
 envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
 > ${TARGET_PATH}/proxy/docker-compose-proxy.yml
-envsubst < ${COMPOSE_CONFIG_PATH}/var.env.proxy.template \
-> ${TARGET_PATH}/proxy/var.env
+
 
 
 # If proxy.conf does exist, copy it in the correct folder
