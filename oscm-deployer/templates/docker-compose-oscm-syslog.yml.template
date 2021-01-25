@@ -96,6 +96,7 @@ services:
     container_name: oscm-help
     restart: always
     ${LOGGING} ${LOCAL5}
+    ports:
       - 8543:443
       
   oscm-maildev:
