@@ -116,3 +116,38 @@ services:
         syslog-facility: "local5"
     ports:
       - 8543:443
+      
+  oscm-maildev:
+   image: ${IMAGE_MAILDEV}
+   container_name: oscm-maildev
+   restart: always
+   logging:
+      driver: syslog
+      options:
+        syslog-facility: "local6"
+   ports:
+      - 8082:80
+      
+  oscm-identity:
+    image: ${IMAGE_IDENTITY}
+    container_name: oscm-identity
+    restart: always
+    logging:
+      driver: syslog
+      options:
+        syslog-facility: "local7"
+    env_file: var.env
+    environment:
+      - JPDA_ADDRESS=9000
+      - JPDA_TRANSPORT=dt_socket
+    volumes:
+      - ${DOCKER_PATH}/config/oscm-identity/tenants:/opt/identity/config/tenants
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-identity/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
+    ports:
+      - 9091:9091
+      - 9090:9090
+      - 9000:9000
+      
