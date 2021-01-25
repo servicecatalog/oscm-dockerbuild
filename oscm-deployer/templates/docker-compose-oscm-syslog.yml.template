@@ -12,10 +12,7 @@ services:
     image: ${IMAGE_DB}
     container_name: oscm-db
     restart: always
-    logging:
-      driver: syslog
-      options:
-        syslog-facility: "local0"
+    ${LOGGING} ${LOCAL}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/data/oscm-db/data:/var/lib/postgresql/data
@@ -26,10 +23,7 @@ services:
     image: ${IMAGE_CORE}
     container_name: oscm-core
     restart: always
-    logging:
-      driver: syslog
-      options:
-        syslog-facility: "local1"
+    ${LOGGING} ${LOCAL1}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=8000
@@ -50,10 +44,7 @@ services:
     image: ${IMAGE_APP}
     container_name: oscm-app
     restart: always
-    logging:
-      driver: syslog
-      options:
-        syslog-facility: "local2"
+    ${LOGGING} ${LOCAL2}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=8000
@@ -74,10 +65,7 @@ services:
     image: ${IMAGE_BIRT}
     container_name: oscm-birt
     restart: always
-    logging:
-      driver: syslog
-      options:
-        syslog-facility: "local3"
+    ${LOGGING} ${LOCAL3}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/config/oscm-birt/ssl/privkey:/import/ssl/privkey
@@ -92,10 +80,7 @@ services:
     image: ${IMAGE_BRANDING}
     container_name: oscm-branding
     restart: always
-    logging:
-      driver: syslog
-      options:
-        syslog-facility: "local4"
+    ${LOGGING} ${LOCAL4}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/config/brandings:/import/brandings:rw
@@ -110,21 +95,14 @@ services:
     image: ${IMAGE_HELP}
     container_name: oscm-help
     restart: always
-    logging:
-      driver: syslog
-      options:
-        syslog-facility: "local5"
-    ports:
+    ${LOGGING} ${LOCAL5}
       - 8543:443
       
   oscm-maildev:
    image: ${IMAGE_MAILDEV}
    container_name: oscm-maildev
    restart: always
-   logging:
-      driver: syslog
-      options:
-        syslog-facility: "local6"
+   ${LOGGING} ${LOCAL6}
    ports:
       - 8082:80
       
@@ -132,10 +110,7 @@ services:
     image: ${IMAGE_IDENTITY}
     container_name: oscm-identity
     restart: always
-    logging:
-      driver: syslog
-      options:
-        syslog-facility: "local7"
+    ${LOGGING} ${LOCAL7}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=9000

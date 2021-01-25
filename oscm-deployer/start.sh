@@ -12,6 +12,16 @@
 COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
 LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
+LOGGING=
+LOCAL=
+LOCAL1=
+LOCAL2=
+LOCAL3=
+LOCAL4=
+LOCAL5=
+LOCAL6=
+LOCAL7=
+
 
 if [ ! -d ${TARGET_PATH}/proxy ]; then
     mkdir -p ${TARGET_PATH}/proxy
@@ -121,6 +131,19 @@ envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
+    LOGGING="logging:\n
+      driver: syslog\n
+      options:\n
+        syslog-facility:" 
+    LOCAL=local
+    LOCAL1=local1
+    LOCAL2=local2
+    LOCAL3=local3
+    LOCAL4=local4
+    LOCAL5=local5
+    LOCAL6=local6
+    LOCAL7=local7
+        
     envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 else
