@@ -68,7 +68,7 @@ export PROXY_NOPROXY=$(echo $PROXY_NOPROXY | sed -e 's/|/\\|/g')
 /usr/bin/envsubst '$PROXY_ENABLED $PROXY_HTTP_HOST $PROXY_HTTP_PORT $PROXY_HTTPS_HOST $PROXY_HTTPS_PORT $PROXY_NOPROXY' < /opt/apache-tomee/bin/catalina_template.sh > /opt/apache-tomee/bin/catalina.sh
 
 # Change entropy source of Java to non-blocking
-sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /usr/lib/jvm/java-1.8.0-openjdk/jre/lib/security/java.security
+sed -i 's|^securerandom.source=file:\/dev\/random|securerandom.source=file:/dev/./urandom|g' /etc/alternatives/java_sdk/jre/lib/security/java.security
 
 # Call custom installation tasks
 if [ -f /opt/scripts/start.sh ]; then
