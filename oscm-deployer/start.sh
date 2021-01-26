@@ -123,7 +123,7 @@ if [ ${SYSLOG} == "true" ]; then
       driver: syslog
       options:
         syslog-facility:" 
-    LOCAL=\"local\"
+    LOCAL=\"local0\"
     LOCAL1=\"local1\"
     LOCAL2=\"local2\"
     LOCAL3=\"local3\"
