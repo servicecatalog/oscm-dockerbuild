@@ -37,6 +37,12 @@ server {
         client_max_body_size 50m;
     }
 
+    location /oscm-portal-help {
+        proxy_pass https://oscm-core:8081/oscm-portal-help/;
+    	proxy_set_header Host            $host;
+    	proxy_set_header X-Forwarded-For $remote_addr;
+    	client_max_body_size 50m;
+    }
 
     location /oscm-rest-api {
         proxy_pass https://oscm-core:8081/oscm-rest-api;
