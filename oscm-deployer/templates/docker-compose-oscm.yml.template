@@ -11,8 +11,7 @@ services:
   oscm-db:
     image: ${IMAGE_DB}
     container_name: oscm-db
-    restart: always
-    ${LOGGING} ${LOCAL}
+    restart: always ${LOGGING} ${LOCAL}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/data/oscm-db/data:/var/lib/postgresql/data
@@ -22,8 +21,7 @@ services:
   oscm-core:
     image: ${IMAGE_CORE}
     container_name: oscm-core
-    restart: always
-    ${LOGGING} ${LOCAL1}
+    restart: always ${LOGGING} ${LOCAL1}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=8000
@@ -44,8 +42,7 @@ services:
   oscm-app:
     image: ${IMAGE_APP}
     container_name: oscm-app
-    restart: always
-    ${LOGGING} ${LOCAL2}
+    restart: always ${LOGGING} ${LOCAL2}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=8000
@@ -66,8 +63,7 @@ services:
   oscm-birt:
     image: ${IMAGE_BIRT}
     container_name: oscm-birt
-    restart: always
-    ${LOGGING} ${LOCAL3}
+    restart: always ${LOGGING} ${LOCAL3}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/config/oscm-birt/ssl/privkey:/import/ssl/privkey
@@ -81,8 +77,7 @@ services:
   oscm-branding:
     image: ${IMAGE_BRANDING}
     container_name: oscm-branding
-    restart: always
-    ${LOGGING} ${LOCAL4}
+    restart: always ${LOGGING} ${LOCAL4}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/config/brandings:/import/brandings:rw
@@ -96,8 +91,7 @@ services:
   oscm-identity:
     image: ${IMAGE_IDENTITY}
     container_name: oscm-identity
-    restart: always
-    ${LOGGING} ${LOCAL6}
+    restart: always ${LOGGING} ${LOCAL6}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=9000
@@ -116,8 +110,7 @@ services:
   oscm-help:
     image: ${IMAGE_HELP}
     container_name: oscm-help
-    restart: always
-     ${LOGGING} ${LOCAL5}
+    restart: always ${LOGGING} ${LOCAL5}
     ports:
       - 8543:443
 
