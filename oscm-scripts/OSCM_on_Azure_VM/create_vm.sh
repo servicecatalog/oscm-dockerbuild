@@ -9,7 +9,7 @@ vmName=myOSCM
 username=oscmadmin
 isExist=$(az group exists -n $resourceGroupName)
 
-echo -e -n "${Cyan}Enter a Password: \n${White}"
+echo -e -n "${Cyan}Enter the password you want to use for ssh login: \n${White}"
 read -s plainPwd < /dev/tty
 
 delete_resource_group_if_exist() {

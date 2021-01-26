@@ -53,9 +53,9 @@ install_oscm () {
   sed -i 's/INTERNAL/OIDC/g' var.env.template
   sed -i 's/${HOST_FQDN}/'$publicIP'/g' proxy.conf.template
   sed -i 's/${FQDN}/'$publicIP'/g' proxy.conf.template
-  sudo cp ./conf.env /docker/var.env
+  sudo cp ./var.env.template /docker/var.env
   sudo docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true -e SAMPLE_DATA=true -e PROXY=true docker.io/servicecatalog/oscm-deployer:latest
-  sudo cp ./proxy_conf.conf /docker/config/oscm-proxy/data/proxy.conf
+  sudo cp ./proxy.conf.template /docker/config/oscm-proxy/data/proxy.conf
 
   echo
   echo -e "${Green}----------------------------------------------------------------------------------------"
