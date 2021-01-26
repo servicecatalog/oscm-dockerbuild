@@ -4,7 +4,7 @@ $vmName            = "myOSCM"
 $username          = "oscmadmin"
 $isExist           = $(az group exists -n $resourceGroupName)
 
-Write-Host -f Magenta "Enter a Password"
+Write-Host -f Magenta "Enter the password you want to use for ssh login: "
 $pwd_string        = Read-Host -AsSecureString
 $plainPwd          = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($pwd_string))
 
