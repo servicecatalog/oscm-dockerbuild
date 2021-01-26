@@ -29,16 +29,20 @@ install_oscm () {
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/OSCM_on_Azure_VM/conf.env
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/OSCM_on_Azure_VM/proxy_conf.conf
 
-  echo -e -n "${Cyan}Enter a Password: \n${White}"
+  echo -e -n "${Cyan}Enter a database password: \n${White}"
   read -s plainPwd < /dev/tty
 
   pwKey=""
-  for value in $password $password '1234'; do
+  for value in $plainPwd $plainPwd '1234'; do
     pwKey+="$value"
   done
 
-  sed -i 's/password/'$password'/g' conf.env
+  echo -e -n "${Cyan}Enter a admin password: \n${White}"
+  read -s adminPwd < /dev/tty
+
+  sed -i 's/password/'$plainPwd'/g' conf.env
   sed -i 's/pwKey/'$pwKey'/g' conf.env
+  sed -i 's/adminpassword/'$adminPwd'/g' conf.env
   sed -i 's/vm_public_ip/'$publicIP'/g' conf.env
   sed -i 's/vm_public_ip/'$publicIP'/g' proxy_conf.conf
   sudo cp ./conf.env /docker/var.env
