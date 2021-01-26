@@ -26,25 +26,33 @@ install_oscm () {
   sudo docker run --name deployer1 --rm -v /docker:/target -e SAMPLE_DATA=true servicecatalog/oscm-deployer:latest
   publicIP=$(curl ifconfig.me)
 
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/OSCM_on_Azure_VM/conf.env
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/OSCM_on_Azure_VM/proxy_conf.conf
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/templates/var.env.template
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/resources/proxy.conf.template
 
   echo -e -n "${Cyan}Enter a database password: \n${White}"
   read -s plainPwd < /dev/tty
 
-  pwKey=""
-  for value in $plainPwd $plainPwd '1234'; do
-    pwKey+="$value"
-  done
-
   echo -e -n "${Cyan}Enter a admin password: \n${White}"
   read -s adminPwd < /dev/tty
 
-  sed -i 's/password/'$plainPwd'/g' conf.env
-  sed -i 's/pwKey/'$pwKey'/g' conf.env
-  sed -i 's/adminpassword/'$adminPwd'/g' conf.env
-  sed -i 's/vm_public_ip/'$publicIP'/g' conf.env
-  sed -i 's/vm_public_ip/'$publicIP'/g' proxy_conf.conf
+  echo -e -n "${Cyan}Enter a email suffix: \n${White}"
+  read -s suffix < /dev/tty
+
+  administrator="administrator@${suffix}"
+  supplier="supplier@${suffix}"
+  customer="customer@${suffix}"
+  reseller="reseller@${suffix}"
+
+  sed -i 's/secret/'$plainPwd'/g' var.env.template
+  sed -i 's/admin123/'$adminPwd'/g' var.env.template
+  sed -i 's/${HOST_FQDN}/'$publicIP'/g' var.env.template
+  sed -i 's/administrator/'$administrator'/g' var.env.template
+  sed -i 's/supplier/'$supplier'/g' var.env.template
+  sed -i 's/customer/'$customer'/g' var.env.template
+  sed -i 's/reseller/'$reseller'/g' var.env.template
+  sed -i 's/INTERNAL/OIDC/g' var.env.template
+  sed -i 's/${HOST_FQDN}/'$publicIP'/g' proxy.conf.template
+  sed -i 's/${FQDN}/'$publicIP'/g' proxy.conf.template
   sudo cp ./conf.env /docker/var.env
   sudo docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true -e SAMPLE_DATA=true -e PROXY=true docker.io/servicecatalog/oscm-deployer:latest
   sudo cp ./proxy_conf.conf /docker/config/oscm-proxy/data/proxy.conf
