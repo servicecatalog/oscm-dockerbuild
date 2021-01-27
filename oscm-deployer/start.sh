@@ -133,7 +133,6 @@ if [ ${SYSLOG} == "true" ]; then
     LOCAL4=\"local4\"
     LOCAL5=\"local5\"
     LOCAL6=\"local6\"
-    LOCAL7=\"local7\"
         
     envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml

@@ -29,7 +29,6 @@ ENV LOCAL3=
 ENV LOCAL4=
 ENV LOCAL5=
 ENV LOCAL6=
-ENV LOCAL7=
 
 COPY templates/env.template templates/var.env.template templates/var.env.proxy.template templates/var.env.withoutSampleData.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-oscm-syslog.yml.template templates/docker-compose-proxy.yml.template resources/proxy.conf.template resources/index.html.template start.sh /opt/
 COPY resources/tenant-default.properties /opt/tenant-default.properties
