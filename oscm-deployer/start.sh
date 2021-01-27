@@ -13,13 +13,9 @@ COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
 LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
 
-
-
 if [ ! -d ${TARGET_PATH}/proxy ]; then
     mkdir -p ${TARGET_PATH}/proxy
 fi
-
-
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
