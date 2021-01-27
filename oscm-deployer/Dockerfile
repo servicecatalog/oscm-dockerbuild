@@ -42,7 +42,7 @@ RUN export http_proxy=$HTTP_PROXY && \
     curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
     chmod +x /opt/start.sh && \
-    dos2unix /opt/env.template /opt/var.env.template /opt/var.env.withoutSampleData.template /opt/docker-compose-initdb.yml.template /opt/docker-compose-oscm.yml.template /opt/docker-compose-oscm-syslog.yml.template /opt/docker-compose-proxy.yml.template /opt/proxy.conf.template /opt/start.sh && \
+    dos2unix /opt/env.template /opt/var.env.template /opt/var.env.withoutSampleData.template /opt/docker-compose-initdb.yml.template /opt/docker-compose-oscm.yml.template /opt/docker-compose-proxy.yml.template /opt/proxy.conf.template /opt/start.sh && \
     yum -y remove dos2unix
 
 VOLUME /target
