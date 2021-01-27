@@ -30,7 +30,7 @@ ENV LOCAL4=
 ENV LOCAL5=
 ENV LOCAL6=
 
-COPY templates/env.template templates/var.env.template templates/var.env.proxy.template templates/var.env.withoutSampleData.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-oscm-syslog.yml.template templates/docker-compose-proxy.yml.template resources/proxy.conf.template resources/index.html.template start.sh /opt/
+COPY templates/env.template templates/var.env.template templates/var.env.proxy.template templates/var.env.withoutSampleData.template templates/docker-compose-initdb.yml.template templates/docker-compose-oscm.yml.template templates/docker-compose-proxy.yml.template resources/proxy.conf.template resources/index.html.template start.sh /opt/
 COPY resources/tenant-default.properties /opt/tenant-default.properties
 RUN export http_proxy=$HTTP_PROXY && \
     export https_proxy=$HTTP_PROXY && \
