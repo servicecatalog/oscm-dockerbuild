@@ -117,7 +117,7 @@ done
     rm -f ${TARGET_PATH}/*.yml
 
 # Create Docker Compose files from templates
-envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
+envsubst '$LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
@@ -127,8 +127,7 @@ else
     cp ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template ${TARGET_PATH}/docker-compose-oscm.yml
 fi
 
-envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
-> ${TARGET_PATH}/proxy/docker-compose-proxy.yml
+cp ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template ${TARGET_PATH}/proxy/docker-compose-proxy.yml
 
 
 
