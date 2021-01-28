@@ -20,7 +20,8 @@ Please note that this minimum configuration is not suitable for production use.
 # Setup
 
 ## Prepare directory on the host
-We require a directory on the docker host which holds various data such as persistent database data, configuration data and so on. We will use `/docker` as an example, please substitute your own directory path.
+We require an install directory named `docker` on the docker host which holds various data such as persistent database data, configuration data and so on. 
+Choose any location you prefer. As example we will create this directory on the root level and refer to this as '/docker' in the following.  
 
 ```sh
 mkdir /docker
