@@ -7,7 +7,7 @@ tenant_properties="tenant.properties"
 
 prepare_input(){
   echo "START: Preparing application.json..."
-  sed -e "s/\${displayName}/$app_display_name/" -e "s/\${redirectUrl}/$app_redirect_url/" application-template.json > application.json
+  sed -e "s/\${displayName}/$app_display_name/" -e "s/\${redirectIp}/$app_ip/" application-template.json > application.json
   if [ $? -ne 0 ]; then
     echo "Input data preparation failed"
     exit 1
@@ -79,5 +79,10 @@ prepare_properties_for_tenant(){
     exit 1
   else
     echo "Tenant data preparation was successful"
+
+    Green='\033[0;32m'
+    White='\033[1;37m'
+    echo -e "${Green}Application registered successfully in  Azure Active Directory"
+    echo -e "${Green}Now copy the ${White}tenant.properties ${Green}file to the path ${White}/docker/config/oscm-identity/tenants"
   fi
 }
