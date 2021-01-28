@@ -124,7 +124,8 @@ if [ ${SYSLOG} == "true" ]; then
     envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 else
-    cp ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template ${TARGET_PATH}/docker-compose-oscm.yml
+    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+    > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
 
 envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
