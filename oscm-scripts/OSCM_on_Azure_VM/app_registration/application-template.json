@@ -26,7 +26,7 @@
   ],
   "web": {
     "redirectUris": [
-      "${redirectUrl}"
+      "https://${redirectIp}:9091/oscm-identity/callback"
     ],
     "implicitGrantSettings": {
       "enableAccessTokenIssuance": true,
