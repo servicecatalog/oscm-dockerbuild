@@ -5,11 +5,11 @@ White='\033[1;37m'
 Red='\033[0;31m'
 
 get_files() {
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/steps.sh
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/application-template.json
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/response.json
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/rr_operations.sh
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/tenant-template.properties
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/steps.sh
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/application-template.json
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/response.json
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/rr_operations.sh
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/tenant-template.properties
 
   if [ -f ./steps.sh ]; then
     echo "Downloading files was successful "
@@ -29,7 +29,7 @@ echo -e -n "${Cyan}Enter a application (client) ID: ${White}"
 read client_id < /dev/tty
 echo -e -n "${Cyan}Enter a client secret: ${White}"
 read client_secret < /dev/tty
-echo -e -n "${Cyan}Enter a tenanst name (e-mail suffix): ${White}"
+echo -e -n "${Cyan}Enter a tenant name (e-mail suffix): ${White}"
 read tenant_name < /dev/tty
 
 #Provide application properties
