@@ -134,10 +134,10 @@ if [ ${SYSLOG} == "true" ]; then
     LOCAL5=\"local5\"
     LOCAL6=\"local6\"
         
-    envsubst '$LOGGING' '$LOCAL' '$LOCAL1' '$LOCAL2' '$LOCAL3' '$LOCAL4' '$LOCAL5' '$LOCA6L' < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+    envsubst '$LOGGING $LOCAL $LOCAL1 $LOCAL2 $LOCAL3 $LOCAL4 $LOCAL5 $LOCA6L' < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 else
-    envsubst '$LOGGING' '$LOCAL' '$LOCAL1' '$LOCAL2' '$LOCAL3' '$LOCAL4' '$LOCAL5' '$LOCA6L' < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+    envsubst '$LOGGING $LOCAL $LOCAL1 $LOCAL2 $LOCAL3 $LOCAL4 $LOCAL5 $LOCA6L' < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
 
