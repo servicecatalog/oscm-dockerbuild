@@ -40,7 +40,7 @@ login_to_vm() {
   publicIp=$(az vm show -d -g $resourceGroupName -n $vmName --query publicIps -o tsv)
 
   echo -e "${Green}----------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-  echo -e "${Green}Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/OSCM_on_Azure_VM/deploy_oscm.sh | sudo bash ->"
+  echo -e "${Green}Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/deploy_oscm.sh | sudo bash ->"
   echo -e "${Green}----------------------------------------------------------------------------------------------------------------------------------------------------------------------"
   echo -e "${White}"
 

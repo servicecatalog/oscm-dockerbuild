@@ -36,7 +36,7 @@ function login_to_vm {
  $publicIp = $(az vm show -d -g $resourceGroupName -n $vmName --query publicIps -o tsv)
 
  Write-Host -f Green "----------------------------------------------------------------------------------------------------------------------------"
- Write-Host -f Green "Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/OSCM_on_Azure_VM/deploy_oscm.sh | sudo bash ->"
+ Write-Host -f Green "Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/deploy_oscm.sh | sudo bash ->"
  Write-Host -f Green "----------------------------------------------------------------------------------------------------------------------------"
 
  ssh $username@"$publicIp"
