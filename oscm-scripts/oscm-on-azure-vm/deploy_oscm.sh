@@ -65,8 +65,8 @@ install_oscm () {
   echo -e "${Green}                      OSCM application deployed on $publicIP                            "
   echo
   echo -e "${Green}Register your application in Azure Active Directory and then configure tenant properties"
-  echo -e "${Green}You can do it by <- wget https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/oscm-on-azure-vm/app-registration ->"
-  echo -e "${Green}And than execute start.sh from that package"
+  echo
+  echo -e "${Green}You can do it by <- wget -0 https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/oscm-on-azure-vm/app-registration/start.sh ->"
   echo -e "${Green}----------------------------------------------------------------------------------------"
 }
 
