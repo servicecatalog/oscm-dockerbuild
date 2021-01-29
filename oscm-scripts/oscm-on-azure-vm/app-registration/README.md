@@ -4,7 +4,7 @@ The package contains the OSCM register script for OIDC mode in Azure Active Dire
 
 #### Run script and follow the prompts 
 
-```wget -0 https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/oscm-on-azure-vm/app-registration/start.sh```  
+```wget -0 https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/start.sh```  
 
 ------------------------------------------------------------OR---------------------------------------------------------------------------
 
