@@ -30,13 +30,13 @@ install_oscm () {
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/templates/env.template
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/resources/proxy.conf.template
 
-  echo -e -n "${Cyan}Enter a database password: ${White}"
+  echo -e -n "${Cyan}Enter a database password: ${White} \n"
   read -s plainPwd < /dev/tty
 
-  echo -e -n "${Cyan}Enter a admin password: ${White}"
+  echo -e -n "${Cyan}Enter a admin password: ${White} \n"
   read -s adminPwd < /dev/tty
 
-  echo -e -n "${Cyan}Enter a email suffix (mydomain.onmicrosoft.com): ${White}"
+  echo -e -n "${Cyan}Enter a email suffix (mydomain.onmicrosoft.com): ${White} \n"
   read suffix < /dev/tty
 
   administrator="administrator@${suffix}"
