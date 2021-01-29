@@ -199,7 +199,7 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     # Pull latest images
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) pull
     if [ "${PROXY}" == "true" ]; then
-        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) pull
+        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename proxy) pull
     fi
     
     
@@ -219,7 +219,7 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     # Run
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
     if [ "${PROXY}" == "true" ]; then
-        docker-compose -f docker-compose-proxy.yml -p $(basename ${DOCKER_PATH})/proxy up -d
+        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename proxy) up -d
     fi
     
 fi
