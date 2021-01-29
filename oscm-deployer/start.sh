@@ -121,7 +121,20 @@ envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
-    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm-syslog.yml.template \
+    LOGGING="
+    logging:
+      driver: syslog
+      options:
+        syslog-facility:" 
+    LOCAL=\"local0\"
+    LOCAL1=\"local1\"
+    LOCAL2=\"local2\"
+    LOCAL3=\"local3\"
+    LOCAL4=\"local4\"
+    LOCAL5=\"local5\"
+    LOCAL6=\"local6\"
+        
+    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
     > ${TARGET_PATH}/docker-compose-oscm.yml
 else
     envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \

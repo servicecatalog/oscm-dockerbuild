@@ -11,7 +11,7 @@ services:
   oscm-db:
     image: ${IMAGE_DB}
     container_name: oscm-db
-    restart: always
+    restart: always ${LOGGING} ${LOCAL}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/data/oscm-db/data:/var/lib/postgresql/data
@@ -21,7 +21,7 @@ services:
   oscm-core:
     image: ${IMAGE_CORE}
     container_name: oscm-core
-    restart: always
+    restart: always ${LOGGING} ${LOCAL1}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=8000
@@ -34,6 +34,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-core/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
       - ${DOCKER_PATH}/config/certs/sso:/import/certs/sso
+      - ${DOCKER_PATH}/logs/oscm-core/tomcat:/opt/apache-tomee/logs
     ports:
       - 8081:8081
       - 8000:8000
@@ -41,7 +42,7 @@ services:
   oscm-app:
     image: ${IMAGE_APP}
     container_name: oscm-app
-    restart: always
+    restart: always ${LOGGING} ${LOCAL2}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=8000
@@ -54,6 +55,7 @@ services:
       - ${DOCKER_PATH}/config/oscm-app/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/oscm-app/scripts:/opt/scripts
       - ${DOCKER_PATH}/config/certs:/import/certs
+      - ${DOCKER_PATH}/logs/oscm-app/tomcat:/opt/apache-tomee/logs
     ports:
       - 8881:8881
       - 8800:8000
@@ -61,20 +63,21 @@ services:
   oscm-birt:
     image: ${IMAGE_BIRT}
     container_name: oscm-birt
-    restart: always
+    restart: always ${LOGGING} ${LOCAL3}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/config/oscm-birt/ssl/privkey:/import/ssl/privkey
       - ${DOCKER_PATH}/config/oscm-birt/ssl/cert:/import/ssl/cert
       - ${DOCKER_PATH}/config/oscm-birt/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
+      - ${DOCKER_PATH}/logs/oscm-birt/tomcat:/var/log/tomcat
     ports:
       - 8681:8681
 
   oscm-branding:
     image: ${IMAGE_BRANDING}
     container_name: oscm-branding
-    restart: always
+    restart: always ${LOGGING} ${LOCAL4}
     env_file: var.env
     volumes:
       - ${DOCKER_PATH}/config/brandings:/import/brandings:rw
@@ -88,7 +91,7 @@ services:
   oscm-identity:
     image: ${IMAGE_IDENTITY}
     container_name: oscm-identity
-    restart: always
+    restart: always ${LOGGING} ${LOCAL5}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=9000
@@ -107,7 +110,7 @@ services:
   oscm-help:
     image: ${IMAGE_HELP}
     container_name: oscm-help
-    restart: always
+    restart: always ${LOGGING} ${LOCAL6}
     ports:
       - 8543:443
 
