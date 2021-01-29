@@ -1,31 +1,21 @@
-#!/bin/bash
+#!/bin/sh
 
 Cyan='\033[1;35m'
 White='\033[1;37m'
 
-get_files () {
-  wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts//OSCM_on_Azure_VM/app_registration/steps.sh
-  wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/OSCM_on_Azure_VM/app_registration/application-template.json
-  wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/OSCM_on_Azure_VM/app_registration/response.json
-  wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/OSCM_on_Azure_VM/app_registration/rr_operations.sh
-  wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/OSCM_on_Azure_VM/app_registration/tenant-template.properties
-}
-
 #Provide Azure AD credentials
 echo -e -n "${Cyan}Enter a application (client) ID: ${White}"
-read client_id
+read client_id < /dev/tty
 echo -e -n "${Cyan}Enter a client secret: ${White}"
-read client_secret
+read client_secret < /dev/tty
 echo -e -n "${Cyan}Enter a directory (tenant) ID: ${White}"
-read tenant_name
+read tenant_name < /dev/tty
 
 #Provide application properties
-echo -e -n "${Cyan}Enter a directory (tenant) ID: ${White}"
-read app_display_name
-echo -e -n "${Cyan}Enter a directory (tenant) ID: ${White}"
-read app_ip
-
-get_files
+echo -e -n "${Cyan}Enter a your application register name: ${White}"
+read app_display_name < /dev/tty
+echo -e -n "${Cyan}Enter a your application IP: ${White}"
+read app_ip < /dev/tty
 
 . ./steps.sh
 

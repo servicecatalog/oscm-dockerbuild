@@ -17,3 +17,7 @@ The package contains the OSCM installation script which can be used on the Linux
 ```wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/OSCM_on_Azure_VM/create_vm.sh | sudo bash```  
 
 And then follow the displayed messages
+
+IMPORTANT! Before installing OSCM in OIDC mode, you need to create a tenant in the Azure portal. More information can be found at the link below: 
+
+https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-access-create-new-tenant#create-a-new-tenant-for-your-organization 

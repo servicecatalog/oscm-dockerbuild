@@ -30,14 +30,14 @@ install_oscm () {
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/templates/env.template
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/resources/proxy.conf.template
 
-  echo -e -n "${Cyan}Enter a database password: \n${White}"
+  echo -e -n "${Cyan}Enter a database password: ${White}"
   read -s plainPwd < /dev/tty
 
-  echo -e -n "${Cyan}Enter a admin password: \n${White}"
+  echo -e -n "${Cyan}Enter a admin password: ${White}"
   read -s adminPwd < /dev/tty
 
-  echo -e -n "${Cyan}Enter a email suffix (mydomain.onmicrosoft.com): \n${White}"
-  read -s suffix < /dev/tty
+  echo -e -n "${Cyan}Enter a email suffix (mydomain.onmicrosoft.com): ${White}"
+  read suffix < /dev/tty
 
   administrator="administrator@${suffix}"
   supplier="supplier@${suffix}"
@@ -65,6 +65,8 @@ install_oscm () {
   echo -e "${Green}                      OSCM application deployed on $publicIP                            "
   echo
   echo -e "${Green}Register your application in Azure Active Directory and then configure tenant properties"
+  echo -e "${Green}You can do it by <- wget https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/OSCM_on_Azure_VM/app_registration ->"
+  echo -e "${Green}And than execute start.sh from that package"
   echo -e "${Green}----------------------------------------------------------------------------------------"
 }
 
