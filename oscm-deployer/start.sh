@@ -190,6 +190,25 @@ if [ ${INITDB} == "true" ]; then
     sed -i -e "s/OVERWRITE=.*/OVERWRITE=false/g" ${TARGET_PATH}/docker-compose-initdb.yml
 fi
 
+# Create common certificate and key for identitiy service
+openssl rand -base64 48 > /tmp/passphrase.txt
+openssl genrsa -aes128 -passout file:/tmp/passphrase.txt -out /tmp/ssl.key 2048
+openssl req -new -passin file:/tmp/passphrase.txt -key /tmp/ssl.key -out /tmp/ssl.csr -subj "/CN=${HOST_FQDN}"
+cp /tmp/ssl.key /tmp/ssl.key.pass
+openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl.key
+openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
+
+if [ ! -f ${TARGET_PATH}/config/oscm-proxy/ssl/privkey ] || [ ! -f ${TARGET_PATH}/config/oscm-proxy/ssl/cert ]; then
+	cp /tmp/ssl.key ${TARGET_PATH}/config/oscm-proxy/ssl/privkey
+	cp /tmp/ssl.crt ${TARGET_PATH}/config/oscm-proxy/ssl/cert
+fi
+if [ ! -f ${TARGET_PATH}/config/oscm-identity/ssl/privkey ] || [ ! -f ${TARGET_PATH}/config/oscm-identity/ssl/cert ]; then
+	cp /tmp/ssl.key ${TARGET_PATH}/config/oscm-identity/ssl/privkey
+	cp /tmp/ssl.crt ${TARGET_PATH}/config/oscm-identity/ssl/cert
+fi
+	rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr /tmp/ssl.key
+
+
 # If the user wants us to start up the application, do it now
 if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     # If the Docker socket is not mounted, abort
@@ -204,20 +223,6 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
         docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) pull
     fi
     
-    
-    # Create common certificate and key for identitiy service
-	openssl rand -base64 48 > /tmp/passphrase.txt
-	openssl genrsa -aes128 -passout file:/tmp/passphrase.txt -out /tmp/ssl.key 2048
-	openssl req -new -passin file:/tmp/passphrase.txt -key /tmp/ssl.key -out /tmp/ssl.csr -subj "/CN=${HOST_FQDN}"
-	cp /tmp/ssl.key /tmp/ssl.key.pass
-	openssl rsa -in /tmp/ssl.key.pass -passin file:/tmp/passphrase.txt -out /tmp/ssl.key
-	openssl x509 -req -days 3650 -in /tmp/ssl.csr -signkey /tmp/ssl.key -out /tmp/ssl.crt
-	cp /tmp/ssl.key ${TARGET_PATH}/config/oscm-proxy/ssl/privkey
-	cp /tmp/ssl.crt ${TARGET_PATH}/config/oscm-proxy/ssl/cert
-	mv /tmp/ssl.key ${TARGET_PATH}/config/oscm-identity/ssl/privkey
-	mv /tmp/ssl.crt ${TARGET_PATH}/config/oscm-identity/ssl/cert
-	rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr
-	
     # Run
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
     if [ "${PROXY}" == "true" ]; then
