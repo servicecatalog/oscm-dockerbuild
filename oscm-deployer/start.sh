@@ -135,8 +135,9 @@ if [ ${SYSLOG} == "true" ]; then
     LOCAL6=\"local6\"
 fi
         
-    envsubst '$LOGGING $LOCAL $LOCAL1 $LOCAL2 $LOCAL3 $LOCAL4 $LOCAL5 $LOCAL6' < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
-    > ${TARGET_PATH}/docker-compose-oscm.yml
+envsubst '$LOGGING $LOCAL $LOCAL1 $LOCAL2 $LOCAL3 $LOCAL4 $LOCAL5 $LOCAL6'  \
+< ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+> ${TARGET_PATH}/docker-compose-oscm.yml
 
 cp ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template ${TARGET_PATH}/proxy/docker-compose-proxy.yml
 
