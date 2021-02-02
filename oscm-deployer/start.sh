@@ -191,7 +191,7 @@ fi
 
 
 if [ ! -f ${TARGET_PATH}/config/oscm-proxy/ssl/privkey/*.key ] || [ ! -f ${TARGET_PATH}/config/oscm-proxy/ssl/cert/*.cert ] \
-   [ ! -f ${TARGET_PATH}/config/oscm-identity/ssl/privkey/*.key ] || [ ! -f ${TARGET_PATH}/config/oscm-identity/ssl/cert/*.cert ]; then
+|| [ ! -f ${TARGET_PATH}/config/oscm-identity/ssl/privkey/*.key ] || [ ! -f ${TARGET_PATH}/config/oscm-identity/ssl/cert/*.cert ]; then
     openssl rand -base64 48 > /tmp/passphrase.txt
     openssl genrsa -aes128 -passout file:/tmp/passphrase.txt -out /tmp/ssl.key 2048
     openssl req -new -passin file:/tmp/passphrase.txt -key /tmp/ssl.key -out /tmp/ssl.csr -subj "/CN=${HOST_FQDN}"
