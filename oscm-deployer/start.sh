@@ -117,7 +117,7 @@ done
     rm -f ${TARGET_PATH}/*.yml
 
 # Create Docker Compose files from templates
-envsubst '$DOCKER_PATH $IMAGE_DB $IMAGE_INITDB $LOG_LEVEL' \
+envsubst '$LOG_LEVEL' \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-initdb.yml.template \
 > ${TARGET_PATH}/docker-compose-initdb.yml
 if [ ${SYSLOG} == "true" ]; then
@@ -133,16 +133,13 @@ if [ ${SYSLOG} == "true" ]; then
     LOCAL4=\"local4\"
     LOCAL5=\"local5\"
     LOCAL6=\"local6\"
-        
-    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
-    > ${TARGET_PATH}/docker-compose-oscm.yml
-else
-    envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
-    > ${TARGET_PATH}/docker-compose-oscm.yml
 fi
+        
+envsubst '$LOGGING $LOCAL $LOCAL1 $LOCAL2 $LOCAL3 $LOCAL4 $LOCAL5 $LOCAL6'  \
+< ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
+> ${TARGET_PATH}/docker-compose-oscm.yml
 
-envsubst < ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template \
-> ${TARGET_PATH}/proxy/docker-compose-proxy.yml
+cp ${COMPOSE_CONFIG_PATH}/docker-compose-proxy.yml.template ${TARGET_PATH}/proxy/docker-compose-proxy.yml
 
 
 
@@ -201,7 +198,7 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     # Pull latest images
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) pull
     if [ "${PROXY}" == "true" ]; then
-        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) pull
+        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename proxy) pull
     fi
     
     
@@ -221,7 +218,7 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     # Run
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
     if [ "${PROXY}" == "true" ]; then
-        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename ${DOCKER_PATH}) up -d
+        docker-compose -f proxy/docker-compose-proxy.yml -p $(basename proxy) up -d
     fi
     
 fi
