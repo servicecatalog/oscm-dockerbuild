@@ -55,6 +55,15 @@ create_application_secret(){
   secret=$(get_from_response "secretText")
 }
 
+get_graph_api_id(){
+  echo "START: Getting Graph API id..."
+  graph_response=$(request_api_get "https://graph.microsoft.com/v1.0/servicePrincipals?\$filter=displayName%20eq%20'Microsoft%20Graph'" $access_token)
+
+  handle_response $graph_response
+
+  graph_api_id=$(get_from_response "value | .[0].id")
+}
+
 grant_consent(){
   echo "START: Granting admin consent for application permission..."
   appRoles=(
@@ -65,7 +74,7 @@ grant_consent(){
 
   for appRoleId in "${appRoles[@]}"
   do
-    consent_data="{\"principalId\":\"$principal_id\",\"resourceId\":\"fb132085-49c3-49eb-abe2-55842e6dde11\",\"appRoleId\":\"$appRoleId\"}"
+    consent_data="{\"principalId\":\"$principal_id\",\"resourceId\":\"$graph_api_id\",\"appRoleId\":\"$appRoleId\"}"
     consent_response=$(request_api "https://graph.microsoft.com/v1.0/servicePrincipals/$principal_id/appRoleAssignments" $consent_data $access_token)
     handle_response $consent_response
   done
