@@ -50,6 +50,8 @@ create_service_principal
 
 create_application_secret
 
+get_graph_api_id
+
 grant_consent
 
 prepare_properties_for_tenant

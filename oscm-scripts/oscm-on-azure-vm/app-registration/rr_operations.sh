@@ -16,6 +16,19 @@ request_api(){
   curl -s -o $response_file -w "%{http_code}" -d "$2" "${headers[@]}" -X POST $1
 }
 
+request_api_get(){
+  if [ -z $2 ]; then
+    headers=()
+  else
+    headers=(
+      -H "Authorization: Bearer $2"
+      -H "Content-Type: application/json"
+    )
+  fi
+
+  curl -s -o $response_file -w "%{http_code}" "${headers[@]}" -X GET $1
+}
+
 handle_response(){
   if [[ $1 != 2* ]]; then
     error=$(cat $response_file | jq -r ".error")
