@@ -82,7 +82,7 @@ grant_consent(){
 
 prepare_properties_for_tenant(){
   echo "START: Preparing tenant.properties..."
-  sed -e "s/\${clientId}/$app_appId/" -e "s/\${clientSecret}/$secret/" -e "s/\${redirectIp}/$app_ip/" tenant-template.properties > tenant.properties
+  sed -e "s/\${clientId}/$app_appId/" -e "s/\${clientSecret}/$secret/" -e "s/\${redirectIp}/$app_ip/" -e "s/\${tenant}/$tenant_name/"  tenant-template.properties > tenant.properties
   if [ $? -ne 0 ]; then
     echo "Tenant data preparation failed"
     exit 1
