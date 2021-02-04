@@ -7,7 +7,6 @@ Red='\033[0;31m'
 get_files() {
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/steps.sh
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/application-template.json
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/response.json
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/rr_operations.sh
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/tenant-template.properties
 
@@ -39,6 +38,8 @@ echo -e -n "${Cyan}Enter a your application IP: ${White}"
 read app_ip < /dev/tty
 
 . ./steps.sh
+
+install_jq
 
 prepare_input
 
