@@ -4,7 +4,7 @@ The package contains the OSCM installation script which can be used on the Linux
 
 #### Log in to your Azure account, the login window can be opened with the command:
 
-```az login```  
+```az login```  OR  ```az login -u USERNAME -p PASSWORD```
 
 #### To run a script on Windows, run the following commands in PowerShell:  
 

@@ -24,11 +24,10 @@ function create_vm {
 
 function vm_conf {
   az vm open-port --port 80 --resource-group $resourceGroupName --name $vmName --priority 100
-  az vm open-port --port 8080-8081 --resource-group $resourceGroupName --name $vmName --priority 200
-  az vm open-port --port 8880-8881 --resource-group $resourceGroupName --name $vmName --priority 300
-  az vm open-port --port 8681 --resource-group $resourceGroupName --name $vmName --priority 400
-  az vm open-port --port 443 --resource-group $resourceGroupName --name $vmName --priority 500
-  az vm auto-shutdown -g $resourceGroupName -n $vmName --time 2000
+  az vm open-port --port 443 --resource-group $resourceGroupName --name $vmName --priority 110
+  az vm open-port --port 8080-8881 --resource-group $resourceGroupName --name $vmName --priority 200
+  az vm open-port --port 9091 --resource-group $resourceGroupName --name $vmName --priority 210
+  az vm auto-shutdown -g $resourceGroupName -n $vmName --time 1700
   Write-Host "Virtual machine available at port 80 and is set to auto-shutdown"
 }
 
