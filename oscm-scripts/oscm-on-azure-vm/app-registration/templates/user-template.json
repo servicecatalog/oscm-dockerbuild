@@ -1,0 +1,10 @@
+{
+  "displayName": "${displayName}",
+  "mailNickname": "${userId}",
+  "accountEnabled": true,
+  "userPrincipalName": "${userId}@${tenantName}",
+  "passwordProfile" : {
+    "forceChangePasswordNextSignIn": false,
+    "password": "${password}"
+  }
+}
