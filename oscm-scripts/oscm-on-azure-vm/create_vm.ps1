@@ -1,4 +1,3 @@
-
 $resourceGroupName = "myOSCMGroup"
 $vmName            = "myOSCM"
 $username          = "oscmadmin"

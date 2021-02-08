@@ -1,6 +1,6 @@
 ## Register the OSCM in Azure Active Directory for the OIDC mode
 
-The package contains the OSCM register script for OIDC mode in Azure Active Directory. 
+The package contains the OSCM application register script for OIDC mode in Azure Active Directory. 
 
 #### Run script and follow the prompts 
 
