@@ -1,6 +1,11 @@
 ## Installing OSCM on Azure VM
 
-The package contains the OSCM installation script which can be used on the Linux Ubuntu operating system. 
+The package contains the OSCM installation scripts along with the installation of a virtual machine on Azure.
+
+- The create_vm.ps1 script installs a virtual machine on the Azure platform and is launched using PowerShell commands.
+- The create_vm.sh script installs a virtual machine on the Azure platform and is launched using commands in the Linux terminal. 
+- The oscm_oidc.sh script installs the OSCM in OIDC mode and is launched using commands in the Linux terminal. 
+- The oscm_internal.sh script installs the OSCM in Internal mode and is launched using commands in the Linux terminal. 
 
 #### Log in to your Azure account, the login window can be opened with the command:
 

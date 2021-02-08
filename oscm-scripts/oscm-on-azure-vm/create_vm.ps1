@@ -23,9 +23,7 @@ function create_vm {
 }
 
 function vm_conf {
-  az vm open-port --port 80 --resource-group $resourceGroupName --name $vmName --priority 100
-  az vm open-port --port 443 --resource-group $resourceGroupName --name $vmName --priority 110
-  az vm open-port --port 8080-8881 --resource-group $resourceGroupName --name $vmName --priority 200
+  az vm open-port --port 8080-8888 --resource-group $resourceGroupName --name $vmName --priority 200
   az vm open-port --port 9091 --resource-group $resourceGroupName --name $vmName --priority 210
   az vm auto-shutdown -g $resourceGroupName -n $vmName --time 1700
   Write-Host "Virtual machine available at port 80 and is set to auto-shutdown"
@@ -35,7 +33,7 @@ function login_to_vm {
  $publicIp = $(az vm show -d -g $resourceGroupName -n $vmName --query publicIps -o tsv)
 
  Write-Host -f Green "----------------------------------------------------------------------------------------------------------------------------"
- Write-Host -f Green "Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/deploy_oscm.sh | sudo bash ->"
+ Write-Host -f Green "Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/oscm_oidc.sh | sudo bash ->"
  Write-Host -f Green "----------------------------------------------------------------------------------------------------------------------------"
 
  ssh $username@"$publicIp"

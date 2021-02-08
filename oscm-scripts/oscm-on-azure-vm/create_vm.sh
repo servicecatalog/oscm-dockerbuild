@@ -27,8 +27,6 @@ create_vm() {
 }
 
 vm_conf() {
-  az vm open-port --port 80 --resource-group $resourceGroupName --name $vmName --priority 100
-  az vm open-port --port 443 --resource-group $resourceGroupName --name $vmName --priority 110
   az vm open-port --port 8080-8881 --resource-group $resourceGroupName --name $vmName --priority 200
   az vm open-port --port 9091 --resource-group $resourceGroupName --name $vmName --priority 210
   az vm auto-shutdown -g $resourceGroupName -n $vmName --time 1700
@@ -39,7 +37,7 @@ login_to_vm() {
   publicIp=$(az vm show -d -g $resourceGroupName -n $vmName --query publicIps -o tsv)
 
   echo -e "${Green}----------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-  echo -e "${Green}Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/deploy_oscm.sh | sudo bash ->"
+  echo -e "${Green}Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/oscm_oidc.sh | sudo bash ->"
   echo -e "${Green}----------------------------------------------------------------------------------------------------------------------------------------------------------------------"
   echo -e "${White}"
 
