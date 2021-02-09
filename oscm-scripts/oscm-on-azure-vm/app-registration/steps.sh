@@ -3,7 +3,7 @@
 
 . ./rr_operations.sh
 
-tenant_properties="tenant.properties"
+tenant_properties="output/tenant.properties"
 
 install_jq(){
   echo "START: Checking if jq is exist"
@@ -18,7 +18,7 @@ install_jq(){
 
 prepare_input(){
   echo "START: Preparing application.json..."
-  sed -e "s/\${displayName}/$app_display_name/" -e "s/\${redirectIp}/$app_ip/" application-template.json > application.json
+  sed -e "s/\${displayName}/$app_display_name/" -e "s/\${hostname}/$app_hostname/" templates/application-template.json > output/application.json
   if [ $? -ne 0 ]; then
     echo "Input data preparation failed"
     exit 1
@@ -39,7 +39,7 @@ get_access_token(){
 
 register_new_application(){
   echo "START: Registering new application..."
-  app_response=$(request_api "https://graph.microsoft.com/v1.0/applications" "@application.json" $access_token)
+  app_response=$(request_api "https://graph.microsoft.com/v1.0/applications" "@output/application.json" $access_token)
 
   handle_response $app_response
 
@@ -93,7 +93,7 @@ grant_consent(){
 
 prepare_properties_for_tenant(){
   echo "START: Preparing tenant.properties..."
-  sed -e "s/\${clientId}/$app_appId/" -e "s/\${clientSecret}/$secret/" -e "s/\${redirectIp}/$app_ip/" -e "s/\${tenant}/$tenant_name/"  tenant-template.properties > tenant-default.properties
+  sed -e "s/\${clientId}/$app_appId/" -e "s/\${clientSecret}/$secret/" -e "s/\${hostname}/$app_hostname/" -e "s/\${tenant}/$tenant_name/"  templates/tenant-template.properties > output/tenant-default.properties
   if [ $? -ne 0 ]; then
     echo "Tenant data preparation failed"
     exit 1

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script defines request/response operation
-response_file="response.json"
+response_file="output/response.json"
 
 request_api(){
   if [ -z $3 ]; then

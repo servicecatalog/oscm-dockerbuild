@@ -6,9 +6,9 @@ Red='\033[0;31m'
 
 get_files() {
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/steps.sh
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/application-template.json
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/rr_operations.sh
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
+  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/tenant-template.properties
 
   if [ -f ./steps.sh ]; then
     echo "Downloading files was successful "
@@ -34,8 +34,8 @@ read tenant_name < /dev/tty
 #Provide application properties
 echo -e -n "${Cyan}Enter a your application register name: ${White}"
 read app_display_name < /dev/tty
-echo -e -n "${Cyan}Enter a your application IP: ${White}"
-read app_ip < /dev/tty
+echo -e -n "${Cyan}Enter a your application hostname: ${White}"
+read app_hostname < /dev/tty
 
 . ./steps.sh
 
