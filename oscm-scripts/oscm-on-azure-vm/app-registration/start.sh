@@ -4,24 +4,34 @@ Cyan='\033[1;35m'
 White='\033[1;37m'
 Red='\033[0;31m'
 
-get_files() {
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/steps.sh
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/application-template.json
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/rr_operations.sh
-  sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/tenant-template.properties
+build_dependencies() {
+  echo "Checking dependencies..."
+  #Download necessary scripts
+  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
+  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
+  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
+  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
 
-  if [ -f ./steps.sh ]; then
-    echo "Downloading files was successful "
+  #Download necessary templates
+  sudo wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
+  sudo wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
+  sudo wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
+
+  #Create output diretory
+  sudo mkdir output
+
+  if [ -f def/utils.sh -a -f def/handlers.sh -a -f def/application.sh -a -f def/user.sh -a -f templates/user-template.json-a -f templates/application-template.json -a -f templates/tenant-template.properties -a -d output ]; then
+    echo "Dependencies are ready"
   else
-    echo -e -n "${Red}Downloading files failed!\n"
+    echo -e -n "${Red}Building dependencies failed!\n"
     echo -e -n "It is possible that the proxy is blocking access.${White}\n"
-    echo -e -n "Configure your settings or download files manually from \n"
+    echo -e -n "Configure your dependencies structure or download files manually from \n"
     echo "https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/OSCM_on_Azure_VM/app_registration"
     exit 1
   fi
 }
 
-#get_files
+build_dependencies
 
 . def/utils.sh
 . def/handlers.sh

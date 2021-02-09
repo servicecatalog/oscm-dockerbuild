@@ -1,8 +1,6 @@
 #!/bin/bash
 # This script defines user/role related operations in Azure AD
 
-. ./rr_operations.sh
-
 # Prepares user.json data to be used for user creation
 #
 # param $1 - userid of the user to be created
