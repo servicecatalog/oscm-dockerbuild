@@ -21,31 +21,32 @@ get_files() {
   fi
 }
 
-get_files
+#get_files
+
+. def/utils.sh
+. def/handlers.sh
+. def/application.sh
+. def/user.sh
 
 #Provide Azure AD credentials
-echo -e -n "${Cyan}Enter a application (client) ID: ${White}"
+echo -e -n "${Cyan}Enter an application (client) ID: ${White}"
 read client_id < /dev/tty
-echo -e -n "${Cyan}Enter a client secret: ${White}"
+echo -e -n "${Cyan}Enter a client secret of your application: ${White}"
 read client_secret < /dev/tty
-echo -e -n "${Cyan}Enter a tenant name (e-mail suffix): ${White}"
+echo -e -n "${Cyan}Enter the tenant name in Azure AD: ${White}"
 read tenant_name < /dev/tty
 
 #Provide application properties
-echo -e -n "${Cyan}Enter a your application register name: ${White}"
+echo -e -n "${Cyan}Enter the display name of your application: ${White}"
 read app_display_name < /dev/tty
-echo -e -n "${Cyan}Enter a your application hostname: ${White}"
+echo -e -n "${Cyan}Enter the hostname of your application (used in redirect url when authenticating with Azure AD): ${White}"
 read app_hostname < /dev/tty
-
-. ./steps.sh
 
 install_jq
 
-prepare_input
-
 get_access_token
 
-register_new_application
+register_new_application $app_display_name $app_hostname
 
 create_service_principal
 

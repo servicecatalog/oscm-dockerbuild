@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script defines request/response operation
+# This script defines operations for handling request/response
+
 response_file="output/response.json"
 
 request_api(){
