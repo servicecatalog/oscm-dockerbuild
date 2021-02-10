@@ -7,20 +7,20 @@ Red='\033[0;31m'
 build_dependencies() {
   echo "Checking dependencies..."
   #Download necessary scripts
-  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
-  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
-  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
-  sudo wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
 
   #Download necessary templates
-  sudo wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
-  sudo wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
-  sudo wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/Task%23321_Add_scripts_for_setup_with_OIDC/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
 
   #Create output diretory
-  sudo mkdir output
+  mkdir output
 
-  if [ -f def/utils.sh -a -f def/handlers.sh -a -f def/application.sh -a -f def/user.sh -a -f templates/user-template.json-a -f templates/application-template.json -a -f templates/tenant-template.properties -a -d output ]; then
+  if [ -f def/utils.sh -a -f def/handlers.sh -a -f def/application.sh -a -f def/user.sh -a -f templates/user-template.json -a -f templates/application-template.json -a -f templates/tenant-template.properties -a -d output ]; then
     echo "Dependencies are ready"
   else
     echo -e -n "${Red}Building dependencies failed!\n"
