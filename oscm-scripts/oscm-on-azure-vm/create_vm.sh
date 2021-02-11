@@ -9,7 +9,7 @@ vmName=myOSCM
 username=oscmadmin
 isExist=$(az group exists -n $resourceGroupName)
 
-echo -e -n "${Cyan}Enter the password you want to use for ssh login: \n${White}"
+echo -e -n "${Cyan}Enter the password you want to use for ssh login: ${White}"
 read -s plainPwd < /dev/tty
 
 delete_resource_group_if_exist() {
@@ -30,15 +30,17 @@ vm_conf() {
   az vm open-port --port 8080-8881 --resource-group $resourceGroupName --name $vmName --priority 200
   az vm open-port --port 9091 --resource-group $resourceGroupName --name $vmName --priority 210
   az vm auto-shutdown -g $resourceGroupName -n $vmName --time 1700
-  echo "Virtual machine available at port 80 and is set to auto-shutdown"
+  echo "Virtual machine available at port 8081 and is set to auto-shutdown"
 }
 
 login_to_vm() {
   publicIp=$(az vm show -d -g $resourceGroupName -n $vmName --query publicIps -o tsv)
 
-  echo -e "${Green}----------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-  echo -e "${Green}Now copy&paste <- wget -O - https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/oscm_oidc.sh | sudo bash ->"
-  echo -e "${Green}----------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+  echo -e "${Green}----------------------------------------------------------------------------------------------------"
+  echo -e "${Green}        The virtual machine has been successfully created! Enter your password to log in            "
+  echo
+  echo -e "${Green}                               Enter your password to log in                                        "
+  echo -e "${Green}----------------------------------------------------------------------------------------------------"
   echo -e "${White}"
 
   ssh $username@"$publicIp"

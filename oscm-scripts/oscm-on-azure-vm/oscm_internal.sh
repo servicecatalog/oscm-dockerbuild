@@ -4,13 +4,16 @@ Green='\033[0;32m'
 Cyan='\033[1;35m'
 White='\033[1;37m'
 
-echo -e -n "${Cyan}Enter a docker tag (default latest) : ${White} \n"
+echo -e -n "${Cyan}Enter a docker tag (the field may be empty): ${White}"
 read dockerTag < /dev/tty
 
-echo -e -n "${Cyan}Enter a database password: ${White} \n"
+echo -e -n "${Cyan}Enter the hostname of your application (the field may be empty): ${White}"
+read hostname < /dev/tty
+
+echo -e -n "${Cyan}Enter a database password: ${White}"
 read plainPwd < /dev/tty
 
-echo -e -n "${Cyan}Enter a admin password: ${White} \n"
+echo -e -n "${Cyan}Enter a admin password: ${White}"
 read adminPwd < /dev/tty
 
 install_docker () {
@@ -35,17 +38,25 @@ install_docker_compose () {
 install_oscm () {
 
   publicIP=$(curl ifconfig.me)
-  sudo docker run --name deployer1 --rm -v /docker:/target -e HOST_FQDN=$publicIP -e SAMPLE_DATA=true servicecatalog/oscm-deployer:$dockerTag
+
+  if [ -z "$dockerTag" ]; then
+      dockerTag=latest
+  fi
+
+  if [ -z "$hostname" ]; then
+      hostname=$publicIP
+  fi
+
+  sudo docker run --name deployer1 --rm -v /docker:/target -e HOST_FQDN=$hostname -e SAMPLE_DATA=true servicecatalog/oscm-deployer:$dockerTag
 
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/templates/var.env.template
   sudo wget https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-deployer/resources/proxy.conf.template
 
   sed -i 's/secret/'$plainPwd'/g' var.env.template
   sed -i 's/admin123/'$adminPwd'/g' var.env.template
-  sed -i 's/${HOST_FQDN}/'$publicIP'/g' var.env.template
   sed -i 's/latest/'$dockerTag'/g' /docker/.env
-  sed -i 's/${HOST_FQDN}/'$publicIP'/g' proxy.conf.template
-  sed -i 's/${FQDN}/'$publicIP'/g' proxy.conf.template
+  sed -i 's/${HOST_FQDN}/'$hostname'/g' /docker/.env
+  sed -i 's/${HOST_FQDN}/'$hostname'/g' proxy.conf.template
   sudo cp ./var.env.template /docker/var.env
   sudo docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true -e SAMPLE_DATA=true -e PROXY=true docker.io/servicecatalog/oscm-deployer:$dockerTag
   sudo cp ./proxy.conf.template /docker/config/oscm-proxy/data/proxy.conf
@@ -53,6 +64,10 @@ install_oscm () {
   echo
   echo -e "${Green}----------------------------------------------------------------------------------------"
   echo -e "${Green}                      OSCM application deployed on $publicIP                            "
+  echo
+  echo -e "${Green}                   Go to ${White} https://'$hostname'/oscm-portal                       "
+  echo -e "${Green}                                         and                                            "
+  echo -e "${Green}          login as ${White} $administrator ${Green}with password ${White} $adminPwd     "
   echo -e "${Green}----------------------------------------------------------------------------------------"
 }
 
