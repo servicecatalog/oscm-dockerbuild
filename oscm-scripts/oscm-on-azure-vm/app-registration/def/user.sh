@@ -5,10 +5,9 @@
 #
 # param $1 - userid of the user to be created
 # param $2 - password of the user to be created
-# param $3 - dispaly name of the user to be created
 prepare_user_data_input(){
   echo "START: Preparing user.json..."
-  sed -e "s/\${tenantName}/$tenant_name/" -e "s/\${userId}/$1/" -e "s/\${password}/$2/" -e "s/\${displayName}/$3/" templates/user-template.json > output/user.json
+  sed -e "s/\${tenantName}/$tenant_name/" -e "s/\${userId}/$1/" -e "s/\${password}/$2/" -e "s/\${displayName}/$1/" templates/user-template.json > output/user.json
   if [ $? -ne 0 ]; then
     echo "User data preparation failed"
     exit 1
@@ -21,9 +20,8 @@ prepare_user_data_input(){
 #
 # param $1 - userid of the user to be created
 # param $2 - password of the user to be created
-# param $3 - dispaly name of the user to be created
 create_user(){
-  prepare_user_data_input "$1" "$2" "$3"
+  prepare_user_data_input "$1" "$2"
 
   echo "START: Creating user..."
   user_response=$(request_api "https://graph.microsoft.com/v1.0/users" "@output/user.json" $access_token)
@@ -52,9 +50,10 @@ get_role_id(){
 # param $1 - id of the role
 # param $2 - id of the user which role will be assigned to
 assign_role_to_user(){
+  get_role_id "$1"
   echo "START: Assigning role..."
   assign_data="{\"@odata.id\":\"https://graph.microsoft.com/v1.0/users/$2\"}"
-  assign_response=$(request_api "https://graph.microsoft.com/v1.0/directoryRoles/$1/members/\$ref" $assign_data $access_token)
+  assign_response=$(request_api "https://graph.microsoft.com/v1.0/directoryRoles/$role_id/members/\$ref" $assign_data $access_token)
 
   handle_response $assign_response
 }
