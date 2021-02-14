@@ -33,7 +33,7 @@ request_api_get(){
 handle_response(){
   if [[ $1 != 2* ]]; then
     error=$(cat $response_file | jq -r ".error")
-    echo "$1: Request failed with error: $error, please check response.json for details" >> output/output.logs
+    echo -e "${Red}$1: Request failed with error: $error, please check output/response.json for details"
     exit 1
   else
     echo "$1: Request successful" >> output/output.logs

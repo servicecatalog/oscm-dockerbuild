@@ -27,7 +27,7 @@ create_group(){
   handle_response $group_response
 
   group_id=$(get_from_response "id")
-  echo "Group successfully created - group id: $group_id"
+  echo -e "${Green}\nGroup successfully created - group id: $group_id\n"
 }
 
 # Assigns role to the user in Azure AD
@@ -35,10 +35,10 @@ create_group(){
 # param $1 - id of the user
 # param $2 - id of the group which user will become member of
 assign_user_to_group(){
-  echo "START: Assigning user..."
+  echo "START: Assigning user..." >> output/output.logs
   assign_data="{\"@odata.id\":\"https://graph.microsoft.com/v1.0/users/$1\"}"
   assign_response=$(request_api "https://graph.microsoft.com/v1.0/groups/$2/members/\$ref" $assign_data $access_token)
 
   handle_response $assign_response
-  echo "User successfully assigned to the group"
+  echo -e "${Green}\nUser successfully assigned to the group\n"
 }
