@@ -5,13 +5,13 @@
 #
 # param $1 - name of the group to be created
 prepare_group_data_input(){
-  echo "START: Preparing group.json..."
+  echo "START: Preparing group.json..." >> output/output.logs
   sed -e "s/\${tenantName}/$tenant_name/" -e "s/\${groupName}/$1/" templates/group-template.json > output/group.json
   if [ $? -ne 0 ]; then
-    echo "Group data preparation failed"
+    echo "Group data preparation failed" >> output/output.logs
     exit 1
   else
-    echo "Group data preparation was successful"
+    echo "Group data preparation was successful" >> output/output.logs
   fi
 }
 
@@ -21,12 +21,13 @@ prepare_group_data_input(){
 create_group(){
   prepare_group_data_input "$1"
 
-  echo "START: Creating group..."
+  echo "START: Creating group..." >> output/output.logs
   group_response=$(request_api "https://graph.microsoft.com/v1.0/groups" "@output/group.json" $access_token)
 
   handle_response $group_response
 
   group_id=$(get_from_response "id")
+  echo "Group successfully created - group id: $group_id"
 }
 
 # Assigns role to the user in Azure AD
@@ -39,4 +40,5 @@ assign_user_to_group(){
   assign_response=$(request_api "https://graph.microsoft.com/v1.0/groups/$2/members/\$ref" $assign_data $access_token)
 
   handle_response $assign_response
+  echo "User successfully assigned to the group"
 }
