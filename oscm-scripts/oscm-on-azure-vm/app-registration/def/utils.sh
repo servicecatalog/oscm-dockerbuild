@@ -10,7 +10,7 @@ install_jq(){
 }
 
 get_access_token(){
-  echo "START: Retrieving access token..."
+  echo "START: Retrieving access token..." > output/output.logs
   auth_data="grant_type=client_credentials&scope=https://graph.microsoft.com/.default&client_id=$client_id&client_secret=$client_secret"
   auth_response=$(request_api "https://login.microsoftonline.com/$tenant_name/oauth2/v2.0/token" $auth_data)
 
