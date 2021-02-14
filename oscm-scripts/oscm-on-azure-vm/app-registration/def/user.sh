@@ -29,7 +29,7 @@ create_user(){
   handle_response $user_response
 
   user_id=$(get_from_response "id")
-  echo "User successfully created - user id: $user_id"
+  echo -e "${Green}\nUser successfully created - user id: $user_id\n"
 }
 
 # Retrievs id of the role in Azure AD
@@ -57,5 +57,5 @@ assign_role_to_user(){
   assign_response=$(request_api "https://graph.microsoft.com/v1.0/directoryRoles/$role_id/members/\$ref" $assign_data $access_token)
 
   handle_response $assign_response
-  echo "Role successfully assigned to the user"
+  echo -e "${Green}\nRole successfully assigned to the user\n"
 }

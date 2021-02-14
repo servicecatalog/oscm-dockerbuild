@@ -20,17 +20,44 @@ get_access_token(){
 }
 
 prepare_properties_for_tenant(){
-  echo "START: Preparing tenant.properties..."
+  echo "START: Preparing tenant.properties..." >> output/output.logs
   sed -e "s/\${clientId}/$app_appId/" -e "s/\${clientSecret}/$secret/" -e "s/\${hostname}/$app_hostname/" -e "s/\${tenant}/$tenant_name/"  templates/tenant-template.properties > output/tenant-default.properties
   if [ $? -ne 0 ]; then
-    echo "Tenant data preparation failed"
+    echo "Tenant data preparation failed" >> output/output.logs
     exit 1
   else
-    echo "Tenant data preparation was successful"
+    echo "Tenant data preparation was successful" >> output/output.logs
 
-    Green='\033[0;32m'
-    White='\033[1;37m'
-    echo -e "${Green}Application registered successfully in Azure Active Directory"
-    echo -e "${Green}Now copy the ${White}output/tenant-default.properties ${Green}file to the path ${White}/docker/config/oscm-identity/tenants"
+    echo -e "\n${Green}Application registered successfully in Azure Active Directory"
+    echo -e "${Green}Tenant properties can be found in: ${White}output/tenant-default.properties ${Green} - Copy them to: ${White}/docker/config/oscm-identity/tenants\n"
+  fi
+}
+
+build_dependencies() {
+  echo "Checking dependencies..."
+  #Download necessary scripts
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/group.sh
+
+  #Download necessary templates
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/group-template.json
+
+  #Create output diretory
+  mkdir output
+
+  if [ -f def/utils.sh -a -f def/handlers.sh -a -f def/application.sh -a -f def/user.sh -a -f def/group.sh -a -f templates/user-template.json -a -f templates/group-template.json -a -f templates/application-template.json -a -f templates/tenant-template.properties -a -d output ]; then
+    echo "Dependencies are ready"
+  else
+    echo -e -n "${Red}Building dependencies failed!\n"
+    echo -e -n "It is possible that the proxy is blocking access.${White}\n"
+    echo -e -n "Configure your dependencies structure or download files manually from \n"
+    echo "https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/OSCM_on_Azure_VM/app_registration"
+    exit 1
   fi
 }
