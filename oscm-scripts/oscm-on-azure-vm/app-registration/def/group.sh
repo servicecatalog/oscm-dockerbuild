@@ -26,8 +26,10 @@ create_group(){
 
   handle_response $group_response
 
-  group_id=$(get_from_response "id")
-  echo -e "${Green}\nGroup successfully created - group id: $group_id\n"
+  if [ $? -eq 0 ]; then
+    group_id=$(get_from_response "id")
+    echo -e "${Green}\nGroup successfully created.\nGroup id: $group_id"
+  fi
 }
 
 # Assigns role to the user in Azure AD
@@ -40,5 +42,8 @@ assign_user_to_group(){
   assign_response=$(request_api "https://graph.microsoft.com/v1.0/groups/$2/members/\$ref" $assign_data $access_token)
 
   handle_response $assign_response
-  echo -e "${Green}\nUser successfully assigned to the group\n"
+
+  if [ $? -eq 0 ]; then
+    echo -e "${Green}\nUser successfully assigned to the group."
+  fi
 }

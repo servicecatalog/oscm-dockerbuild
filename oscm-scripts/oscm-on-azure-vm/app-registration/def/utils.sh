@@ -14,9 +14,14 @@ get_access_token(){
   auth_data="grant_type=client_credentials&scope=https://graph.microsoft.com/.default&client_id=$client_id&client_secret=$client_secret"
   auth_response=$(request_api "https://login.microsoftonline.com/$tenant_name/oauth2/v2.0/token" $auth_data)
 
-  handle_response $auth_response
+  handle_auth_response $auth_response
 
-  access_token=$(get_from_response "access_token")
+  if [ $? -eq 0 ]; then
+    access_token=$(get_from_response "access_token")
+    is_initialized=1
+  else
+    is_initialized=0
+  fi
 }
 
 prepare_properties_for_tenant(){
@@ -29,7 +34,7 @@ prepare_properties_for_tenant(){
     echo "Tenant data preparation was successful" >> output/output.logs
 
     echo -e "\n${Green}Application registered successfully in Azure Active Directory"
-    echo -e "${Green}Tenant properties can be found in: ${White}output/tenant-default.properties ${Green} - Copy them to: ${White}/docker/config/oscm-identity/tenants\n"
+    echo -e "${Green}Tenant properties can be found in: ${White}output/tenant-default.properties"
   fi
 }
 
