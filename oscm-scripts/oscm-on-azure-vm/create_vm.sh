@@ -37,9 +37,11 @@ login_to_vm() {
   publicIp=$(az vm show -d -g $resourceGroupName -n $vmName --query publicIps -o tsv)
 
   echo -e "${Green}----------------------------------------------------------------------------------------------------"
-  echo -e "${Green}        The virtual machine has been successfully created! Enter your password to log in            "
+  echo -e "${Green}                   The virtual machine has been successfully created!                               "
   echo
   echo -e "${Green}                               Enter your password to log in                                        "
+  echo
+  echo -e "${Green}          After logging in, the VM is ready to install OSCM for Internal or OIDC mode               "
   echo -e "${Green}----------------------------------------------------------------------------------------------------"
   echo -e "${White}"
 

@@ -32,8 +32,10 @@ function login_to_vm {
  $publicIp = $(az vm show -d -g $resourceGroupName -n $vmName --query publicIps -o tsv)
 
  Write-Host -f Green "-------------------------------------------------------------------------------------------------"
- Write-Host -f Green "      The virtual machine has been successfully created! Enter your password to log in           "
+ Write-Host -f Green "                    The virtual machine has been successfully created!                           "
  Write-Host -f Green "                              Enter your password to log in                                      "
+ Write-Host -f Green "                                                                                                 "
+ Write-Host -f Green "        After logging in, the VM is ready to install OSCM for Internal or OIDC mode              "
  Write-Host -f Green "-------------------------------------------------------------------------------------------------"
 
  ssh $username@"$publicIp"

@@ -4,17 +4,20 @@ Green='\033[0;32m'
 Cyan='\033[1;35m'
 White='\033[1;37m'
 
-echo -e -n "${Cyan}Enter a docker tag (the field may be empty): ${White}"
+echo -e -n "${Cyan}Enter the docker tag (the field may be empty): ${White}"
 read dockerTag < /dev/tty
 
 echo -e -n "${Cyan}Enter the hostname of your application (the field may be empty): ${White}"
 read hostname < /dev/tty
 
-echo -e -n "${Cyan}Enter a database password: ${White}"
+echo -e -n "${Cyan}Enter the database password: ${White}"
 read plainPwd < /dev/tty
 
-echo -e -n "${Cyan}Enter a admin password: ${White}"
+echo -e -n "${Cyan}Enter the administrator password: ${White}"
 read adminPwd < /dev/tty
+
+echo -e -n "${Cyan}Enter the supplier password: ${White}"
+read supplierPwd < /dev/tty
 
 install_docker () {
   sudo apt-get udpate
@@ -38,6 +41,7 @@ install_docker_compose () {
 install_oscm () {
 
   publicIP=$(curl ifconfig.me)
+  appName=$hostname
 
   if [ -z "$dockerTag" ]; then
       dockerTag=latest
@@ -45,6 +49,7 @@ install_oscm () {
 
   if [ -z "$hostname" ]; then
       hostname=$publicIP
+      appName=$publicIP":8081"
   fi
 
   sudo docker run --name deployer1 --rm -v /docker:/target -e HOST_FQDN=$hostname -e SAMPLE_DATA=true servicecatalog/oscm-deployer:$dockerTag
@@ -54,9 +59,11 @@ install_oscm () {
 
   sed -i 's/secret/'$plainPwd'/g' var.env.template
   sed -i 's/admin123/'$adminPwd'/g' var.env.template
+  sed -i 's/CONTROLLER_USER_PASS=supplier/CONTROLLER_USER_PASS='$supplierPwd'/g' var.env.template
   sed -i 's/latest/'$dockerTag'/g' /docker/.env
   sed -i 's/${HOST_FQDN}/'$hostname'/g' /docker/.env
   sed -i 's/${HOST_FQDN}/'$hostname'/g' proxy.conf.template
+  sed -i 's/${FQDN}/'$hostname'/g' proxy.conf.template
   sudo cp ./var.env.template /docker/var.env
   sudo docker run --name deployer2 --rm -v /docker:/target -v /var/run/docker.sock:/var/run/docker.sock -e INITDB=true -e STARTUP=true -e SAMPLE_DATA=true -e PROXY=true docker.io/servicecatalog/oscm-deployer:$dockerTag
   sudo cp ./proxy.conf.template /docker/config/oscm-proxy/data/proxy.conf
@@ -65,9 +72,9 @@ install_oscm () {
   echo -e "${Green}----------------------------------------------------------------------------------------"
   echo -e "${Green}                      OSCM application deployed on $publicIP                            "
   echo
-  echo -e "${Green}                   Go to ${White} https://'$hostname'/oscm-portal                       "
+  echo -e "${Green}                   Go to ${White} https://$appName/oscm-portal                       "
   echo -e "${Green}                                         and                                            "
-  echo -e "${Green}          login as ${White} $administrator ${Green}with password ${White} $adminPwd     "
+  echo -e "${Green}          login as${White} administrator ${Green}with password${White} $adminPwd     "
   echo -e "${Green}----------------------------------------------------------------------------------------"
 }
 
