@@ -1,0 +1,6 @@
+{
+  "displayName": "${groupName}",
+  "mailEnabled": false,
+  "mailNickname": "${groupName}",
+  "securityEnabled": true
+}
