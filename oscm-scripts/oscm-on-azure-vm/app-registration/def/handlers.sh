@@ -32,9 +32,19 @@ request_api_get(){
 
 handle_response(){
   if [[ $1 != 2* ]]; then
+    error=$(cat $response_file | jq -r ".error.message")
+    echo -e "${Red}\n$1: Request failed with error: $error\nPlease check output/response.json for more details."
+    return $1
+  else
+    echo "$1: Request successful" >> output/output.logs
+  fi
+}
+
+handle_auth_response(){
+  if [[ $1 != 2* ]]; then
     error=$(cat $response_file | jq -r ".error")
-    echo -e "${Red}$1: Request failed with error: $error, please check output/response.json for details"
-    exit 1
+    echo -e "${Red}\n$1: Request failed with error: $error, please check output/response.json for more details.\n"
+    return $1
   else
     echo "$1: Request successful" >> output/output.logs
   fi

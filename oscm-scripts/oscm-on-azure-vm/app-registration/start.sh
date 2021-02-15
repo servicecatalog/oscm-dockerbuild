@@ -15,8 +15,8 @@ Green='\033[0;32m'
 
 show_menu(){
   sleep 1
-  echo -e "${Cyan}Following options are possible:\n"
-  echo "1 - Register new application"
+  echo -e "${Cyan}\nFollowing options are possible:\n"
+  echo "1 - Register new application (for oscm-identity initial setup)"
   echo "2 - Create new user"
   echo "3 - Create new group"
   echo "4 - Assign user to group"
@@ -26,14 +26,18 @@ show_menu(){
 
 initialize_script(){
   echo -e "${Cyan}\nWelcome. This is a script for managing data in Azure AD. To initialize it, follow the next steps.\n"
-  echo -e -n "${Cyan}Enter an application (client) ID: ${White}"
-  read client_id < /dev/tty
-  echo -e -n "${Cyan}Enter a client secret of your application: ${White}"
-  read client_secret < /dev/tty
-  echo -e -n "${Cyan}Enter the tenant name in Azure AD: ${White}"
-  read tenant_name < /dev/tty
-  get_access_token
-  echo -e "${Green}\nScript has been successfully initialized.\n"
+  is_initialized=0
+  while [ $is_initialized -eq 0 ]
+  do
+    echo -e -n "${Cyan}Enter an application (client) ID: ${White}"
+    read client_id < /dev/tty
+    echo -e -n "${Cyan}Enter a client secret of your application: ${White}"
+    read client_secret < /dev/tty
+    echo -e -n "${Cyan}Enter the tenant name in Azure AD: ${White}"
+    read tenant_name < /dev/tty
+    get_access_token
+  done
+  echo -e "${Green}\nScript has been successfully initialized."
 }
 
 initialize_script
@@ -44,7 +48,7 @@ do
   read sample_data_option
   case $sample_data_option in
   1)
-    echo -e -n "${Cyan}Specify application: ${White}"
+    echo -e -n "${Cyan}Specify application name: ${White}"
     read app_display_name < /dev/tty
     echo -e -n "${Cyan}Specify the hostname of your application (used in redirect url when authenticating with Azure AD): ${White}"
     read app_hostname < /dev/tty
@@ -63,23 +67,25 @@ do
     echo -e -n "${Cyan}Specify user password: ${White}"
     read user_password < /dev/tty
     create_user $user_name $user_password
-    while :
-    do
-      echo -e -n "${Cyan}Would you like this user to be in administrator role? (Y/N) ${White}"
-      read is_admin < /dev/tty
-      case $is_admin in
-        Y)
-          assign_role_to_user "Global Administrator" $user_id
-          break
-          ;;
-        N)
-          echo -e "${Green}\nNo role has been assigned\n"
-          break
-          ;;
-        *)
-          ;;
-      esac
-    done
+    if [ $? -eq 0 ]; then
+      while :
+      do
+        echo -e -n "${Cyan}\nWould you like this user to be in administrator role? (Y/N) ${White}"
+        read is_admin < /dev/tty
+        case $is_admin in
+          Y)
+            assign_role_to_user "Global Administrator" $user_id
+            break
+            ;;
+          N)
+            echo -e "${Green}\nNo role has been assigned."
+            break
+            ;;
+          *)
+            ;;
+        esac
+      done
+    fi
     show_menu
 		;;
 	3)
@@ -101,7 +107,7 @@ do
     break
     ;;
 	*)
-		echo -e "${Red}\nInvalid option\n"
+		echo -e "${Red}\nInvalid option."
     show_menu
 		;;
   esac
