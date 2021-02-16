@@ -22,17 +22,17 @@ build_dependencies() {
   wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/templates/group-template.json
 
   #Create output diretory
-  if [ -d output ]; then
+  if [ ! -d output ]; then
     mkdir output
   fi
 
   if [ -f def/utils.sh -a -f def/handlers.sh -a -f def/application.sh -a -f def/user.sh -a -f def/group.sh -a -f templates/user-template.json -a -f templates/group-template.json -a -f templates/application-template.json -a -f templates/tenant-template.properties -a -d output ]; then
     echo -e "${Green}Dependencies are ready"
   else
-    echo -e -n "${Red}Building dependencies failed!\n"
-    echo -e -n "Please check your proxy settings.\n"
-    echo -e -n "You can also download files manually from\n"
-    echo "${White}https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/OSCM_on_Azure_VM/app_registration"
+    echo -e "${Red}Building dependencies failed!"
+    echo -e "Please check your proxy settings."
+    echo -e "You can also download files manually from"
+    echo -e "${White}https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/OSCM_on_Azure_VM/app_registration\n"
     exit 1
   fi
 }
