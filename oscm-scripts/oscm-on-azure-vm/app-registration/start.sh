@@ -11,8 +11,6 @@ Green='\033[0;32m'
 . def/user.sh
 . def/group.sh
 
-#build_dependencies
-
 show_menu(){
   sleep 1
   echo -e "${Cyan}\nFollowing options are possible:\n"
@@ -40,6 +38,7 @@ initialize_script(){
   echo -e "${Green}\nScript has been successfully initialized."
 }
 
+build_dependencies
 initialize_script
 show_menu
 

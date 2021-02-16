@@ -39,30 +39,33 @@ prepare_properties_for_tenant(){
 }
 
 build_dependencies() {
-  echo "Checking dependencies..."
+  -e "${Cyan}\nChecking dependencies...\n"
+
   #Download necessary scripts
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/group.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/def/group.sh
 
   #Download necessary templates
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/group-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_sample_data/oscm-scripts/oscm-on-azure-vm/app-registration/templates/group-template.json
 
   #Create output diretory
-  mkdir output
+  if [ -d output ]; then
+    mkdir output
+  fi
 
   if [ -f def/utils.sh -a -f def/handlers.sh -a -f def/application.sh -a -f def/user.sh -a -f def/group.sh -a -f templates/user-template.json -a -f templates/group-template.json -a -f templates/application-template.json -a -f templates/tenant-template.properties -a -d output ]; then
-    echo "Dependencies are ready"
+    echo -e "${Green}Dependencies are ready"
   else
     echo -e -n "${Red}Building dependencies failed!\n"
-    echo -e -n "It is possible that the proxy is blocking access.${White}\n"
-    echo -e -n "Configure your dependencies structure or download files manually from \n"
-    echo "https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/OSCM_on_Azure_VM/app_registration"
+    echo -e -n "Please check your proxy settings.\n"
+    echo -e -n "You can also download files manually from\n"
+    echo "${White}https://github.com/servicecatalog/oscm-dockerbuild/tree/master/oscm-scripts/OSCM_on_Azure_VM/app_registration"
     exit 1
   fi
 }
