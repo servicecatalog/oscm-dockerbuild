@@ -5,6 +5,8 @@ White='\033[1;37m'
 Red='\033[0;31m'
 Green='\033[0;32m'
 
+build_dependencies
+
 . def/utils.sh
 . def/handlers.sh
 . def/application.sh
@@ -38,7 +40,6 @@ initialize_script(){
   echo -e "${Green}\nScript has been successfully initialized."
 }
 
-build_dependencies
 initialize_script
 show_menu
 
