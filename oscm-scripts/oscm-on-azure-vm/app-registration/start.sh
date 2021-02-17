@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 Cyan='\033[1;35m'
 White='\033[1;37m'
@@ -6,20 +6,20 @@ Red='\033[0;31m'
 Green='\033[0;32m'
 
 build_dependencies() {
-  -e "${Cyan}\nChecking dependencies...\n"
+  echo -e "${Cyan}\nChecking dependencies...\n"
 
   #Download necessary scripts
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
-  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/def/group.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/utils.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/handlers.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/application.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/user.sh
+  wget -P def https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/def/group.sh
 
   #Download necessary templates
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
-  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/azure_data_mgmnt/oscm-scripts/oscm-on-azure-vm/app-registration/templates/group-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/tenant-template.properties
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/user-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/application-template.json
+  wget -P templates https://raw.githubusercontent.com/servicecatalog/oscm-dockerbuild/master/oscm-scripts/oscm-on-azure-vm/app-registration/templates/group-template.json
 
   #Create output diretory
   if [ ! -d output ]; then
