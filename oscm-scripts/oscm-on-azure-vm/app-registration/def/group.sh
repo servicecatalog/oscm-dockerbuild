@@ -1,3 +1,5 @@
+#Copyright FUJITSU LIMITED 2021
+
 #!/bin/bash
 # This script defines group related operations in Azure AD
 

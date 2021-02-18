@@ -1,3 +1,7 @@
+#Copyright FUJITSU LIMITED 2021
+
+#!/bin/bash
+
 install_jq(){
   echo "START: Checking if jq is exist"
   dpkg -s jq &> /dev/null
