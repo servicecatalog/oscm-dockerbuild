@@ -1,3 +1,5 @@
+#Copyright FUJITSU LIMITED 2021
+
 #!/bin/bash
 
 Cyan='\033[1;35m'
