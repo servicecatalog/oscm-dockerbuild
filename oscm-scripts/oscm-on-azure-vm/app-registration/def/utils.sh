@@ -1,6 +1,10 @@
-#Copyright FUJITSU LIMITED 2021
-
 #!/bin/bash
+
+#*****************************************************************************
+#*                                                                           *
+#* Copyright FUJITSU LIMITED 2021                                            *
+#*                                                                           *
+#*****************************************************************************
 
 install_jq(){
   echo "START: Checking if jq is exist"

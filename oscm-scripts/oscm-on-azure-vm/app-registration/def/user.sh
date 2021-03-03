@@ -1,6 +1,11 @@
-#Copyright FUJITSU LIMITED 2021
-
 #!/bin/bash
+
+#*****************************************************************************
+#*                                                                           *
+#* Copyright FUJITSU LIMITED 2021                                            *
+#*                                                                           *
+#*****************************************************************************
+
 # This script defines user/role related operations in Azure AD
 
 # Prepares user.json data to be used for user creation

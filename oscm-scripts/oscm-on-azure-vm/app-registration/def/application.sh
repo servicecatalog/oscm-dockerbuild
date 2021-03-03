@@ -1,6 +1,11 @@
-#Copyright FUJITSU LIMITED 2021
-
 #!/bin/bash
+
+#*****************************************************************************
+#*                                                                           *
+#* Copyright FUJITSU LIMITED 2021                                            *
+#*                                                                           *
+#*****************************************************************************
+
 # This script defines application related operations in Azure AD
 
 prepare_application_input(){
