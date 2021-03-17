@@ -114,6 +114,24 @@ services:
     ports:
       - 8543:443
 
+  oscm-mail:
+    image: ${IMAGE_MAIL}
+    container_name: oscm-mail
+    restart: always ${LOGGING} ${LOCAL7}
+    env_file: var.env
+    environment:
+      - JPDA_ADDRESS=8500
+      - JPDA_TRANSPORT=dt_socket
+    volumes:
+      - ${DOCKER_PATH}/config/oscm-mail/ssl/privkey:/import/ssl/privkey
+      - ${DOCKER_PATH}/config/oscm-mail/ssl/cert:/import/ssl/cert
+      - ${DOCKER_PATH}/config/oscm-mail/ssl/chain:/import/ssl/chain
+      - ${DOCKER_PATH}/config/certs:/import/certs
+    ports:
+      - 9091:9091
+      - 9090:9090
+      - 9000:9000
+
   oscm-maildev:
    image: ${IMAGE_MAILDEV}
    container_name: oscm-maildev

@@ -19,6 +19,7 @@ ENV IMAGE_BIRT=oscm-birt:latest
 ENV IMAGE_BRANDING=oscm-branding:latest
 ENV IMAGE_INITDB=oscm-initdb:latest
 ENV IMAGE_IDENTITY=oscm-identity:latest
+ENV IMAGE_MAIL=oscm-mail:latest
 ENV IMAGE_PROXY=oscm-proxy:latest
 ENV TARGET_PATH=/target
 ENV LOGGING=
@@ -48,4 +49,3 @@ RUN export http_proxy=$HTTP_PROXY && \
 VOLUME /target
 
 CMD ["/opt/start.sh"]
-
