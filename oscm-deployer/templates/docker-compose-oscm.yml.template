@@ -128,7 +128,6 @@ services:
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
       - 8581:8581
-      - 8580:8580
       - 8500:8500
 
   oscm-maildev:
