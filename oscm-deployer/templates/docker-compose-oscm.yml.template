@@ -117,7 +117,6 @@ services:
   oscm-mail:
     image: ${IMAGE_MAIL}
     container_name: oscm-mail
-    restart: always ${LOGGING} ${LOCAL7}
     env_file: var.env
     environment:
       - JPDA_ADDRESS=8500
@@ -128,9 +127,9 @@ services:
       - ${DOCKER_PATH}/config/oscm-mail/ssl/chain:/import/ssl/chain
       - ${DOCKER_PATH}/config/certs:/import/certs
     ports:
-      - 9091:9091
-      - 9090:9090
-      - 9000:9000
+      - 8581:8581
+      - 8580:8580
+      - 8500:8500
 
   oscm-maildev:
    image: ${IMAGE_MAILDEV}
