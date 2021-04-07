@@ -89,7 +89,7 @@ server {
 
     location /mail/ {
        auth_request /auth;
-       proxy_pass http://oscm-maildev:80/;
+       proxy_pass http://oscm-maildev:1080/;
     }
 
     location /auth {
