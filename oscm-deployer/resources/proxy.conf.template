@@ -52,7 +52,7 @@ server {
     }
     
      location /oscm-identity {
-         rewrite https://${FQDN}/oscm-identity/([^\n\r]*)$ https://oscm-identity:9091/$1 break;
+         rewrite https://${HOST_FQDN}/oscm-identity/([^\n\r]*)$ https://oscm-identity:9091/$1 break;
          proxy_pass https://oscm-identity:9091/oscm-identity;
          proxy_set_header Host            $host;
          proxy_set_header X-Forwarded-For $remote_addr;
@@ -64,7 +64,7 @@ server {
     
 
     location /branding {
-        rewrite https://${FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
+        rewrite https://${HOST_FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
         proxy_pass https://oscm-branding:443;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
@@ -72,7 +72,7 @@ server {
     }
 
     location /birt {
-        rewrite https://${FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
+        rewrite https://${HOST_FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
         proxy_pass https://oscm-birt:8681;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
@@ -80,7 +80,7 @@ server {
     }
     
     location /oscm-webservices {
-        rewrite  https://${FQDN}/oscm-webservices/([^\n\r]*)$ https://oscm-core:8081/oscm-webservices/$1 break;
+        rewrite  https://${HOST_FQDN}/oscm-webservices/([^\n\r]*)$ https://oscm-core:8081/oscm-webservices/$1 break;
         proxy_pass https://oscm-core:8081;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
@@ -95,7 +95,7 @@ server {
     }
     
     location /oscm-app {
-        rewrite https://${FQDN}/oscm-app([^\n\r]*)$ https://oscm-app:8881/oscm-app$1 break;
+        rewrite https://${HOST_FQDN}/oscm-app([^\n\r]*)$ https://oscm-app:8881/oscm-app$1 break;
         proxy_pass https://oscm-app:8881;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
@@ -103,7 +103,7 @@ server {
     }
     
     location /approval {
-        rewrite https://${FQDN}/approval([^\n\r]*)$ https://oscm-app:8881/approval$1 break;
+        rewrite https://${HOST_FQDN}/approval([^\n\r]*)$ https://oscm-app:8881/approval$1 break;
         proxy_pass https://oscm-app:8881;
         proxy_set_header Host            $host;
         proxy_set_header X-Forwarded-For $remote_addr;
