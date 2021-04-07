@@ -25,10 +25,10 @@ if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
 		envsubst '$HOST_FQDN' < /opt/env.template  > ${TARGET_PATH}/.env
 		cp /opt/var.env.proxy.template ${TARGET_PATH}/proxy/var.env
 		if [ "${SAMPLE_DATA}" == "true" ]; then
-		    cp /opt/var.env.template ${TARGET_PATH}/var.env
-		else    
-		    cp /opt/var.env.withoutSampleData.template ${TARGET_PATH}/var.env
-		fi
+	      envsubst '$HOST_FQDN' < /opt/var.env.template  > ${TARGET_PATH}/var.env
+  	else    
+	      envsubst '$HOST_FQDN' < /opt/var.env.withoutSampleData.template  > ${TARGET_PATH}/var.env
+   	fi
 	fi
 	exit 0
 fi
