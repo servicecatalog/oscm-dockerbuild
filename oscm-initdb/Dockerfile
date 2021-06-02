@@ -38,13 +38,6 @@ ENV TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS=0
 ENV TIMER_INTERVAL_INACTIVE_ON_BEHALF_USERS_OFFSET=0
 ENV TIMER_INTERVAL_DISCOUNT_END_NOTIFICATION_OFFSET=0
 
-# Set variables for Birt. The variables should not change
-ENV reportname='${reportname}'
-ENV locale='${locale}'
-ENV sessionid='${sessionid}'
-ENV wsdlurl='${wsdlurl}'
-ENV soapendpoint='${soapendpoint}'
-
 ENV PSP_USAGE_ENABLED=false
 ENV HIDDEN_UI_ELEMENTS=operator.manageBillingAdapters,techService.viewBillingAdapters
 ENV WS_TIMEOUT=30000
