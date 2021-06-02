@@ -12,6 +12,11 @@
 COMPOSE_CONFIG_PATH=/opt
 TARGET_PATH=/target
 LOCKFILE=${TARGET_PATH}/oscm-deployer.lock
+reportname='${reportname}'
+locale='${locale}'
+sessionid='${sessionid}'
+wsdlurl='${wsdlurl}'
+soapendpoint='${soapendpoint}'
 
 if [ ! -d ${TARGET_PATH}/proxy ]; then
     mkdir -p ${TARGET_PATH}/proxy

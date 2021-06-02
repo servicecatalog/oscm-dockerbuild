@@ -22,7 +22,7 @@ services:
     environment:
       - TARGET=CORE
       - SOURCE=INIT
-      - OVERWRITE=false
+      - OVERWRITE=true
       - LOG_LEVEL=INFO
       - HOST_FQDN=${HOST_FQDN}
     links:
