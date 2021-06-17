@@ -44,6 +44,12 @@ ENV WS_TIMEOUT=30000
 ENV AUDIT_LOG_ENABLED=false
 ENV AUDIT_LOG_MAX_ENTRIES_RETRIEVED=100
 
+ENV reportname='${reportname}'
+ENV locale='${locale}'
+ENV sessionid='${sessionid}'
+ENV wsdlurl='${wsdlurl}'
+ENV soapendpoint='${soapendpoint}'
+
 ENV REPORT_WSDLURL=http://oscm-core:8080/oscm-reporting/ReportingServiceBean?wsdl
 ENV REPORT_SOAP_ENDPOINT=http://oscm-core:8080/oscm-reporting/ReportingServiceBean CUSTOMER_SELF_REGISTRATION_ENABLED=false
 
