@@ -7,111 +7,141 @@
  #*****************************************************************************
 
 server {
-    listen       80;
-    server_name www.${HOST_FQDN};
-    server_tokens off;
+  listen       80;
+  server_name www.${HOST_FQDN};
+  server_tokens off;
 
-     location / {
-        return 301 https://$host$request_uri;
-    }
+  location / {
+    return 301 https://$host$request_uri;
+  }
 
-    # redirect server error pages to the static page /50x.html
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
+  # redirect server error pages to the static page /50x.html
+  error_page   500 502 503 504  /50x.html;
+  location = /50x.html {
+    root   /usr/share/nginx/html;
+  }
 }
 
 server {
-    listen 443 ssl;
-    server_name www.${HOST_FQDN};
-    server_tokens off;
+  listen 443 ssl;
+  server_name www.${HOST_FQDN};
+  server_tokens off;
 
-    ssl_certificate /etc/nginx/certs/cert/ssl.crt;
-    ssl_certificate_key /etc/nginx/certs/privkey/ssl.key;
-    
-    location /oscm-portal {
-        proxy_pass https://oscm-core:8081/oscm-portal/;
-        proxy_set_header Host            $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        client_max_body_size 50m;
-    }
+  ssl_certificate /etc/nginx/certs/cert/ssl.crt;
+  ssl_certificate_key /etc/nginx/certs/privkey/ssl.key;
 
-    location /oscm-portal-help {
-        proxy_pass https://oscm-core:8081/oscm-portal-help/;
-    	proxy_set_header Host            $host;
-    	proxy_set_header X-Forwarded-For $remote_addr;
-    	client_max_body_size 50m;
-    }
+  location /oscm-portal {
+    proxy_pass https://oscm-core:8081/oscm-portal/;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
 
-    location /oscm-rest-api {
-        proxy_pass https://oscm-core:8081/oscm-rest-api;
-        proxy_set_header Host            $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        client_max_body_size 50m;
-    }
-    
-     location /oscm-identity {
-         rewrite https://${HOST_FQDN}/oscm-identity/([^\n\r]*)$ https://oscm-identity:9091/$1 break;
-         proxy_pass https://oscm-identity:9091/oscm-identity;
-         proxy_set_header Host            $host;
-         proxy_set_header X-Forwarded-For $remote_addr;
-         client_max_body_size 50m;
-         proxy_buffer_size          128k;
-         proxy_buffers              4 256k;
-         proxy_busy_buffers_size    256k;
-     }
-    
+  location /oscm-portal-help {
+    proxy_pass https://oscm-core:8081/oscm-portal-help/;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
 
-    location /branding {
-        rewrite https://${HOST_FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
-        proxy_pass https://oscm-branding:443;
-        proxy_set_header Host            $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        client_max_body_size 50m;
-    }
+  location /oscm-rest-api {
+    proxy_pass https://oscm-core:8081/oscm-rest-api;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
 
-    location /birt {
-        rewrite https://${HOST_FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
-        proxy_pass https://oscm-birt:8681;
-        proxy_set_header Host            $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        client_max_body_size 50m;
-    }
-    
-    location /oscm-webservices {
-        rewrite  https://${HOST_FQDN}/oscm-webservices/([^\n\r]*)$ https://oscm-core:8081/oscm-webservices/$1 break;
-        proxy_pass https://oscm-core:8081;
-        proxy_set_header Host            $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        client_max_body_size 50m;
-    }
+  location /oscm-identity {
+    rewrite https://${HOST_FQDN}/oscm-identity/([^\n\r]*)$ https://oscm-identity:9091/$1 break;
+    proxy_pass https://oscm-identity:9091/oscm-identity;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+    proxy_buffer_size          128k;
+    proxy_buffers              4 256k;
+    proxy_busy_buffers_size    256k;
+  }
 
-    location /mail/ {
-        #rewrite ^(.*[^/])$ $1/ permanent;
-        proxy_pass http://oscm-maildev:80/;
-        auth_basic "Please login as OSCM administrator.";
-        auth_basic_user_file /etc/nginx/pwd/.htpasswd;
-    }
-    
-    location /oscm-app {
-        rewrite https://${HOST_FQDN}/oscm-app([^\n\r]*)$ https://oscm-app:8881/oscm-app$1 break;
-        proxy_pass https://oscm-app:8881;
-        proxy_set_header Host            $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        client_max_body_size 50m;
-    }
-    
-    location /approval {
-        rewrite https://${HOST_FQDN}/approval([^\n\r]*)$ https://oscm-app:8881/approval$1 break;
-        proxy_pass https://oscm-app:8881;
-        proxy_set_header Host            $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        client_max_body_size 50m;
-    }
+  location /branding {
+    rewrite https://${HOST_FQDN}/branding/([^\n\r]*)$ https://oscm-branding:443/$1 break;
+    proxy_pass https://oscm-branding:443;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
 
-    location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
-    }
+  location /birt {
+    rewrite https://${HOST_FQDN}/birt/([^\n\r]*)$ https://oscm-birt:8681/birt/$1 break;
+    proxy_pass https://oscm-birt:8681;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
+
+  location /oscm-webservices {
+    rewrite  https://${HOST_FQDN}/oscm-webservices/([^\n\r]*)$ https://oscm-core:8081/oscm-webservices/$1 break;
+    proxy_pass https://oscm-core:8081;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
+
+  location /mail/ {
+    auth_request /auth;
+    rewrite /mail/([^\n\r]*)$ /$1 break;
+    proxy_pass http://oscm-maildev:1080;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
+
+  location /auth {
+    internal;
+    proxy_pass https://oscm-mail:8581/oscm-mail/auth;
+    proxy_set_header X-Original-URI $request_uri;
+    proxy_pass_request_body off;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    auth_request_set $saved_set_cookie $upstream_http_set_cookie;
+    add_header Set-Cookie $saved_set_cookie;
+  }
+
+  error_page 401 = @maillogin;
+
+  location @maillogin {
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header                 Cookie $http_cookie;
+    return 302  https://${HOST_FQDN}/oscm-mail;
+  }
+
+  location /oscm-mail {
+    proxy_pass https://oscm-mail:8581;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    auth_request_set $saved_set_cookie $upstream_http_set_cookie;
+    add_header Set-Cookie $saved_set_cookie;
+    client_max_body_size 50m;
+  }
+   
+  location /oscm-app {
+    rewrite https://${HOST_FQDN}/oscm-app([^\n\r]*)$ https://oscm-app:8881/oscm-app$1 break;
+    proxy_pass https://oscm-app:8881;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
+
+  location /approval {
+    rewrite https://${HOST_FQDN}/approval([^\n\r]*)$ https://oscm-app:8881/approval$1 break;
+    proxy_pass https://oscm-app:8881;
+    proxy_set_header Host            $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    client_max_body_size 50m;
+  }
+
+  location / {
+    root   /usr/share/nginx/html;
+    index  index.html index.htm;
+  }
 }

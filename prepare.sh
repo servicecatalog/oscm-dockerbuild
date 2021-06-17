@@ -15,6 +15,7 @@ OSCM_APP="$REPO_OSCM/oscm-app-maven"
 REST_API="$REPO_OSCM/oscm-rest-api"
 BUILD_SHELL_DIR="$REPO_OSCM/oscm-app-shell/target"
 BUILD_IDENTITY_DIR="$REPO_OSCM/oscm-identity/target"
+BUILD_MAIL_DIR="$REPO_OSCM/oscm-mail/target"
 LIB_DIR="$REPO_OSCM/libraries"
 
 
@@ -150,6 +151,8 @@ cp $BUILD_IDENTITY_DIR/oscm-identity.jar $REPO_DOCKER/oscm-identity/
 mkdir $REPO_DOCKER/oscm-deployer/resources
 cp $BUILD_IDENTITY_DIR/../config/tenants/tenant-default.properties $REPO_DOCKER/oscm-deployer/resources/
 
+cp $BUILD_MAIL_DIR/oscm-mail.jar $REPO_DOCKER/oscm-mail/
+
 ##copy ssl related resources
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-core/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-core/
@@ -163,3 +166,5 @@ cp /tmp/ssl.crt $REPO_DOCKER/oscm-help/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-help/
 cp /tmp/ssl.crt $REPO_DOCKER/oscm-identity/
 cp /tmp/ssl.key $REPO_DOCKER/oscm-identity/
+cp /tmp/ssl.crt $REPO_DOCKER/oscm-mail/
+cp /tmp/ssl.key $REPO_DOCKER/oscm-mail/

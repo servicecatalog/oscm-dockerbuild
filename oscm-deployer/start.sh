@@ -19,9 +19,9 @@ fi
 
 # If ${TARGET_PATH}/var.env does not exist, just copy the template for the operator and exit
 if [ ! -f ${TARGET_PATH}/var.env ] || [ ! -f ${TARGET_PATH}/.env ]; then
-    if [ -z ${HOST_FQDN} ]; then 
+    if [ -z ${HOST_FQDN} ]; then
         echo "Please specify your host name with -e HOST_FQDN=..., where OSCM shall be accessible."
-    else	
+    else
         envsubst '$HOST_FQDN' < /opt/env.template  > ${TARGET_PATH}/.env
         cp /opt/var.env.proxy.template ${TARGET_PATH}/proxy/var.env
         if [ "${SAMPLE_DATA}" == "true" ]; then
@@ -62,6 +62,9 @@ for docker_directory in \
     ${TARGET_PATH}/config/oscm-identity/ssl/cert \
     ${TARGET_PATH}/config/oscm-identity/ssl/chain \
     ${TARGET_PATH}/config/oscm-identity/tenants \
+    ${TARGET_PATH}/config/oscm-mail/ssl/privkey \
+    ${TARGET_PATH}/config/oscm-mail/ssl/cert \
+    ${TARGET_PATH}/config/oscm-mail/ssl/chain \
     ${TARGET_PATH}/config/oscm-birt/ssl/privkey \
     ${TARGET_PATH}/config/oscm-birt/ssl/cert \
     ${TARGET_PATH}/config/oscm-birt/ssl/chain \
@@ -81,6 +84,7 @@ for docker_directory in \
     ${TARGET_PATH}/logs/oscm-birt \
     ${TARGET_PATH}/logs/oscm-birt/tomcat \
     ${TARGET_PATH}/logs/oscm-identity \
+    ${TARGET_PATH}/logs/oscm-mail \
     ${TARGET_PATH}/logs/oscm-branding \
     ${TARGET_PATH}/logs/oscm-help \
     ${TARGET_PATH}/logs/oscm-core \
@@ -100,6 +104,7 @@ fi
 for docker_log_file in \
     ${TARGET_PATH}/logs/oscm-app/oscm-app.out.log \
     ${TARGET_PATH}/logs/oscm-identity/oscm-identity.out.log \
+    ${TARGET_PATH}/logs/oscm-mail/oscm-mail.out.log \
     ${TARGET_PATH}/logs/oscm-birt/oscm-birt.out.log \
     ${TARGET_PATH}/logs/oscm-branding/oscm-branding.out.log \
     ${TARGET_PATH}/logs/oscm-help/oscm-help.out.log \
@@ -125,7 +130,7 @@ if [ ${SYSLOG} == "true" ]; then
     logging:
       driver: syslog
       options:
-        syslog-facility:" 
+        syslog-facility:"
     LOCAL=\"local0\"
     LOCAL1=\"local1\"
     LOCAL2=\"local2\"
@@ -134,7 +139,7 @@ if [ ${SYSLOG} == "true" ]; then
     LOCAL5=\"local5\"
     LOCAL6=\"local6\"
 fi
-        
+
 envsubst '$LOGGING $LOCAL $LOCAL1 $LOCAL2 $LOCAL3 $LOCAL4 $LOCAL5 $LOCAL6'  \
 < ${COMPOSE_CONFIG_PATH}/docker-compose-oscm.yml.template \
 > ${TARGET_PATH}/docker-compose-oscm.yml
@@ -183,7 +188,7 @@ if [ ${INITDB} == "true" ]; then
     # Stop and remove containers
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) stop
     docker-compose -f docker-compose-initdb.yml -p $(basename ${DOCKER_PATH}) rm -f
-    
+
     sed -i -e "s/OVERWRITE=.*/OVERWRITE=false/g" ${TARGET_PATH}/docker-compose-initdb.yml
 fi
 
@@ -203,7 +208,7 @@ if [ ! -f ${TARGET_PATH}/config/oscm-proxy/ssl/privkey/*.key ] || [ ! -f ${TARGE
     cp /tmp/ssl.crt ${TARGET_PATH}/config/oscm-identity/ssl/cert
     rm -f /tmp/passphrase.txt /tmp/ssl.key.pass /tmp/ssl.csr /tmp/ssl.key
 fi
-	
+
 
 
 # If the user wants us to start up the application, do it now
@@ -219,11 +224,11 @@ if [ ${STARTUP} == "true" ] && [ -S /var/run/docker.sock ]; then
     if [ "${PROXY}" == "true" ]; then
         docker-compose -f proxy/docker-compose-proxy.yml -p $(basename proxy) pull
     fi
-    
+
     # Run
     docker-compose -f docker-compose-oscm.yml -p $(basename ${DOCKER_PATH}) up -d
     if [ "${PROXY}" == "true" ]; then
         docker-compose -f proxy/docker-compose-proxy.yml -p $(basename proxy) up -d
     fi
-    
+
 fi
