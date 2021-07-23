@@ -43,7 +43,7 @@ find /etc/pki/ca-trust/source/anchors -type f -name "*.p11-kit" -exec sed -i 's|
 /usr/bin/update-ca-trust
 
 if [ ${TOMEE_DEBUG} ]; then
-	java -Dhttp.proxyHost=$PROXY_HTTP_HOST -Dhttp.proxyPort=$PROXY_HTTP_PORT -Dhttps.proxyHost=$PROXY_HTTPS_HOST -Dhttps.proxyPort=$PROXY_HTTPS_PORT -Dhttp.nonProxyHosts=oscm-core -Djava.security.egd=file:/dev/./urandom -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8500 -Dlogging.level.org.oscm.mail=DEBUG -jar /opt/mail/main.jar
+	java -Dhttp.proxyHost=$PROXY_HTTP_HOST -Dhttp.proxyPort=$PROXY_HTTP_PORT -Dhttps.proxyHost=$PROXY_HTTPS_HOST -Dhttps.proxyPort=$PROXY_HTTPS_PORT -Dhttp.nonProxyHosts=oscm-core -Djava.security.egd=file:/dev/./urandom -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8500 -Dlogging.level.org.oscm.mail=DEBUG -jar /opt/mail/main.jar --server.servlet.context-path=/oscm-mail
 else
-	java -Dhttp.proxyHost=$PROXY_HTTP_HOST -Dhttp.proxyPort=$PROXY_HTTP_PORT -Dhttps.proxyHost=$PROXY_HTTPS_HOST -Dhttps.proxyPort=$PROXY_HTTPS_PORT -Dhttp.nonProxyHosts=oscm-core -Djava.security.egd=file:/dev/./urandom  -jar /opt/mail/main.jar
+	java -Dhttp.proxyHost=$PROXY_HTTP_HOST -Dhttp.proxyPort=$PROXY_HTTP_PORT -Dhttps.proxyHost=$PROXY_HTTPS_HOST -Dhttps.proxyPort=$PROXY_HTTPS_PORT -Dhttp.nonProxyHosts=oscm-core -Djava.security.egd=file:/dev/./urandom -jar /opt/mail/main.jar --server.servlet.context-path=/oscm-mail
 fi
