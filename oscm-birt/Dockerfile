@@ -27,7 +27,7 @@ RUN chmod +x /opt/deploy.sh && \
         tomcat && \
     yum clean all  && \
     sed -i 's|^JAVA_HOME=.*|JAVA_HOME="/usr/lib/jvm/jre"|g' /etc/tomcat/tomcat.conf && \
-    wget --quiet http://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4_5_0-201506092134/birt-runtime-4.5.0-20150609.zip -O /tmp/birt-runtime.zip && \
+    wget --quiet http://mirrors.ibiblio.org/eclipse/birt/downloads/drops/R-R1-4.12.0-202211301856/birt-runtime-4.12.0-20221128.zip -O /tmp/birt-runtime.zip && \
     wget --quiet https://github.com/servicecatalog/development/releases/download/v17.4.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
     mkdir /tmp/birt && \
     unzip /tmp/birt-runtime.zip -d /tmp/birt && \
