@@ -27,6 +27,7 @@ RUN chmod +x /opt/deploy.sh && \
         tomcat && \
     yum clean all  && \
     sed -i 's|^JAVA_HOME=.*|JAVA_HOME="/usr/lib/jvm/jre"|g' /etc/tomcat/tomcat.conf && \
+
     wget --quiet https://github.com/servicecatalog/oscm/releases/download/v19.1/birt.war -O /tmp/birt.war && \
     wget --quiet https://github.com/servicecatalog/development/releases/download/v17.4.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
     cp /tmp/birt.war /var/lib/tomcat/webapps
