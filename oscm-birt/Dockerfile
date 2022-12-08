@@ -27,16 +27,13 @@ RUN chmod +x /opt/deploy.sh && \
         tomcat && \
     yum clean all  && \
     sed -i 's|^JAVA_HOME=.*|JAVA_HOME="/usr/lib/jvm/jre"|g' /etc/tomcat/tomcat.conf && \
-    wget --quiet http://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4_5_0-201506092134/birt-runtime-4.5.0-20150609.zip -O /tmp/birt-runtime.zip && \
+    wget --quiet https://github.com/servicecatalog/oscm/releases/download/v19.1/birt.war -O /tmp/birt.war && \
     wget --quiet https://github.com/servicecatalog/development/releases/download/v17.4.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
-    mkdir /tmp/birt && \
-    unzip /tmp/birt-runtime.zip -d /tmp/birt && \
-    find /tmp/birt -type f -name birt.war -exec cp {} /var/lib/tomcat/webapps \; && \
+    cp /tmp/birt.war /var/lib/tomcat/webapps
     /opt/deploy.sh && \
     unzip /tmp/oscm-reports.zip -d /var/lib/tomcat/webapps/birt && \
     chown -R tomcat: /var/lib/tomcat/webapps/birt && \
-    rm /tmp/birt-runtime.zip && \
     rm /tmp/oscm-reports.zip && \
-    rm -rf /tmp/birt
+    rm -f /tmp/birt.war
 
 CMD ["/opt/start.sh"]
