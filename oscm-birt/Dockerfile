@@ -30,7 +30,7 @@ RUN chmod +x /opt/deploy.sh && \
 
     wget --quiet https://github.com/servicecatalog/oscm/releases/download/v19.1/birt.war -O /tmp/birt.war && \
     wget --quiet https://github.com/servicecatalog/development/releases/download/v17.4.0/oscm-reports.zip -O /tmp/oscm-reports.zip && \
-    cp /tmp/birt.war /var/lib/tomcat/webapps
+    cp /tmp/birt.war /var/lib/tomcat/webapps && \
     /opt/deploy.sh && \
     unzip /tmp/oscm-reports.zip -d /var/lib/tomcat/webapps/birt && \
     chown -R tomcat: /var/lib/tomcat/webapps/birt && \
